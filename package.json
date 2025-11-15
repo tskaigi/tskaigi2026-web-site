@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "typecheck": "tsc -p . --noEmit"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
