@@ -18,7 +18,7 @@ export function BrowserMockup({ children, className }: Props) {
         </div>
         <Input
           readOnly
-          value="https://2025.tskaigi.org"
+          value="https://2026.tskaigi.org"
           className="h-8 bg-white/80 text-sm focus-visible:ring-0"
         />
       </div>

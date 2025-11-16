@@ -9,8 +9,8 @@ export const useCountdownTimer = () => {
   });
 
   useEffect(() => {
-    // TSKaigi 2025の開催日を固定値で設定
-    const targetDate = new Date("2025-05-23T00:00:00+09:00");
+    // TSKaigi 2026の開催日を固定値で設定
+    const targetDate = new Date("2026-05-22T00:00:00+09:00");
 
     const calculateTimeLeft = () => {
       const now = new Date();

@@ -24,7 +24,7 @@ export function CountdownTimer() {
       />
 
       <div
-        className="absolute inset-0 opacity-10 bg-[length:24px_24px] lg:bg-[length:32px_32px]"
+        className="absolute inset-0 opacity-10 bg-size-[24px_24px] lg:bg-size-[32px_32px]"
         style={{
           backgroundImage: `
             linear-gradient(#fff 1px, transparent 1px),

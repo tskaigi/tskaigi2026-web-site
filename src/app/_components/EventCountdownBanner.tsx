@@ -9,7 +9,7 @@ export function EventCountdownBanner() {
       <GridBackground />
 
       <Image
-        width={100}
+        width={256}
         height={100}
         src="/logo.svg"
         className="absolute top-6 left-6 w-40 lg:w-64 lg:top-10 lg:left-10"
@@ -25,15 +25,15 @@ export function EventCountdownBanner() {
           dateTime="2025-05-23"
           className="text-[28px] leading-[36px] tracking-[-.75%] font-semibold"
         >
-          5/23, 5/24
+          5/22, 5/23
         </time>
         <p className="text-[23px] leading-[36px] tracking-[-.75%] font-bold">
-          ベルサール神田
+          ベルサール羽田空港
         </p>
       </div>
 
       <h1 className="mt-[30px] lg:mt-[40px] text-[50px] lg:text-[59px] leading-[48px] tracking-[-1.2%] font-bold text-primary w-96 lg:w-full">
-        TSKaigi 2025 Coming Soon
+        TSKaigi 2026 Coming Soon
       </h1>
 
       <div className="mt-[46px] lg:mt-[74px] flex flex-col items-center">
