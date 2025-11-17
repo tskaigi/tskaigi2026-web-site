@@ -48,6 +48,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.5)
+      '@typescript/native-preview':
+        specifier: 7.0.0-dev.20251117.1
+        version: 7.0.0-dev.20251117.1
       babel-plugin-react-compiler:
         specifier: 1.0.0
         version: 1.0.0
@@ -57,9 +60,6 @@ importers:
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
 
 packages:
 
@@ -459,6 +459,45 @@ packages:
   '@types/react@19.2.5':
     resolution: {integrity: sha512-keKxkZMqnDicuvFoJbzrhbtdLSPhj/rZThDlKWCDbgXmUg0rEUFtRssDXKYmtXluZlIqiC5VqkCgRwzuyLHKHw==}
 
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20251117.1':
+    resolution: {integrity: sha512-O7Hhb9m8AZJCAUSBbGmZs7Vm890Kh5Z3xAAASs+L4thtPM0oRckeaoXLvHeE9Qy1p8qG//EmZ3+uSdtUTV4wqg==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20251117.1':
+    resolution: {integrity: sha512-/I/iWWvUvuy8BK0bXn5Kz6z2QwknwD2kl2estQxgsz9VgHHyLSyjAg7c18pX/re0Z9ISPz7wutEKabzdtRW8Uw==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20251117.1':
+    resolution: {integrity: sha512-YSkmJb4/WrS6ZMEJSDbv5o2Garms3+3yKsH+Y3JLUab0namf1Br7T53ydW7ijV2rE7j9DgJs9P+GNu8753St3Q==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20251117.1':
+    resolution: {integrity: sha512-Mfnc8CytGICsYJCMbu3FwE/KDcVg4/QTFix6O31oUkj9ERp3zbSePVMQulkJTH2vuhDvJnVISHzIYawtq5QPTQ==}
+    cpu: [arm]
+    os: [linux]
+
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20251117.1':
+    resolution: {integrity: sha512-R5KvnKuGsbozjHbmA+zPa4xVkQSutvtU9/PQJ7vjJL0xsvSsRUgOE2V2jlT+KnfjAhYVoIg2njtHdf0uv5k9Ow==}
+    cpu: [x64]
+    os: [linux]
+
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20251117.1':
+    resolution: {integrity: sha512-xfEwDD9BwCm2gFf0AePfvXxjgQ/EDBDLRbSejtShTSFwrgdnRJ7iW63/ns/i31qLesTzGZaLxeAV8zgh6C2Ibg==}
+    cpu: [arm64]
+    os: [win32]
+
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20251117.1':
+    resolution: {integrity: sha512-GhJ4GIygHSU86gZw6NkOnJKi/XW0Yw+1quanZ6BaOAZ+HY6aftuESy+NlbC6nUSGE2xmbvxqJgqchCIlC6YPoA==}
+    cpu: [x64]
+    os: [win32]
+
+  '@typescript/native-preview@7.0.0-dev.20251117.1':
+    resolution: {integrity: sha512-JgKY4Q6jRCszCJ46c8tVrGVnmdiRPSKTW0UQvcyxdI7LG9NYMchJ/W7iUyFZVjG8BV1iUTl3DYml1xErPHLKeg==}
+    hasBin: true
+
   babel-plugin-react-compiler@1.0.0:
     resolution: {integrity: sha512-Ixm8tFfoKKIPYdCCKYTsqv+Fd4IJ0DQqMyEimo+pxUOMUR9cVPlwTrFt9Avu+3cb6Zp3mAzl+t1MrG2fxxKsxw==}
 
@@ -661,11 +700,6 @@ packages:
 
   tw-animate-css@1.4.0:
     resolution: {integrity: sha512-7bziOlRqH0hJx80h/3mbicLW7o8qLsH5+RaLR2t+OHM3D0JlWGODQKQ4cxbK7WlvmUxpcj6Kgu6EKqjrGFe3QQ==}
-
-  typescript@5.9.3:
-    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
 
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
@@ -963,6 +997,37 @@ snapshots:
     dependencies:
       csstype: 3.2.0
 
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20251117.1':
+    optional: true
+
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20251117.1':
+    optional: true
+
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20251117.1':
+    optional: true
+
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20251117.1':
+    optional: true
+
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20251117.1':
+    optional: true
+
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20251117.1':
+    optional: true
+
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20251117.1':
+    optional: true
+
+  '@typescript/native-preview@7.0.0-dev.20251117.1':
+    optionalDependencies:
+      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20251117.1
+      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20251117.1
+      '@typescript/native-preview-linux-arm': 7.0.0-dev.20251117.1
+      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20251117.1
+      '@typescript/native-preview-linux-x64': 7.0.0-dev.20251117.1
+      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20251117.1
+      '@typescript/native-preview-win32-x64': 7.0.0-dev.20251117.1
+
   babel-plugin-react-compiler@1.0.0:
     dependencies:
       '@babel/types': 7.28.5
@@ -1147,7 +1212,5 @@ snapshots:
   tslib@2.8.1: {}
 
   tw-animate-css@1.4.0: {}
-
-  typescript@5.9.3: {}
 
   undici-types@6.21.0: {}
