@@ -23,7 +23,7 @@ export function SeekingSponsorsSection() {
           className="rounded-full w-[280px] h-[60px] fill-primary hover:bg-[#1854FF]"
         >
           <Link
-            href="https://docs.google.com/forms/d/e/1FAIpQLSfZR2TQr0E6CJ9l9hy9L9xvO5o6Ep5GXcZo57zq-7b_TEt52g/viewform"
+            href="/sponsors/inquiry"
             target="_blank"
             rel="noopener noreferrer"
             className="font-bold text-base leading-6"
