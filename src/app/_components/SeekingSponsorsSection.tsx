@@ -1,7 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/ui/button";
-import { BrowserMockup } from "./BrowserMockup";
 
 export function SeekingSponsorsSection() {
   return (
@@ -33,15 +32,6 @@ export function SeekingSponsorsSection() {
           </Link>
         </Button>
       </div>
-      <BrowserMockup className="w-full lg:w-[1024px] max-w-full">
-        <iframe
-          title="TSKaigi Presentation"
-          src="https://docs.google.com/presentation/d/e/2PACX-1vQADF22lFOs_BPlMsJWaJrVT03E-tK_sH03nJSCjRH-GlAl-GorCvlF5jND3iWLH7yubTgxeQrj1NCm/embed?start=false&loop=false&delayms=30000"
-          className="aspect-video w-full"
-          allowFullScreen
-          allow="fullscreen"
-        />
-      </BrowserMockup>
     </div>
   );
 }
