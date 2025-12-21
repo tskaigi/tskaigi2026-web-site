@@ -22,12 +22,12 @@ export function SeekingSponsorsSection() {
           className="rounded-full w-[280px] h-[60px] fill-primary hover:bg-[#1854FF]"
         >
           <Link
-            href="/sponsors/inquiry"
+            href="/sponsors/call-for-sponsors"
             target="_blank"
             rel="noopener noreferrer"
             className="font-bold text-base leading-6"
           >
-            抽選を申し込む
+            TSKaigi 2026 協賛の案内
             <ArrowRight />
           </Link>
         </Button>
