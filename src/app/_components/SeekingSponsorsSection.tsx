@@ -1,7 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/ui/button";
-import { BrowserMockup } from "./BrowserMockup";
 
 export function SeekingSponsorsSection() {
   return (
@@ -23,25 +22,16 @@ export function SeekingSponsorsSection() {
           className="rounded-full w-[280px] h-[60px] fill-primary hover:bg-[#1854FF]"
         >
           <Link
-            href="https://docs.google.com/forms/d/e/1FAIpQLSfZR2TQr0E6CJ9l9hy9L9xvO5o6Ep5GXcZo57zq-7b_TEt52g/viewform"
+            href="/sponsors/call-for-sponsors"
             target="_blank"
             rel="noopener noreferrer"
             className="font-bold text-base leading-6"
           >
-            抽選を申し込む
+            TSKaigi 2026 協賛の案内
             <ArrowRight />
           </Link>
         </Button>
       </div>
-      <BrowserMockup className="w-full lg:w-[1024px] max-w-full">
-        <iframe
-          title="TSKaigi Presentation"
-          src="https://docs.google.com/presentation/d/e/2PACX-1vQADF22lFOs_BPlMsJWaJrVT03E-tK_sH03nJSCjRH-GlAl-GorCvlF5jND3iWLH7yubTgxeQrj1NCm/embed?start=false&loop=false&delayms=30000"
-          className="aspect-video w-full"
-          allowFullScreen
-          allow="fullscreen"
-        />
-      </BrowserMockup>
     </div>
   );
 }
