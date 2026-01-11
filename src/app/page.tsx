@@ -1,11 +1,11 @@
-import { EventCountdownBanner } from "./_components/EventCountdownBanner";
-import { SeekingSponsorsSection } from "./_components/SeekingSponsorsSection";
+import { HeroSectionWithMotion } from "../components/HeroSectionWithMotion";
+import { MissionSection } from "../components/MissionSection";
 
 export default function Home() {
   return (
-    <main className="w-full flex flex-col items-center font-outfit">
-      <EventCountdownBanner />
-      <SeekingSponsorsSection />
+    <main className="pt-8 overflow-x-hidden">
+      <HeroSectionWithMotion />
+      <MissionSection />
     </main>
   );
 }

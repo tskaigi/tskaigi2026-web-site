@@ -183,4 +183,11 @@
   body {
     @apply bg-background text-foreground;
   }
+  html {
+    @apply scroll-pt-20 scroll-smooth;
+  }
+}
+
+footer {
+  background: linear-gradient(180deg, #3a89c4 0%, #1071d3 100%);
 }
