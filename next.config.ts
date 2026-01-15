@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  pageExtensions:
+    process.env.IS_DEVELOPMENT === "true" ? ["tsx", "dev.tsx"] : ["tsx"],
 };
 
 export default nextConfig;

@@ -8,14 +8,6 @@ export function EventCountdownBanner() {
     <div className="w-full h-[674px] lg:h-[790px]  relative flex flex-col items-center text-center">
       <GridBackground />
 
-      <Image
-        width={256}
-        height={100}
-        src="/logo.svg"
-        className="absolute top-6 left-6 w-40 lg:w-64 lg:top-10 lg:left-10"
-        alt="logo"
-      />
-
       <div className="mt-[178px] lg:mt-[248px]">
         <CountdownTimer />
       </div>
