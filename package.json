@@ -10,7 +10,9 @@
     "check": "biome check",
     "check:fix": "biome check --write",
     "typecheck": "tsgo -p . --noEmit --diagnostics",
-    "deploy:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare deploy"
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
