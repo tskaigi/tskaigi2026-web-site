@@ -9,7 +9,8 @@
     "start": "next start",
     "check": "biome check",
     "check:fix": "biome check --write",
-    "typecheck": "tsgo -p . --noEmit --diagnostics"
+    "typecheck": "tsgo -p . --noEmit --diagnostics",
+    "deploy:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare deploy"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
@@ -20,7 +21,8 @@
     "next": "16.1.0",
     "react": "19.2.1",
     "react-dom": "19.2.1",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "@opennextjs/cloudflare": "^1.14.4"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.5",
@@ -32,6 +34,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "tailwindcss": "^4.1.17",
     "tw-animate-css": "^1.4.0",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "wrangler": "^4.4.0"
   }
 }
