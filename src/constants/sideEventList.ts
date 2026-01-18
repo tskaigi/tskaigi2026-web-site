@@ -19,7 +19,7 @@ export const sideEventList: SideEvent[] = [
     detail: `TSKaigi採択者によるトークと、TSKaigiのCfP選考担当者によるトークを通じて、CfP応募のコツや選考のポイントを学べる勉強会です。
 初めてCfPに応募しようと考えている方、応募を迷っている・応募に自信がない方におすすめです。`,
     tags: ["勉強会", "CfP"],
-    sponsors: ["フリー株式会社"],
+    sponsors: ["TSKaigi Association"],
     finishedAt: new Date("2026-02-09T21:30:00+09:00"),
   },
 ];
