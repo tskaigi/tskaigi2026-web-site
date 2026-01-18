@@ -1,5 +1,6 @@
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
+import type { SideEvent } from "@/constants/sideEventList";
 
 type SideEventProps = SideEvent;
 
