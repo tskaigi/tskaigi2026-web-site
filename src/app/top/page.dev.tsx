@@ -4,7 +4,7 @@ import { MissionSection } from "../../components/MissionSection";
 
 export default function Home() {
   return (
-    <main className="pt-8 overflow-x-hidden">
+    <main className="flex-1 pt-8 overflow-x-hidden">
       <HeroSectionWithMotion />
       <MissionSection />
       <SponsorsBoardSection />

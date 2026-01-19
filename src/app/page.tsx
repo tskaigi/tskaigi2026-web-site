@@ -3,7 +3,7 @@ import { SeekingSponsorsSection } from "./_components/SeekingSponsorsSection";
 
 export default function Home() {
   return (
-    <main className="w-full flex flex-col items-center font-outfit">
+    <main className="w-full flex flex-col flex-1 items-center font-outfit">
       <EventCountdownBanner />
       <SeekingSponsorsSection />
     </main>
