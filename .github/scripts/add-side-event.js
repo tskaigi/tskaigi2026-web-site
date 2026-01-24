@@ -68,6 +68,7 @@ module.exports = async ({ github, context, core }) => {
   if (dateRaw && !/^\d{4}-\d{2}-\d{2}$/.test(dateRaw)) {
     errors.push("開催日はYYYY-MM-DD形式で入力してください");
   }
+  if (!name) errors.push("イベント名が入力されていません");
 
   if (errors.length > 0) {
     core.setFailed(`入力エラー:\n${errors.join("\n")}`);
@@ -79,8 +80,7 @@ module.exports = async ({ github, context, core }) => {
   const finishedAt = calcFinishedAt(dateRaw);
 
   // 出力を設定（PR用）
-  const eventName = name || "【要入力】イベント名";
-  core.setOutput("name", eventName);
+  core.setOutput("name", name);
   core.setOutput("date", date);
   core.setOutput("link", link);
 
@@ -93,11 +93,11 @@ module.exports = async ({ github, context, core }) => {
       ? `\n    tags: [${tags.map((t) => `"${t}"`).join(", ")}],`
       : "";
 
-  const eventDetail = detail || "【要入力】イベント詳細";
+  const eventDetail = detail || "イベント詳細をここに入力してください";
 
   const newEvent = `  {
     date: "${date}",
-    name: "${eventName}",
+    name: "${name}",
     link: "${link}",
     thumbnail:
       "${thumbnail}",
@@ -120,5 +120,5 @@ module.exports = async ({ github, context, core }) => {
   fs.writeFileSync(filePath, updatedContent);
 
   console.log("Updated sideEventList.ts with new event:");
-  console.log({ date, eventName, link, thumbnail, eventDetail, tags, sponsors, finishedAt });
+  console.log({ date, name, link, thumbnail, detail: eventDetail, tags, sponsors, finishedAt });
 };

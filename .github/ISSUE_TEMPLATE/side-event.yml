@@ -1,6 +1,6 @@
 name: サイドイベント追加
 description: サイドイベントをWebサイトに追加する
-title: "[サイドイベント] イベント名をここに入力"
+title: "[サイドイベント追加]"
 labels: ["side-event"]
 body:
   - type: markdown
@@ -49,10 +49,9 @@ body:
     id: name
     attributes:
       label: イベント名
-      description: 空欄の場合はPRで手動入力が必要です
       placeholder: "TSKaigi Mashup #4 CfP勉強会"
     validations:
-      required: false
+      required: true
 
   - type: textarea
     id: detail
