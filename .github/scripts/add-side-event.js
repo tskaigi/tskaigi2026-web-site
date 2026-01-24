@@ -18,23 +18,24 @@ module.exports = async ({ github, context, core }) => {
 
   // YYYY-MM-DD → "M/D (曜日)" 形式に変換
   function formatDate(dateStr) {
-    const date = new Date(dateStr + "T00:00:00+09:00");
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
+    // 文字列から直接パースしてタイムゾーン問題を回避
+    const [year, month, day] = dateStr.split("-").map(Number);
+    // 曜日計算用にUTC日付を作成
+    const date = new Date(Date.UTC(year, month - 1, day));
     const weekdays = ["日", "月", "火", "水", "木", "金", "土"];
-    const weekday = weekdays[date.getDay()];
+    const weekday = weekdays[date.getUTCDay()];
     return `${month}/${day} (${weekday})`;
   }
 
   // 開催日の翌日0:00を終了日時とする（日本時間）
   function calcFinishedAt(dateStr) {
-    const date = new Date(dateStr + "T00:00:00+09:00");
-    date.setDate(date.getDate() + 1);
-    // ISO形式で日本時間の翌日0:00を返す
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}T00:00:00+09:00`;
+    // 文字列から直接パースしてタイムゾーン問題を回避
+    const [year, month, day] = dateStr.split("-").map(Number);
+    const nextDay = new Date(Date.UTC(year, month - 1, day + 1));
+    const y = nextDay.getUTCFullYear();
+    const m = String(nextDay.getUTCMonth() + 1).padStart(2, "0");
+    const d = String(nextDay.getUTCDate()).padStart(2, "0");
+    return `${y}-${m}-${d}T00:00:00+09:00`;
   }
 
   const link = parseFormField(issueBody, "ConnpassイベントURL");
