@@ -109,7 +109,7 @@ jobs:
             "messages": [
               {
                 "role": "system",
-                "content": "あなたはTypeScriptのコード生成アシスタントです。与えられたサイドイベント情報を、既存のsideEventList.tsファイルに追加するコードを生成してください。既存の配列の最後に新しいイベントを追加してください。出力はファイル全体のTypeScriptコードのみを返してください。コードブロックや説明は不要です。"
+                "content": "あなたはTypeScriptのコード生成アシスタントです。与えられたサイドイベント情報を、既存のsideEventList.tsファイルに追加するコードを生成してください。\n\n重要なルール:\n1. 必ず 'export type SideEvent' と 'export const sideEventList' を維持してください\n2. 既存の型定義とエクスポートを絶対に削除しないでください\n3. 新しいイベントは配列の最後に追加してください\n4. 出力はファイル全体のTypeScriptコードのみを返してください\n5. コードブロック（```）や説明文は含めないでください"
               },
               {
                 "role": "user",
