@@ -1,6 +1,6 @@
 name: サイドイベント追加
 description: サイドイベントをWebサイトに追加する
-title: "[サイドイベント追加]"
+title: "サイドイベント追加"
 labels: ["side-event"]
 body:
   - type: markdown
