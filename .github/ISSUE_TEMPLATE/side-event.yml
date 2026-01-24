@@ -1,6 +1,6 @@
 name: サイドイベント追加
 description: サイドイベントをWebサイトに追加する
-title: "[サイドイベント追加]"
+title: "サイドイベント追加"
 labels: ["side-event"]
 body:
   - type: markdown
@@ -28,11 +28,10 @@ body:
       required: true
 
   - type: input
-    id: sponsors
+    id: name
     attributes:
-      label: 主催スポンサー
-      description: 複数の場合はカンマ区切りで入力してください
-      placeholder: "株式会社A, 株式会社B, 株式会社C"
+      label: イベント名
+      placeholder: "TSKaigi Mashup #4 CfP勉強会"
     validations:
       required: true
 
@@ -46,10 +45,11 @@ body:
       required: true
 
   - type: input
-    id: name
+    id: sponsors
     attributes:
-      label: イベント名
-      placeholder: "TSKaigi Mashup #4 CfP勉強会"
+      label: 主催スポンサー
+      description: 複数の場合はカンマ区切りで入力してください
+      placeholder: "株式会社A, 株式会社B, 株式会社C"
     validations:
       required: true
 
