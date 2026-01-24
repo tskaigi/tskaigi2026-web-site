@@ -1,5 +1,6 @@
 name: サイドイベント追加
 description: サイドイベントをWebサイトに追加する
+title: "[サイドイベント追加]"
 labels: ["side-event"]
 body:
   - type: markdown
@@ -9,11 +10,38 @@ body:
         このイシューが作成されると、自動的にPRが作成されます。
 
   - type: input
+    id: link
+    attributes:
+      label: ConnpassイベントURL
+      description: ConnpassのイベントページURL
+      placeholder: "https://typescript-jpc.connpass.com/event/379927/"
+    validations:
+      required: true
+
+  - type: input
+    id: thumbnail
+    attributes:
+      label: ConnpassサムネイルURL
+      description: Connpassイベントページのサムネイル画像URL（イベントページで画像を右クリック→「画像のアドレスをコピー」）
+      placeholder: "https://media.connpass.com/thumbs/e3/e5/e3e519439a92dc65621cc02a0499807a.png"
+    validations:
+      required: true
+
+  - type: input
+    id: sponsors
+    attributes:
+      label: 主催スポンサー
+      description: 複数の場合はカンマ区切りで入力してください
+      placeholder: "株式会社A, 株式会社B, 株式会社C"
+    validations:
+      required: true
+
+  - type: input
     id: date
     attributes:
       label: 開催日
-      description: 表示用の日付形式
-      placeholder: "2/9 (月)"
+      description: YYYY-MM-DD形式で入力してください（自動的に「5/23 (金)」形式に変換されます）
+      placeholder: "2026-05-23"
     validations:
       required: true
 
@@ -25,58 +53,22 @@ body:
     validations:
       required: true
 
-  - type: input
-    id: link
-    attributes:
-      label: イベントURL
-      description: ConnpassなどのイベントページURL
-      placeholder: "https://typescript-jpc.connpass.com/event/379927/"
-    validations:
-      required: true
-
-  - type: input
-    id: thumbnail
-    attributes:
-      label: サムネイルURL
-      description: イベントのサムネイル画像URL
-      placeholder: "https://media.connpass.com/thumbs/..."
-    validations:
-      required: true
-
   - type: textarea
     id: detail
     attributes:
       label: イベント詳細
-      description: イベントの説明文
+      description: 空欄の場合はPRで手動入力が必要です
       placeholder: |
         TSKaigi採択者によるトークと、TSKaigiのCfP選考担当者によるトークを通じて、CfP応募のコツや選考のポイントを学べる勉強会です。
         初めてCfPに応募しようと考えている方、応募を迷っている・応募に自信がない方におすすめです。
     validations:
-      required: true
+      required: false
 
   - type: input
     id: tags
     attributes:
-      label: タグ（カンマ区切り）
-      description: 任意。複数ある場合はカンマで区切ってください
-      placeholder: "勉強会, CfP"
+      label: タグ（任意）
+      description: 複数の場合はカンマ区切りで入力してください
+      placeholder: "勉強会, Drinkup, AfterTalk, ハンズオン"
     validations:
       required: false
-
-  - type: input
-    id: sponsors
-    attributes:
-      label: スポンサー（カンマ区切り）
-      description: 複数ある場合はカンマで区切ってください
-      placeholder: "TSKaigi Association"
-    validations:
-      required: true
-
-  - type: input
-    id: finished_at
-    attributes:
-      label: 終了日時（ISO形式）
-      description: イベント終了後に非表示にするための日時
-      placeholder: "2026-02-09T21:30:00+09:00"
-    validations:
-      required: true
