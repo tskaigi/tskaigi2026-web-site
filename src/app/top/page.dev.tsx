@@ -1,3 +1,5 @@
+import { CoreStaffSection } from "@/components/CoreStaffSection";
+import { JudgesSection } from "@/components/JudgesSection";
 import { SponsorsBoardSection } from "@/components/SponsorsBoardSection";
 import { HeroSectionWithMotion } from "../../components/HeroSectionWithMotion";
 import { MissionSection } from "../../components/MissionSection";
@@ -8,6 +10,8 @@ export default function Home() {
       <HeroSectionWithMotion />
       <MissionSection />
       <SponsorsBoardSection />
+      <JudgesSection />
+      <CoreStaffSection />
     </main>
   );
 }
