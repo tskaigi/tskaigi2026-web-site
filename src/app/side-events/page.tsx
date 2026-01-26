@@ -21,7 +21,10 @@ const SideEventsPage = () => {
       <div className="bg-white p-6 flex flex-col gap-6 max-w-7xl mx-auto md:rounded-xl md:p-8 lg:p-10">
         <p className="md:text-lg">
           TSKaigiのサイドイベントをご紹介します。ご参加お待ちしております！
-          <br />※ 正確な情報は各イベントページをご確認ください。
+          <br />
+          <span className="text-sm">
+            ※ 正確な情報は各イベントページをご確認ください。
+          </span>
         </p>
 
         <div className="flex flex-col gap-6 md:gap-0">
