@@ -1,0 +1,84 @@
+name: Add Side Event
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  add-side-event:
+    # side-eventラベルが付いているイシューのみ実行
+    if: contains(github.event.issue.labels.*.name, 'side-event')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Parse issue body and generate code
+        id: parse
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const script = require('./.github/scripts/add-side-event.js');
+            await script({ github, context, core });
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: "10.22.0"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Format and lint
+        run: |
+          pnpm biome format --write src/constants/sideEventList.ts
+          pnpm biome check --write src/constants/sideEventList.ts || true
+
+      - name: TypeScript check
+        run: pnpm typecheck
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "feat: add side event - ${{ steps.parse.outputs.name }}"
+          title: "feat: サイドイベント追加 - ${{ steps.parse.outputs.name }}"
+          body: |
+            ## 概要
+            イシュー #${{ github.event.issue.number }} からサイドイベントを自動追加します。
+
+            ## 追加されるイベント
+            - **イベント名**: ${{ steps.parse.outputs.name }}
+            - **開催日**: ${{ steps.parse.outputs.date }}
+            - **URL**: ${{ steps.parse.outputs.link }}
+
+            ---
+            このPRは自動生成されました。内容を確認してマージしてください。
+
+            Closes #${{ github.event.issue.number }}
+          branch: side-event/issue-${{ github.event.issue.number }}
+          delete-branch: true
+          labels: |
+            side-event
+            automated
+
+      - name: Comment on issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '✅ サイドイベントの追加PRを作成しました！\n\nPRをレビューしてマージしてください。'
+            });
