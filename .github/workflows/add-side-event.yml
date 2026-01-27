@@ -6,8 +6,13 @@ on:
 
 jobs:
   add-side-event:
-    # side-eventラベルが付いているイシューのみ実行
-    if: contains(github.event.issue.labels.*.name, 'side-event')
+    # ラベル依存をやめて、タイトル or 本文で判定（Slack Workflow起票にも対応）
+    # - タイトルが固定なら startsWith が強い
+    # - 本文の見出し（## ConnpassイベントURL）が入っていれば「サイドイベント追加」とみなす
+    if: |
+      startsWith(github.event.issue.title, 'サイドイベント追加') ||
+      contains(github.event.issue.body, '## ConnpassイベントURL') ||
+      contains(github.event.issue.body, '### ConnpassイベントURL')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -17,6 +22,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
+      # 任意：このジョブで拾ったIssueには side-event ラベルを付与（運用しやすくなる）
+      - name: Ensure side-event label on issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = (context.payload.issue.labels || []).map(l => l.name);
+            if (!labels.includes('side-event')) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: ['side-event'],
+              });
+            }
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
