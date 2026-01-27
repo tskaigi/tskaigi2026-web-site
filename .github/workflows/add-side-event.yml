@@ -70,7 +70,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TSKAIGI_2026_WEBSITE_ACTIONS }}
           commit-message: "feat: add side event - ${{ steps.parse.outputs.name }}"
           title: "feat: サイドイベント追加 - ${{ steps.parse.outputs.name }}"
           body: |
