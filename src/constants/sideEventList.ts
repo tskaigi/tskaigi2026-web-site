@@ -34,4 +34,17 @@ export const sideEventList: SideEvent[] = [
     sponsors: ["TSKaigi"],
     finishedAt: new Date("2026-01-27T19:30:00+09:00"),
   },
+  {
+    date: "3/3 (火)",
+    name: "サイドイベントPRテスト",
+    link: "https://typescript-jpc.connpass.com/event/379927/",
+    thumbnail:
+      "https://media.connpass.com/thumbs/ad/6b/ad6b92024c9501d4f408977f8fed2406.png",
+    detail: `TSKaigi Mashupは、TypeScriptコミュニティの活性化を目的として、TSKaigi運営チームが開催するプチイベントです！
+
+Mashupでは特定の「テーマ」を設定し、そのテーマに関したコンテンツを実施します！`,
+    tags: ["ハンズオン", "CfP"],
+    sponsors: ["株式会社テスト", "株式会社テスト2"],
+    finishedAt: new Date("2026-03-04T00:00:00+09:00"),
+  },
 ];
