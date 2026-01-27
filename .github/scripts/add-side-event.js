@@ -112,9 +112,9 @@ module.exports = async ({ github, context, core }) => {
   const currentContent = fs.readFileSync(filePath, "utf8");
 
   // rawSideEventList配列の最後（];の前）に新しいイベントを追加
-  // ファイル末尾ではなく、最初の ];（rawSideEventList配列の終了）を探す
+  // 行頭の ]; を探す（型定義内の string[]; などにマッチしないように）
   const updatedContent = currentContent.replace(
-    /(\];\s*\n)/,
+    /^(\];\s*\n)/m,
     `${newEvent}\n$1`,
   );
 
