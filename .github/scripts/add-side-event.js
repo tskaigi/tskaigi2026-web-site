@@ -111,12 +111,8 @@ module.exports = async ({ github, context, core }) => {
   const filePath = "src/constants/sideEventList.ts";
   const currentContent = fs.readFileSync(filePath, "utf8");
 
-  // rawSideEventList配列の最後（];の前）に新しいイベントを追加
-  // 行頭の ]; を探す（型定義内の string[]; などにマッチしないように）
-  const updatedContent = currentContent.replace(
-    /^(\];\s*\n)/m,
-    `${newEvent}\n$1`,
-  );
+  // 配列の最後（];の前）に新しいイベントを追加
+  const updatedContent = currentContent.replace(/(\];\s*)$/, `${newEvent}\n$1`);
 
   // ファイルに書き込む
   fs.writeFileSync(filePath, updatedContent);

@@ -28,9 +28,11 @@ const SideEventsPage = () => {
         </p>
 
         <div className="flex flex-col gap-6 md:gap-0">
-          {sideEventList.map((event) => (
-            <SideEventItem key={event.name} {...event} />
-          ))}
+          {[...sideEventList]
+            .sort((a, b) => b.finishedAt.getTime() - a.finishedAt.getTime())
+            .map((event) => (
+              <SideEventItem key={event.name} {...event} />
+            ))}
         </div>
       </div>
     </main>

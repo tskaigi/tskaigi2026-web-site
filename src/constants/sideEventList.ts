@@ -9,7 +9,7 @@ export type SideEvent = {
   finishedAt: Date;
 };
 
-const rawSideEventList: SideEvent[] = [
+export const sideEventList: SideEvent[] = [
   {
     date: "2/9 (月)",
     name: "TSKaigi Mashup #4 プロポーザルの書き方とコツを学ぼう",
@@ -35,8 +35,3 @@ const rawSideEventList: SideEvent[] = [
     finishedAt: new Date("2026-01-27T19:30:00+09:00"),
   },
 ];
-
-// 日付の降順（新しい順）でソート
-export const sideEventList = [...rawSideEventList].sort(
-  (a, b) => b.finishedAt.getTime() - a.finishedAt.getTime(),
-);
