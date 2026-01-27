@@ -34,4 +34,16 @@ export const sideEventList: SideEvent[] = [
     sponsors: ["TSKaigi"],
     finishedAt: new Date("2026-01-27T19:30:00+09:00"),
   },
+  {
+    date: "2/9 (月)",
+    name: "TSKaigi Mashup #4 プロポーザルの書き方とコツを学ぼう",
+    link: "https://typescript-jpc.connpass.com/event/379927/",
+    thumbnail:
+      "https://media.connpass.com/thumbs/ad/6b/ad6b92024c9501d4f408977f8fed2406.png",
+    detail: `TSKaigi採択者によるトークと、TSKaigiのCfP選考担当者によるトークを通じて、CfP応募のコツや選考のポイントを学べる勉強会です。
+初めてCfPに応募しようと考えている方、応募を迷っている・応募に自信がない方におすすめです。`,
+    tags: ["勉強会", "CfP"],
+    sponsors: ["TSKaigi"],
+    finishedAt: new Date("2026-02-10T00:00:00+09:00"),
+  },
 ];
