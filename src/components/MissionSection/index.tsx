@@ -18,7 +18,7 @@ function MissionSessionContent() {
       </div>
       <div className="mt-6 text-16 md:text-18 lg:mt-10 leading-[1.8]">
         <p>
-          2024年に産声をあげ、大盛況のうちに幕を閉じた TSKaigi
+          2024年に産声をあげ、2025年も大盛況のうちに幕を閉じた TSKaigi
           を今年も開催します！
         </p>
         <br />
@@ -26,7 +26,6 @@ function MissionSessionContent() {
           私たちは、誰かの発表を聞くだけでなく、他の誰かに向けて発表することもまた学びの一つだと考えています。
           参加者、登壇者、スタッフ、スポンサーをはじめ、TSKaigi
           に関わるすべての人たちが互いに学び合い、新たな繋がりを生み出し、型にとらわれないエンジニアとして生き生きと活躍できる世界を目指します。
-          その実現に向け、今年は会場を中野から神田へ移し、2日間開催とすることで、大幅にパワーアップしました。
         </p>
         <br />
         <p>
@@ -42,7 +41,7 @@ function MissionSessionContent() {
 
 export function MissionSection() {
   return (
-    <section className="bg-blue-light-100">
+    <section className="w-full bg-blue-light-100">
       <MissionSessionContent />
     </section>
   );
