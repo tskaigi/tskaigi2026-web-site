@@ -3,10 +3,10 @@ import Link from "next/link";
 import { Decoration } from "@/components/Decoration";
 import { Button } from "@/ui/button";
 
-export const ApplyToProposalSection = () => {
+export const ApplyToProposalSectionInTeaser = () => {
   return (
-    <div className="w-full bg-blue-light-100 pb-16 flex items-center justify-center">
-      <div className="bg-white p-10 flex flex-col items-center gap-10 rounded-lg md:rounded-2xl max-w-[940px]">
+    <div className="w-full flex flex-col items-center gap-16 px-8 pt-10 pb-16">
+      <div className="w-full lg:w-[760px] flex flex-col items-center gap-10">
         <div className="flex flex-col items-center">
           <h2 className="lg:text-[32px] md:text-[28px] text-[24px] font-bold text-center pb-4">
             プロポーザル募集
