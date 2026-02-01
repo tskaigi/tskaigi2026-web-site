@@ -23,7 +23,7 @@ const coreStaffList = [
 
 export function CoreStaffSection() {
   return (
-    <section className="pb-10 md:pb-20 bg-blue-light-100">
+    <section className="w-full pb-10 md:pb-20 bg-blue-light-100">
       <h2 className="text-[24px] lg:text-[28px] leading-normal text-center font-bold pb-8 md:pb-10">
         コアスタッフ
       </h2>
