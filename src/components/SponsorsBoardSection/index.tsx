@@ -8,8 +8,8 @@ import { SponsorsBoardTitle } from "./SponsorsBoardTitle";
 
 export function SponsorsBoardSection({ isWip = false }: { isWip?: boolean }) {
   return (
-    <section className="md:px-10 bg-blue-light-100">
-      <h2 className="pt-10 pb-8 lg:pt-16 lg:pb-10 flex flex-col md:flex-row md:justify-center md:gap-2 text-24 md:text-32 leading-normal md:leading-[42px] text-center font-bold font-noto">
+    <section className="w-full md:px-10 bg-blue-light-100">
+      <h2 className="pt-10 pb-8 lg:pt-16 lg:pb-10 flex flex-col md:flex-row md:justify-center md:gap-2text-[24px] lg:text-[32px] md:text-[28px] text-[24px] text-center font-bold font-noto">
         <span>TSKaigi 2025</span>
         <span>スポンサー各社</span>
       </h2>
@@ -17,7 +17,7 @@ export function SponsorsBoardSection({ isWip = false }: { isWip?: boolean }) {
       {/* プラチナスポンサー */}
       <div className="pb-8 flex flex-col">
         <SponsorsBoardTitle titleClassName="before:bg-blue-purple-600 after:bg-blue-purple-600">
-          <h3 className="text-blue-purple-600 text-22 md:text-28 leading-normal md:leading-[42px] font-bold font-noto">
+          <h3 className="text-blue-purple-600 text-[22px] md:text-[28px] leading-normal md:leading-[42px] font-bold font-noto">
             Platinum Sponsors
           </h3>
         </SponsorsBoardTitle>
@@ -46,7 +46,7 @@ export function SponsorsBoardSection({ isWip = false }: { isWip?: boolean }) {
       {/* ゴールドスポンサー */}
       <div className="pb-8 flex flex-col">
         <SponsorsBoardTitle titleClassName="before:bg-yellow-600 after:bg-yellow-600">
-          <h3 className="text-yellow-600 text-22 md:text-28 leading-normal md:leading-[42px] font-bold font-noto">
+          <h3 className="text-yellow-600 text-[22px] md:text-[28px] leading-normal md:leading-[42px] font-bold font-noto">
             Gold Sponsors
           </h3>
         </SponsorsBoardTitle>
@@ -75,7 +75,7 @@ export function SponsorsBoardSection({ isWip = false }: { isWip?: boolean }) {
       {/* シルバースポンサー */}
       <div className="pb-8 flex flex-col">
         <SponsorsBoardTitle titleClassName="before:bg-blue-light-500 after:bg-blue-light-500">
-          <h3 className="text-blue-light-500 text-22 md:text-28 leading-normal md:leading-[42px] font-bold font-noto">
+          <h3 className="text-blue-light-500 text-[22px] md:text-[28px] leading-normal md:leading-[42px] font-bold font-noto">
             Silver Sponsors
           </h3>
         </SponsorsBoardTitle>
@@ -104,7 +104,7 @@ export function SponsorsBoardSection({ isWip = false }: { isWip?: boolean }) {
       {/* ブロンズスポンサー */}
       <div className="pb-8 flex flex-col">
         <SponsorsBoardTitle titleClassName="before:bg-orange-600 after:bg-orange-600">
-          <h3 className="text-orange-600 text-16 md:text-28 leading-[28.8px] md:leading-[42px] font-bold font-noto">
+          <h3 className="text-orange-600 text-[16px] md:text-[28px] leading-[28.8px] md:leading-[42px] font-bold font-noto">
             Bronze Sponsors
           </h3>
         </SponsorsBoardTitle>
@@ -133,7 +133,7 @@ export function SponsorsBoardSection({ isWip = false }: { isWip?: boolean }) {
       {/* 学生支援スポンサー */}
       <div className="pb-8 flex flex-col">
         <SponsorsBoardTitle titleClassName="before:bg-green-600 after:bg-green-600">
-          <h3 className="text-green-600 text-16 md:text-28 leading-[28.8px] md:leading-[42px] font-bold font-noto">
+          <h3 className="text-green-600 text-[16px] md:text-[28px] leading-[28.8px] md:leading-[42px] font-bold font-noto">
             学生支援
           </h3>
         </SponsorsBoardTitle>

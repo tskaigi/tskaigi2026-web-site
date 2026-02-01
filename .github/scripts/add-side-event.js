@@ -7,7 +7,7 @@ module.exports = async ({ github, context, core }) => {
   function parseFormField(body, fieldName) {
     const regex = new RegExp(
       `### ${fieldName}\\s*\\n\\s*([\\s\\S]*?)(?=\\n###|$)`,
-      "i"
+      "i",
     );
     const match = body.match(regex);
     if (match) {
@@ -112,14 +112,20 @@ module.exports = async ({ github, context, core }) => {
   const currentContent = fs.readFileSync(filePath, "utf8");
 
   // 配列の最後（];の前）に新しいイベントを追加
-  const updatedContent = currentContent.replace(
-    /(\];\s*)$/,
-    `${newEvent}\n$1`
-  );
+  const updatedContent = currentContent.replace(/(\];\s*)$/, `${newEvent}\n$1`);
 
   // ファイルに書き込む
   fs.writeFileSync(filePath, updatedContent);
 
   console.log("Updated sideEventList.ts with new event:");
-  console.log({ date, name, link, thumbnail, detail: eventDetail, tags, sponsors, finishedAt });
+  console.log({
+    date,
+    name,
+    link,
+    thumbnail,
+    detail: eventDetail,
+    tags,
+    sponsors,
+    finishedAt,
+  });
 };
