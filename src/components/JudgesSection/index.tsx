@@ -18,7 +18,7 @@ const judgesList = [
 
 export function JudgesSection() {
   return (
-    <section className="pt-10 md:pt-20 pb-10 md:pb-20 bg-blue-light-100">
+    <section className="w-full pt-10 md:pt-20 pb-10 md:pb-20 bg-blue-light-100">
       <h2 className="text-[24px] md:text-[32px] leading-normal md:leading-12 text-center font-bold pb-8 md:pb-10">
         プロポーザル選考委員
       </h2>

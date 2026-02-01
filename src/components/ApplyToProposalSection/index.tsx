@@ -3,45 +3,43 @@ import Link from "next/link";
 import { Decoration } from "@/components/Decoration";
 import { Button } from "@/ui/button";
 
-export function SeekingSponsorsSection() {
+export const ApplyToProposalSection = () => {
   return (
     <div className="w-full bg-blue-light-100 pb-16 flex items-center justify-center">
       <div className="bg-white p-10 flex flex-col items-center gap-10 rounded-lg md:rounded-2xl max-w-[940px]">
         <div className="flex flex-col items-center">
           <h2 className="lg:text-[32px] md:text-[28px] text-[24px] font-bold text-center pb-4">
-            スポンサー募集
+            プロポーザル募集
           </h2>
           <Decoration />
         </div>
         <div className="text-[16px] md:text-[18px] text-left leading-[1.8]">
           <p>
-            TypeScriptコミュニティの発展に共に取り組んでいただけるスポンサー企業を募集いたします。
-            希望される企業様はスポンサー向け資料をご確認の上、お申し込みください。
+            私たちの願いは、フロントエンドからバックエンド、インフラに至るまで、多様な分野のTypeScriptエンジニアたちが集い、普段は交流の少ないエンジニアたちが、それぞれの得意分野や最新の知見を交換し合う交流の場を創り出すことです。
           </p>
           <br />
           <p>
-            [1/26追記] 1次募集は2026/1/26 18:00 を持って終了いたしました。
-            2次募集は1次募集で残った枠数に応じて開始予定です。
-            公式サイトやXなどでお知らせしますので、今しばらくお待ちください。
+            あなたの発表が、誰かのキャリア、あるいはプロジェクトに新たな光をもたらすかもしれません。
           </p>
+          <p>ぜひ一緒に日本のTypeScriptコミュニティを盛り上げましょう！</p>
         </div>
         <Button
           asChild
           variant="default"
           size="lg"
-          className="rounded-full w-[280px] h-[60px] fill-primary hover:bg-[#1854FF]"
+          className="rounded-full w-[280px] h-[60px] fill-primary hover:bg-[#1854FF] text-white pl-10 pr-8"
         >
           <Link
-            href="/sponsors/call-for-sponsors"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfvXmITidCOR66fIpCvNubjWCUUe-chW78efxWuqyztyn72qg/viewform?usp=header"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-bold text-base leading-6"
+            className="font-bold flex text-base leading-6"
           >
-            TSKaigi 2026 協賛の案内
+            応募する
             <ArrowRight />
           </Link>
         </Button>
       </div>
     </div>
   );
-}
+};
