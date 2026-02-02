@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@tskaigi",
     creator: "@tskaigi",
-    images: ["/ogp.jpg"],
+    images: ["/ogp.png"],
   },
   openGraph: {
     title: {
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     description:
       "TSKaigiは日本最大級のTypeScriptをテーマとした技術カンファレンスです。2026/5/22 (金) - 23 (土) の日程で開催します。",
     type: "website",
-    images: ["/ogp.jpg"],
+    images: ["/ogp.png"],
   },
 };
 
