@@ -47,7 +47,7 @@ const SponsorsPage = () => {
               ) : (
                 <ul className="grid grid-cols-2 gap-4 md:grid-cols-5">
                   {value.map(
-                    (company, idx, value) =>
+                    (company, _idx, _value) =>
                       // 企業確認済みかつロゴ画像がある場合のみアイテムを表示
                       company.isTenantChecked &&
                       company.logoImage && (
