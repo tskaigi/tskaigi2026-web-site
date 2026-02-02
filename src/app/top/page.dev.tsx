@@ -1,10 +1,8 @@
-import Image from "next/image";
 import { ApplyToProposalSection } from "@/components/ApplyToProposalSection";
 import { CoreStaffSection } from "@/components/CoreStaffSection";
 import { HeroSection } from "@/components/HeroSection";
 import { JudgesSection } from "@/components/JudgesSection";
 import { SponsorsBoardSection } from "@/components/SponsorsBoardSection";
-import { HeroSectionWithMotion } from "../../components/HeroSectionWithMotion";
 import { MissionSection } from "../../components/MissionSection";
 import { SeekingSponsorsSection } from "./../_components/SeekingSponsorsSection";
 

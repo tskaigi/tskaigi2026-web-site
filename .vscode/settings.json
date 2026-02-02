@@ -6,5 +6,8 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports.biome": "explicit"
   },
+  "workbench.editorAssociations": {
+    "*.svg": "default"
+  },
   "typescript.experimental.useTsgo": true
 }

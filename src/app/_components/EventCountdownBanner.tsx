@@ -1,5 +1,4 @@
 import { ChevronDown } from "lucide-react";
-import Image from "next/image";
 import { CountdownTimer } from "./CountdownTimer";
 import { GridBackground } from "./GridBackground";
 
