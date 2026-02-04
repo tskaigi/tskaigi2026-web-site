@@ -3,7 +3,6 @@ import { CoreStaffSection } from "@/components/CoreStaffSection";
 import { HeroSection } from "@/components/HeroSection";
 import { JudgesSection } from "@/components/JudgesSection";
 import { MissionSection } from "@/components/MissionSection";
-import { SponsorsBoardSection } from "@/components/SponsorsBoardSection";
 import { SeekingSponsorsSection } from "./_components/SeekingSponsorsSection";
 
 export default function Home() {
@@ -13,7 +12,6 @@ export default function Home() {
       <MissionSection />
       <ApplyToProposalSection />
       <SeekingSponsorsSection />
-      <SponsorsBoardSection />
       <JudgesSection />
       <CoreStaffSection />
     </main>
