@@ -2,8 +2,8 @@ import { ApplyToProposalSection } from "@/components/ApplyToProposalSection";
 import { CoreStaffSection } from "@/components/CoreStaffSection";
 import { HeroSection } from "@/components/HeroSection";
 import { JudgesSection } from "@/components/JudgesSection";
-import { SponsorsBoardSection } from "@/components/SponsorsBoardSection";
 import { MissionSection } from "@/components/MissionSection";
+import { SponsorsBoardSection } from "@/components/SponsorsBoardSection";
 import { SeekingSponsorsSection } from "./_components/SeekingSponsorsSection";
 
 export default function Home() {
