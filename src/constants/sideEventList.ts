@@ -34,4 +34,19 @@ export const sideEventList: SideEvent[] = [
     sponsors: ["TSKaigi"],
     finishedAt: new Date("2026-01-27T19:30:00+09:00"),
   },
+  {
+    date: "2/24 (火)",
+    name: "TSKaigi Mashup Kansai 生成AIでTSを扱うときに考えたい設計&ガードレール",
+    link: "https://typescript-jpc.connpass.com/event/382128/",
+    thumbnail:
+      "https://media.connpass.com/thumbs/8b/3a/8b3a3badeb628dae262536c9d75c0fe2.png",
+    detail: `Claude Code、Codex、Cursor などの AI エージェントを活用した TypeScript 開発が当たり前になりつつあります。
+しかし、AI に「いい感じに書いて」と任せるだけでは、保守しづらいコードや意図しない設計が生まれがちです。
+AI の力を最大限引き出しつつ、品質を担保するにはガードレールの設計が欠かせません。
+
+本イベントは、AIエージェントを利用してTypeScript環境で開発を行う際に考えたい設計・ガードレールについて知見を共有する場とし、初級〜中級者の方でも学びを持ち帰れることを目指します。`,
+    tags: ["勉強会", "関西"],
+    sponsors: ["KINTOテクノロジーズ株式会社"],
+    finishedAt: new Date("2026-02-25T00:00:00+09:00"),
+  },
 ];
