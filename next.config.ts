@@ -1,7 +1,9 @@
 import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 import type { NextConfig } from "next";
 
-await initOpenNextCloudflareForDev();
+if (process.env.NODE_ENV === "development") {
+  await initOpenNextCloudflareForDev();
+}
 
 const projectRoot = process.cwd();
 
