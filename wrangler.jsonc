@@ -1,12 +1,17 @@
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
+  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "tskaigi2026-web-site",
-  "pages_build_output_dir": ".open-next",
+  "main": ".open-next",
   "compatibility_date": "2025-12-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
-  "upload_source_maps": true,
   "assets": {
     "directory": ".open-next/assets",
-    "binding": "assets"
-  }
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "tskaigi2026-web-site"
+    }
+  ]
 }
