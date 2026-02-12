@@ -5,8 +5,7 @@
   "packageManager": "pnpm@10.22.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "build:pages": "NODE_OPTIONS=--max-old-space-size=3072 opennextjs-cloudflare build && cp .open-next/worker.js .open-next/_worker.js && cp -R .open-next/assets/. .open-next/",
+    "build": "opennextjs-cloudflare build",
     "start": "next start",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
