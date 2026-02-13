@@ -4,9 +4,11 @@ export const metadata: Metadata = {
   title: "行動規範",
   twitter: {
     title: "行動規範",
+    images: ["/ogp.png"],
   },
   openGraph: {
     title: "行動規範",
+    images: ["/ogp.png"],
   },
   robots: "noindex, nofollow",
 };
