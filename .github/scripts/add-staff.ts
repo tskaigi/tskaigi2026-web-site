@@ -21,6 +21,7 @@ module.exports = async ({ core, context }: Args) => {
   const name = parseFormField(issueBody, "表示名").split("\n")[0];
   let imageUrl = parseFormField(issueBody, "アイコン画像 URL").split("\n")[0];
   // アイコン画像 URL が入力されていない場合は GitHub のアバター URL を使用
+  console.log("Parsed imageUrl:", imageUrl, githubAvatarUrl);
   if (!imageUrl.startsWith("http")) {
     imageUrl = githubAvatarUrl;
   }
