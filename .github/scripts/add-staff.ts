@@ -18,12 +18,11 @@ module.exports = async ({ core, context }: Args) => {
   const githubUserId = payload.issue.user.id;
   const githubAvatarUrl = payload.issue.user.avatar_url;
 
-  const name = parseFormField(issueBody, "表示名").split("\n")[0];
+  const name = parseFormField(issueBody, "表示名").split("\n")[0].trim();
   const imageUrl =
-    parseFormField(issueBody, "アイコン画像 URL").split("\n")[0] ||
+    parseFormField(issueBody, "アイコン画像 URL").split("\n")[0].trim() ||
     githubAvatarUrl;
-  const href = parseFormField(issueBody, "遷移先 URL").split("\n")[0];
-
+  const href = parseFormField(issueBody, "遷移先 URL").split("\n")[0].trim();
   const errors: string[] = [];
   if (!name) errors.push("表示名が入力されていません");
   if (!imageUrl) errors.push("アイコン画像 URLが入力されていません");
