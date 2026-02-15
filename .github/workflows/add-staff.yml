@@ -1,0 +1,101 @@
+name: Add Staff
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  add-staff:
+    # タイトルをみてスタッフ情報追加・更新のIssueかを判定
+    if: |
+      startsWith(github.event.issue.title, 'スタッフ情報追加・更新')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      # このジョブで拾ったIssueには staff ラベルを付与（運用しやすくなる）
+      - name: Ensure staff label on issue
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const labels = (context.payload.issue.labels || []).map(l => l.name);
+            if (!labels.includes('staff')) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: ['staff'],
+              });
+            }
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Parse issue body and generate code
+        id: parse
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const script = require('./.github/scripts/add-staff.ts');
+            await script({ context, core });
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: "10.22.0"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Format and lint
+        run: |
+          pnpm biome format --write src/constants/staff/*
+          pnpm biome check --write src/constants/staff/* || true
+
+      - name: TypeScript check
+        run: pnpm typecheck
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.TSKAIGI_2026_WEBSITE_ACTIONS }}
+          commit-message: "feat: add staff - ${{ steps.parse.outputs.name }}"
+          title: "feat: スタッフ追加 - ${{ steps.parse.outputs.name }}"
+          body: |
+            ## 概要
+            イシュー #${{ github.event.issue.number }} からスタッフを自動追加しました。
+
+            ## 追加されるスタッフ
+            - **名前**: ${{ steps.parse.outputs.name }}
+            - **アイコン画像パス**: ${{ steps.parse.outputs.image }}  
+            - **遷移先 URL**: ${{ steps.parse.outputs.href }}
+
+            ---
+            このPRは自動生成されました。内容を確認してマージしてください。
+
+            Closes #${{ github.event.issue.number }}
+          branch: staff/issue-${{ github.event.issue.number }}
+          delete-branch: true
+          labels: |
+            staff
+            automated
+          # team-reviewers: 2026-website
+
+      - name: Comment on issue
+        uses: actions/github-script@v8
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '✅ スタッフの追加PRを作成しました！\n\nPRをレビューしてマージしてください。'
+            });
