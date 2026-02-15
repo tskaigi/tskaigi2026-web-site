@@ -22,6 +22,8 @@ export function StaffSection() {
     return [...alphabetStaff, ...japaneseStaff];
   }, []);
 
+  if (sortedStaffList.length <= 0) return null;
+
   return (
     <section className="w-full pb-10 md:pb-20 bg-blue-light-100">
       <h2 className="text-[24px] lg:text-[28px] leading-normal text-center font-bold pb-8 md:pb-10">
