@@ -45,7 +45,8 @@ module.exports = async ({ core, context }: Args) => {
   const imageUrlObj = new URL(imageUrl);
   const ext = path.extname(imageUrlObj.pathname);
   const imageBytes = await (await fetch(imageUrl)).bytes();
-  const imagePath = `/staff/${githubUserId}${ext}`;
+  // 拡張子がない場合でもdiffで表示できるように.pngで保存する
+  const imagePath = `/staff/${githubUserId}${ext || ".png"}`;
   fs.writeFileSync(`public${imagePath}`, imageBytes);
 
   // 出力を設定（PR用）
