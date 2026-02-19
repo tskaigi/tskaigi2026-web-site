@@ -19,6 +19,26 @@ const coreStaffList = [
     image: "/coreStaff/niwa-takeru.jpg",
     href: "https://x.com/niwa_takeru",
   },
+  {
+    name: "yuta-ike",
+    image: "/coreStaff/yuta-ike.jpg",
+    href: "https://x.com/Selria1",
+  },
+  {
+    name: "kemuridama",
+    image: "/coreStaff/kemuridama.jpg",
+    href: "https://x.com/_kemuridama",
+  },
+  {
+    name: "midori",
+    image: "/coreStaff/midori.jpg",
+    href: "https://x.com/midori697810050",
+  },
+  {
+    name: "suke",
+    image: "/coreStaff/suke.jpg",
+    href: "https://x.com/suke083",
+  },
 ];
 
 export function CoreStaffSection() {
