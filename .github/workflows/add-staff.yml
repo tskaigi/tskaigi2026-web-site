@@ -87,7 +87,7 @@ jobs:
           labels: |
             staff
             automated
-          # team-reviewers: 2026-website
+          team-reviewers: 2026-website
 
       - name: Comment on issue
         uses: actions/github-script@v8
