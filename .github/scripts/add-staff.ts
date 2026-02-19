@@ -29,7 +29,6 @@ module.exports = async ({ core, context }: Args) => {
   const errors: string[] = [];
   if (!name) errors.push("表示名が入力されていません");
   if (!imageUrl) errors.push("アイコン画像 URLが入力されていません");
-  if (!href) errors.push("遷移先 URLが入力されていません");
 
   if (errors.length > 0) {
     core.setFailed(`入力エラー:\n${errors.join("\n")}`);
