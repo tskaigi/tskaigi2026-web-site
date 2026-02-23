@@ -12,16 +12,12 @@ export function SessionWrapper({ talk }: Props) {
   return (
     <EventWrapper talkType={talk.talkType} textAlign="left" track={talk.track}>
       <div className="flex flex-col gap-1">
-        {talk.speaker.username ? (
-          <Link
-            href={`/talks/${talk.speaker.username}`}
-            className="underline hover:text-blue-purple-500"
-          >
-            <p className="text-16">{talk.title}</p>
-          </Link>
-        ) : (
+        <Link
+          href={`/talks/${talk.id}`}
+          className="underline hover:text-blue-purple-500"
+        >
           <p className="text-16">{talk.title}</p>
-        )}
+        </Link>
         <div className="flex items-center gap-2">
           {shouldDisplaySpeakerInfo(talk.talkType) && (
             <span className="text-14">{talk.speaker.name}</span>

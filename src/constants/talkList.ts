@@ -1846,13 +1846,6 @@ TypeScript を学ぶ上で、「型」はしばしば静的なラベルのよう
   },
 ];
 
-// TODO: 最終的には username のみを見る
-export const usernames = talkList.map((talk) => ({
-  username: talk.speaker.username || talk.id,
+export const talkIds = talkList.map((talk) => ({
+  id: talk.id,
 }));
-
-export const talkUsernames = talkList
-  .filter((talk) => talk.speaker.username)
-  .map((talk) => ({
-    username: talk.speaker.username,
-  }));

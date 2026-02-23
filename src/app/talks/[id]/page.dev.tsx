@@ -4,12 +4,12 @@ import Link from "next/link";
 import type { ComponentProps } from "react";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
-import { TALK_TYPE, TRACK, usernames } from "@/constants/talkList";
+import { TALK_TYPE, TRACK, talkIds } from "@/constants/talkList";
 import { getTalk } from "@/utils/getTalk";
 import { shouldDisplaySpeakerInfo } from "@/utils/shouldDisplaySpeakerInfo";
 
 export async function generateStaticParams() {
-  return usernames;
+  return talkIds;
 }
 
 const description = "TSKaigi 2025 のスピーカー、トーク情報です。";
@@ -17,10 +17,10 @@ const description = "TSKaigi 2025 のスピーカー、トーク情報です。"
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ username: string }>;
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const { username } = await params;
-  const talk = getTalk(username);
+  const { id } = await params;
+  const talk = getTalk(id);
 
   return {
     title: talk.title,
@@ -82,10 +82,10 @@ const components: ComponentProps<typeof Markdown>["components"] = {
 export default async function TalkDetailPage({
   params,
 }: {
-  params: Promise<{ username: string }>;
+  params: Promise<{ id: string }>;
 }) {
-  const { username } = await params;
-  const talk = getTalk(username);
+  const { id } = await params;
+  const talk = getTalk(id);
 
   return (
     <main className="bg-blue-light-100 pt-16 pb-10 md:py-16 md:px-8 lg:px-10">

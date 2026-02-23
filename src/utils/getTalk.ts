@@ -2,15 +2,12 @@ import { notFound } from "next/navigation";
 import { type Talk, talkList } from "@/constants/talkList";
 
 /**
- * Usernameを元にトーク情報を取得する
- * @param username - スピーカーのusername
+ * IDを元にトーク情報を取得する
+ * @param id - トークのID
  * @returns トーク情報
  */
-export function getTalk(username: string): Talk {
-  const talk = Object.values(talkList)
-    .flat()
-    // TODO: 最終的には username のみを見る
-    .find((talk) => talk.speaker.username === username || talk.id === username);
+export function getTalk(id: string): Talk {
+  const talk = talkList.find((talk) => talk.id === id);
 
   if (!talk) notFound();
 
