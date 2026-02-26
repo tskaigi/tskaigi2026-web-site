@@ -1,7 +1,13 @@
-import type { GroupedSponsors, SponsorApiResponse } from "@/types/sponsor-api";
+import type {
+  GroupedSponsors,
+  SponsorApiResponse,
+  SponsorPlan,
+} from "@/types/sponsor-api";
 
 const SPONSORS_API_URL =
   "https://tskaigi-cms.system-admin-df1.workers.dev/api/sponsors";
+
+const SPONSOR_PLANS: SponsorPlan[] = ["platinum", "gold", "silver", "bronze"];
 
 export async function fetchSponsors(): Promise<GroupedSponsors> {
   const response = await fetch(SPONSORS_API_URL, {
@@ -14,7 +20,6 @@ export async function fetchSponsors(): Promise<GroupedSponsors> {
 
   const sponsors: SponsorApiResponse[] = await response.json();
 
-  // プランごとにグループ化し、displayOrderでソート
   const grouped: GroupedSponsors = {
     platinum: [],
     gold: [],
@@ -26,8 +31,7 @@ export async function fetchSponsors(): Promise<GroupedSponsors> {
     grouped[sponsor.plan].push(sponsor);
   }
 
-  // 各プランのスポンサーをdisplayOrderでソート
-  for (const plan of Object.keys(grouped) as Array<keyof GroupedSponsors>) {
+  for (const plan of SPONSOR_PLANS) {
     grouped[plan].sort((a, b) => a.displayOrder - b.displayOrder);
   }
 
