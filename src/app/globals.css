@@ -3,6 +3,10 @@
 @import "./theme.css";
 
 :root {
+  --track-toggle: #0cf8c0;
+  --track-ascend: #005faa;
+  --track-leverages: #000000;
+
   --white: #ffffff;
 
   --black-100: #fafafe;
@@ -140,6 +144,9 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-track-toggle: var(--track-toggle);
+  --color-track-ascend: var(--track-ascend);
+  --color-track-leverages: var(--track-leverages);
 }
 
 .dark {
