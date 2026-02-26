@@ -2,11 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { studentSupportSponsorList } from "@/constants/studentSupportSponsorList";
 import { cn } from "@/lib/utils";
-import { sponsorList } from "../../constants/sponsorList";
+import type { GroupedSponsors } from "@/types/sponsor-api";
 import { SponsorsBoardItem } from "./SponsorsBoardItem";
 import { SponsorsBoardTitle } from "./SponsorsBoardTitle";
 
-export function SponsorsBoardSection({ isWip = false }: { isWip?: boolean }) {
+export function SponsorsBoardSection({
+  sponsors,
+  isWip = false,
+}: {
+  sponsors: GroupedSponsors;
+  isWip?: boolean;
+}) {
   return (
     <section className="w-full md:px-10 bg-blue-light-100">
       <h2 className="pt-10 pb-8 lg:pt-16 lg:pb-10 flex flex-col md:flex-row md:justify-center md:gap-2text-[24px] lg:text-[32px] md:text-[28px] text-[24px] text-center font-bold font-noto">
@@ -22,24 +28,17 @@ export function SponsorsBoardSection({ isWip = false }: { isWip?: boolean }) {
           </h3>
         </SponsorsBoardTitle>
         <div className="pt-6 px-6 md:px-0 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full max-w-7xl mx-auto">
-          {sponsorList.platinum.map(
-            (sponsor) =>
-              // 企業確認済みかつロゴ画像がある場合、またはwipページの時アイテムを表示
-              ((sponsor.isTenantChecked && sponsor.logoImage) || isWip) && (
-                <SponsorsBoardItem
-                  key={sponsor.id}
-                  className={cn(
-                    "w-full h-full",
-                    sponsor.addPadding ? "p-8" : "p-4",
-                  )}
-                  src={sponsor.logoImage}
-                  alt={sponsor.name}
-                  href={sponsor.logoLink}
-                  width={389}
-                  height={192}
-                />
-              ),
-          )}
+          {sponsors.platinum.map((sponsor) => (
+            <SponsorsBoardItem
+              key={sponsor.id}
+              className="w-full h-full p-4"
+              src={sponsor.logoImage}
+              alt={sponsor.name}
+              href={sponsor.logoLink}
+              width={389}
+              height={192}
+            />
+          ))}
         </div>
       </div>
 
@@ -51,24 +50,17 @@ export function SponsorsBoardSection({ isWip = false }: { isWip?: boolean }) {
           </h3>
         </SponsorsBoardTitle>
         <div className="pt-6 px-6 md:px-0 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full max-w-7xl mx-auto">
-          {sponsorList.gold.map(
-            (sponsor) =>
-              // 企業確認済みかつロゴ画像がある場合、またはwipページの時アイテムを表示
-              ((sponsor.isTenantChecked && sponsor.logoImage) || isWip) && (
-                <SponsorsBoardItem
-                  key={sponsor.id}
-                  className={cn(
-                    "w-full h-full",
-                    sponsor.addPadding ? "p-8" : "p-4",
-                  )}
-                  src={sponsor.logoImage}
-                  alt={sponsor.name}
-                  href={sponsor.logoLink}
-                  width={288}
-                  height={144}
-                />
-              ),
-          )}
+          {sponsors.gold.map((sponsor) => (
+            <SponsorsBoardItem
+              key={sponsor.id}
+              className="w-full h-full p-4"
+              src={sponsor.logoImage}
+              alt={sponsor.name}
+              href={sponsor.logoLink}
+              width={288}
+              height={144}
+            />
+          ))}
         </div>
       </div>
 
@@ -80,24 +72,17 @@ export function SponsorsBoardSection({ isWip = false }: { isWip?: boolean }) {
           </h3>
         </SponsorsBoardTitle>
         <div className="pt-6 px-6 md:px-0 grid gap-3 md:gap-4 grid-cols-3 md:grid-cols-4 lg:grid-cols-5 w-full max-w-7xl mx-auto">
-          {sponsorList.silver.map(
-            (sponsor) =>
-              // 企業確認済みかつロゴ画像がある場合、またはwipページの時アイテムを表示
-              ((sponsor.isTenantChecked && sponsor.logoImage) || isWip) && (
-                <SponsorsBoardItem
-                  key={sponsor.id}
-                  className={cn(
-                    "w-full h-full",
-                    sponsor.addPadding ? "p-4" : "p-2",
-                  )}
-                  src={sponsor.logoImage}
-                  alt={sponsor.name}
-                  href={sponsor.logoLink}
-                  width={227}
-                  height={112}
-                />
-              ),
-          )}
+          {sponsors.silver.map((sponsor) => (
+            <SponsorsBoardItem
+              key={sponsor.id}
+              className="w-full h-full p-2"
+              src={sponsor.logoImage}
+              alt={sponsor.name}
+              href={sponsor.logoLink}
+              width={227}
+              height={112}
+            />
+          ))}
         </div>
       </div>
 
@@ -109,24 +94,17 @@ export function SponsorsBoardSection({ isWip = false }: { isWip?: boolean }) {
           </h3>
         </SponsorsBoardTitle>
         <div className="pt-6 px-6 md:px-0 grid gap-2 md:gap-4 grid-cols-4 md:grid-cols-5 lg:grid-cols-6 w-full max-w-7xl mx-auto">
-          {sponsorList.bronze.map(
-            (sponsor) =>
-              // 企業確認済みかつロゴ画像がある場合、またはwipページの時アイテムを表示
-              ((sponsor.isTenantChecked && sponsor.logoImage) || isWip) && (
-                <SponsorsBoardItem
-                  key={sponsor.id}
-                  className={cn(
-                    "w-full h-full",
-                    sponsor.addPadding ? "p-4" : "p-2",
-                  )}
-                  src={sponsor.logoImage}
-                  alt={sponsor.name}
-                  href={sponsor.logoLink}
-                  width={186}
-                  height={96}
-                />
-              ),
-          )}
+          {sponsors.bronze.map((sponsor) => (
+            <SponsorsBoardItem
+              key={sponsor.id}
+              className="w-full h-full p-2"
+              src={sponsor.logoImage}
+              alt={sponsor.name}
+              href={sponsor.logoLink}
+              width={186}
+              height={96}
+            />
+          ))}
         </div>
       </div>
 
