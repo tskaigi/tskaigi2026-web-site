@@ -1,7 +1,4 @@
-import type {
-  GroupedSponsors,
-  SponsorApiResponse,
-} from "@/types/sponsor-api";
+import type { GroupedSponsors, SponsorApiResponse } from "@/types/sponsor-api";
 
 const SPONSORS_API_URL =
   "https://tskaigi-cms.system-admin-df1.workers.dev/api/sponsors";
