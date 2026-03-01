@@ -3,6 +3,7 @@ import { CoreStaffSection } from "@/components/CoreStaffSection";
 import { HeroSection } from "@/components/HeroSection";
 import { JudgesSection } from "@/components/JudgesSection";
 import { MissionSection } from "@/components/MissionSection";
+import { SponsorsBoardSection } from "@/components/SponsorsBoardSection";
 import { StaffSection } from "@/components/StaffSection";
 import { SeekingSponsorsSection } from "./_components/SeekingSponsorsSection";
 
@@ -13,6 +14,7 @@ export default async function Home() {
       <MissionSection />
       <ApplyToProposalSection />
       <SeekingSponsorsSection />
+      <SponsorsBoardSection />
       <JudgesSection />
       <CoreStaffSection />
       <StaffSection />
