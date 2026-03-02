@@ -4,6 +4,11 @@
   "private": true,
   "packageManager": "pnpm@10.22.0",
   "scripts": {
+    "generate:staff-list": "node scripts/generate-staff-list.mjs",
+    "predev": "pnpm -s generate:staff-list",
+    "prebuild": "pnpm -s generate:staff-list",
+    "prepages:build": "pnpm -s generate:staff-list",
+    "precheck": "pnpm -s generate:staff-list",
     "dev": "next dev",
     "build": "next build",
     "pages:build": "opennextjs-cloudflare build && node scripts/build-pages-output.mjs",
