@@ -1,0 +1,7 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tskaigi2026-web-site",
+  "compatibility_date": "2026-02-26",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "pages_build_output_dir": ".open-next/pages"
+}

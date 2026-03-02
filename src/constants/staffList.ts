@@ -1,4 +1,4 @@
-import { globSync, readFileSync } from "node:fs";
+import { staffListData } from "./staff.generated";
 
 export type Staff = {
   name: string;
@@ -7,13 +7,5 @@ export type Staff = {
 };
 
 export function getStaffList(): Staff[] {
-  const staffFiles = globSync("src/constants/staff/*.json");
-  const staffList: Staff[] = [];
-
-  for (const file of staffFiles) {
-    const staffData = JSON.parse(readFileSync(file, "utf-8")) as Staff;
-    staffList.push(staffData);
-  }
-
-  return staffList;
+  return [...staffListData] as Staff[];
 }
