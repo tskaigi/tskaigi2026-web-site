@@ -123,29 +123,24 @@ export async function SponsorsBoardSection() {
             学生支援
           </h3>
         </SponsorsBoardTitle>
-        <div className="pt-6 flex flex-col items-center gap-2 md:gap-4 w-full max-w-7xl mx-auto">
-          <div className="flex justify-center gap-2 md:gap-4 w-full">
-            {studentSupports.map((sponsor) => (
-              <Link
-                href={sponsor.logoLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="aspect-video w-[22%] md:w-[18%] lg:w-[16%]"
-                key={sponsor.id}
-              >
-                <Image
-                  src={sponsor.logoImage}
-                  alt={sponsor.name}
-                  width={186}
-                  height={96}
-                  className={cn(
-                    "object-contain rounded-[10px] bg-white w-full h-full",
-                    // sponsor.addPadding ? "p-4" : "p-2",
-                  )}
-                />
-              </Link>
-            ))}
-          </div>
+        <div className="pt-6 flex justify-center flex-wrap gap-2 md:gap-4 w-full max-w-7xl mx-auto">
+          {studentSupports.map((sponsor) => (
+            <Link
+              href={sponsor.logoLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="aspect-video w-[22%] md:w-[18%] lg:w-[16%]"
+              key={sponsor.id}
+            >
+              <Image
+                src={sponsor.logoImage}
+                alt={sponsor.name}
+                width={186}
+                height={96}
+                className="object-contain rounded-[10px] bg-white w-full h-full"
+              />
+            </Link>
+          ))}
         </div>
       </div>
     </section>
