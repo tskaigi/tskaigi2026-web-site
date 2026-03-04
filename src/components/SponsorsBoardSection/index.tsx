@@ -137,7 +137,7 @@ export async function SponsorsBoardSection() {
                 alt={sponsor.name}
                 width={186}
                 height={96}
-                className="object-contain rounded-[10px] bg-white w-full h-full"
+                className="object-contain rounded-[10px] bg-white w-full h-full p-2"
               />
             </Link>
           ))}
