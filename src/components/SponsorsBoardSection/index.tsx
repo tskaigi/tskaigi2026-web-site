@@ -112,58 +112,12 @@ export async function SponsorsBoardSection() {
         </SponsorsBoardTitle>
         <div className="pt-6 flex flex-col items-center gap-2 md:gap-4 w-full max-w-7xl mx-auto">
           <div className="flex justify-center gap-2 md:gap-4 w-full">
-            {studentSupportSponsorList.high.map((sponsor) => (
+            {studentSupportSponsorList.map((sponsor) => (
               <Link
                 href={sponsor.logoLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="aspect-video w-[22%] md:w-[18%] lg:w-[16%]"
-                key={sponsor.id}
-              >
-                <Image
-                  src={sponsor.logoImage}
-                  alt={sponsor.name}
-                  width={186}
-                  height={96}
-                  className={cn(
-                    "object-contain rounded-[10px] bg-white w-full h-full",
-                    sponsor.addPadding ? "p-4" : "p-2",
-                  )}
-                />
-              </Link>
-            ))}
-          </div>
-
-          <div className="flex justify-center gap-2 md:gap-4 w-full">
-            {studentSupportSponsorList.medium.map((sponsor) => (
-              <Link
-                href={sponsor.logoLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="aspect-video w-[20%] md:w-[16%] lg:w-[14%]"
-                key={sponsor.id}
-              >
-                <Image
-                  src={sponsor.logoImage}
-                  alt={sponsor.name}
-                  width={186}
-                  height={96}
-                  className={cn(
-                    "object-contain rounded-[10px] bg-white w-full h-full",
-                    sponsor.addPadding ? "p-4" : "p-2",
-                  )}
-                />
-              </Link>
-            ))}
-          </div>
-
-          <div className="flex justify-center gap-2 md:gap-4 w-full">
-            {studentSupportSponsorList.low.map((sponsor) => (
-              <Link
-                href={sponsor.logoLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="aspect-video w-[18%] md:w-[14%] lg:w-[12%]"
                 key={sponsor.id}
               >
                 <Image
