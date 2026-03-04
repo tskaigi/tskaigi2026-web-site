@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { studentSupportSponsorList } from "@/constants/studentSupportSponsorList";
 import { fetchSponsors } from "@/lib/fetch-sponsors";
 import { cn } from "@/lib/utils";
 import { SponsorsBoardItem } from "./SponsorsBoardItem";
@@ -8,6 +7,20 @@ import { SponsorsBoardTitle } from "./SponsorsBoardTitle";
 
 export async function SponsorsBoardSection() {
   const sponsors = await fetchSponsors();
+  const studentSupports = [
+    ...sponsors.platinum.filter((v) =>
+      v.sponsorOptions.includes("student_support"),
+    ),
+    ...sponsors.gold.filter((v) =>
+      v.sponsorOptions.includes("student_support"),
+    ),
+    ...sponsors.silver.filter((v) =>
+      v.sponsorOptions.includes("student_support"),
+    ),
+    ...sponsors.bronze.filter((v) =>
+      v.sponsorOptions.includes("student_support"),
+    ),
+  ];
   return (
     <section className="w-full md:px-10 bg-blue-light-100">
       <h2 className="pt-10 pb-8 lg:pt-16 lg:pb-10 flex flex-col md:flex-row md:justify-center md:gap-2text-[24px] lg:text-[32px] md:text-[28px] text-[24px] text-center font-bold font-noto">
@@ -112,7 +125,7 @@ export async function SponsorsBoardSection() {
         </SponsorsBoardTitle>
         <div className="pt-6 flex flex-col items-center gap-2 md:gap-4 w-full max-w-7xl mx-auto">
           <div className="flex justify-center gap-2 md:gap-4 w-full">
-            {studentSupportSponsorList.map((sponsor) => (
+            {studentSupports.map((sponsor) => (
               <Link
                 href={sponsor.logoLink}
                 target="_blank"
@@ -127,7 +140,7 @@ export async function SponsorsBoardSection() {
                   height={96}
                   className={cn(
                     "object-contain rounded-[10px] bg-white w-full h-full",
-                    sponsor.addPadding ? "p-4" : "p-2",
+                    // sponsor.addPadding ? "p-4" : "p-2",
                   )}
                 />
               </Link>
