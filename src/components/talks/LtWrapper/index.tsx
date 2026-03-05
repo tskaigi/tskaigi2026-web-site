@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
 import { EventWrapper } from "@/components/talks/EventWrapper";
 import type { Talk } from "@/constants/talkList";
 
@@ -30,6 +31,9 @@ export function LtWrapper({ talks }: Props) {
                   className="h-6 w-6 rounded-full aspect-square shrink-0 object-cover"
                 />
               )}
+            </div>
+            <div>
+              <AddToMyTimetableButton talkId={talk.id} iconOnly />
             </div>
           </div>
         ))}

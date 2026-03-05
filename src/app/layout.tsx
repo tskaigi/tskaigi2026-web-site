@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { GlobalToast } from "@/components/ui/GlobalToast";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -83,6 +84,7 @@ export default function RootLayout({
             <Header />
             {children}
             <Footer />
+            <GlobalToast />
           </div>
         </Suspense>
       </body>
