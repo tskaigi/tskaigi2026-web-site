@@ -1,6 +1,7 @@
 import { type Talk, talkList } from "@/constants/talkList";
 
 export const MY_TIMETABLE_STORAGE_KEY = "tskaigi:my-timetable-talk-ids";
+export const MY_PARTICIPATED_STORAGE_KEY = "tskaigi:my-participated-talk-ids";
 
 export type TalkWithMinutes = Talk & {
   startMinutes: number;
@@ -59,6 +60,39 @@ export function writeMyTimetableIds(ids: string[]) {
   localStorage.setItem(MY_TIMETABLE_STORAGE_KEY, JSON.stringify(normalized));
 }
 
+export function readMyParticipatedIds(): string[] {
+  const raw = localStorage.getItem(MY_PARTICIPATED_STORAGE_KEY);
+  if (!raw) return [];
+
+  try {
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return normalizeIds(parsed.filter((value) => typeof value === "string"));
+  } catch {
+    return [];
+  }
+}
+
+export function writeMyParticipatedIds(ids: string[]) {
+  const normalized = normalizeIds(ids);
+  localStorage.setItem(
+    MY_PARTICIPATED_STORAGE_KEY,
+    JSON.stringify(normalized),
+  );
+}
+
+export function markAsParticipated(talkId: string) {
+  const timetableIds = readMyTimetableIds();
+  if (!timetableIds.includes(talkId)) {
+    writeMyTimetableIds([...timetableIds, talkId]);
+  }
+
+  const participatedIds = readMyParticipatedIds();
+  if (!participatedIds.includes(talkId)) {
+    writeMyParticipatedIds([...participatedIds, talkId]);
+  }
+}
+
 export function getTalkWithMinutesById(id: string): TalkWithMinutes | null {
   const talk = talkList.find((item) => item.id === id);
   if (!talk) return null;
@@ -105,4 +139,48 @@ export function decodeMyTimetableToken(token: string): string[] {
       .map((chunk) => chunk.trim())
       .filter((chunk) => !!chunk),
   );
+}
+
+export type MyTimetableQuery = {
+  ids: string[];
+  participatedIds: string[];
+};
+
+export function parseMyTimetableQuery(
+  searchParams: URLSearchParams,
+): MyTimetableQuery | null {
+  const mToken = searchParams.get("m");
+  const pToken = searchParams.get("p");
+
+  if (!mToken && !pToken) return null;
+
+  const mIds = mToken ? decodeMyTimetableToken(mToken) : [];
+  const pIds = pToken ? decodeMyTimetableToken(pToken) : [];
+
+  const allIds = normalizeIds([...mIds, ...pIds]);
+  const participatedIds = normalizeIds(pIds);
+
+  return { ids: allIds, participatedIds };
+}
+
+export function encodeMyTimetableQuery(
+  ids: string[],
+  participatedIds: string[],
+): { m?: string; p?: string } {
+  const participatedSet = new Set(normalizeIds(participatedIds));
+  const nonParticipated = normalizeIds(ids).filter(
+    (id) => !participatedSet.has(id),
+  );
+  const participated = normalizeIds(
+    ids.filter((id) => participatedSet.has(id)),
+  );
+
+  const result: { m?: string; p?: string } = {};
+  if (nonParticipated.length > 0) {
+    result.m = nonParticipated.join(".");
+  }
+  if (participated.length > 0) {
+    result.p = participated.join(".");
+  }
+  return result;
 }
