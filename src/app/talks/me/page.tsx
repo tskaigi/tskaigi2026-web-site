@@ -15,10 +15,11 @@ import {
 } from "@/constants/talkList";
 import { Input } from "@/ui/input";
 import {
-  decodeMyTimetableToken,
-  encodeMyTimetableToken,
+  encodeMyTimetableQuery,
   normalizeIds,
+  parseMyTimetableQuery,
   parseTalkTimeToMinutes,
+  readMyParticipatedIds,
   readMyTimetableIds,
   type TalkWithMinutes,
   writeMyTimetableIds,
@@ -65,13 +66,15 @@ function parseTalkIds(searchParams: URLSearchParams): string[] {
   );
 }
 
-function parseTalkIdsFromQuery(searchParams: URLSearchParams): string[] {
-  const token = searchParams.get("m");
-  if (token && token.length > 0) {
-    return decodeMyTimetableToken(token);
-  }
+function parseTalkIdsFromQuery(searchParams: URLSearchParams): {
+  ids: string[];
+  participatedIds: string[];
+} {
+  const parsed = parseMyTimetableQuery(searchParams);
+  if (parsed) return parsed;
 
-  return normalizeIds(parseTalkIds(searchParams));
+  const legacyIds = normalizeIds(parseTalkIds(searchParams));
+  return { ids: legacyIds, participatedIds: [] };
 }
 
 function areSameIdSet(a: string[], b: string[]): boolean {
@@ -187,11 +190,13 @@ function TimelineAxis({ timelineHeight }: { timelineHeight: number }) {
 function TimelineColumn({
   eventDate,
   talks,
+  participatedIds,
   onClickTimeSlot,
   onRemoveTalk,
 }: {
   eventDate: EventDate;
   talks: TalkWithMinutes[];
+  participatedIds: Set<string>;
   onClickTimeSlot: (eventDate: EventDate, minutes: number) => void;
   onRemoveTalk: (id: string) => void;
 }) {
@@ -257,6 +262,7 @@ function TimelineColumn({
 
         const left = `calc(${(100 / talk.columnCount) * talk.columnIndex}% + 8px)`;
         const width = `calc(${100 / talk.columnCount}% - 10px)`;
+        const isParticipated = participatedIds.has(talk.id);
 
         return (
           <div
@@ -287,6 +293,12 @@ function TimelineColumn({
             >
               <X size={14} />
             </button>
+            {isParticipated && (
+              <span className="absolute right-1 bottom-1 z-10 inline-flex items-center gap-0.5 rounded-full bg-green-100 px-1.5 py-0.5 text-[9px] font-bold text-green-700">
+                <Check size={10} />
+                参加
+              </span>
+            )}
             <p className="relative z-10 text-[10px] text-black-500 pr-4">
               {talk.time}
             </p>
@@ -316,10 +328,12 @@ function TimelineColumn({
 
 function DesktopTimeline({
   talksByDate,
+  participatedIds,
   onClickTimeSlot,
   onRemoveTalk,
 }: {
   talksByDate: Record<EventDate, TalkWithMinutes[]>;
+  participatedIds: Set<string>;
   onClickTimeSlot: (eventDate: EventDate, minutes: number) => void;
   onRemoveTalk: (id: string) => void;
 }) {
@@ -348,12 +362,14 @@ function DesktopTimeline({
         <TimelineColumn
           eventDate="DAY1"
           talks={talksByDate.DAY1}
+          participatedIds={participatedIds}
           onClickTimeSlot={onClickTimeSlot}
           onRemoveTalk={onRemoveTalk}
         />
         <TimelineColumn
           eventDate="DAY2"
           talks={talksByDate.DAY2}
+          participatedIds={participatedIds}
           onClickTimeSlot={onClickTimeSlot}
           onRemoveTalk={onRemoveTalk}
         />
@@ -365,12 +381,14 @@ function DesktopTimeline({
 function MobileTimeline({
   currentEventDate,
   talksByDate,
+  participatedIds,
   onClickTimeSlot,
   onRemoveTalk,
   onTabChange,
 }: {
   currentEventDate: EventDate;
   talksByDate: Record<EventDate, TalkWithMinutes[]>;
+  participatedIds: Set<string>;
   onClickTimeSlot: (eventDate: EventDate, minutes: number) => void;
   onRemoveTalk: (id: string) => void;
   onTabChange: (date: EventDate) => void;
@@ -392,6 +410,7 @@ function MobileTimeline({
         <TimelineColumn
           eventDate={currentEventDate}
           talks={talksByDate[currentEventDate]}
+          participatedIds={participatedIds}
           onClickTimeSlot={onClickTimeSlot}
           onRemoveTalk={onRemoveTalk}
         />
@@ -406,6 +425,7 @@ export default function MyTimetablePage() {
   const searchParams = useSearchParams();
 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [participatedIds, setParticipatedIds] = useState<string[]>([]);
   const [savedIds, setSavedIds] = useState<string[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
   const [isAddPanelOpen, setIsAddPanelOpen] = useState(false);
@@ -468,8 +488,16 @@ export default function MyTimetablePage() {
     },
   );
 
+  const participatedIdsSet = useMemo(
+    () => new Set(participatedIds),
+    [participatedIds],
+  );
+
   const hasQueryIds =
-    searchParams.has("m") || searchParams.has("id") || searchParams.has("ids");
+    searchParams.has("m") ||
+    searchParams.has("p") ||
+    searchParams.has("id") ||
+    searchParams.has("ids");
 
   useEffect(() => {
     const storageIds = readMyTimetableIds();
@@ -477,15 +505,22 @@ export default function MyTimetablePage() {
     setSavedIds(storageIds);
 
     if (!isInitialized) {
-      const queryIds = parseTalkIdsFromQuery(searchParams);
-      setSelectedIds(queryIds.length > 0 ? queryIds : storageIds);
+      const query = parseTalkIdsFromQuery(searchParams);
+      if (query.ids.length > 0) {
+        setSelectedIds(query.ids);
+        setParticipatedIds(query.participatedIds);
+      } else {
+        setSelectedIds(storageIds);
+        setParticipatedIds(readMyParticipatedIds());
+      }
       setIsInitialized(true);
       return;
     }
 
     if (hasQueryIds) {
-      const queryIds = parseTalkIdsFromQuery(searchParams);
-      setSelectedIds(queryIds);
+      const query = parseTalkIdsFromQuery(searchParams);
+      setSelectedIds(query.ids);
+      setParticipatedIds(query.participatedIds);
     }
   }, [searchParams, hasQueryIds, isInitialized]);
 
@@ -494,15 +529,22 @@ export default function MyTimetablePage() {
     setBaseUrl(window.location.origin);
   }, []);
 
-  const updateQuery = (ids: string[]) => {
+  const updateQuery = (
+    ids: string[],
+    participated: string[] = participatedIds,
+  ) => {
     const next = new URLSearchParams(searchParams.toString());
     next.delete("m");
+    next.delete("p");
     next.delete("id");
     next.delete("ids");
 
-    const token = encodeMyTimetableToken(ids);
-    if (token.length > 0) {
-      next.set("m", token);
+    const tokens = encodeMyTimetableQuery(ids, participated);
+    if (tokens.m) {
+      next.set("m", tokens.m);
+    }
+    if (tokens.p) {
+      next.set("p", tokens.p);
     }
 
     const query = next.toString();
@@ -552,16 +594,19 @@ export default function MyTimetablePage() {
   };
 
   const removeTalk = (id: string) => {
+    const nextParticipated = participatedIds.filter((pid) => pid !== id);
+    setParticipatedIds(nextParticipated);
     setSelectedIds((prev) => {
       const next = prev.filter((currentId) => currentId !== id);
-      updateQuery(next);
+      updateQuery(next, nextParticipated);
       return next;
     });
   };
 
   const clearTalks = () => {
     setSelectedIds([]);
-    updateQuery([]);
+    setParticipatedIds([]);
+    updateQuery([], []);
   };
 
   const saveToLocalStorage = () => {
@@ -570,14 +615,25 @@ export default function MyTimetablePage() {
     window.dispatchEvent(new Event("my-timetable-updated"));
   };
 
-  const currentShareUrl =
-    baseUrl.length > 0
-      ? `${baseUrl}/talks/me${
-          selectedIds.length > 0
-            ? `?${new URLSearchParams({ m: encodeMyTimetableToken(selectedIds) }).toString()}`
-            : ""
-        }`
-      : "";
+  const shareQueryString = useMemo(() => {
+    const tokens = encodeMyTimetableQuery(selectedIds, participatedIds);
+    const params = new URLSearchParams();
+    if (tokens.m) params.set("m", tokens.m);
+    if (tokens.p) params.set("p", tokens.p);
+    return params.toString();
+  }, [selectedIds, participatedIds]);
+
+  const currentShareUrl = useMemo(() => {
+    if (baseUrl.length === 0) return "";
+    const qs = shareQueryString;
+    return `${baseUrl}/talks/me${qs.length > 0 ? `?${qs}` : ""}`;
+  }, [baseUrl, shareQueryString]);
+
+  const yourShareUrl = useMemo(() => {
+    if (baseUrl.length === 0) return "";
+    const qs = shareQueryString;
+    return `${baseUrl}/talks/your${qs.length > 0 ? `?${qs}` : ""}`;
+  }, [baseUrl, shareQueryString]);
 
   const xShareHref =
     currentShareUrl.length > 0
@@ -664,20 +720,42 @@ export default function MyTimetablePage() {
         </div>
 
         {showQr && currentShareUrl.length > 0 && (
-          <div className="mt-4 grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
-            <p className="text-xs break-all text-black-500">
-              {currentShareUrl}
-            </p>
-            <div
-              role="img"
-              aria-label="マイタイムテーブル共有QR"
-              className="h-[140px] w-[140px] rounded border border-black-300 bg-white bg-cover bg-center"
-              style={{
-                backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
-                  currentShareUrl,
-                )})`,
-              }}
-            />
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <div className="rounded-lg border border-black-200 p-3">
+              <p className="text-sm font-bold text-black-700">
+                PC・スマホ間の同期用
+              </p>
+              <p className="mt-1 text-[10px] text-black-500">
+                読み取った端末に保存されているマイタイムテーブル情報が上書きされます
+              </p>
+              <div
+                role="img"
+                aria-label="自分用マイタイムテーブルQR"
+                className="mt-2 h-[140px] w-[140px] rounded border border-black-300 bg-white bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
+                    currentShareUrl,
+                  )})`,
+                }}
+              />
+            </div>
+
+            <div className="rounded-lg border border-black-200 p-3">
+              <p className="text-sm font-bold text-black-700">閲覧・共有用</p>
+              <p className="mt-1 text-[10px] text-black-500">
+                読み取った端末に保存されているマイタイムテーブル情報は上書きされません
+              </p>
+              <div
+                role="img"
+                aria-label="共有用タイムテーブルQR"
+                className="mt-2 h-[140px] w-[140px] rounded border border-black-300 bg-white bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
+                    yourShareUrl,
+                  )})`,
+                }}
+              />
+            </div>
           </div>
         )}
 
@@ -737,6 +815,7 @@ export default function MyTimetablePage() {
           <MobileTimeline
             currentEventDate={currentEventDate}
             talksByDate={talksByDate}
+            participatedIds={participatedIdsSet}
             onClickTimeSlot={(eventDate, minutes) =>
               setTimePickerState({ eventDate, minutes })
             }
@@ -748,6 +827,7 @@ export default function MyTimetablePage() {
         <div className="hidden lg:block">
           <DesktopTimeline
             talksByDate={talksByDate}
+            participatedIds={participatedIdsSet}
             onClickTimeSlot={(eventDate, minutes) =>
               setTimePickerState({ eventDate, minutes })
             }
