@@ -12,7 +12,6 @@
     "dev": "next dev",
     "build": "next build",
     "pages:build": "opennextjs-cloudflare build && node scripts/build-pages-output.mjs",
-    "pages:preview": "IS_DEVELOPMENT=true pnpm pages:build",
     "pages:dev": "wrangler pages dev .open-next/pages",
     "start": "next start",
     "check": "biome check",

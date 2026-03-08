@@ -35,9 +35,6 @@ TBD
 # OpenNext でビルドし、Pages 用出力を生成
 pnpm pages:build
 
-# Cloudflareのpreview（dev）用ビルド
-pnpm pages:preview
-
 # ローカル確認
 pnpm pages:dev
 ```
