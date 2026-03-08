@@ -29,12 +29,14 @@ for (const entry of readdirSync(OPEN_NEXT_DIR, { withFileTypes: true })) {
 
   cpSync(join(OPEN_NEXT_DIR, entry.name), join(PAGES_DIR, entry.name), {
     recursive: true,
+    verbatimSymlinks: true,
   });
 }
 
 for (const entry of readdirSync(ASSETS_DIR, { withFileTypes: true })) {
   cpSync(join(ASSETS_DIR, entry.name), join(PAGES_DIR, entry.name), {
     recursive: true,
+    verbatimSymlinks: true,
   });
 }
 

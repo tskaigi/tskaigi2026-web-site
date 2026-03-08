@@ -10,6 +10,7 @@ import staff24271196 from "./staff/24271196.json";
 import staff24590869 from "./staff/24590869.json";
 import staff25561744 from "./staff/25561744.json";
 import staff27627295 from "./staff/27627295.json";
+import staff28555457 from "./staff/28555457.json";
 import staff39510845 from "./staff/39510845.json";
 import staff40641235 from "./staff/40641235.json";
 import staff41561321 from "./staff/41561321.json";
@@ -37,6 +38,7 @@ import staff148971304 from "./staff/148971304.json";
 import staff152772067 from "./staff/152772067.json";
 import staff155987338 from "./staff/155987338.json";
 import staff165040846 from "./staff/165040846.json";
+import staff175666619 from "./staff/175666619.json";
 
 export const staffList = [
   staff807519,
@@ -47,6 +49,7 @@ export const staffList = [
   staff24590869,
   staff25561744,
   staff27627295,
+  staff28555457,
   staff39510845,
   staff40641235,
   staff41561321,
@@ -74,4 +77,5 @@ export const staffList = [
   staff152772067,
   staff155987338,
   staff165040846,
+  staff175666619,
 ];
