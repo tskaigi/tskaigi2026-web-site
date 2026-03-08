@@ -3,10 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { showAppToast } from "@/components/ui/GlobalToast";
-import {
-  markAsParticipated,
-  readMyParticipatedIds,
-} from "@/utils/myTimetable";
+import { markAsParticipated, readMyParticipatedIds } from "@/utils/myTimetable";
 
 type Props = {
   talkId: string;

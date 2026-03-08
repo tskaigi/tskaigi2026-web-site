@@ -744,9 +744,7 @@ export default function MyTimetablePage() {
             </div>
 
             <div className="rounded-lg border border-black-200 p-3">
-              <p className="text-sm font-bold text-black-700">
-                閲覧・共有用
-              </p>
+              <p className="text-sm font-bold text-black-700">閲覧・共有用</p>
               <p className="mt-1 text-[10px] text-black-500">
                 読み取った端末に保存されているマイタイムテーブル情報は上書きされません
               </p>

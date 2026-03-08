@@ -75,10 +75,7 @@ export function readMyParticipatedIds(): string[] {
 
 export function writeMyParticipatedIds(ids: string[]) {
   const normalized = normalizeIds(ids);
-  localStorage.setItem(
-    MY_PARTICIPATED_STORAGE_KEY,
-    JSON.stringify(normalized),
-  );
+  localStorage.setItem(MY_PARTICIPATED_STORAGE_KEY, JSON.stringify(normalized));
 }
 
 export function markAsParticipated(talkId: string) {
