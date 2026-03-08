@@ -618,15 +618,25 @@ export default function MyTimetablePage() {
     window.dispatchEvent(new Event("my-timetable-updated"));
   };
 
-  const currentShareUrl = useMemo(() => {
-    if (baseUrl.length === 0) return "";
+  const shareQueryString = useMemo(() => {
     const tokens = encodeMyTimetableQuery(selectedIds, participatedIds);
     const params = new URLSearchParams();
     if (tokens.m) params.set("m", tokens.m);
     if (tokens.p) params.set("p", tokens.p);
-    const qs = params.toString();
+    return params.toString();
+  }, [selectedIds, participatedIds]);
+
+  const currentShareUrl = useMemo(() => {
+    if (baseUrl.length === 0) return "";
+    const qs = shareQueryString;
     return `${baseUrl}/talks/me${qs.length > 0 ? `?${qs}` : ""}`;
-  }, [baseUrl, selectedIds, participatedIds]);
+  }, [baseUrl, shareQueryString]);
+
+  const yourShareUrl = useMemo(() => {
+    if (baseUrl.length === 0) return "";
+    const qs = shareQueryString;
+    return `${baseUrl}/talks/your${qs.length > 0 ? `?${qs}` : ""}`;
+  }, [baseUrl, shareQueryString]);
 
   const xShareHref =
     currentShareUrl.length > 0
@@ -713,20 +723,44 @@ export default function MyTimetablePage() {
         </div>
 
         {showQr && currentShareUrl.length > 0 && (
-          <div className="mt-4 grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
-            <p className="text-xs break-all text-black-500">
-              {currentShareUrl}
-            </p>
-            <div
-              role="img"
-              aria-label="マイタイムテーブル共有QR"
-              className="h-[140px] w-[140px] rounded border border-black-300 bg-white bg-cover bg-center"
-              style={{
-                backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
-                  currentShareUrl,
-                )})`,
-              }}
-            />
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <div className="rounded-lg border border-black-200 p-3">
+              <p className="text-sm font-bold text-black-700">
+                PC・スマホ間の同期用
+              </p>
+              <p className="mt-1 text-[10px] text-black-500">
+                読み取った端末に保存されているマイタイムテーブル情報が上書きされます
+              </p>
+              <div
+                role="img"
+                aria-label="自分用マイタイムテーブルQR"
+                className="mt-2 h-[140px] w-[140px] rounded border border-black-300 bg-white bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
+                    currentShareUrl,
+                  )})`,
+                }}
+              />
+            </div>
+
+            <div className="rounded-lg border border-black-200 p-3">
+              <p className="text-sm font-bold text-black-700">
+                閲覧・共有用
+              </p>
+              <p className="mt-1 text-[10px] text-black-500">
+                読み取った端末に保存されているマイタイムテーブル情報は上書きされません
+              </p>
+              <div
+                role="img"
+                aria-label="共有用タイムテーブルQR"
+                className="mt-2 h-[140px] w-[140px] rounded border border-black-300 bg-white bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
+                    yourShareUrl,
+                  )})`,
+                }}
+              />
+            </div>
           </div>
         )}
 

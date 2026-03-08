@@ -18,7 +18,12 @@ export function MarkAsParticipated({ talkId }: Props) {
 
   useEffect(() => {
     if (processed) return;
-    if (searchParams.get("come") !== "true") return;
+    if (
+      // MEMO: 今後?come=trueは各セッションの時間でないと参加記録がつかないように制限を付ける。?dreams-come=trueはその制限の無い特権用でユーザーには教えない。
+      searchParams.get("come") !== "true" &&
+      searchParams.get("dreams-come") !== "true"
+    )
+      return;
 
     const alreadyParticipated = readMyParticipatedIds().includes(talkId);
     if (alreadyParticipated) {
