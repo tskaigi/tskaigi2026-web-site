@@ -234,10 +234,7 @@ function ReadOnlyTimelineColumn({
               />
             )}
             {isParticipated && (
-              <span
-                className="absolute right-1 bottom-1 z-10 inline-flex items-center gap-0.5 rounded-full bg-green-100 px-1.5 py-0.5 text-[9px] font-bold text-green-700"
-                aria-label="参加済み"
-              >
+              <span className="absolute right-1 bottom-1 z-10 inline-flex items-center gap-0.5 rounded-full bg-green-100 px-1.5 py-0.5 text-[9px] font-bold text-green-700">
                 <Check size={10} />
                 参加
               </span>
