@@ -39,7 +39,7 @@ pnpm pages:build
 pnpm pages:dev
 ```
 
-Cloudflare Pages のダッシュボードからデプロイする場合:
+Cloudflare Pages のダッシュボードからデプロイする場合
 
 - Build command: `pnpm pages:build`
 - Build output directory: `.open-next/pages`
