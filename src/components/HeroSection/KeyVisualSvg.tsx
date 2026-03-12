@@ -11,6 +11,7 @@ const SvgKeyVisual2026ForAnime = ({
     ref={ref}
     {...props}
   >
+    <title>TSKaigi 2026 キービジュアル</title>
     <g>
       <g id="background">
         <path
