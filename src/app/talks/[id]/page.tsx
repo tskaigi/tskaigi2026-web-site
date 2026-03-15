@@ -4,6 +4,8 @@ import Link from "next/link";
 import type { ComponentProps } from "react";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
+import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
+import { MarkAsParticipated } from "@/components/talks/MarkAsParticipated";
 import { TALK_TYPE, TRACK, talkIds } from "@/constants/talkList";
 import { getTalk } from "@/utils/getTalk";
 import { shouldDisplaySpeakerInfo } from "@/utils/shouldDisplaySpeakerInfo";
@@ -110,6 +112,18 @@ export default async function TalkDetailPage({
           <div className="text-2xl font-bold">{talk.title}</div>
           <div className="text-lg font-bold">
             {talk.eventDate} / {talk.time} （{TRACK[talk.track].name}）
+          </div>
+          <div className="mt-2">
+            <AddToMyTimetableButton talkId={talk.id} />
+            <MarkAsParticipated talkId={talk.id} />
+          </div>
+          <div>
+            <Link
+              href="/talks/me"
+              className="text-sm underline text-blue-light-600"
+            >
+              マイタイムテーブルを見る
+            </Link>
           </div>
         </div>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Day1TimeTable } from "@/components/talks/Day1TimeTable";
@@ -7,6 +8,7 @@ import { Day2TimeTable } from "@/components/talks/Day2TimeTable";
 import { EventDateTab } from "@/components/talks/EventDateTab";
 import { GridWrapper } from "@/components/talks/GridWrapper";
 import { TrackHeader } from "@/components/talks/TrackHeader";
+import { Button } from "@/components/ui/button";
 import type { EventDate } from "@/constants/talkList";
 
 const TalksPage = () => {
@@ -45,6 +47,11 @@ const TalksPage = () => {
       <h1 className="text-2xl font-bold text-blue-light-500 text-center md:text-3xl lg:text-4xl">
         タイムテーブル
       </h1>
+      <div className="text-center mt-4">
+        <Button type="button" variant="outline" asChild>
+          <Link href="/talks/me">マイタイムテーブルへ</Link>
+        </Button>
+      </div>
       <div className="text-center mt-8">
         <EventDateTab
           currentDate={currentEventDate}

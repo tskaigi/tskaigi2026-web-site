@@ -17,6 +17,11 @@ const links: {
   href: string;
   label: string;
 }[] = [
+  { href: "/talks/me", label: "マイタイムテーブル" },
+  {
+    href: "/talks",
+    label: "タイムテーブル",
+  },
   {
     href: "/side-events",
     label: "サイドイベント",
