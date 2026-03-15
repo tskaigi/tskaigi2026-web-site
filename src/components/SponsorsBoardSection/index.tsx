@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { fetchSponsors } from "@/lib/fetch-sponsors";
-import { cn } from "@/lib/utils";
 import { SponsorsBoardItem } from "./SponsorsBoardItem";
 import { SponsorsBoardTitle } from "./SponsorsBoardTitle";
 
