@@ -47,7 +47,7 @@ export default async function SponsorDetailPage({
   const sponsor = await fetchSponsor(slug);
 
   return (
-    <main>
+    <>
       <h1 className="text-2xl font-bold text-blue-light-500 text-center py-10 md:py-16 md:text-3xl lg:text-4xl">
         スポンサー
       </h1>
@@ -110,6 +110,6 @@ export default async function SponsorDetailPage({
           )} */}
         </div>
       )}
-    </main>
+    </>
   );
 }

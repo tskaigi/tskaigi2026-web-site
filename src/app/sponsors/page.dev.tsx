@@ -19,7 +19,7 @@ const SponsorsPage = async () => {
   const sponsors = await fetchSponsors();
 
   return (
-    <main className="bg-blue-light-100 pt-16 py-10 md:px-8">
+    <>
       <h1 className="text-2xl font-bold text-blue-light-500 text-center py-10 md:py-16 md:text-3xl lg:text-4xl">
         スポンサー
       </h1>
@@ -62,7 +62,7 @@ const SponsorsPage = async () => {
           );
         })}
       </div>
-    </main>
+    </>
   );
 };
 
