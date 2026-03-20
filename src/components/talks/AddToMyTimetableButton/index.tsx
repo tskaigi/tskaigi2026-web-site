@@ -6,9 +6,8 @@ import { Button } from "@/components/ui/button";
 import { showAppToast } from "@/components/ui/GlobalToast";
 import {
   findOverlaps,
-  readMyTimetableIds,
+  myTimetableIds,
   type TalkWithMinutes,
-  writeMyTimetableIds,
 } from "@/utils/myTimetable";
 
 type Props = {
@@ -21,7 +20,7 @@ export function AddToMyTimetableButton({ talkId, iconOnly = false }: Props) {
   const [overlaps, setOverlaps] = useState<TalkWithMinutes[]>([]);
 
   useEffect(() => {
-    const update = () => setStoredIds(readMyTimetableIds());
+    const update = () => setStoredIds(myTimetableIds.read());
 
     update();
     window.addEventListener("storage", update);
@@ -43,8 +42,8 @@ export function AddToMyTimetableButton({ talkId, iconOnly = false }: Props) {
   };
 
   const addWithoutOverlapResolution = () => {
-    const nextIds = Array.from(new Set([...readMyTimetableIds(), talkId]));
-    writeMyTimetableIds(nextIds);
+    const nextIds = Array.from(new Set([...myTimetableIds.read(), talkId]));
+    myTimetableIds.write(nextIds);
     setStoredIds(nextIds);
     window.dispatchEvent(new Event("my-timetable-updated"));
     showAppToast("重複したまま追加しました");
@@ -52,11 +51,11 @@ export function AddToMyTimetableButton({ talkId, iconOnly = false }: Props) {
   };
 
   const handleClick = () => {
-    const currentIds = readMyTimetableIds();
+    const currentIds = myTimetableIds.read();
 
     if (isAdded) {
       const nextIds = currentIds.filter((id) => id !== talkId);
-      writeMyTimetableIds(nextIds);
+      myTimetableIds.write(nextIds);
       setStoredIds(nextIds);
       window.dispatchEvent(new Event("my-timetable-updated"));
       showAppToast("マイタイムテーブルから削除しました");
@@ -70,7 +69,7 @@ export function AddToMyTimetableButton({ talkId, iconOnly = false }: Props) {
     }
 
     const nextIds = Array.from(new Set([...currentIds, talkId]));
-    writeMyTimetableIds(nextIds);
+    myTimetableIds.write(nextIds);
     setStoredIds(nextIds);
     window.dispatchEvent(new Event("my-timetable-updated"));
     showAppToast("マイタイムテーブルに追加しました");
@@ -138,7 +137,7 @@ export function AddToMyTimetableButton({ talkId, iconOnly = false }: Props) {
         <Button
           type="button"
           variant="outline"
-          size="icon"
+          size="sm"
           onClick={handleClick}
           aria-label={
             isAdded ? "マイタイムテーブルから削除" : "マイタイムテーブルに追加"
@@ -148,6 +147,7 @@ export function AddToMyTimetableButton({ talkId, iconOnly = false }: Props) {
           }
         >
           {isAdded ? <X size={16} /> : <Plus size={16} />}
+          {isAdded ? "削除" : "追加"}
         </Button>
         {overlapDialog}
       </>

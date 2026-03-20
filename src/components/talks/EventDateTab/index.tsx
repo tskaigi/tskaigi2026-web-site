@@ -22,6 +22,7 @@ export function EventDateTab({ currentDate, onTabChange }: Props) {
               onClick={() => onTabChange(date)}
               className={cn(
                 "px-6 py-2 text-base font-medium",
+                !isActive && "cursor-pointer",
                 isActive
                   ? date === "DAY2"
                     ? "bg-pink-500 text-white"

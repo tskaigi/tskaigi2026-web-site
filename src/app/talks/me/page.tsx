@@ -3,45 +3,35 @@
 import {
   AlertTriangle,
   Check,
-  Copy,
+  List,
   Plus,
   QrCode,
-  Save,
+  RotateCcw,
   Search,
   Share2,
-  Trash2,
   X,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { EventDateTab } from "@/components/talks/EventDateTab";
+import {
+  DesktopTimelineLayout,
+  MobileTimelineLayout,
+} from "@/components/talks/TimelineLayout";
 import { Button } from "@/components/ui/button";
 import { showAppToast } from "@/components/ui/GlobalToast";
-import {
-  EVENT_DATE,
-  type EventDate,
-  type Talk,
-  TRACK,
-  talkList,
-} from "@/constants/talkList";
+import { type EventDate, TRACK } from "@/constants/talkList";
 import { Input } from "@/ui/input";
 import {
-  decodeMyTimetableToken,
-  encodeMyTimetableQuery,
-  encodeMyTimetableToken,
-  normalizeIds,
-  parseMyTimetableQuery,
-  parseTalkTimeToMinutes,
-  readMyParticipatedIds,
-  readMyTimetableIds,
+  findOverlaps,
+  getTalksByDateFromIds,
+  MY_TIMETABLE_CONST,
+  myParticipatedIds,
+  myTimetable,
+  myTimetableIds,
+  myTimetableQuery,
   type TalkWithMinutes,
-  writeMyTimetableIds,
 } from "@/utils/myTimetable";
-
-const PIXELS_PER_MINUTE = 1.6;
-const TIMELINE_START_MINUTES = 10 * 60;
-const TIMELINE_END_MINUTES = 18 * 60;
 
 type TimePickerState = {
   eventDate: EventDate;
@@ -52,154 +42,6 @@ type OverlapState = {
   targetTalk: TalkWithMinutes;
   overlaps: TalkWithMinutes[];
 } | null;
-
-type PositionedTalk = TalkWithMinutes & {
-  columnIndex: number;
-  columnCount: number;
-  isOverlapping: boolean;
-};
-
-function formatMinutes(minutes: number): string {
-  const hour = Math.floor(minutes / 60)
-    .toString()
-    .padStart(2, "0");
-  const minute = (minutes % 60).toString().padStart(2, "0");
-  return `${hour}:${minute}`;
-}
-
-function parseTalkIds(searchParams: URLSearchParams): string[] {
-  const tokens = [
-    ...searchParams.getAll("id").flatMap((value) => value.split(",")),
-    ...searchParams.getAll("ids").flatMap((value) => value.split(",")),
-  ];
-
-  return Array.from(
-    new Set(
-      tokens.map((token) => token.trim()).filter((token) => token.length > 0),
-    ),
-  );
-}
-
-function parseTalkIdsFromQuery(searchParams: URLSearchParams): {
-  ids: string[];
-  participatedIds: string[];
-} {
-  const parsed = parseMyTimetableQuery(searchParams);
-  if (parsed) return parsed;
-
-  const legacyIds = normalizeIds(parseTalkIds(searchParams));
-  return { ids: legacyIds, participatedIds: [] };
-}
-
-function areSameIdSet(a: string[], b: string[]): boolean {
-  if (a.length !== b.length) return false;
-  const aSet = new Set(a);
-  for (const id of b) {
-    if (!aSet.has(id)) return false;
-  }
-  return true;
-}
-
-function getTrackBorderClass(track: Talk["track"]) {
-  switch (track) {
-    case "TRACK1":
-      return "border-track-toggle";
-    case "TRACK2":
-      return "border-track-ascend";
-    case "TRACK3":
-      return "border-track-leverages";
-    default:
-      return track satisfies never;
-  }
-}
-
-function getPositionedTalks(talks: TalkWithMinutes[]): PositionedTalk[] {
-  const sorted = [...talks].sort((a, b) => {
-    if (a.startMinutes !== b.startMinutes)
-      return a.startMinutes - b.startMinutes;
-    if (a.endMinutes !== b.endMinutes) return a.endMinutes - b.endMinutes;
-    return a.id.localeCompare(b.id);
-  });
-
-  const active: Array<{ id: string; end: number; column: number }> = [];
-  const freeColumns: number[] = [];
-  const columnById = new Map<string, number>();
-
-  const pullMinColumn = () => {
-    if (freeColumns.length === 0) return null;
-    freeColumns.sort((a, b) => a - b);
-    return freeColumns.shift() ?? null;
-  };
-
-  for (const talk of sorted) {
-    for (let index = active.length - 1; index >= 0; index -= 1) {
-      const item = active[index];
-      if (item.end <= talk.startMinutes) {
-        freeColumns.push(item.column);
-        active.splice(index, 1);
-      }
-    }
-
-    const reused = pullMinColumn();
-    const nextColumn = reused ?? active.length + freeColumns.length;
-
-    columnById.set(talk.id, nextColumn);
-    active.push({ id: talk.id, end: talk.endMinutes, column: nextColumn });
-  }
-
-  return sorted.map((talk) => {
-    const overlaps = sorted.filter(
-      (other) =>
-        other.eventDate === talk.eventDate &&
-        other.startMinutes < talk.endMinutes &&
-        talk.startMinutes < other.endMinutes,
-    );
-
-    const maxColumn = Math.max(
-      ...overlaps.map((item) => columnById.get(item.id) ?? 0),
-      0,
-    );
-
-    return {
-      ...talk,
-      columnIndex: columnById.get(talk.id) ?? 0,
-      columnCount: maxColumn + 1,
-      isOverlapping: overlaps.length > 1,
-    };
-  });
-}
-
-function TimelineAxis({ timelineHeight }: { timelineHeight: number }) {
-  const markers = [] as { minutes: number; label: string | null }[];
-  for (
-    let minutes = TIMELINE_START_MINUTES;
-    minutes <= TIMELINE_END_MINUTES;
-    minutes += 30
-  ) {
-    markers.push({
-      minutes,
-      label: minutes % 60 === 0 ? formatMinutes(minutes) : null,
-    });
-  }
-
-  return (
-    <div className="relative" style={{ height: `${timelineHeight}px` }}>
-      {markers.map((marker) => {
-        const top =
-          (marker.minutes - TIMELINE_START_MINUTES) * PIXELS_PER_MINUTE;
-        return (
-          <div
-            key={marker.minutes}
-            className="absolute -translate-y-1/2 text-xs text-black-500"
-            style={{ top: `${top}px` }}
-          >
-            {marker.label}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
 
 function TimelineColumn({
   eventDate,
@@ -214,51 +56,30 @@ function TimelineColumn({
   onClickTimeSlot: (eventDate: EventDate, minutes: number) => void;
   onRemoveTalk: (id: string) => void;
 }) {
-  const timelineHeight =
-    (TIMELINE_END_MINUTES - TIMELINE_START_MINUTES) * PIXELS_PER_MINUTE;
-
-  const markers = [] as number[];
-  for (
-    let minutes = TIMELINE_START_MINUTES;
-    minutes <= TIMELINE_END_MINUTES;
-    minutes += 30
-  ) {
-    markers.push(minutes);
-  }
-
-  const clickableSlots = [] as { start: number; end: number }[];
-  for (
-    let minutes = TIMELINE_START_MINUTES;
-    minutes < TIMELINE_END_MINUTES;
-    minutes += 30
-  ) {
-    clickableSlots.push({ start: minutes, end: minutes + 30 });
-  }
-
-  const positionedTalks = getPositionedTalks(talks);
+  const positionedTalks = myTimetable.getPositionedTalks(talks);
 
   return (
     <div
       className="relative rounded-lg border border-black-300 bg-blue-purple-100/30"
-      style={{ height: `${timelineHeight}px` }}
+      style={{ height: `${MY_TIMETABLE_CONST.TIMELINE_HEIGHT}px` }}
     >
-      {clickableSlots.map((slot) => {
-        const top = (slot.start - TIMELINE_START_MINUTES) * PIXELS_PER_MINUTE;
-        const height = (slot.end - slot.start) * PIXELS_PER_MINUTE;
+      {MY_TIMETABLE_CONST.TIMELINE_MARKERS.slice(0, -1).map((start) => {
+        const top = myTimetable.minutesToTop(start);
+        const height = myTimetable.minutesToPx(30);
         return (
           <button
             type="button"
-            key={`${eventDate}-${slot.start}`}
+            key={`${eventDate}-${start}`}
             className="absolute left-0 right-0 z-0 hover:bg-blue-purple-200/40"
             style={{ top: `${top}px`, height: `${height}px` }}
-            onClick={() => onClickTimeSlot(eventDate, slot.start)}
-            aria-label={`${eventDate} ${formatMinutes(slot.start)} の時間帯で追加`}
+            onClick={() => onClickTimeSlot(eventDate, start)}
+            aria-label={`${eventDate} ${myTimetable.formatMinutes(start)} の時間帯で追加`}
           />
         );
       })}
 
-      {markers.map((minutes) => {
-        const top = (minutes - TIMELINE_START_MINUTES) * PIXELS_PER_MINUTE;
+      {MY_TIMETABLE_CONST.TIMELINE_MARKERS.map((minutes) => {
+        const top = myTimetable.minutesToTop(minutes);
         return (
           <div
             key={`${eventDate}-line-${minutes}`}
@@ -269,10 +90,10 @@ function TimelineColumn({
       })}
 
       {positionedTalks.map((talk) => {
-        const top =
-          (talk.startMinutes - TIMELINE_START_MINUTES) * PIXELS_PER_MINUTE;
-        const height =
-          (talk.endMinutes - talk.startMinutes) * PIXELS_PER_MINUTE;
+        const top = myTimetable.minutesToTop(talk.startMinutes);
+        const height = myTimetable.minutesToPx(
+          talk.endMinutes - talk.startMinutes,
+        );
 
         const left = `calc(${(100 / talk.columnCount) * talk.columnIndex}% + 8px)`;
         const width = `calc(${100 / talk.columnCount}% - 10px)`;
@@ -281,7 +102,7 @@ function TimelineColumn({
         return (
           <div
             key={talk.id}
-            className={`absolute left-2 right-2 z-20 overflow-hidden rounded-md border border-black-300 bg-white py-1 px-2 pr-5 border-l-4 ${getTrackBorderClass(talk.track)}`}
+            className={`absolute left-2 right-2 z-20 overflow-hidden rounded-md border border-black-300 bg-white py-1 px-2 pr-5 border-l-4 ${myTimetable.getTrackBorderClass(talk.track)}`}
             title={`${talk.time} / ${TRACK[talk.track].name}\n${talk.title}\n${talk.speaker.name}`}
             style={{
               top: `${top}px`,
@@ -302,7 +123,7 @@ function TimelineColumn({
             )}
             <button
               type="button"
-              className="absolute right-1 top-1 z-10 text-black-500 hover:text-black-700"
+              className="absolute right-1 top-1 z-10 cursor-pointer text-black-500 hover:text-black-700"
               onClick={() => onRemoveTalk(talk.id)}
               aria-label="削除"
             >
@@ -311,7 +132,7 @@ function TimelineColumn({
             {isParticipated && (
               <span className="absolute right-1 bottom-1 z-10 inline-flex items-center gap-0.5 rounded-full bg-green-100 px-1.5 py-0.5 text-[9px] font-bold text-green-700">
                 <Check size={10} />
-                参加
+                参加済
               </span>
             )}
             <p className="relative z-10 text-[10px] text-black-500 truncate whitespace-nowrap">
@@ -341,104 +162,6 @@ function TimelineColumn({
   );
 }
 
-function DesktopTimeline({
-  talksByDate,
-  participatedIds,
-  onClickTimeSlot,
-  onRemoveTalk,
-}: {
-  talksByDate: Record<EventDate, TalkWithMinutes[]>;
-  participatedIds: Set<string>;
-  onClickTimeSlot: (eventDate: EventDate, minutes: number) => void;
-  onRemoveTalk: (id: string) => void;
-}) {
-  const timelineHeight =
-    (TIMELINE_END_MINUTES - TIMELINE_START_MINUTES) * PIXELS_PER_MINUTE;
-
-  return (
-    <section className="rounded-xl bg-white p-4 md:p-6">
-      <div className="grid grid-cols-[58px_1fr_1fr] gap-3 mb-3">
-        <div />
-        <h2 className="text-lg font-bold text-blue-light-600">
-          Day1
-          <span className="ml-2 text-xs font-normal text-black-500">
-            {EVENT_DATE.DAY1}
-          </span>
-        </h2>
-        <h2 className="text-lg font-bold text-pink-500">
-          Day2
-          <span className="ml-2 text-xs font-normal text-black-500">
-            {EVENT_DATE.DAY2}
-          </span>
-        </h2>
-      </div>
-      <div className="grid grid-cols-[58px_1fr_1fr] gap-3">
-        <TimelineAxis timelineHeight={timelineHeight} />
-        <TimelineColumn
-          eventDate="DAY1"
-          talks={talksByDate.DAY1}
-          participatedIds={participatedIds}
-          onClickTimeSlot={onClickTimeSlot}
-          onRemoveTalk={onRemoveTalk}
-        />
-        <TimelineColumn
-          eventDate="DAY2"
-          talks={talksByDate.DAY2}
-          participatedIds={participatedIds}
-          onClickTimeSlot={onClickTimeSlot}
-          onRemoveTalk={onRemoveTalk}
-        />
-      </div>
-    </section>
-  );
-}
-
-function MobileTimeline({
-  currentEventDate,
-  talksByDate,
-  participatedIds,
-  onClickTimeSlot,
-  onRemoveTalk,
-  onTabChange,
-}: {
-  currentEventDate: EventDate;
-  talksByDate: Record<EventDate, TalkWithMinutes[]>;
-  participatedIds: Set<string>;
-  onClickTimeSlot: (eventDate: EventDate, minutes: number) => void;
-  onRemoveTalk: (id: string) => void;
-  onTabChange: (date: EventDate) => void;
-}) {
-  const timelineHeight =
-    (TIMELINE_END_MINUTES - TIMELINE_START_MINUTES) * PIXELS_PER_MINUTE;
-
-  return (
-    <section className="rounded-xl bg-white p-4 md:p-6">
-      <div className="sticky top-16 z-30">
-        <EventDateTab
-          currentDate={currentEventDate}
-          onTabChange={onTabChange}
-        />
-      </div>
-      <h2 className="mt-4 text-lg font-bold text-blue-light-600">
-        {currentEventDate === "DAY1" ? "Day1" : "Day2"}
-        <span className="ml-2 text-xs font-normal text-black-500">
-          {EVENT_DATE[currentEventDate]}
-        </span>
-      </h2>
-      <div className="mt-3 grid grid-cols-[58px_1fr] gap-3">
-        <TimelineAxis timelineHeight={timelineHeight} />
-        <TimelineColumn
-          eventDate={currentEventDate}
-          talks={talksByDate[currentEventDate]}
-          participatedIds={participatedIds}
-          onClickTimeSlot={onClickTimeSlot}
-          onRemoveTalk={onRemoveTalk}
-        />
-      </div>
-    </section>
-  );
-}
-
 export default function MyTimetablePage() {
   const router = useRouter();
   const pathname = usePathname();
@@ -446,7 +169,6 @@ export default function MyTimetablePage() {
 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [participatedIds, setParticipatedIds] = useState<string[]>([]);
-  const [savedIds, setSavedIds] = useState<string[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
   const [isAddPanelOpen, setIsAddPanelOpen] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -459,54 +181,13 @@ export default function MyTimetablePage() {
   const searchPopupRef = useRef<HTMLDivElement>(null);
 
   const allTalksWithMinutes = useMemo(
-    () =>
-      talkList
-        .map((talk) => {
-          const parsed = parseTalkTimeToMinutes(talk.time);
-          if (!parsed) return null;
-          return { ...talk, ...parsed };
-        })
-        .filter((talk): talk is TalkWithMinutes => !!talk)
-        .sort((a, b) => {
-          if (a.eventDate !== b.eventDate)
-            return a.eventDate.localeCompare(b.eventDate);
-          if (a.startMinutes !== b.startMinutes)
-            return a.startMinutes - b.startMinutes;
-          return a.id.localeCompare(b.id);
-        }),
+    () => myTimetable.getAllTalksWithMinutes(),
     [],
   );
 
-  const talksWithMinutes = useMemo(
-    () =>
-      selectedIds
-        .map((id) => talkList.find((talk) => talk.id === id))
-        .filter((talk): talk is Talk => !!talk)
-        .map((talk) => {
-          const parsed = parseTalkTimeToMinutes(talk.time);
-          if (!parsed) return null;
-          return { ...talk, ...parsed };
-        })
-        .filter((talk): talk is TalkWithMinutes => !!talk)
-        .sort((a, b) => {
-          if (a.eventDate !== b.eventDate)
-            return a.eventDate.localeCompare(b.eventDate);
-          if (a.startMinutes !== b.startMinutes)
-            return a.startMinutes - b.startMinutes;
-          return a.id.localeCompare(b.id);
-        }),
+  const talksByDate = useMemo(
+    () => getTalksByDateFromIds(selectedIds),
     [selectedIds],
-  );
-
-  const talksByDate = talksWithMinutes.reduce(
-    (acc, talk) => {
-      acc[talk.eventDate].push(talk);
-      return acc;
-    },
-    {
-      DAY1: [] as TalkWithMinutes[],
-      DAY2: [] as TalkWithMinutes[],
-    },
   );
 
   const participatedIdsSet = useMemo(
@@ -514,32 +195,26 @@ export default function MyTimetablePage() {
     [participatedIds],
   );
 
-  const hasQueryIds =
-    searchParams.has("m") ||
-    searchParams.has("p") ||
-    searchParams.has("id") ||
-    searchParams.has("ids");
+  const hasQueryIds = searchParams.has("m") || searchParams.has("p");
 
   useEffect(() => {
-    const storageIds = readMyTimetableIds();
-
-    setSavedIds(storageIds);
+    const storageIds = myTimetableIds.read();
 
     if (!isInitialized) {
-      const query = parseTalkIdsFromQuery(searchParams);
+      const query = myTimetableQuery.parse(searchParams);
       if (query.ids.length > 0) {
         setSelectedIds(query.ids);
         setParticipatedIds(query.participatedIds);
       } else {
         setSelectedIds(storageIds);
-        setParticipatedIds(readMyParticipatedIds());
+        setParticipatedIds(myParticipatedIds.read());
       }
       setIsInitialized(true);
       return;
     }
 
     if (hasQueryIds) {
-      const query = parseTalkIdsFromQuery(searchParams);
+      const query = myTimetableQuery.parse(searchParams);
       setSelectedIds(query.ids);
       setParticipatedIds(query.participatedIds);
     }
@@ -554,6 +229,7 @@ export default function MyTimetablePage() {
     if (!isAddPanelOpen) return;
 
     const handleMouseDown = (event: MouseEvent) => {
+      if (overlapState) return;
       if (
         searchPopupRef.current &&
         !searchPopupRef.current.contains(event.target as Node)
@@ -575,7 +251,7 @@ export default function MyTimetablePage() {
       document.removeEventListener("mousedown", handleMouseDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isAddPanelOpen]);
+  }, [isAddPanelOpen, overlapState]);
 
   const updateQuery = (
     ids: string[],
@@ -584,10 +260,8 @@ export default function MyTimetablePage() {
     const next = new URLSearchParams(searchParams.toString());
     next.delete("m");
     next.delete("p");
-    next.delete("id");
-    next.delete("ids");
 
-    const tokens = encodeMyTimetableQuery(ids, participated);
+    const tokens = myTimetableQuery.encode(ids, participated);
     if (tokens.m) {
       next.set("m", tokens.m);
     }
@@ -600,73 +274,68 @@ export default function MyTimetablePage() {
   };
 
   const addTalk = (id: string) => {
-    setSelectedIds((prev) => {
-      if (prev.includes(id)) return prev;
+    if (selectedIds.includes(id)) return;
 
-      const targetTalk = allTalksWithMinutes.find((talk) => talk.id === id);
-      if (!targetTalk) return prev;
+    const targetTalk = allTalksWithMinutes.find((talk) => talk.id === id);
+    if (!targetTalk) return;
 
-      const overlaps = talksWithMinutes.filter(
-        (talk) =>
-          talk.eventDate === targetTalk.eventDate &&
-          talk.startMinutes < targetTalk.endMinutes &&
-          targetTalk.startMinutes < talk.endMinutes,
-      );
+    const overlaps = findOverlaps(id, selectedIds);
+    const hasCrossTrackOverlap = overlaps.some(
+      (talk) => talk.track !== targetTalk.track,
+    );
 
-      if (overlaps.length > 0) {
-        setOverlapState({ targetTalk, overlaps });
-        setTimePickerState(null);
-        return prev;
-      }
+    if (hasCrossTrackOverlap) {
+      setOverlapState({ targetTalk, overlaps });
+      setTimePickerState(null);
+      return;
+    }
 
-      const next = [...prev, id];
-      updateQuery(next);
-      return next;
-    });
+    const next = [...selectedIds, id];
+    setSelectedIds(next);
+    myTimetableIds.write(next);
+    window.dispatchEvent(new Event("my-timetable-updated"));
+    updateQuery(next);
+    showAppToast("マイタイムテーブルに追加しました");
   };
 
   const resolveOverlapAndAdd = () => {
     if (!overlapState) return;
 
-    setSelectedIds((prev) => {
-      if (prev.includes(overlapState.targetTalk.id)) {
-        updateQuery(prev);
-        return prev;
-      }
-      const next = [...prev, overlapState.targetTalk.id];
-      updateQuery(next);
-      return next;
-    });
+    if (selectedIds.includes(overlapState.targetTalk.id)) {
+      setOverlapState(null);
+      return;
+    }
 
+    const next = [...selectedIds, overlapState.targetTalk.id];
+    setSelectedIds(next);
+    myTimetableIds.write(next);
+    window.dispatchEvent(new Event("my-timetable-updated"));
+    updateQuery(next);
     setOverlapState(null);
+    showAppToast("マイタイムテーブルに追加しました");
   };
 
   const removeTalk = (id: string) => {
     const nextParticipated = participatedIds.filter((pid) => pid !== id);
+    const next = selectedIds.filter((currentId) => currentId !== id);
     setParticipatedIds(nextParticipated);
-    setSelectedIds((prev) => {
-      const next = prev.filter((currentId) => currentId !== id);
-      updateQuery(next, nextParticipated);
-      return next;
-    });
+    setSelectedIds(next);
+    myTimetableIds.write(next);
+    window.dispatchEvent(new Event("my-timetable-updated"));
+    updateQuery(next, nextParticipated);
+    showAppToast("マイタイムテーブルから削除しました");
   };
 
-  const clearTalks = () => {
+  const resetTalks = () => {
     setSelectedIds([]);
-    writeMyTimetableIds([]);
-    setSavedIds([]);
+    myTimetableIds.write([]);
     window.dispatchEvent(new Event("my-timetable-updated"));
+    showAppToast("マイタイムテーブルをリセットしました");
     updateQuery([], []);
   };
 
-  const saveToLocalStorage = () => {
-    writeMyTimetableIds(selectedIds);
-    setSavedIds(selectedIds);
-    window.dispatchEvent(new Event("my-timetable-updated"));
-  };
-
   const shareQueryString = useMemo(() => {
-    const tokens = encodeMyTimetableQuery(selectedIds, participatedIds);
+    const tokens = myTimetableQuery.encode(selectedIds, participatedIds);
     const params = new URLSearchParams();
     if (tokens.m) params.set("m", tokens.m);
     if (tokens.p) params.set("p", tokens.p);
@@ -686,11 +355,9 @@ export default function MyTimetablePage() {
   }, [baseUrl, shareQueryString]);
 
   const xShareHref =
-    currentShareUrl.length > 0
-      ? `https://x.com/intent/tweet?text=${encodeURIComponent("TSKaigiのマイタイムテーブル")}&url=${encodeURIComponent(currentShareUrl)}`
+    yourShareUrl.length > 0
+      ? `https://x.com/intent/tweet?text=${encodeURIComponent("TSKaigiのマイタイムテーブル")}&url=${encodeURIComponent(yourShareUrl)}`
       : "https://x.com/intent/tweet";
-
-  const showSaveButton = !areSameIdSet(selectedIds, savedIds);
 
   const filteredForPanel = allTalksWithMinutes.filter((talk) => {
     const normalizedKeyword = searchKeyword.trim().toLowerCase();
@@ -702,7 +369,7 @@ export default function MyTimetablePage() {
   });
 
   const pickableByTime = useMemo(() => {
-    if (!timePickerState) return [] as TalkWithMinutes[];
+    if (!timePickerState) return [];
     return allTalksWithMinutes.filter(
       (talk) =>
         talk.eventDate === timePickerState.eventDate &&
@@ -717,12 +384,6 @@ export default function MyTimetablePage() {
         マイタイムテーブル
       </h1>
 
-      <div className="mt-4 text-center">
-        <Button type="button" variant="outline" asChild>
-          <Link href="/talks">タイムテーブル一覧へ</Link>
-        </Button>
-      </div>
-
       <div className="mt-8 mx-auto max-w-6xl grid lg:grid-cols-[min-content_1fr] gap-4">
         <aside className="flex flex-row lg:flex-col gap-2">
           <Button type="button" variant="outline" size="icon" asChild>
@@ -731,22 +392,10 @@ export default function MyTimetablePage() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Xでシェア"
+              title="Xでシェア"
             >
               <Share2 size={18} />
             </Link>
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="icon"
-            onClick={async () => {
-              if (!currentShareUrl) return;
-              await navigator.clipboard.writeText(currentShareUrl);
-              showAppToast("URLをコピーしました");
-            }}
-            aria-label="URLコピー"
-          >
-            <Copy size={18} />
           </Button>
           <div className="relative">
             <Button
@@ -755,52 +404,67 @@ export default function MyTimetablePage() {
               size="icon"
               onClick={() => setShowQr((prev) => !prev)}
               aria-label={showQr ? "QRを隠す" : "QRを表示"}
+              title={showQr ? "QRを隠す" : "QRを表示"}
             >
               <QrCode size={18} />
             </Button>
 
             {showQr && currentShareUrl.length > 0 && (
-              <div className="absolute top-full left-0 z-40 mt-2 grid gap-2 md:grid-cols-[1fr_1fr]">
-                <div className="rounded-lg border border-black-200 p-3 bg-white">
-                  <p className="text-sm font-bold text-black-700">
-                    PC・スマホ間の同期用
-                  </p>
-                  <p className="mt-1 text-[10px] text-black-500">
-                    読み取った端末に保存されているマイタイムテーブル情報が上書きされます
-                  </p>
-                  <div
-                    role="img"
-                    aria-label="自分用マイタイムテーブルQR"
-                    className="m-2 h-20 w-20 md:h-[140px] md:w-[140px] bg-white bg-cover bg-center"
-                    style={{
-                      backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
-                        currentShareUrl,
-                      )})`,
-                    }}
-                  />
-                </div>
+              <div className="absolute top-full left-0 z-40 mt-2 rounded-lg border border-black-200 bg-white p-3">
+                <div className="grid md:grid-cols-[1fr_auto_1fr] gap-3">
+                  <div>
+                    <p className="text-sm font-bold text-black-700">
+                      PC・スマホ間の同期用
+                    </p>
+                    <p className="mt-1 text-[10px] text-black-500">
+                      読み取った端末に保存されているマイタイムテーブル情報が上書きされます
+                    </p>
+                    <div
+                      role="img"
+                      aria-label="自分用マイタイムテーブルQR"
+                      className="m-2 h-20 w-20 md:h-[140px] md:w-[140px] bg-white bg-cover bg-center"
+                      style={{
+                        backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
+                          currentShareUrl,
+                        )})`,
+                      }}
+                    />
+                  </div>
 
-                <div className="rounded-lg border border-black-200 p-3 bg-white">
-                  <p className="text-sm font-bold text-black-700">
-                    閲覧・共有用
-                  </p>
-                  <p className="mt-1 text-[10px] text-black-500">
-                    読み取った端末に保存されているマイタイムテーブル情報は上書きされません
-                  </p>
-                  <div
-                    role="img"
-                    aria-label="共有用タイムテーブルQR"
-                    className="m-2  h-20 w-20 md:h-[140px] md:w-[140px] bg-white bg-cover bg-center"
-                    style={{
-                      backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
-                        yourShareUrl,
-                      )})`,
-                    }}
-                  />
+                  <div className="hidden md:block w-px bg-black-200" />
+                  <div className="block md:hidden h-px bg-black-200" />
+
+                  <div>
+                    <p className="text-sm font-bold text-black-700">
+                      閲覧・共有用
+                    </p>
+                    <p className="mt-1 text-[10px] text-black-500">
+                      読み取った端末に保存されているマイタイムテーブル情報は上書きされません
+                    </p>
+                    <div
+                      role="img"
+                      aria-label="共有用タイムテーブルQR"
+                      className="m-2 h-20 w-20 md:h-[140px] md:w-[140px] bg-white bg-cover bg-center"
+                      style={{
+                        backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
+                          yourShareUrl,
+                        )})`,
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             )}
           </div>
+          <Button type="button" variant="outline" size="icon" asChild>
+            <Link
+              href="/talks"
+              aria-label="タイムテーブル一覧へ"
+              title="タイムテーブル一覧へ"
+            >
+              <List size={18} />
+            </Link>
+          </Button>
         </aside>
 
         <div className="bg-white rounded-xl p-4 md:p-6">
@@ -827,15 +491,19 @@ export default function MyTimetablePage() {
               </div>
 
               {isAddPanelOpen && (
-                <div className="absolute left-0 right-0 z-40 mt-2 max-h-72 overflow-y-auto rounded border border-black-300 bg-white p-2 shadow-sm">
+                <div className="absolute left-0 right-0 z-40 mt-2 max-h-72 overflow-y-auto rounded border border-black-300 bg-white p-2 shadow-sm flex flex-col gap-2">
                   {filteredForPanel.map((talk) => {
                     const isAdded = selectedIds.includes(talk.id);
                     return (
-                      <div
+                      <button
+                        type="button"
                         key={`add-panel-${talk.id}`}
-                        className="flex items-start justify-between gap-2 border-b border-black-200 py-2 last:border-none"
+                        className={`w-full py-2 text-left cursor-pointer rounded-md border border-black-300 px-2 border-l-4 ${myTimetable.getTrackBorderClass(talk.track)} ${isAdded ? "bg-blue-purple-100/40" : "hover:bg-black-100"}`}
+                        onClick={() =>
+                          isAdded ? removeTalk(talk.id) : addTalk(talk.id)
+                        }
                       >
-                        <div>
+                        <div className="flex items-center justify-between gap-2">
                           <p
                             className="max-w-[180px] text-xs text-black-500 truncate whitespace-nowrap sm:max-w-[260px]"
                             title={`${talk.eventDate} / ${talk.time} / ${TRACK[talk.track].name}`}
@@ -843,76 +511,75 @@ export default function MyTimetablePage() {
                             {talk.eventDate} / {talk.time} /{" "}
                             {TRACK[talk.track].name}
                           </p>
-                          <p className="text-sm font-bold">{talk.title}</p>
-                          <p className="text-xs">{talk.speaker.name}</p>
-                        </div>
-                        <Button
-                          type="button"
-                          size="sm"
-                          variant="outline"
-                          onClick={() => addTalk(talk.id)}
-                          disabled={isAdded}
-                        >
-                          {isAdded ? (
-                            <>
-                              <Check size={14} />
+                          {isAdded && (
+                            <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-blue-purple-200 px-1.5 py-0 text-[10px] font-bold text-blue-purple-700">
+                              <Check size={10} />
                               追加済み
-                            </>
-                          ) : (
-                            <>
-                              <Plus size={14} />
-                              追加
-                            </>
+                            </span>
                           )}
-                        </Button>
-                      </div>
+                        </div>
+                        <p className="py-1 text-sm font-bold">{talk.title}</p>
+                        <p className="text-xs">{talk.speaker.name}</p>
+                      </button>
                     );
                   })}
                 </div>
               )}
             </div>
-            <div className="flex-1"></div>
-
-            <Button
-              type="button"
-              onClick={saveToLocalStorage}
-              disabled={!showSaveButton}
-            >
-              <Save size={16} />
-              保存
-            </Button>
             <Button
               type="button"
               variant="ghost"
               className="text-red-500 hover:bg-red-50 hover:text-red-600"
               onClick={() => setIsClearConfirmOpen(true)}
+              aria-label="リセット"
+              title="リセット"
             >
-              <Trash2 size={16} />
-              クリア
+              <RotateCcw size={16} />
+              リセット
             </Button>
           </div>
 
           <div className="block lg:hidden">
-            <MobileTimeline
+            <MobileTimelineLayout
               currentEventDate={currentEventDate}
-              talksByDate={talksByDate}
-              participatedIds={participatedIdsSet}
-              onClickTimeSlot={(eventDate, minutes) =>
-                setTimePickerState({ eventDate, minutes })
-              }
-              onRemoveTalk={removeTalk}
               onTabChange={setCurrentEventDate}
-            />
+            >
+              <TimelineColumn
+                eventDate={currentEventDate}
+                talks={talksByDate[currentEventDate]}
+                participatedIds={participatedIdsSet}
+                onClickTimeSlot={(eventDate, minutes) =>
+                  setTimePickerState({ eventDate, minutes })
+                }
+                onRemoveTalk={removeTalk}
+              />
+            </MobileTimelineLayout>
           </div>
 
           <div className="hidden lg:block">
-            <DesktopTimeline
-              talksByDate={talksByDate}
-              participatedIds={participatedIdsSet}
-              onClickTimeSlot={(eventDate, minutes) =>
-                setTimePickerState({ eventDate, minutes })
+            <DesktopTimelineLayout
+              day1Column={
+                <TimelineColumn
+                  eventDate="DAY1"
+                  talks={talksByDate.DAY1}
+                  participatedIds={participatedIdsSet}
+                  onClickTimeSlot={(eventDate, minutes) =>
+                    setTimePickerState({ eventDate, minutes })
+                  }
+                  onRemoveTalk={removeTalk}
+                />
               }
-              onRemoveTalk={removeTalk}
+              day2Column={
+                <TimelineColumn
+                  eventDate="DAY2"
+                  talks={talksByDate.DAY2}
+                  participatedIds={participatedIdsSet}
+                  onClickTimeSlot={(eventDate, minutes) =>
+                    setTimePickerState({ eventDate, minutes })
+                  }
+                  onRemoveTalk={removeTalk}
+                />
+              }
             />
           </div>
         </div>
@@ -934,7 +601,7 @@ export default function MyTimetablePage() {
             <div className="flex items-center justify-between gap-2">
               <h3 className="text-base font-bold text-black-700">
                 {timePickerState.eventDate}{" "}
-                {formatMinutes(timePickerState.minutes)}
+                {myTimetable.formatMinutes(timePickerState.minutes)}
                 の時間帯で追加
               </h3>
               <button
@@ -1079,7 +746,7 @@ export default function MyTimetablePage() {
           >
             <h3 className="text-base font-bold text-black-700">確認</h3>
             <p className="mt-2 text-sm text-black-500">
-              マイタイムテーブルをすべてクリアします。よろしいですか？
+              マイタイムテーブルをすべてリセットします。よろしいですか？
             </p>
 
             <div className="mt-4 flex justify-end gap-2">
@@ -1093,11 +760,11 @@ export default function MyTimetablePage() {
               <Button
                 type="button"
                 onClick={() => {
-                  clearTalks();
+                  resetTalks();
                   setIsClearConfirmOpen(false);
                 }}
               >
-                クリアする
+                リセットする
               </Button>
             </div>
           </section>

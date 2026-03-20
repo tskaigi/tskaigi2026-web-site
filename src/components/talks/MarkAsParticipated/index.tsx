@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { showAppToast } from "@/components/ui/GlobalToast";
-import { markAsParticipated, readMyParticipatedIds } from "@/utils/myTimetable";
+import { myParticipatedIds } from "@/utils/myTimetable";
 
 type Props = {
   talkId: string;
@@ -22,13 +22,13 @@ export function MarkAsParticipated({ talkId }: Props) {
     )
       return;
 
-    const alreadyParticipated = readMyParticipatedIds().includes(talkId);
+    const alreadyParticipated = myParticipatedIds.read().includes(talkId);
     if (alreadyParticipated) {
       setProcessed(true);
       return;
     }
 
-    markAsParticipated(talkId);
+    myParticipatedIds.mark(talkId);
     window.dispatchEvent(new Event("my-timetable-updated"));
     showAppToast("参加を記録しました");
     setProcessed(true);
