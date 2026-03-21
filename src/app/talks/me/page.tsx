@@ -3,8 +3,8 @@
 import {
   AlertTriangle,
   Check,
+  Info,
   List,
-  Plus,
   QrCode,
   RotateCcw,
   Search,
@@ -162,6 +162,550 @@ function TimelineColumn({
   );
 }
 
+function TimePickerDialog({
+  timePickerState,
+  allTalks,
+  selectedIds,
+  onAdd,
+  onRemove,
+  onClose,
+}: {
+  timePickerState: NonNullable<TimePickerState>;
+  allTalks: TalkWithMinutes[];
+  selectedIds: string[];
+  onAdd: (id: string) => void;
+  onRemove: (id: string) => void;
+  onClose: () => void;
+}) {
+  const pickableByTime = useMemo(
+    () =>
+      allTalks.filter(
+        (talk) =>
+          talk.eventDate === timePickerState.eventDate &&
+          talk.startMinutes <= timePickerState.minutes &&
+          talk.endMinutes > timePickerState.minutes,
+      ),
+    [allTalks, timePickerState],
+  );
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/30 p-4 flex items-center justify-center">
+      <button
+        type="button"
+        className="absolute inset-0"
+        onClick={onClose}
+        aria-label="ダイアログを閉じる"
+      />
+      <section
+        role="dialog"
+        aria-modal="true"
+        className="relative z-10 w-full max-w-xl rounded-xl bg-white p-4 md:p-6"
+      >
+        <div className="flex items-center justify-between gap-2">
+          <h3 className="text-base font-bold text-black-700">
+            {timePickerState.eventDate}{" "}
+            {myTimetable.formatMinutes(timePickerState.minutes)}
+            の時間帯で追加
+          </h3>
+          <button
+            type="button"
+            className="text-black-500 hover:text-black-700 cursor-pointer"
+            onClick={onClose}
+            aria-label="閉じる"
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="mt-3 max-h-72 overflow-y-auto flex flex-col gap-2">
+          {pickableByTime.length === 0 ? (
+            <p className="text-sm text-black-500">
+              該当するトークがありません。
+            </p>
+          ) : (
+            pickableByTime.map((talk) => {
+              const isAdded = selectedIds.includes(talk.id);
+              return (
+                <button
+                  type="button"
+                  key={`pick-time-${talk.id}`}
+                  className={`w-full py-2 text-left cursor-pointer rounded-md border px-2 border-l-4 ${isAdded ? `border-black-300 ${myTimetable.getTrackBorderClass(talk.track)} bg-blue-purple-100/40` : "border-black-200 border-l-black-200 hover:bg-black-100"}`}
+                  onClick={() => (isAdded ? onRemove(talk.id) : onAdd(talk.id))}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <p
+                      className="text-xs text-black-500 truncate whitespace-nowrap"
+                      title={`${talk.eventDate} / ${talk.time} / ${TRACK[talk.track].name}`}
+                    >
+                      {talk.eventDate} / {talk.time} / {TRACK[talk.track].name}
+                    </p>
+                    {isAdded && (
+                      <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-blue-purple-200 px-1.5 py-0 text-[10px] font-bold text-blue-purple-700">
+                        <Check size={10} />
+                        選択中
+                      </span>
+                    )}
+                  </div>
+                  <p className="py-1 text-sm font-bold">{talk.title}</p>
+                  <p className="text-xs">{talk.speaker.name}</p>
+                </button>
+              );
+            })
+          )}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function OverlapDialog({
+  overlapState,
+  onResolve,
+  onClose,
+}: {
+  overlapState: NonNullable<OverlapState>;
+  onResolve: () => void;
+  onClose: () => void;
+}) {
+  return (
+    <div className="fixed inset-0 z-60 bg-black/40 p-4 flex items-center justify-center">
+      <button
+        type="button"
+        className="absolute inset-0"
+        onClick={onClose}
+        aria-label="ダイアログを閉じる"
+      />
+      <section
+        role="dialog"
+        aria-modal="true"
+        className="relative z-10 w-full max-w-xl rounded-xl bg-white p-4 md:p-6"
+      >
+        <div className="flex items-start gap-2">
+          <AlertTriangle size={18} className="mt-0.5 text-orange-600" />
+          <div>
+            <h3 className="text-base font-bold text-black-700">
+              時間が重複しています
+            </h3>
+            <p className="mt-1 text-sm text-black-500">
+              追加候補: {overlapState.targetTalk.time} /{" "}
+              {overlapState.targetTalk.title}
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-4 rounded-lg border border-black-300 p-3">
+          <p className="text-sm font-bold">重複中のトーク</p>
+          <div className="mt-2 flex flex-col gap-2">
+            {overlapState.overlaps.map((talk) => (
+              <div
+                key={`overlap-${talk.id}`}
+                className="rounded border border-black-200 p-2"
+              >
+                <span className="text-sm">
+                  <span className="block text-black-500 text-xs">
+                    {talk.time}
+                  </span>
+                  <span className="block font-bold">{talk.title}</span>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-4 flex flex-wrap justify-end gap-2">
+          <Button type="button" variant="outline" onClick={onClose}>
+            キャンセル
+          </Button>
+          <Button type="button" onClick={onResolve}>
+            重複したまま追加
+          </Button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ClearConfirmDialog({
+  onConfirm,
+  onClose,
+}: {
+  onConfirm: () => void;
+  onClose: () => void;
+}) {
+  return (
+    <div className="fixed inset-0 z-65 bg-black/40 p-4 flex items-center justify-center">
+      <button
+        type="button"
+        className="absolute inset-0"
+        onClick={onClose}
+        aria-label="ダイアログを閉じる"
+      />
+      <section
+        role="dialog"
+        aria-modal="true"
+        className="relative z-10 w-full max-w-md rounded-xl bg-white p-4 md:p-6"
+      >
+        <h3 className="text-base font-bold text-black-700">確認</h3>
+        <p className="mt-2 text-sm text-black-500">
+          マイタイムテーブルをすべてリセットします。よろしいですか？
+        </p>
+
+        <div className="mt-4 flex justify-end gap-2">
+          <Button type="button" variant="outline" onClick={onClose}>
+            キャンセル
+          </Button>
+          <Button
+            type="button"
+            onClick={() => {
+              onConfirm();
+              onClose();
+            }}
+          >
+            リセットする
+          </Button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function InfoDialog({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 z-70 bg-black/40 p-4 flex items-center justify-center">
+      <button
+        type="button"
+        className="absolute inset-0"
+        onClick={onClose}
+        aria-label="ダイアログを閉じる"
+      />
+      <section
+        role="dialog"
+        aria-modal="true"
+        className="relative z-10 w-full max-w-lg rounded-xl bg-white p-4 md:p-6 max-h-[80vh] overflow-y-auto"
+      >
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-bold text-black-700">
+            マイタイムテーブルとは？
+          </h3>
+          <button
+            type="button"
+            className="text-black-500 hover:text-black-700 cursor-pointer"
+            onClick={onClose}
+            aria-label="閉じる"
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="mt-4 flex flex-col gap-4 text-sm text-black-600">
+          <p>
+            マイタイムテーブルは、TSKaigi
+            2026で聴きたいセッションを自分だけのスケジュールとして管理できる機能です。
+          </p>
+
+          <div>
+            <h4 className="font-bold text-black-700">スケジュールを組もう</h4>
+            <p className="mt-1">
+              気になるセッションを検索して追加し、自分だけのタイムテーブルを作成できます。タイムライン上の時間帯をタップして追加することもできます。
+            </p>
+          </div>
+
+          <div>
+            <h4 className="font-bold text-black-700">参加記録を残そう</h4>
+            <p className="mt-1">
+              会場では各セッションの参加記録QRコードが掲出されます。読み取ると、マイタイムテーブルに参加記録が付きます。目指せ全時間帯参加！
+            </p>
+          </div>
+
+          <div>
+            <h4 className="font-bold text-black-700">共有して会話のタネに</h4>
+            <p className="mt-1">
+              QRコードやSNSでマイタイムテーブルを共有できます。会場内や懇親会で「こんなセッション聴いたよ！」と見せ合って、会話のきっかけにしましょう。
+            </p>
+          </div>
+
+          <div>
+            <h4 className="font-bold text-black-700">PC・スマホ間の同期</h4>
+            <p className="mt-1">
+              事前にPCでスケジュールを組んで、QRコードでスマホに同期して会場に持っていくこともできます。
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-6 flex justify-end">
+          <Button type="button" onClick={onClose}>
+            閉じる
+          </Button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function SideToolbar({
+  selectedIds,
+  participatedIds,
+}: {
+  selectedIds: string[];
+  participatedIds: string[];
+}) {
+  const [showQr, setShowQr] = useState(false);
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
+  const [baseUrl, setBaseUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    setBaseUrl(window.location.origin);
+  }, []);
+
+  const shareQueryString = useMemo(() => {
+    const tokens = myTimetableQuery.encode(selectedIds, participatedIds);
+    const params = new URLSearchParams();
+    if (tokens.m) params.set("m", tokens.m);
+    if (tokens.p) params.set("p", tokens.p);
+    return params.toString();
+  }, [selectedIds, participatedIds]);
+
+  const currentShareUrl = useMemo(() => {
+    if (baseUrl.length === 0) return "";
+    const qs = shareQueryString;
+    return `${baseUrl}/talks/me${qs.length > 0 ? `?${qs}` : ""}`;
+  }, [baseUrl, shareQueryString]);
+
+  const yourShareUrl = useMemo(() => {
+    if (baseUrl.length === 0) return "";
+    const qs = shareQueryString;
+    return `${baseUrl}/talks/your${qs.length > 0 ? `?${qs}` : ""}`;
+  }, [baseUrl, shareQueryString]);
+
+  const xShareHref =
+    yourShareUrl.length > 0
+      ? `https://x.com/intent/tweet?text=${encodeURIComponent("TSKaigiのマイタイムテーブル")}&url=${encodeURIComponent(yourShareUrl)}`
+      : "https://x.com/intent/tweet";
+
+  return (
+    <aside className="flex flex-row lg:flex-col gap-2">
+      <Button type="button" variant="outline" size="icon" asChild>
+        <Link
+          href={xShareHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Xでシェア"
+          title="Xでシェア"
+        >
+          <Share2 size={18} />
+        </Link>
+      </Button>
+      <div className="relative">
+        <Button
+          type="button"
+          variant="outline"
+          size="icon"
+          onClick={() => setShowQr((prev) => !prev)}
+          aria-label={showQr ? "QRを隠す" : "QRを表示"}
+          title={showQr ? "QRを隠す" : "QRを表示"}
+        >
+          <QrCode size={18} />
+        </Button>
+
+        {showQr && currentShareUrl.length > 0 && (
+          <div className="absolute top-full left-0 z-40 mt-2 rounded-lg border border-black-200 bg-white p-3">
+            <div className="grid md:grid-cols-[1fr_auto_1fr] gap-3">
+              <div>
+                <p className="text-sm font-bold text-black-700">
+                  PC・スマホ間の同期用
+                </p>
+                <p className="mt-1 text-[10px] text-black-500">
+                  読み取った端末に保存されているマイタイムテーブル情報が上書きされます
+                </p>
+                <div
+                  role="img"
+                  aria-label="自分用マイタイムテーブルQR"
+                  className="m-2 h-20 w-20 md:h-[140px] md:w-[140px] bg-white bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
+                      currentShareUrl,
+                    )})`,
+                  }}
+                />
+              </div>
+
+              <div className="hidden md:block w-px bg-black-200" />
+              <div className="block md:hidden h-px bg-black-200" />
+
+              <div>
+                <p className="text-sm font-bold text-black-700">閲覧・共有用</p>
+                <p className="mt-1 text-[10px] text-black-500">
+                  読み取った端末に保存されているマイタイムテーブル情報は上書きされません
+                </p>
+                <div
+                  role="img"
+                  aria-label="共有用タイムテーブルQR"
+                  className="m-2 h-20 w-20 md:h-[140px] md:w-[140px] bg-white bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
+                      yourShareUrl,
+                    )})`,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+      <Button type="button" variant="outline" size="icon" asChild>
+        <Link
+          href="/talks"
+          aria-label="タイムテーブル一覧へ"
+          title="タイムテーブル一覧へ"
+        >
+          <List size={18} />
+        </Link>
+      </Button>
+      <Button
+        type="button"
+        variant="outline"
+        size="icon"
+        onClick={() => setIsInfoOpen(true)}
+        aria-label="マイタイムテーブルについて"
+        title="マイタイムテーブルについて"
+      >
+        <Info size={18} />
+      </Button>
+
+      {isInfoOpen && <InfoDialog onClose={() => setIsInfoOpen(false)} />}
+    </aside>
+  );
+}
+
+function TalkSearchPanel({
+  allTalks,
+  selectedIds,
+  hasOpenDialog,
+  onAdd,
+  onRemove,
+  onReset,
+}: {
+  allTalks: TalkWithMinutes[];
+  selectedIds: string[];
+  hasOpenDialog: boolean;
+  onAdd: (id: string) => void;
+  onRemove: (id: string) => void;
+  onReset: () => void;
+}) {
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleMouseDown = (event: MouseEvent) => {
+      if (hasOpenDialog) return;
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, hasOpenDialog]);
+
+  const filteredTalks = useMemo(() => {
+    const normalizedKeyword = searchKeyword.trim().toLowerCase();
+    if (normalizedKeyword.length === 0) return allTalks;
+    return allTalks.filter(
+      (talk) =>
+        talk.title.toLowerCase().includes(normalizedKeyword) ||
+        talk.speaker.name.toLowerCase().includes(normalizedKeyword),
+    );
+  }, [allTalks, searchKeyword]);
+
+  return (
+    <div className="flex flex-wrap items-center gap-1">
+      <div
+        ref={popupRef}
+        className="relative w-[220px] max-w-full sm:w-full sm:max-w-md"
+      >
+        <div className="relative">
+          <Search
+            size={16}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-black-500"
+          />
+          <Input
+            className="bg-white pl-9"
+            value={searchKeyword}
+            onFocus={() => setIsOpen(true)}
+            onChange={(event) => {
+              setSearchKeyword(event.target.value);
+              setIsOpen(true);
+            }}
+            placeholder="トークを検索（タイトル or スピーカー名）"
+          />
+        </div>
+
+        {isOpen && (
+          <div className="absolute left-0 right-0 z-40 mt-2 max-h-72 overflow-y-auto rounded border border-black-300 bg-white p-2 shadow-sm flex flex-col gap-2">
+            {filteredTalks.map((talk) => {
+              const isAdded = selectedIds.includes(talk.id);
+              return (
+                <button
+                  type="button"
+                  key={`add-panel-${talk.id}`}
+                  className={`w-full py-2 text-left cursor-pointer rounded-md border px-2 border-l-4 ${isAdded ? `border-black-300 ${myTimetable.getTrackBorderClass(talk.track)} bg-blue-purple-100/40` : "border-black-200 border-l-black-200 hover:bg-black-100"}`}
+                  onClick={() => (isAdded ? onRemove(talk.id) : onAdd(talk.id))}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <p
+                      className="max-w-[180px] text-xs text-black-500 truncate whitespace-nowrap sm:max-w-[260px]"
+                      title={`${talk.eventDate} / ${talk.time} / ${TRACK[talk.track].name}`}
+                    >
+                      {talk.eventDate} / {talk.time} / {TRACK[talk.track].name}
+                    </p>
+                    {isAdded && (
+                      <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-blue-purple-200 px-1.5 py-0 text-[10px] font-bold text-blue-purple-700">
+                        <Check size={10} />
+                        選択中
+                      </span>
+                    )}
+                  </div>
+                  <p className="py-1 text-sm font-bold">{talk.title}</p>
+                  <p className="text-xs">{talk.speaker.name}</p>
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+      <Button
+        type="button"
+        variant="ghost"
+        className="text-red-500 hover:bg-red-50 hover:text-red-600"
+        onClick={onReset}
+        aria-label="リセット"
+        title="リセット"
+      >
+        <RotateCcw size={16} />
+        リセット
+      </Button>
+    </div>
+  );
+}
+
 export default function MyTimetablePage() {
   const router = useRouter();
   const pathname = usePathname();
@@ -170,16 +714,10 @@ export default function MyTimetablePage() {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [participatedIds, setParticipatedIds] = useState<string[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
-  const [isAddPanelOpen, setIsAddPanelOpen] = useState(false);
-  const [searchKeyword, setSearchKeyword] = useState("");
   const [currentEventDate, setCurrentEventDate] = useState<EventDate>("DAY1");
   const [timePickerState, setTimePickerState] = useState<TimePickerState>(null);
   const [overlapState, setOverlapState] = useState<OverlapState>(null);
-  const [baseUrl, setBaseUrl] = useState("");
-  const [showQr, setShowQr] = useState(false);
   const [isClearConfirmOpen, setIsClearConfirmOpen] = useState(false);
-  const searchPopupRef = useRef<HTMLDivElement>(null);
-
   const allTalksWithMinutes = useMemo(
     () => myTimetable.getAllTalksWithMinutes(),
     [],
@@ -219,39 +757,6 @@ export default function MyTimetablePage() {
       setParticipatedIds(query.participatedIds);
     }
   }, [searchParams, hasQueryIds, isInitialized]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    setBaseUrl(window.location.origin);
-  }, []);
-
-  useEffect(() => {
-    if (!isAddPanelOpen) return;
-
-    const handleMouseDown = (event: MouseEvent) => {
-      if (overlapState) return;
-      if (
-        searchPopupRef.current &&
-        !searchPopupRef.current.contains(event.target as Node)
-      ) {
-        setIsAddPanelOpen(false);
-      }
-    };
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsAddPanelOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleMouseDown);
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("mousedown", handleMouseDown);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isAddPanelOpen, overlapState]);
 
   const updateQuery = (
     ids: string[],
@@ -334,50 +839,6 @@ export default function MyTimetablePage() {
     updateQuery([], []);
   };
 
-  const shareQueryString = useMemo(() => {
-    const tokens = myTimetableQuery.encode(selectedIds, participatedIds);
-    const params = new URLSearchParams();
-    if (tokens.m) params.set("m", tokens.m);
-    if (tokens.p) params.set("p", tokens.p);
-    return params.toString();
-  }, [selectedIds, participatedIds]);
-
-  const currentShareUrl = useMemo(() => {
-    if (baseUrl.length === 0) return "";
-    const qs = shareQueryString;
-    return `${baseUrl}/talks/me${qs.length > 0 ? `?${qs}` : ""}`;
-  }, [baseUrl, shareQueryString]);
-
-  const yourShareUrl = useMemo(() => {
-    if (baseUrl.length === 0) return "";
-    const qs = shareQueryString;
-    return `${baseUrl}/talks/your${qs.length > 0 ? `?${qs}` : ""}`;
-  }, [baseUrl, shareQueryString]);
-
-  const xShareHref =
-    yourShareUrl.length > 0
-      ? `https://x.com/intent/tweet?text=${encodeURIComponent("TSKaigiのマイタイムテーブル")}&url=${encodeURIComponent(yourShareUrl)}`
-      : "https://x.com/intent/tweet";
-
-  const filteredForPanel = allTalksWithMinutes.filter((talk) => {
-    const normalizedKeyword = searchKeyword.trim().toLowerCase();
-    if (normalizedKeyword.length === 0) return true;
-    return (
-      talk.title.toLowerCase().includes(normalizedKeyword) ||
-      talk.speaker.name.toLowerCase().includes(normalizedKeyword)
-    );
-  });
-
-  const pickableByTime = useMemo(() => {
-    if (!timePickerState) return [];
-    return allTalksWithMinutes.filter(
-      (talk) =>
-        talk.eventDate === timePickerState.eventDate &&
-        talk.startMinutes <= timePickerState.minutes &&
-        talk.endMinutes > timePickerState.minutes,
-    );
-  }, [allTalksWithMinutes, timePickerState]);
-
   return (
     <main className="bg-blue-light-100 mt-16 py-10 px-2 md:py-16 md:px-6 lg:px-10">
       <h1 className="text-2xl font-bold text-blue-light-500 text-center md:text-3xl lg:text-4xl">
@@ -385,159 +846,20 @@ export default function MyTimetablePage() {
       </h1>
 
       <div className="mt-8 mx-auto max-w-6xl grid lg:grid-cols-[min-content_1fr] gap-4">
-        <aside className="flex flex-row lg:flex-col gap-2">
-          <Button type="button" variant="outline" size="icon" asChild>
-            <Link
-              href={xShareHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Xでシェア"
-              title="Xでシェア"
-            >
-              <Share2 size={18} />
-            </Link>
-          </Button>
-          <div className="relative">
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              onClick={() => setShowQr((prev) => !prev)}
-              aria-label={showQr ? "QRを隠す" : "QRを表示"}
-              title={showQr ? "QRを隠す" : "QRを表示"}
-            >
-              <QrCode size={18} />
-            </Button>
-
-            {showQr && currentShareUrl.length > 0 && (
-              <div className="absolute top-full left-0 z-40 mt-2 rounded-lg border border-black-200 bg-white p-3">
-                <div className="grid md:grid-cols-[1fr_auto_1fr] gap-3">
-                  <div>
-                    <p className="text-sm font-bold text-black-700">
-                      PC・スマホ間の同期用
-                    </p>
-                    <p className="mt-1 text-[10px] text-black-500">
-                      読み取った端末に保存されているマイタイムテーブル情報が上書きされます
-                    </p>
-                    <div
-                      role="img"
-                      aria-label="自分用マイタイムテーブルQR"
-                      className="m-2 h-20 w-20 md:h-[140px] md:w-[140px] bg-white bg-cover bg-center"
-                      style={{
-                        backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
-                          currentShareUrl,
-                        )})`,
-                      }}
-                    />
-                  </div>
-
-                  <div className="hidden md:block w-px bg-black-200" />
-                  <div className="block md:hidden h-px bg-black-200" />
-
-                  <div>
-                    <p className="text-sm font-bold text-black-700">
-                      閲覧・共有用
-                    </p>
-                    <p className="mt-1 text-[10px] text-black-500">
-                      読み取った端末に保存されているマイタイムテーブル情報は上書きされません
-                    </p>
-                    <div
-                      role="img"
-                      aria-label="共有用タイムテーブルQR"
-                      className="m-2 h-20 w-20 md:h-[140px] md:w-[140px] bg-white bg-cover bg-center"
-                      style={{
-                        backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
-                          yourShareUrl,
-                        )})`,
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-          <Button type="button" variant="outline" size="icon" asChild>
-            <Link
-              href="/talks"
-              aria-label="タイムテーブル一覧へ"
-              title="タイムテーブル一覧へ"
-            >
-              <List size={18} />
-            </Link>
-          </Button>
-        </aside>
+        <SideToolbar
+          selectedIds={selectedIds}
+          participatedIds={participatedIds}
+        />
 
         <div className="bg-white rounded-xl p-4 md:p-6">
-          <div className="flex flex-wrap items-center gap-1">
-            <div
-              ref={searchPopupRef}
-              className="relative w-[220px] max-w-full sm:w-full sm:max-w-md"
-            >
-              <div className="relative">
-                <Search
-                  size={16}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-black-500"
-                />
-                <Input
-                  className="bg-white pl-9"
-                  value={searchKeyword}
-                  onFocus={() => setIsAddPanelOpen(true)}
-                  onChange={(event) => {
-                    setSearchKeyword(event.target.value);
-                    setIsAddPanelOpen(true);
-                  }}
-                  placeholder="トークを検索（タイトル or スピーカー名）"
-                />
-              </div>
-
-              {isAddPanelOpen && (
-                <div className="absolute left-0 right-0 z-40 mt-2 max-h-72 overflow-y-auto rounded border border-black-300 bg-white p-2 shadow-sm flex flex-col gap-2">
-                  {filteredForPanel.map((talk) => {
-                    const isAdded = selectedIds.includes(talk.id);
-                    return (
-                      <button
-                        type="button"
-                        key={`add-panel-${talk.id}`}
-                        className={`w-full py-2 text-left cursor-pointer rounded-md border border-black-300 px-2 border-l-4 ${myTimetable.getTrackBorderClass(talk.track)} ${isAdded ? "bg-blue-purple-100/40" : "hover:bg-black-100"}`}
-                        onClick={() =>
-                          isAdded ? removeTalk(talk.id) : addTalk(talk.id)
-                        }
-                      >
-                        <div className="flex items-center justify-between gap-2">
-                          <p
-                            className="max-w-[180px] text-xs text-black-500 truncate whitespace-nowrap sm:max-w-[260px]"
-                            title={`${talk.eventDate} / ${talk.time} / ${TRACK[talk.track].name}`}
-                          >
-                            {talk.eventDate} / {talk.time} /{" "}
-                            {TRACK[talk.track].name}
-                          </p>
-                          {isAdded && (
-                            <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-blue-purple-200 px-1.5 py-0 text-[10px] font-bold text-blue-purple-700">
-                              <Check size={10} />
-                              追加済み
-                            </span>
-                          )}
-                        </div>
-                        <p className="py-1 text-sm font-bold">{talk.title}</p>
-                        <p className="text-xs">{talk.speaker.name}</p>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-            <Button
-              type="button"
-              variant="ghost"
-              className="text-red-500 hover:bg-red-50 hover:text-red-600"
-              onClick={() => setIsClearConfirmOpen(true)}
-              aria-label="リセット"
-              title="リセット"
-            >
-              <RotateCcw size={16} />
-              リセット
-            </Button>
-          </div>
+          <TalkSearchPanel
+            allTalks={allTalksWithMinutes}
+            selectedIds={selectedIds}
+            hasOpenDialog={!!overlapState}
+            onAdd={addTalk}
+            onRemove={removeTalk}
+            onReset={() => setIsClearConfirmOpen(true)}
+          />
 
           <div className="block lg:hidden">
             <MobileTimelineLayout
@@ -586,189 +908,29 @@ export default function MyTimetablePage() {
       </div>
 
       {timePickerState && (
-        <div className="fixed inset-0 z-50 bg-black/30 p-4 flex items-center justify-center">
-          <button
-            type="button"
-            className="absolute inset-0"
-            onClick={() => setTimePickerState(null)}
-            aria-label="ダイアログを閉じる"
-          />
-          <section
-            role="dialog"
-            aria-modal="true"
-            className="relative z-10 w-full max-w-xl rounded-xl bg-white p-4 md:p-6"
-          >
-            <div className="flex items-center justify-between gap-2">
-              <h3 className="text-base font-bold text-black-700">
-                {timePickerState.eventDate}{" "}
-                {myTimetable.formatMinutes(timePickerState.minutes)}
-                の時間帯で追加
-              </h3>
-              <button
-                type="button"
-                className="text-black-500 hover:text-black-700"
-                onClick={() => setTimePickerState(null)}
-                aria-label="閉じる"
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            <div className="mt-3 max-h-72 overflow-y-auto flex flex-col gap-2">
-              {pickableByTime.length === 0 ? (
-                <p className="text-sm text-black-500">
-                  該当するトークがありません。
-                </p>
-              ) : (
-                pickableByTime.map((talk) => {
-                  const isAdded = selectedIds.includes(talk.id);
-                  return (
-                    <div
-                      key={`pick-time-${talk.id}`}
-                      className="flex items-center justify-between rounded border border-black-200 p-2"
-                    >
-                      <div>
-                        <p
-                          className="text-xs text-black-500 truncate whitespace-nowrap"
-                          title={`${talk.time} / ${TRACK[talk.track].name}`}
-                        >
-                          {talk.time} / {TRACK[talk.track].name}
-                        </p>
-                        <p className="text-sm font-bold">{talk.title}</p>
-                      </div>
-                      <Button
-                        type="button"
-                        size="sm"
-                        variant="outline"
-                        onClick={() => addTalk(talk.id)}
-                        disabled={isAdded}
-                      >
-                        {isAdded ? (
-                          <>
-                            <Check size={14} />
-                            追加済み
-                          </>
-                        ) : (
-                          <>
-                            <Plus size={14} />
-                            追加
-                          </>
-                        )}
-                      </Button>
-                    </div>
-                  );
-                })
-              )}
-            </div>
-          </section>
-        </div>
+        <TimePickerDialog
+          timePickerState={timePickerState}
+          allTalks={allTalksWithMinutes}
+          selectedIds={selectedIds}
+          onAdd={addTalk}
+          onRemove={removeTalk}
+          onClose={() => setTimePickerState(null)}
+        />
       )}
 
       {overlapState && (
-        <div className="fixed inset-0 z-60 bg-black/40 p-4 flex items-center justify-center">
-          <button
-            type="button"
-            className="absolute inset-0"
-            onClick={() => {
-              setOverlapState(null);
-            }}
-            aria-label="ダイアログを閉じる"
-          />
-          <section
-            role="dialog"
-            aria-modal="true"
-            className="relative z-10 w-full max-w-xl rounded-xl bg-white p-4 md:p-6"
-          >
-            <div className="flex items-start gap-2">
-              <AlertTriangle size={18} className="mt-0.5 text-orange-600" />
-              <div>
-                <h3 className="text-base font-bold text-black-700">
-                  時間が重複しています
-                </h3>
-                <p className="mt-1 text-sm text-black-500">
-                  追加候補: {overlapState.targetTalk.time} /{" "}
-                  {overlapState.targetTalk.title}
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-4 rounded-lg border border-black-300 p-3">
-              <p className="text-sm font-bold">重複中のトーク</p>
-              <div className="mt-2 flex flex-col gap-2">
-                {overlapState.overlaps.map((talk) => {
-                  return (
-                    <div
-                      key={`overlap-${talk.id}`}
-                      className="rounded border border-black-200 p-2"
-                    >
-                      <span className="text-sm">
-                        <span className="block text-black-500 text-xs">
-                          {talk.time}
-                        </span>
-                        <span className="block font-bold">{talk.title}</span>
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="mt-4 flex flex-wrap justify-end gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => {
-                  setOverlapState(null);
-                }}
-              >
-                キャンセル
-              </Button>
-              <Button type="button" onClick={resolveOverlapAndAdd}>
-                重複したまま追加
-              </Button>
-            </div>
-          </section>
-        </div>
+        <OverlapDialog
+          overlapState={overlapState}
+          onResolve={resolveOverlapAndAdd}
+          onClose={() => setOverlapState(null)}
+        />
       )}
 
       {isClearConfirmOpen && (
-        <div className="fixed inset-0 z-65 bg-black/40 p-4 flex items-center justify-center">
-          <button
-            type="button"
-            className="absolute inset-0"
-            onClick={() => setIsClearConfirmOpen(false)}
-            aria-label="ダイアログを閉じる"
-          />
-          <section
-            role="dialog"
-            aria-modal="true"
-            className="relative z-10 w-full max-w-md rounded-xl bg-white p-4 md:p-6"
-          >
-            <h3 className="text-base font-bold text-black-700">確認</h3>
-            <p className="mt-2 text-sm text-black-500">
-              マイタイムテーブルをすべてリセットします。よろしいですか？
-            </p>
-
-            <div className="mt-4 flex justify-end gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setIsClearConfirmOpen(false)}
-              >
-                キャンセル
-              </Button>
-              <Button
-                type="button"
-                onClick={() => {
-                  resetTalks();
-                  setIsClearConfirmOpen(false);
-                }}
-              >
-                リセットする
-              </Button>
-            </div>
-          </section>
-        </div>
+        <ClearConfirmDialog
+          onConfirm={resetTalks}
+          onClose={() => setIsClearConfirmOpen(false)}
+        />
       )}
     </main>
   );
