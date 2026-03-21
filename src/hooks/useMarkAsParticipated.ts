@@ -5,11 +5,7 @@ import { useEffect, useState } from "react";
 import { showAppToast } from "@/components/ui/GlobalToast";
 import { myParticipatedIds } from "@/utils/myTimetable";
 
-type Props = {
-  talkId: string;
-};
-
-export function MarkAsParticipated({ talkId }: Props) {
+export function useMarkAsParticipated(talkId: string) {
   const searchParams = useSearchParams();
   const [processed, setProcessed] = useState(false);
 
@@ -33,6 +29,4 @@ export function MarkAsParticipated({ talkId }: Props) {
     showAppToast("参加を記録しました");
     setProcessed(true);
   }, [searchParams, talkId, processed]);
-
-  return null;
 }
