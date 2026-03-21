@@ -35,6 +35,71 @@ import {
   type TalkWithMinutes,
 } from "@/utils/myTimetable";
 
+function DialogOverlay({
+  children,
+  maxWidth = "max-w-xl",
+  onClose,
+}: {
+  children: React.ReactNode;
+  maxWidth?: string;
+  onClose: () => void;
+}) {
+  return (
+    <div className="fixed inset-0 z-50 bg-black/30 p-4 flex items-center justify-center">
+      <button
+        type="button"
+        className="absolute inset-0"
+        onClick={onClose}
+        aria-label="ダイアログを閉じる"
+      />
+      <section
+        role="dialog"
+        aria-modal="true"
+        className={`relative z-10 w-full ${maxWidth} rounded-xl bg-white p-4 md:p-6`}
+      >
+        {children}
+      </section>
+    </div>
+  );
+}
+
+function TalkSelectItem({
+  talk,
+  isAdded,
+  metaClassName,
+  onClick,
+}: {
+  talk: TalkWithMinutes;
+  isAdded: boolean;
+  metaClassName?: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      className={`w-full py-2 text-left cursor-pointer rounded-md border px-2 border-l-4 ${isAdded ? `border-black-300 ${myTimetable.getTrackBorderClass(talk.track)} bg-blue-purple-100/40` : "border-black-200 border-l-black-200 hover:bg-black-100"}`}
+      onClick={onClick}
+    >
+      <div className="flex items-center justify-between gap-2">
+        <p
+          className={`text-xs text-black-500 truncate whitespace-nowrap ${metaClassName ?? ""}`}
+          title={`${talk.eventDate} / ${talk.time} / ${TRACK[talk.track].name}`}
+        >
+          {talk.eventDate} / {talk.time} / {TRACK[talk.track].name}
+        </p>
+        {isAdded && (
+          <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-blue-purple-200 px-1.5 py-0 text-[10px] font-bold text-blue-purple-700">
+            <Check size={10} />
+            選択中
+          </span>
+        )}
+      </div>
+      <p className="py-1 text-sm font-bold">{talk.title}</p>
+      <p className="text-xs">{talk.speaker.name}</p>
+    </button>
+  );
+}
+
 type TimePickerState = {
   eventDate: EventDate;
   minutes: number;
@@ -72,72 +137,41 @@ function TimePickerDialog({
   );
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/30 p-4 flex items-center justify-center">
-      <button
-        type="button"
-        className="absolute inset-0"
-        onClick={onClose}
-        aria-label="ダイアログを閉じる"
-      />
-      <section
-        role="dialog"
-        aria-modal="true"
-        className="relative z-10 w-full max-w-xl rounded-xl bg-white p-4 md:p-6"
-      >
-        <div className="flex items-center justify-between gap-2">
-          <h3 className="text-base font-bold text-black-700">
-            {timePickerState.eventDate}{" "}
-            {myTimetable.formatMinutes(timePickerState.minutes)}
-            の時間帯で追加
-          </h3>
-          <button
-            type="button"
-            className="text-black-500 hover:text-black-700 cursor-pointer"
-            onClick={onClose}
-            aria-label="閉じる"
-          >
-            <X size={18} />
-          </button>
-        </div>
+    <DialogOverlay onClose={onClose}>
+      <div className="flex items-center justify-between gap-2">
+        <h3 className="text-base font-bold text-black-700">
+          {timePickerState.eventDate}{" "}
+          {myTimetable.formatMinutes(timePickerState.minutes)}
+          の時間帯で追加
+        </h3>
+        <button
+          type="button"
+          className="text-black-500 hover:text-black-700 cursor-pointer"
+          onClick={onClose}
+          aria-label="閉じる"
+        >
+          <X size={18} />
+        </button>
+      </div>
 
-        <div className="mt-3 max-h-72 overflow-y-auto flex flex-col gap-2">
-          {pickableByTime.length === 0 ? (
-            <p className="text-sm text-black-500">
-              該当するトークがありません。
-            </p>
-          ) : (
-            pickableByTime.map((talk) => {
-              const isAdded = selectedIds.includes(talk.id);
-              return (
-                <button
-                  type="button"
-                  key={`pick-time-${talk.id}`}
-                  className={`w-full py-2 text-left cursor-pointer rounded-md border px-2 border-l-4 ${isAdded ? `border-black-300 ${myTimetable.getTrackBorderClass(talk.track)} bg-blue-purple-100/40` : "border-black-200 border-l-black-200 hover:bg-black-100"}`}
-                  onClick={() => (isAdded ? onRemove(talk.id) : onAdd(talk.id))}
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <p
-                      className="text-xs text-black-500 truncate whitespace-nowrap"
-                      title={`${talk.eventDate} / ${talk.time} / ${TRACK[talk.track].name}`}
-                    >
-                      {talk.eventDate} / {talk.time} / {TRACK[talk.track].name}
-                    </p>
-                    {isAdded && (
-                      <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-blue-purple-200 px-1.5 py-0 text-[10px] font-bold text-blue-purple-700">
-                        <Check size={10} />
-                        選択中
-                      </span>
-                    )}
-                  </div>
-                  <p className="py-1 text-sm font-bold">{talk.title}</p>
-                  <p className="text-xs">{talk.speaker.name}</p>
-                </button>
-              );
-            })
-          )}
-        </div>
-      </section>
-    </div>
+      <div className="mt-3 max-h-72 overflow-y-auto flex flex-col gap-2">
+        {pickableByTime.length === 0 ? (
+          <p className="text-sm text-black-500">該当するトークがありません。</p>
+        ) : (
+          pickableByTime.map((talk) => {
+            const isAdded = selectedIds.includes(talk.id);
+            return (
+              <TalkSelectItem
+                key={`pick-time-${talk.id}`}
+                talk={talk}
+                isAdded={isAdded}
+                onClick={() => (isAdded ? onRemove(talk.id) : onAdd(talk.id))}
+              />
+            );
+          })
+        )}
+      </div>
+    </DialogOverlay>
   );
 }
 
@@ -151,60 +185,48 @@ function OverlapDialog({
   onClose: () => void;
 }) {
   return (
-    <div className="fixed inset-0 z-60 bg-black/40 p-4 flex items-center justify-center">
-      <button
-        type="button"
-        className="absolute inset-0"
-        onClick={onClose}
-        aria-label="ダイアログを閉じる"
-      />
-      <section
-        role="dialog"
-        aria-modal="true"
-        className="relative z-10 w-full max-w-xl rounded-xl bg-white p-4 md:p-6"
-      >
-        <div className="flex items-start gap-2">
-          <AlertTriangle size={18} className="mt-0.5 text-orange-600" />
-          <div>
-            <h3 className="text-base font-bold text-black-700">
-              時間が重複しています
-            </h3>
-            <p className="mt-1 text-sm text-black-500">
-              追加候補: {overlapState.targetTalk.time} /{" "}
-              {overlapState.targetTalk.title}
-            </p>
-          </div>
+    <DialogOverlay onClose={onClose}>
+      <div className="flex items-start gap-2">
+        <AlertTriangle size={18} className="mt-0.5 text-orange-600" />
+        <div>
+          <h3 className="text-base font-bold text-black-700">
+            時間が重複しています
+          </h3>
+          <p className="mt-1 text-sm text-black-500">
+            追加候補: {overlapState.targetTalk.time} /{" "}
+            {overlapState.targetTalk.title}
+          </p>
         </div>
+      </div>
 
-        <div className="mt-4 rounded-lg border border-black-300 p-3">
-          <p className="text-sm font-bold">重複中のトーク</p>
-          <div className="mt-2 flex flex-col gap-2">
-            {overlapState.overlaps.map((talk) => (
-              <div
-                key={`overlap-${talk.id}`}
-                className="rounded border border-black-200 p-2"
-              >
-                <span className="text-sm">
-                  <span className="block text-black-500 text-xs">
-                    {talk.time}
-                  </span>
-                  <span className="block font-bold">{talk.title}</span>
+      <div className="mt-4 rounded-lg border border-black-300 p-3">
+        <p className="text-sm font-bold">重複中のトーク</p>
+        <div className="mt-2 flex flex-col gap-2">
+          {overlapState.overlaps.map((talk) => (
+            <div
+              key={`overlap-${talk.id}`}
+              className="rounded border border-black-200 p-2"
+            >
+              <span className="text-sm">
+                <span className="block text-black-500 text-xs">
+                  {talk.time}
                 </span>
-              </div>
-            ))}
-          </div>
+                <span className="block font-bold">{talk.title}</span>
+              </span>
+            </div>
+          ))}
         </div>
+      </div>
 
-        <div className="mt-4 flex flex-wrap justify-end gap-2">
-          <Button type="button" variant="outline" onClick={onClose}>
-            キャンセル
-          </Button>
-          <Button type="button" onClick={onResolve}>
-            重複したまま追加
-          </Button>
-        </div>
-      </section>
-    </div>
+      <div className="mt-4 flex flex-wrap justify-end gap-2">
+        <Button type="button" variant="outline" onClick={onClose}>
+          キャンセル
+        </Button>
+        <Button type="button" onClick={onResolve}>
+          重複したまま追加
+        </Button>
+      </div>
+    </DialogOverlay>
   );
 }
 
@@ -216,112 +238,91 @@ function ClearConfirmDialog({
   onClose: () => void;
 }) {
   return (
-    <div className="fixed inset-0 z-65 bg-black/40 p-4 flex items-center justify-center">
-      <button
-        type="button"
-        className="absolute inset-0"
-        onClick={onClose}
-        aria-label="ダイアログを閉じる"
-      />
-      <section
-        role="dialog"
-        aria-modal="true"
-        className="relative z-10 w-full max-w-md rounded-xl bg-white p-4 md:p-6"
-      >
-        <h3 className="text-base font-bold text-black-700">確認</h3>
-        <p className="mt-2 text-sm text-black-500">
-          マイタイムテーブルをすべてリセットします。よろしいですか？
-        </p>
+    <DialogOverlay maxWidth="max-w-md" onClose={onClose}>
+      <h3 className="text-base font-bold text-black-700">確認</h3>
+      <p className="mt-2 text-sm text-black-500">
+        マイタイムテーブルをすべてリセットします。よろしいですか？
+      </p>
 
-        <div className="mt-4 flex justify-end gap-2">
-          <Button type="button" variant="outline" onClick={onClose}>
-            キャンセル
-          </Button>
-          <Button
-            type="button"
-            onClick={() => {
-              onConfirm();
-              onClose();
-            }}
-          >
-            リセットする
-          </Button>
-        </div>
-      </section>
-    </div>
+      <div className="mt-4 flex justify-end gap-2">
+        <Button type="button" variant="outline" onClick={onClose}>
+          キャンセル
+        </Button>
+        <Button
+          type="button"
+          onClick={() => {
+            onConfirm();
+            onClose();
+          }}
+        >
+          リセットする
+        </Button>
+      </div>
+    </DialogOverlay>
   );
 }
 
 function InfoDialog({ onClose }: { onClose: () => void }) {
   return (
-    <div className="fixed inset-0 z-70 bg-black/40 p-4 flex items-center justify-center">
-      <button
-        type="button"
-        className="absolute inset-0"
-        onClick={onClose}
-        aria-label="ダイアログを閉じる"
-      />
-      <section
-        role="dialog"
-        aria-modal="true"
-        className="relative z-10 w-full max-w-lg rounded-xl bg-white p-4 md:p-6 max-h-[80vh] overflow-y-auto"
-      >
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-bold text-black-700">
-            マイタイムテーブルとは？
-          </h3>
-          <button
-            type="button"
-            className="text-black-500 hover:text-black-700 cursor-pointer"
-            onClick={onClose}
-            aria-label="閉じる"
-          >
-            <X size={18} />
-          </button>
-        </div>
+    <DialogOverlay
+      maxWidth="max-w-lg max-h-[80vh] overflow-y-auto"
+      onClose={onClose}
+    >
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-bold text-black-700">
+          マイタイムテーブルとは？
+        </h3>
+        <button
+          type="button"
+          className="text-black-500 hover:text-black-700 cursor-pointer"
+          onClick={onClose}
+          aria-label="閉じる"
+        >
+          <X size={18} />
+        </button>
+      </div>
 
-        <div className="mt-4 flex flex-col gap-4 text-sm text-black-600">
-          <p>
-            マイタイムテーブルは、TSKaigi
-            2026で聴きたいセッションを自分だけのスケジュールとして管理できる機能です。
+      <div className="mt-4 flex flex-col gap-4 text-sm text-black-600">
+        <p>
+          マイタイムテーブルは、TSKaigi
+          2026で聴きたいセッションを自分だけのスケジュールとして管理できる機能です。
+        </p>
+
+        <div>
+          <h4 className="font-bold text-black-700">スケジュールを組もう</h4>
+          <p className="mt-1">
+            気になるセッションを検索して追加し、自分だけのタイムテーブルを作成できます。タイムライン上の時間帯をタップして追加することもできます。
           </p>
-
-          <div>
-            <h4 className="font-bold text-black-700">スケジュールを組もう</h4>
-            <p className="mt-1">
-              気になるセッションを検索して追加し、自分だけのタイムテーブルを作成できます。タイムライン上の時間帯をタップして追加することもできます。
-            </p>
-          </div>
-
-          <div>
-            <h4 className="font-bold text-black-700">参加記録を残そう</h4>
-            <p className="mt-1">
-              会場では各セッションの参加記録QRコードが掲出されます。読み取ると、マイタイムテーブルに参加記録が付きます。目指せ全時間帯参加！
-            </p>
-          </div>
-
-          <div>
-            <h4 className="font-bold text-black-700">共有して会話のタネに</h4>
-            <p className="mt-1">
-              QRコードやSNSでマイタイムテーブルを共有できます。会場内や懇親会で「こんなセッション聴いたよ！」と見せ合って、会話のきっかけにしましょう。
-            </p>
-          </div>
-
-          <div>
-            <h4 className="font-bold text-black-700">PC・スマホ間の同期</h4>
-            <p className="mt-1">
-              事前にPCでスケジュールを組んで、QRコードでスマホに同期して会場に持っていくこともできます。
-            </p>
-          </div>
         </div>
 
-        <div className="mt-6 flex justify-end">
-          <Button type="button" onClick={onClose}>
-            閉じる
-          </Button>
+        <div>
+          <h4 className="font-bold text-black-700">参加記録を残そう</h4>
+          <p className="mt-1">
+            会場では各セッションの参加記録QRコードが掲出されます。読み取ると、マイタイムテーブルに参加記録が付きます。目指せ全時間帯参加！
+          </p>
         </div>
-      </section>
-    </div>
+
+        <div>
+          <h4 className="font-bold text-black-700">共有して会話のタネに</h4>
+          <p className="mt-1">
+            QRコードやSNSでマイタイムテーブルを共有できます。会場内や懇親会で「こんなセッション聴いたよ！」と見せ合って、会話のきっかけにしましょう。
+          </p>
+        </div>
+
+        <div>
+          <h4 className="font-bold text-black-700">PC・スマホ間の同期</h4>
+          <p className="mt-1">
+            事前にPCでスケジュールを組んで、QRコードでスマホに同期して会場に持っていくこともできます。
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-6 flex justify-end">
+        <Button type="button" onClick={onClose}>
+          閉じる
+        </Button>
+      </div>
+    </DialogOverlay>
   );
 }
 
@@ -560,29 +561,13 @@ function TalkSearchPanel({
             {filteredTalks.map((talk) => {
               const isAdded = selectedIds.includes(talk.id);
               return (
-                <button
-                  type="button"
+                <TalkSelectItem
                   key={`add-panel-${talk.id}`}
-                  className={`w-full py-2 text-left cursor-pointer rounded-md border px-2 border-l-4 ${isAdded ? `border-black-300 ${myTimetable.getTrackBorderClass(talk.track)} bg-blue-purple-100/40` : "border-black-200 border-l-black-200 hover:bg-black-100"}`}
+                  talk={talk}
+                  isAdded={isAdded}
+                  metaClassName="max-w-[180px] sm:max-w-[260px]"
                   onClick={() => (isAdded ? onRemove(talk.id) : onAdd(talk.id))}
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <p
-                      className="max-w-[180px] text-xs text-black-500 truncate whitespace-nowrap sm:max-w-[260px]"
-                      title={`${talk.eventDate} / ${talk.time} / ${TRACK[talk.track].name}`}
-                    >
-                      {talk.eventDate} / {talk.time} / {TRACK[talk.track].name}
-                    </p>
-                    {isAdded && (
-                      <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-blue-purple-200 px-1.5 py-0 text-[10px] font-bold text-blue-purple-700">
-                        <Check size={10} />
-                        選択中
-                      </span>
-                    )}
-                  </div>
-                  <p className="py-1 text-sm font-bold">{talk.title}</p>
-                  <p className="text-xs">{talk.speaker.name}</p>
-                </button>
+                />
               );
             })}
           </div>
@@ -732,6 +717,12 @@ export default function MyTimetablePage() {
     updateQuery([], []);
   };
 
+  const handleClickTimeSlot = isViewMode
+    ? undefined
+    : (eventDate: EventDate, minutes: number) =>
+        setTimePickerState({ eventDate, minutes });
+  const handleRemoveTalk = isViewMode ? undefined : removeTalk;
+
   return (
     <main className="bg-blue-light-100 mt-16 py-10 px-2 md:py-16 md:px-6 lg:px-10">
       <h1 className="text-2xl font-bold text-blue-light-500 text-center md:text-3xl lg:text-4xl">
@@ -746,42 +737,8 @@ export default function MyTimetablePage() {
           onToggleViewMode={() => setIsViewMode((prev) => !prev)}
         />
 
-        {isViewMode ? (
-          <div>
-            <div className="block lg:hidden">
-              <MobileTimelineLayout
-                currentEventDate={currentEventDate}
-                onTabChange={setCurrentEventDate}
-              >
-                <TimelineColumn
-                  eventDate={currentEventDate}
-                  talks={talksByDate[currentEventDate]}
-                  participatedIds={participatedIds}
-                />
-              </MobileTimelineLayout>
-            </div>
-
-            <div className="hidden lg:block">
-              <DesktopTimelineLayout
-                day1Column={
-                  <TimelineColumn
-                    eventDate="DAY1"
-                    talks={talksByDate.DAY1}
-                    participatedIds={participatedIds}
-                  />
-                }
-                day2Column={
-                  <TimelineColumn
-                    eventDate="DAY2"
-                    talks={talksByDate.DAY2}
-                    participatedIds={participatedIds}
-                  />
-                }
-              />
-            </div>
-          </div>
-        ) : (
-          <div className="bg-white rounded-xl p-4 md:p-6">
+        <div className={isViewMode ? "" : "bg-white rounded-xl p-4 md:p-6"}>
+          {!isViewMode && (
             <TalkSearchPanel
               allTalks={allTalksWithMinutes}
               selectedIds={selectedIds}
@@ -790,52 +747,46 @@ export default function MyTimetablePage() {
               onRemove={removeTalk}
               onReset={() => setIsClearConfirmOpen(true)}
             />
+          )}
 
-            <div className="block lg:hidden">
-              <MobileTimelineLayout
-                currentEventDate={currentEventDate}
-                onTabChange={setCurrentEventDate}
-              >
-                <TimelineColumn
-                  eventDate={currentEventDate}
-                  talks={talksByDate[currentEventDate]}
-                  participatedIds={participatedIds}
-                  onClickTimeSlot={(eventDate, minutes) =>
-                    setTimePickerState({ eventDate, minutes })
-                  }
-                  onRemoveTalk={removeTalk}
-                />
-              </MobileTimelineLayout>
-            </div>
-
-            <div className="hidden lg:block">
-              <DesktopTimelineLayout
-                day1Column={
-                  <TimelineColumn
-                    eventDate="DAY1"
-                    talks={talksByDate.DAY1}
-                    participatedIds={participatedIds}
-                    onClickTimeSlot={(eventDate, minutes) =>
-                      setTimePickerState({ eventDate, minutes })
-                    }
-                    onRemoveTalk={removeTalk}
-                  />
-                }
-                day2Column={
-                  <TimelineColumn
-                    eventDate="DAY2"
-                    talks={talksByDate.DAY2}
-                    participatedIds={participatedIds}
-                    onClickTimeSlot={(eventDate, minutes) =>
-                      setTimePickerState({ eventDate, minutes })
-                    }
-                    onRemoveTalk={removeTalk}
-                  />
-                }
+          <div className="block lg:hidden">
+            <MobileTimelineLayout
+              currentEventDate={currentEventDate}
+              onTabChange={setCurrentEventDate}
+            >
+              <TimelineColumn
+                eventDate={currentEventDate}
+                talks={talksByDate[currentEventDate]}
+                participatedIds={participatedIds}
+                onClickTimeSlot={handleClickTimeSlot}
+                onRemoveTalk={handleRemoveTalk}
               />
-            </div>
+            </MobileTimelineLayout>
           </div>
-        )}
+
+          <div className="hidden lg:block">
+            <DesktopTimelineLayout
+              day1Column={
+                <TimelineColumn
+                  eventDate="DAY1"
+                  talks={talksByDate.DAY1}
+                  participatedIds={participatedIds}
+                  onClickTimeSlot={handleClickTimeSlot}
+                  onRemoveTalk={handleRemoveTalk}
+                />
+              }
+              day2Column={
+                <TimelineColumn
+                  eventDate="DAY2"
+                  talks={talksByDate.DAY2}
+                  participatedIds={participatedIds}
+                  onClickTimeSlot={handleClickTimeSlot}
+                  onRemoveTalk={handleRemoveTalk}
+                />
+              }
+            />
+          </div>
+        </div>
       </div>
 
       {timePickerState && (
