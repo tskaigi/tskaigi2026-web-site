@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import YourTimetablePage from "./YourTimetablePage";
 
 export const metadata: Metadata = {
-  title: "タイムテーブル",
+  title: "マイタイムテーブル",
   twitter: {
-    title: "タイムテーブル",
+    title: "マイタイムテーブル",
   },
   openGraph: {
-    title: "タイムテーブル",
+    title: "マイタイムテーブル",
   },
 };
 
