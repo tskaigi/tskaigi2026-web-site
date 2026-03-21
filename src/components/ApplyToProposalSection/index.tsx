@@ -22,8 +22,13 @@ export const ApplyToProposalSection = () => {
             あなたの発表が、誰かのキャリア、あるいはプロジェクトに新たな光をもたらすかもしれません。
           </p>
           <p>ぜひ一緒に日本のTypeScriptコミュニティを盛り上げましょう！</p>
+          <br />
+          <p>
+            [3/19追記]
+            プロポーザル募集は締め切りました。たくさんのご応募ありがとうございました！
+          </p>
         </div>
-        <Button
+        {/* <Button
           asChild
           variant="default"
           size="lg"
@@ -38,7 +43,7 @@ export const ApplyToProposalSection = () => {
             応募する
             <ArrowRight />
           </Link>
-        </Button>
+        </Button> */}
       </div>
     </div>
   );
