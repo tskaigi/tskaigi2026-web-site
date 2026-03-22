@@ -3,10 +3,8 @@
 import {
   AlertTriangle,
   Check,
-  Eye,
   Info,
   List,
-  Pencil,
   QrCode,
   RotateCcw,
   Search,
@@ -326,50 +324,95 @@ function InfoDialog({ onClose }: { onClose: () => void }) {
   );
 }
 
-function SideToolbar({
-  selectedIds,
-  participatedIds,
-  isViewMode,
-  onToggleViewMode,
+type QrTab = "sync" | "share";
+
+function QrDialog({
+  currentShareUrl,
+  yourShareUrl,
+  onClose,
 }: {
-  selectedIds: string[];
-  participatedIds: string[];
-  isViewMode: boolean;
-  onToggleViewMode: () => void;
+  currentShareUrl: string;
+  yourShareUrl: string;
+  onClose: () => void;
 }) {
-  const [showQr, setShowQr] = useState(false);
+  const [activeTab, setActiveTab] = useState<QrTab>("sync");
+
+  const tabs: { key: QrTab; label: string }[] = [
+    { key: "sync", label: "同期用" },
+    { key: "share", label: "共有用" },
+  ];
+
+  const qrUrl = activeTab === "sync" ? currentShareUrl : yourShareUrl;
+  const description =
+    activeTab === "sync"
+      ? "読み取った端末に保存されているマイタイムテーブル情報が上書きされます"
+      : "読み取った端末に保存されているマイタイムテーブル情報は上書きされません";
+
+  return (
+    <DialogOverlay maxWidth="max-w-sm" onClose={onClose}>
+      <div className="flex items-center justify-between">
+        <h3 className="text-base font-bold text-black-700">QRコード</h3>
+        <button
+          type="button"
+          className="text-black-500 hover:text-black-700 cursor-pointer"
+          onClick={onClose}
+          aria-label="閉じる"
+        >
+          <X size={18} />
+        </button>
+      </div>
+
+      <div className="mt-3 w-full flex justify-center">
+        <div className="inline-flex rounded-lg overflow-hidden">
+          {tabs.map((tab) => {
+            const isActive = tab.key === activeTab;
+            return (
+              <button
+                type="button"
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
+                className={`px-6 py-2 text-base font-medium ${!isActive ? "cursor-pointer" : ""} ${
+                  isActive
+                    ? "bg-blue-light-500 text-white"
+                    : "bg-white text-blue-light-500"
+                } ${
+                  tab.key === "sync"
+                    ? "border-y border-l border-blue-light-500 rounded-l-lg"
+                    : "border-y border-r border-blue-light-500 rounded-r-lg"
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mt-4 flex flex-col items-center">
+        {qrUrl.length > 0 && (
+          <div
+            role="img"
+            aria-label={`${activeTab === "sync" ? "同期" : "共有"}用QRコード`}
+            className="h-[200px] w-[200px] bg-white bg-cover bg-center"
+            style={{
+              backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrUrl)})`,
+            }}
+          />
+        )}
+        <p className="mt-3 text-xs text-black-500 text-center">{description}</p>
+      </div>
+    </DialogOverlay>
+  );
+}
+
+function SideToolbar({
+  xShareHref,
+  onOpenQr,
+}: {
+  xShareHref: string;
+  onOpenQr: () => void;
+}) {
   const [isInfoOpen, setIsInfoOpen] = useState(false);
-  const [baseUrl, setBaseUrl] = useState("");
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    setBaseUrl(window.location.origin);
-  }, []);
-
-  const shareQueryString = useMemo(() => {
-    const tokens = myTimetableQuery.encode(selectedIds, participatedIds);
-    const params = new URLSearchParams();
-    if (tokens.m) params.set("m", tokens.m);
-    if (tokens.p) params.set("p", tokens.p);
-    return params.toString();
-  }, [selectedIds, participatedIds]);
-
-  const currentShareUrl = useMemo(() => {
-    if (baseUrl.length === 0) return "";
-    const qs = shareQueryString;
-    return `${baseUrl}/talks/me${qs.length > 0 ? `?${qs}` : ""}`;
-  }, [baseUrl, shareQueryString]);
-
-  const yourShareUrl = useMemo(() => {
-    if (baseUrl.length === 0) return "";
-    const qs = shareQueryString;
-    return `${baseUrl}/talks/your${qs.length > 0 ? `?${qs}` : ""}`;
-  }, [baseUrl, shareQueryString]);
-
-  const xShareHref =
-    yourShareUrl.length > 0
-      ? `https://x.com/intent/tweet?text=${encodeURIComponent("TSKaigiのマイタイムテーブル")}&url=${encodeURIComponent(yourShareUrl)}`
-      : "https://x.com/intent/tweet";
 
   return (
     <aside className="flex flex-row lg:flex-col gap-2">
@@ -384,81 +427,15 @@ function SideToolbar({
           <Share2 size={18} />
         </Link>
       </Button>
-      <div className="relative">
-        <Button
-          type="button"
-          variant="outline"
-          size="icon"
-          onClick={() => setShowQr((prev) => !prev)}
-          aria-label={showQr ? "QRを隠す" : "QRを表示"}
-          title={showQr ? "QRを隠す" : "QRを表示"}
-        >
-          <QrCode size={18} />
-        </Button>
-
-        {showQr && currentShareUrl.length > 0 && (
-          <div className="absolute top-full left-0 z-40 mt-2 rounded-lg border border-black-200 bg-white p-3">
-            <div className="grid md:grid-cols-[1fr_auto_1fr] gap-3">
-              <div>
-                <p className="text-sm font-bold text-black-700">
-                  PC・スマホ間の同期用
-                </p>
-                <p className="mt-1 text-[10px] text-black-500">
-                  読み取った端末に保存されているマイタイムテーブル情報が上書きされます
-                </p>
-                <div
-                  role="img"
-                  aria-label="自分用マイタイムテーブルQR"
-                  className="m-2 h-20 w-20 md:h-[140px] md:w-[140px] bg-white bg-cover bg-center"
-                  style={{
-                    backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
-                      currentShareUrl,
-                    )})`,
-                  }}
-                />
-              </div>
-
-              <div className="hidden md:block w-px bg-black-200" />
-              <div className="block md:hidden h-px bg-black-200" />
-
-              <div>
-                <p className="text-sm font-bold text-black-700">閲覧・共有用</p>
-                <p className="mt-1 text-[10px] text-black-500">
-                  読み取った端末に保存されているマイタイムテーブル情報は上書きされません
-                </p>
-                <div
-                  role="img"
-                  aria-label="共有用タイムテーブルQR"
-                  className="m-2 h-20 w-20 md:h-[140px] md:w-[140px] bg-white bg-cover bg-center"
-                  style={{
-                    backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(
-                      yourShareUrl,
-                    )})`,
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-      <Button type="button" variant="outline" size="icon" asChild>
-        <Link
-          href="/talks"
-          aria-label="タイムテーブル一覧へ"
-          title="タイムテーブル一覧へ"
-        >
-          <List size={18} />
-        </Link>
-      </Button>
       <Button
         type="button"
         variant="outline"
         size="icon"
-        onClick={onToggleViewMode}
-        aria-label={isViewMode ? "編集モードへ" : "閲覧モードへ"}
-        title={isViewMode ? "編集モードへ" : "閲覧モードへ"}
+        onClick={onOpenQr}
+        aria-label="QRコードを表示"
+        title="QRコードを表示"
       >
-        {isViewMode ? <Pencil size={18} /> : <Eye size={18} />}
+        <QrCode size={18} />
       </Button>
       <Button
         type="button"
@@ -600,7 +577,7 @@ export default function MyTimetablePage() {
   const [timePickerState, setTimePickerState] = useState<TimePickerState>(null);
   const [overlapState, setOverlapState] = useState<OverlapState>(null);
   const [isClearConfirmOpen, setIsClearConfirmOpen] = useState(false);
-  const [isViewMode, setIsViewMode] = useState(false);
+  const [isQrOpen, setIsQrOpen] = useState(false);
   const allTalksWithMinutes = useMemo(
     () => myTimetable.getAllTalksWithMinutes(),
     [],
@@ -717,11 +694,38 @@ export default function MyTimetablePage() {
     updateQuery([], []);
   };
 
-  const handleClickTimeSlot = isViewMode
-    ? undefined
-    : (eventDate: EventDate, minutes: number) =>
-        setTimePickerState({ eventDate, minutes });
-  const handleRemoveTalk = isViewMode ? undefined : removeTalk;
+  const handleClickTimeSlot = (eventDate: EventDate, minutes: number) =>
+    setTimePickerState({ eventDate, minutes });
+
+  const [baseUrl, setBaseUrl] = useState("");
+  useEffect(() => {
+    if (typeof window !== "undefined") setBaseUrl(window.location.origin);
+  }, []);
+
+  const shareQueryString = useMemo(() => {
+    const tokens = myTimetableQuery.encode(selectedIds, participatedIds);
+    const params = new URLSearchParams();
+    if (tokens.m) params.set("m", tokens.m);
+    if (tokens.p) params.set("p", tokens.p);
+    return params.toString();
+  }, [selectedIds, participatedIds]);
+
+  const currentShareUrl = useMemo(() => {
+    if (baseUrl.length === 0) return "";
+    const qs = shareQueryString;
+    return `${baseUrl}/talks/me${qs.length > 0 ? `?${qs}` : ""}`;
+  }, [baseUrl, shareQueryString]);
+
+  const yourShareUrl = useMemo(() => {
+    if (baseUrl.length === 0) return "";
+    const qs = shareQueryString;
+    return `${baseUrl}/talks/your${qs.length > 0 ? `?${qs}` : ""}`;
+  }, [baseUrl, shareQueryString]);
+
+  const xShareHref =
+    yourShareUrl.length > 0
+      ? `https://x.com/intent/tweet?text=${encodeURIComponent("TSKaigiのマイタイムテーブル")}&url=${encodeURIComponent(yourShareUrl)}`
+      : "https://x.com/intent/tweet";
 
   return (
     <main className="bg-blue-light-100 mt-16 py-10 px-2 md:py-16 md:px-6 lg:px-10">
@@ -731,23 +735,19 @@ export default function MyTimetablePage() {
 
       <div className="mt-8 mx-auto max-w-6xl grid lg:grid-cols-[min-content_1fr] gap-4">
         <SideToolbar
-          selectedIds={selectedIds}
-          participatedIds={participatedIds}
-          isViewMode={isViewMode}
-          onToggleViewMode={() => setIsViewMode((prev) => !prev)}
+          xShareHref={xShareHref}
+          onOpenQr={() => setIsQrOpen(true)}
         />
 
-        <div className={isViewMode ? "" : "bg-white rounded-xl p-4 md:p-6"}>
-          {!isViewMode && (
-            <TalkSearchPanel
-              allTalks={allTalksWithMinutes}
-              selectedIds={selectedIds}
-              hasOpenDialog={!!overlapState}
-              onAdd={addTalk}
-              onRemove={removeTalk}
-              onReset={() => setIsClearConfirmOpen(true)}
-            />
-          )}
+        <div className="bg-white rounded-xl p-4 md:p-6">
+          <TalkSearchPanel
+            allTalks={allTalksWithMinutes}
+            selectedIds={selectedIds}
+            hasOpenDialog={!!overlapState}
+            onAdd={addTalk}
+            onRemove={removeTalk}
+            onReset={() => setIsClearConfirmOpen(true)}
+          />
 
           <div className="block lg:hidden">
             <MobileTimelineLayout
@@ -759,7 +759,7 @@ export default function MyTimetablePage() {
                 talks={talksByDate[currentEventDate]}
                 participatedIds={participatedIds}
                 onClickTimeSlot={handleClickTimeSlot}
-                onRemoveTalk={handleRemoveTalk}
+                onRemoveTalk={removeTalk}
               />
             </MobileTimelineLayout>
           </div>
@@ -772,7 +772,7 @@ export default function MyTimetablePage() {
                   talks={talksByDate.DAY1}
                   participatedIds={participatedIds}
                   onClickTimeSlot={handleClickTimeSlot}
-                  onRemoveTalk={handleRemoveTalk}
+                  onRemoveTalk={removeTalk}
                 />
               }
               day2Column={
@@ -781,7 +781,7 @@ export default function MyTimetablePage() {
                   talks={talksByDate.DAY2}
                   participatedIds={participatedIds}
                   onClickTimeSlot={handleClickTimeSlot}
-                  onRemoveTalk={handleRemoveTalk}
+                  onRemoveTalk={removeTalk}
                 />
               }
             />
@@ -812,6 +812,14 @@ export default function MyTimetablePage() {
         <ClearConfirmDialog
           onConfirm={resetTalks}
           onClose={() => setIsClearConfirmOpen(false)}
+        />
+      )}
+
+      {isQrOpen && (
+        <QrDialog
+          currentShareUrl={currentShareUrl}
+          yourShareUrl={yourShareUrl}
+          onClose={() => setIsQrOpen(false)}
         />
       )}
     </main>

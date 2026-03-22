@@ -35,8 +35,8 @@ export function parseTalkTimeToMinutes(timeText: string) {
 }
 
 const PIXELS_PER_MINUTE = 1.6;
-const TIMELINE_START_MINUTES = 10 * 60;
-const TIMELINE_END_MINUTES = 18 * 60;
+const TIMELINE_START_MINUTES = 11 * 60;
+const TIMELINE_END_MINUTES = 19 * 60;
 
 export type PositionedTalk = TalkWithMinutes & {
   columnIndex: number;
