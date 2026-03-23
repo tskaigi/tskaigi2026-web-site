@@ -1,4 +1,5 @@
 import { ApplyToProposalSection } from "@/components/ApplyToProposalSection";
+import { BuyTicketSection } from "@/components/BuyTicketSection";
 import { CoreStaffSection } from "@/components/CoreStaffSection";
 import { HeroSection } from "@/components/HeroSection";
 import { JudgesSection } from "@/components/JudgesSection";
@@ -12,6 +13,7 @@ export default async function Home() {
     <main className="w-full flex flex-col flex-1 items-center font-outfit pt-[60px] md:pt-[68px]">
       <HeroSection />
       <MissionSection />
+      <BuyTicketSection />
       <ApplyToProposalSection />
       <SeekingSponsorsSection />
       <SponsorsBoardSection />
