@@ -12,14 +12,13 @@ const specificCommercialData = {
   運営統括責任者: <p>竹下義晃</p>,
   販売価格: (
     <p>
-      {/* MEMO: 後日petixリンクが確定したら差し替え */}
-      {/* <a
-        href="https://peatix.com/event/~"
+      <a
+        href="https://peatix.com/event/4932169"
         className="text-link-light underline pr-1"
       >
         チケットを販売するサイト
-      </a> */}
-      チケットを販売するサイトをご確認ください。
+      </a>
+      をご確認ください。
     </p>
   ),
   受け付け可能な決済手段: <p>クレジットカード、コンビニ/ATM、PayPal</p>,
