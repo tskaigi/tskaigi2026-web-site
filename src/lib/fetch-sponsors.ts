@@ -5,7 +5,7 @@ import type {
 } from "@/types/sponsor-api";
 
 const SPONSORS_API_URL =
-  "https://tskaigi-cms.system-admin-df1.workers.dev/api/sponsors";
+  "https://tskaigi-cms-staging.system-admin-df1.workers.dev/api/sponsors";
 
 const SPONSOR_PLANS: SponsorPlan[] = ["platinum", "gold", "silver", "bronze"];
 
