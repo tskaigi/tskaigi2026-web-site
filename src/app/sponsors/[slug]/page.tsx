@@ -20,20 +20,12 @@ export async function generateMetadata({
     twitter: {
       title: sponsor.name,
       description,
-      // images: [
-      //   {
-      //     url: `/ogp/sponsors/${sponsor.detailPageId}.png`,
-      //   },
-      // ],
+      images: [{ url: sponsor.ogpImage }],
     },
     openGraph: {
       title: sponsor.name,
       description,
-      // images: [
-      //   {
-      //     url: `/ogp/sponsors/${sponsor.detailPageId}.png`,
-      //   },
-      // ],
+      images: [{ url: sponsor.ogpImage }],
     },
   };
 }

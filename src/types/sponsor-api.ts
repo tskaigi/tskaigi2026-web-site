@@ -21,6 +21,7 @@ export type SponsorApiResponse = {
   slug: string;
   overview: string | null;
   externalLinks: ExternalLinkProps[];
+  ogpImage: string;
 };
 
 export type GroupedSponsors = {
