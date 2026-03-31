@@ -20,6 +20,9 @@ jobs:
         with:
           version: "10.22.0"
 
+      - name: Generate Staff List
+        run: pnpm generate:staff-list
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
