@@ -17,7 +17,6 @@ const links: {
   href: string;
   label: string;
 }[] = [
-  { href: "/sponsors", label: "スポンサー" },
   {
     href: "/side-events",
     label: "サイドイベント",

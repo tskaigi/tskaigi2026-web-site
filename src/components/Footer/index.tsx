@@ -9,7 +9,6 @@ const links: {
     href: "/",
     label: "Home",
   },
-  { href: "/sponsors", label: "スポンサー" },
   {
     href: "/side-events",
     label: "サイドイベント",
