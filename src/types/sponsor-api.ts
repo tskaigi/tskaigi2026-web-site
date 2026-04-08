@@ -1,4 +1,5 @@
 export type SponsorPlan = "platinum" | "gold" | "silver" | "bronze";
+export type ExternalLinkProps = { label: string; url: string };
 
 export type SponsorOption =
   | "session_room_naming"
@@ -17,6 +18,10 @@ export type SponsorApiResponse = {
   logoImage: string;
   logoLink: string;
   displayOrder: number;
+  slug: string;
+  overview: string | null;
+  externalLinks: ExternalLinkProps[];
+  ogpImage: string;
 };
 
 export type GroupedSponsors = {
