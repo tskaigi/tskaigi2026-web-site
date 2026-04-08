@@ -1,73 +1,47 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Sponsor } from "@/constants/sponsorList";
+import type { SponsorApiResponse } from "@/types/sponsor-api";
 import ExternalLink from "../ExternalLink";
 import RoleBadge from "../RoleBadge";
 
-type Props = Sponsor & {
-  isWip: boolean;
-};
+type Props = SponsorApiResponse;
 
 const Company = ({
   name,
   logoImage,
-  logoImageForSponsorsPage,
+  plan,
   overview,
-  roles,
-  links,
-  detailPageId,
-  isTenantChecked,
-  isWip,
+  externalLinks,
+  slug,
 }: Props) => {
   return (
     <div className="flex flex-col gap-y-3 md:flex-row md:items-start md:gap-x-8 lg:gap-x-10">
-      {isTenantChecked || isWip ? (
-        <Link
-          href={
-            isWip
-              ? `/wip/sponsors/${detailPageId}`
-              : `/sponsors/${detailPageId}`
-          }
-          className="flex-shrink-0 md:w-1/3 lg:w-1/4"
-        >
-          <Image
-            src={logoImageForSponsorsPage || logoImage}
-            alt={name}
-            width={1280}
-            height={640}
-            className="w-full aspect-video lg:aspect-video object-contain"
-          />
-        </Link>
-      ) : (
+      <Link href={`/sponsors/${slug}`} className="shrink-0 md:w-1/3 lg:w-1/4">
         <Image
-          src={logoImageForSponsorsPage || logoImage}
+          src={logoImage}
           alt={name}
           width={1280}
           height={640}
-          className="flex-shrink-0 md:w-1/3 lg:w-1/4 aspect-video lg:aspect-video object-contain"
+          className="w-full aspect-video lg:aspect-video object-contain"
         />
-      )}
+      </Link>
 
       <div className="flex flex-col gap-y-3">
         <div className="flex gap-2">
-          {roles?.map((role) => {
-            return <RoleBadge key={role} role={role} />;
-          })}
+          <RoleBadge role={plan} />
         </div>
 
         <div className="flex flex-col gap-y-6 text-base md:text-lg">
           <p className="font-bold text-xl md:text-2xl lg:text-[28px]">{name}</p>
 
-          {overview?.map((text) => (
-            <p key={text} className="whitespace-pre-wrap leading-8">
-              {text}
-            </p>
-          ))}
+          {overview && (
+            <p className="whitespace-pre-wrap leading-8">{overview}</p>
+          )}
 
-          {links && (
+          {externalLinks && (
             <ul className="list-disc list-inside flex flex-col gap-y-2">
-              {links.map((link) => (
-                <li key={link.title} className="marker:text-xs">
+              {externalLinks.map((link) => (
+                <li key={link.label} className="marker:text-xs">
                   <ExternalLink {...link} />
                 </li>
               ))}
