@@ -1,4 +1,3 @@
-import { ApplyToProposalSection } from "@/components/ApplyToProposalSection";
 import { BuyTicketSection } from "@/components/BuyTicketSection";
 import { CoreStaffSection } from "@/components/CoreStaffSection";
 import { HeroSection } from "@/components/HeroSection";
@@ -8,7 +7,6 @@ import { MissionSection } from "@/components/MissionSection";
 import { NewsSection } from "@/components/NewsSection";
 import { SponsorsBoardSection } from "@/components/SponsorsBoardSection";
 import { StaffSection } from "@/components/StaffSection";
-import { SeekingSponsorsSection } from "./_components/SeekingSponsorsSection";
 
 export default async function Home() {
   return (
@@ -18,8 +16,6 @@ export default async function Home() {
       <MissionSection />
       <KeynoteSection />
       <BuyTicketSection />
-      <ApplyToProposalSection />
-      <SeekingSponsorsSection />
       <SponsorsBoardSection />
       <JudgesSection />
       <CoreStaffSection />
