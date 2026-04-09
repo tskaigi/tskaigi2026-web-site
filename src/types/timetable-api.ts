@@ -26,7 +26,7 @@ export type OtherTrack = {
 
 export type SessionTrack = {
   type: "session";
-  sessionType:  "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR";
+  sessionType: "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR";
   sessions: SessionSummary[];
 };
 
