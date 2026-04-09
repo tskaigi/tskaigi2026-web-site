@@ -18,17 +18,17 @@ const day1: TimetableResponse = {
   tracks: [
     {
       id: "LEVERAGES",
-      name: "レバレジーズトラック",
+      name: "Leveragesトラック",
       hashtag: "#tskaigi_leverages",
     },
     {
       id: "UPSIDER",
-      name: "アップサイダートラック",
+      name: "UPSIDERトラック",
       hashtag: "#tskaigi_upsider",
     },
     {
       id: "RIGHTTOUCH",
-      name: "ライトタッチトラック",
+      name: "RightTouchトラック",
       hashtag: "#tskaigi_righttouch",
     },
   ],
@@ -208,7 +208,7 @@ const day1: TimetableResponse = {
       endTime: d1(14, 20),
       label: "休憩",
     },
-    // 14:20–14:50 SHORT x3 (Track1/Track2) + クローズ
+    // 14:20–14:50 SHORT x3 (Track1/Track2) + ハンズオン
     {
       slotType: "individual",
       startTime: d1(14, 20),
@@ -260,7 +260,7 @@ const day1: TimetableResponse = {
             },
           ],
         },
-        RIGHTTOUCH: { type: "closed" },
+        RIGHTTOUCH: { type: "other", label: "ハンズオン" },
       },
     },
     // 14:50–15:10 休憩
@@ -270,7 +270,7 @@ const day1: TimetableResponse = {
       endTime: d1(15, 10),
       label: "休憩",
     },
-    // 15:10–15:40 LONG x2 + クローズ
+    // 15:10–15:40 LONG x2 + ハンズオン
     {
       slotType: "individual",
       startTime: d1(15, 10),
@@ -299,7 +299,7 @@ const day1: TimetableResponse = {
             },
           ],
         },
-        RIGHTTOUCH: { type: "closed" },
+        RIGHTTOUCH: { type: "other", label: "ハンズオン" },
       },
     },
     // 15:40–15:50 休憩
@@ -544,17 +544,17 @@ const day2: TimetableResponse = {
   tracks: [
     {
       id: "LEVERAGES",
-      name: "レバレジーズトラック",
+      name: "Leveragesトラック",
       hashtag: "#tskaigi_leverages",
     },
     {
       id: "UPSIDER",
-      name: "アップサイダートラック",
+      name: "UPSIDERトラック",
       hashtag: "#tskaigi_upsider",
     },
     {
       id: "RIGHTTOUCH",
-      name: "ライトタッチトラック",
+      name: "RightTouchトラック",
       hashtag: "#tskaigi_righttouch",
     },
   ],
