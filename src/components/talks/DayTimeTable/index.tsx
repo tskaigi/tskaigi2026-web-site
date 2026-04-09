@@ -2,6 +2,7 @@
 
 import { Copy } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useTimetable } from "@/hooks/useTimetable";
@@ -280,7 +281,12 @@ function SessionCell({
       <div className="flex flex-col gap-5">
         {content.sessions.map((session) => (
           <div key={session.id} className="flex flex-col gap-1">
-            <p className="text-16">{session.title}</p>
+            <Link
+              href={`/talks/${session.id}`}
+              className="underline hover:text-blue-purple-500"
+            >
+              <p className="text-16">{session.title}</p>
+            </Link>
             <div className="flex items-center gap-2">
               <span className="text-14">{session.speaker.name}</span>
               {session.speaker.profileImageUrl && (
