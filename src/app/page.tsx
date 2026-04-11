@@ -5,6 +5,7 @@ import { JudgesSection } from "@/components/JudgesSection";
 import { KeynoteSection } from "@/components/KeynoteSection";
 import { MissionSection } from "@/components/MissionSection";
 import { NewsSection } from "@/components/NewsSection";
+import PersonalSponsorsSection from "@/components/PersonalSponsorsSection";
 import { SponsorsBoardSection } from "@/components/SponsorsBoardSection";
 import { StaffSection } from "@/components/StaffSection";
 
@@ -17,6 +18,7 @@ export default async function Home() {
       <KeynoteSection />
       <BuyTicketSection />
       <SponsorsBoardSection />
+      <PersonalSponsorsSection />
       <JudgesSection />
       <CoreStaffSection />
       <StaffSection />
