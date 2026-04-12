@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import type { ComponentProps } from "react";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
+import { OgpImage, ProfileImage } from "@/components/talks/FallbackImage";
 import { getAllSessionIds, getSession } from "@/utils/getSession";
 
 export async function generateStaticParams() {
@@ -32,7 +32,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const { session } = getSession(id);
+  const { session } = getSession(Number(id));
 
   return {
     title: session.title,
@@ -89,7 +89,7 @@ export default async function TalkDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const detail = getSession(id);
+  const detail = getSession(Number(id));
   const { session, sessionType, trackName, startTime, endTime } = detail;
   const timeRange = `${formatTime(startTime)} 〜 ${formatTime(endTime)}`;
   const typeLabel = SESSION_TYPE_LABEL[sessionType] ?? sessionType;
@@ -104,13 +104,7 @@ export default async function TalkDetailPage({
       <div className="bg-white flex flex-col gap-6 max-w-screen-xl mx-auto md:rounded-xl pb-6 md:pb-8 lg:pb-10">
         {/* トーク OGP */}
         <div className="bg-black-100 flex justify-center md:mt-8 md:mx-8 lg:mt-10 lg:mx-10">
-          <Image
-            width={730}
-            height={383}
-            className="w-full max-w-[730px] h-auto max-h-[383px] mx-auto object-contain"
-            src={`/ogp/talks/${session.speaker.name}.png`}
-            alt={session.title}
-          />
+          <OgpImage speakerName={session.speaker.name} title={session.title} />
         </div>
 
         <div className="px-6 md:px-8 lg:px-10 flex flex-col gap-1">
@@ -134,15 +128,9 @@ export default async function TalkDetailPage({
             <div className="flex flex-col sm:flex-row items-center gap-6">
               {/* アイコン */}
               <div className="relative w-[180px] md:w-[220px] aspect-square shrink-0 rounded-full overflow-hidden">
-                <Image
-                  src={
-                    session.speaker.profileImageUrl
-                      ? session.speaker.profileImageUrl
-                      : "/talks/speaker/dummy.png"
-                  }
-                  alt={session.speaker.name}
-                  fill
-                  className="object-cover"
+                <ProfileImage
+                  speakerName={session.speaker.name}
+                  profileImageUrl={session.speaker.profileImageUrl}
                 />
               </div>
 

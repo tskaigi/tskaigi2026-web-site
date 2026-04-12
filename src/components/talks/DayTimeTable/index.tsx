@@ -1,16 +1,15 @@
 "use client";
 
 import { Copy } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
+import { ProfileImage } from "@/components/talks/FallbackImage";
 import { Button } from "@/components/ui/button";
 import { useTimetable } from "@/hooks/useTimetable";
 import { cn } from "@/lib/utils";
 import type {
   IndividualSlot,
   SessionTrack,
-  Slot,
   TimetableResponse,
   TrackContent,
   TrackKey,
@@ -289,15 +288,12 @@ function SessionCell({
             </Link>
             <div className="flex items-center gap-2">
               <span className="text-14">{session.speaker.name}</span>
-              {session.speaker.profileImageUrl && (
-                <Image
-                  src={session.speaker.profileImageUrl}
-                  alt={`${session.speaker.name}のプロフィール画像`}
-                  width={24}
-                  height={24}
-                  className="h-6 w-6 rounded-full aspect-square shrink-0 object-cover"
+              <div className="relative h-6 w-6 rounded-full shrink-0 overflow-hidden">
+                <ProfileImage
+                  speakerName={session.speaker.name}
+                  profileImageUrl={session.speaker.profileImageUrl}
                 />
-              )}
+              </div>
             </div>
           </div>
         ))}

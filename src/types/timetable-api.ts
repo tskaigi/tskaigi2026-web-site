@@ -7,7 +7,7 @@ export type Track = {
 export type TrackKey = "LEVERAGES" | "UPSIDER" | "RIGHTTOUCH";
 
 export type SessionSummary = {
-  id: string;
+  id: number;
   title: string;
   speaker: {
     name: string;
