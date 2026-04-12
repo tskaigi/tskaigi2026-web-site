@@ -1,20 +1,20 @@
-import type { SponsorClass } from "@/constants/sponsorList";
+import type { SponsorPlan } from "@/types/sponsor-api";
 
-const borderColor: { [key in SponsorClass]: string } = {
+const borderColor: { [key in SponsorPlan]: string } = {
   platinum: "border-blue-purple-600",
   gold: "border-yellow-600",
   silver: "border-blue-light-500",
   bronze: "border-orange-600",
 };
 
-const textColor: { [key in SponsorClass]: string } = {
+const textColor: { [key in SponsorPlan]: string } = {
   platinum: "text-blue-purple-600",
   gold: "text-yellow-600",
   silver: "text-blue-light-500",
   bronze: "text-orange-600",
 };
 
-const SponsorHeading = ({ variant }: { variant: SponsorClass }) => {
+const SponsorHeading = ({ variant }: { variant: SponsorPlan }) => {
   return (
     <div className="flex justify-center items-center gap-3">
       <hr className={`flex-1 border-t ${borderColor[variant]}`} />

@@ -37,3 +37,17 @@ export async function fetchSponsors(): Promise<GroupedSponsors> {
 
   return grouped;
 }
+
+export async function fetchSponsor(slug: string): Promise<SponsorApiResponse> {
+  const response = await fetch(`${SPONSORS_API_URL}/${slug}`, {
+    next: { revalidate: 3600 }, // 1時間ごとに再検証
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch sponsors: ${response.statusText}`);
+  }
+
+  const sponsor: SponsorApiResponse = await response.json();
+
+  return sponsor;
+}
