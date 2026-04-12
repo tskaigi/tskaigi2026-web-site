@@ -3,8 +3,8 @@
 import { Check, X } from "lucide-react";
 import Link from "next/link";
 import { useMemo } from "react";
-import type { EventDate } from "@/constants/talkList";
 import { TRACK } from "@/constants/talkList";
+import type { EventDate } from "@/types/timetable-api";
 import {
   MY_TIMETABLE_CONST,
   myTimetable,

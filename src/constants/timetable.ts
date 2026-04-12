@@ -13,7 +13,7 @@ const d1 = (h: number, m: number) => DAY1_BASE + h * 3600 + m * 60;
 const d2 = (h: number, m: number) => DAY2_BASE + h * 3600 + m * 60;
 
 const day1: TimetableResponse = {
-  day: 1,
+  day: "Day1",
   date: "2026-05-23",
   tracks: [
     {
@@ -540,7 +540,7 @@ const day1: TimetableResponse = {
 };
 
 const day2: TimetableResponse = {
-  day: 2,
+  day: "Day2",
   date: "2026-05-24",
   tracks: [
     {

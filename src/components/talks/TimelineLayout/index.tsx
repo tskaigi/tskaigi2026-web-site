@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import { EventDateTab } from "@/components/talks/EventDateTab";
 import { TimelineAxis } from "@/components/talks/TimelineAxis";
-import { EVENT_DATE, type EventDate } from "@/constants/talkList";
+import { EVENT_DATE } from "@/constants/talkList";
+import type { EventDate } from "@/types/timetable-api";
 
 export function DesktopTimelineLayout({
   day1Column,
@@ -17,13 +18,13 @@ export function DesktopTimelineLayout({
         <h2 className="text-lg font-bold text-blue-light-600">
           Day1
           <span className="ml-2 text-xs font-normal text-black-500">
-            {EVENT_DATE.DAY1}
+            {EVENT_DATE.Day1}
           </span>
         </h2>
         <h2 className="text-lg font-bold text-pink-500">
           Day2
           <span className="ml-2 text-xs font-normal text-black-500">
-            {EVENT_DATE.DAY2}
+            {EVENT_DATE.Day2}
           </span>
         </h2>
       </div>
@@ -49,7 +50,7 @@ export function MobileTimelineLayout({
     <section className="rounded-xl bg-white p-4 md:p-6">
       <EventDateTab currentDate={currentEventDate} onTabChange={onTabChange} />
       <h2 className="mt-4 text-lg font-bold text-blue-light-600">
-        {currentEventDate === "DAY1" ? "Day1" : "Day2"}
+        {currentEventDate === "Day1"}
         <span className="ml-2 text-xs font-normal text-black-500">
           {EVENT_DATE[currentEventDate]}
         </span>

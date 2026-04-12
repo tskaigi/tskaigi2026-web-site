@@ -22,19 +22,19 @@ const TRACK_STYLE: Record<
   { bg: string; text: string; cssVar: string }
 > = {
   LEVERAGES: {
-    bg: "bg-track-toggle",
+    bg: "bg-track-leverages",
     text: "text-black",
-    cssVar: "var(--track-toggle)",
+    cssVar: "var(--track-leverages)",
   },
   UPSIDER: {
-    bg: "bg-track-ascend",
+    bg: "bg-track-upsider",
     text: "text-white",
-    cssVar: "var(--track-ascend)",
+    cssVar: "var(--track-upsider)",
   },
   RIGHTTOUCH: {
-    bg: "bg-track-leverages",
+    bg: "bg-track-righttouch",
     text: "text-white",
-    cssVar: "var(--track-leverages)",
+    cssVar: "var(--track-righttouch)",
   },
 };
 

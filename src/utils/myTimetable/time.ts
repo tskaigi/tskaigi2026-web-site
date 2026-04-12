@@ -1,4 +1,5 @@
-import { type EventDate, type Talk, talkList } from "@/constants/talkList";
+import { type Talk, talkList } from "@/constants/talkList";
+import type { EventDate } from "@/types/timetable-api";
 
 export type TalkWithMinutes = Talk & {
   startMinutes: number;
@@ -171,11 +172,11 @@ function compareTalkWithMinutes(a: TalkWithMinutes, b: TalkWithMinutes) {
 function getTrackBorderClass(track: Talk["track"]) {
   switch (track) {
     case "LEVERAGES":
-      return "border-track-toggle";
-    case "UPSIDER":
-      return "border-track-ascend";
-    case "RIGHTTOUCH":
       return "border-track-leverages";
+    case "UPSIDER":
+      return "border-track-upsider";
+    case "RIGHTTOUCH":
+      return "border-track-righttouch";
     default:
       return track satisfies never;
   }
@@ -256,8 +257,8 @@ function groupTalksByDate(
       return acc;
     },
     {
-      DAY1: [] as TalkWithMinutes[],
-      DAY2: [] as TalkWithMinutes[],
+      Day1: [] as TalkWithMinutes[],
+      Day2: [] as TalkWithMinutes[],
     },
   );
 }

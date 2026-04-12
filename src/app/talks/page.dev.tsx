@@ -6,8 +6,8 @@ import { useState } from "react";
 import { DayTimeTable } from "@/components/talks/DayTimeTable";
 import { EventDateTab } from "@/components/talks/EventDateTab";
 import { Button } from "@/components/ui/button";
-import type { EventDate } from "@/constants/talkList";
 import { timetableList } from "@/constants/timetable";
+import type { EventDate } from "@/types/timetable-api";
 
 const TalksPage = () => {
   const router = useRouter();
@@ -23,25 +23,25 @@ const TalksPage = () => {
 
   const defaultDay: EventDate = eventDayParam
     ? eventDayParam === "2"
-      ? "DAY2"
-      : "DAY1"
+      ? "Day2"
+      : "Day1"
     : isDay2
-      ? "DAY2"
-      : "DAY1";
+      ? "Day2"
+      : "Day1";
 
   const [currentEventDate, setCurrentEventDate] =
     useState<EventDate>(defaultDay);
 
   const handleTabChange = (date: EventDate) => {
     setCurrentEventDate(date);
-    const day = date === "DAY1" ? "1" : "2";
+    const day = date === "Day1" ? "1" : "2";
     const params = new URLSearchParams(searchParams.toString());
     params.set("day", day);
     router.replace(`?${params.toString()}`);
   };
 
   const dayData =
-    currentEventDate === "DAY1" ? timetableList[0] : timetableList[1];
+    currentEventDate === "Day1" ? timetableList[0] : timetableList[1];
 
   return (
     <main className="bg-blue-light-100 mt-16 py-10 px-1 md:py-16 md:px-3 lg:px-10">

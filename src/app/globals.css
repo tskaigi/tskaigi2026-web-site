@@ -3,9 +3,9 @@
 @import "./theme.css";
 
 :root {
-  --track-toggle: #0cf8c0;
-  --track-ascend: #005faa;
-  --track-leverages: #000000;
+  --track-leverages: #0cf8c0;
+  --track-upsider: #005faa;
+  --track-righttouch: #000000;
 
   --white: #ffffff;
 
@@ -144,9 +144,9 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --color-track-toggle: var(--track-toggle);
-  --color-track-ascend: var(--track-ascend);
   --color-track-leverages: var(--track-leverages);
+  --color-track-upsider: var(--track-upsider);
+  --color-track-righttouch: var(--track-righttouch);
 }
 
 .dark {

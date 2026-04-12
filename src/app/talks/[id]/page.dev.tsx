@@ -6,10 +6,11 @@ import remarkBreaks from "remark-breaks";
 import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
 import { OgpImage, ProfileImage } from "@/components/talks/FallbackImage";
 import { TalkStatus } from "@/components/talks/TalkStatus";
-import { getAllSessionIds, getSession } from "@/utils/getSession";
+import { SESSION_IDS } from "@/constants/talkList";
+import { getSession } from "@/utils/getSession";
 
 export async function generateStaticParams() {
-  return getAllSessionIds();
+  return SESSION_IDS.map((id) => ({ id }));
 }
 
 const description = "TSKaigi 2026 のスピーカー、トーク情報です。";
@@ -116,7 +117,7 @@ export default async function TalkDetailPage({
           </div>
           <div className="text-2xl font-bold">{session.title}</div>
           <div className="text-lg font-bold">
-            Day{detail.day} / {timeRange} （{trackName}）
+            {detail.day} / {timeRange} （{trackName}）
           </div>
           <div className="mt-2">
             <AddToMyTimetableButton talkId={session.id} />

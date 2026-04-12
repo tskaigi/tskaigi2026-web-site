@@ -1,11 +1,13 @@
-import type { TrackKey } from "@/types/timetable-api";
+import type { EventDate, SessionKey, TrackKey } from "@/types/timetable-api";
 import { timetableList } from "./timetable";
 
-export const EVENT_DATE = {
-  DAY1: "2026-05-23",
-  DAY2: "2026-05-24",
-} as const;
-export type EventDate = keyof typeof EVENT_DATE;
+export const EVENT_DATES: EventDate[] = ["Day1", "Day2"];
+export const TRACK_KEYS: TrackKey[] = ["LEVERAGES", "UPSIDER", "RIGHTTOUCH"];
+
+export const EVENT_DATE: Record<EventDate, string> = {
+  Day1: "2026-05-23",
+  Day2: "2026-05-24",
+};
 
 export const TRACK: Record<TrackKey, { name: string; tag: string }> = {
   LEVERAGES: {
@@ -20,10 +22,9 @@ export const TRACK: Record<TrackKey, { name: string; tag: string }> = {
     name: "RightTouchトラック",
     tag: "#tskaigi_righttouch",
   },
-} as const;
-export type Track = TrackKey;
+};
 
-export const TALK_TYPE = {
+export const TALK_TYPE: Record<SessionKey, { name: string; color: string }> = {
   KEYNOTE: {
     name: "基調講演",
     color: "#0CA90E",
@@ -41,7 +42,6 @@ export const TALK_TYPE = {
     color: "#E53D84",
   },
 };
-export type TalkType = keyof typeof TALK_TYPE;
 
 export type Speaker = {
   name: string;
@@ -51,8 +51,8 @@ export type Speaker = {
 export type Talk = {
   id: string;
   eventDate: EventDate;
-  track: Track;
-  talkType: TalkType;
+  track: TrackKey;
+  talkType: SessionKey;
   title: string;
   overview: string;
   time: string;
@@ -69,16 +69,17 @@ function formatTimestamp(ts: number): string {
 function buildTalkList(): Talk[] {
   const talks: Talk[] = [];
   for (const day of timetableList) {
-    const eventDate: EventDate = day.day === 1 ? "DAY1" : "DAY2";
+    const eventDate = day.day;
     for (const slot of day.slots) {
       if (slot.slotType !== "individual") continue;
-      for (const [trackKey, content] of Object.entries(slot.tracks)) {
+      for (const trackKey of TRACK_KEYS) {
+        const content = slot.tracks[trackKey];
         if (content.type !== "session") continue;
         for (const session of content.sessions) {
           talks.push({
             id: session.id,
             eventDate,
-            track: trackKey as Track,
+            track: trackKey,
             talkType: content.sessionType,
             title: session.title,
             overview: "",
@@ -97,6 +98,5 @@ function buildTalkList(): Talk[] {
 
 export const talkList: Talk[] = buildTalkList();
 
-export const talkIds = talkList.map((talk) => ({
-  id: talk.id,
-}));
+export const SESSION_IDS = talkList.map((talk) => talk.id);
+export type SessionId = (typeof SESSION_IDS)[number];

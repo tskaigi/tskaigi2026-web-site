@@ -20,7 +20,8 @@ import {
 } from "@/components/talks/TimelineLayout";
 import { Button } from "@/components/ui/button";
 import { showAppToast } from "@/components/ui/GlobalToast";
-import { type EventDate, TRACK } from "@/constants/talkList";
+import { TRACK } from "@/constants/talkList";
+import type { EventDate } from "@/types/timetable-api";
 import { Input } from "@/ui/input";
 import {
   findOverlaps,
@@ -572,7 +573,7 @@ export default function MyTimetablePage() {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [participatedIds, setParticipatedIds] = useState<string[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
-  const [currentEventDate, setCurrentEventDate] = useState<EventDate>("DAY1");
+  const [currentEventDate, setCurrentEventDate] = useState<EventDate>("Day1");
   const [timePickerState, setTimePickerState] = useState<TimePickerState>(null);
   const [overlapState, setOverlapState] = useState<OverlapState>(null);
   const [isClearConfirmOpen, setIsClearConfirmOpen] = useState(false);
@@ -767,8 +768,8 @@ export default function MyTimetablePage() {
             <DesktopTimelineLayout
               day1Column={
                 <TimelineColumn
-                  eventDate="DAY1"
-                  talks={talksByDate.DAY1}
+                  eventDate="Day1"
+                  talks={talksByDate.Day1}
                   participatedIds={participatedIds}
                   onClickTimeSlot={handleClickTimeSlot}
                   onRemoveTalk={removeTalk}
@@ -776,8 +777,8 @@ export default function MyTimetablePage() {
               }
               day2Column={
                 <TimelineColumn
-                  eventDate="DAY2"
-                  talks={talksByDate.DAY2}
+                  eventDate="Day2"
+                  talks={talksByDate.Day2}
                   participatedIds={participatedIds}
                   onClickTimeSlot={handleClickTimeSlot}
                   onRemoveTalk={removeTalk}

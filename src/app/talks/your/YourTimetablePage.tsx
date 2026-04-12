@@ -10,12 +10,12 @@ import {
   MobileTimelineLayout,
 } from "@/components/talks/TimelineLayout";
 import { Button } from "@/components/ui/button";
-import type { EventDate } from "@/constants/talkList";
+import type { EventDate } from "@/types/timetable-api";
 import { getTalksByDateFromIds, myTimetableQuery } from "@/utils/myTimetable";
 
 export default function YourTimetablePage() {
   const searchParams = useSearchParams();
-  const [currentEventDate, setCurrentEventDate] = useState<EventDate>("DAY1");
+  const [currentEventDate, setCurrentEventDate] = useState<EventDate>("Day1");
 
   const { ids, participatedIds } = useMemo(
     () => myTimetableQuery.parse(searchParams),
@@ -69,15 +69,15 @@ export default function YourTimetablePage() {
             <DesktopTimelineLayout
               day1Column={
                 <TimelineColumn
-                  eventDate="DAY1"
-                  talks={talksByDate.DAY1}
+                  eventDate="Day1"
+                  talks={talksByDate.Day1}
                   participatedIds={participatedIds}
                 />
               }
               day2Column={
                 <TimelineColumn
-                  eventDate="DAY2"
-                  talks={talksByDate.DAY2}
+                  eventDate="Day2"
+                  talks={talksByDate.Day2}
                   participatedIds={participatedIds}
                 />
               }
