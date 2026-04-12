@@ -1,4 +1,10 @@
-import type { EventDate, SessionKey, TrackKey } from "@/types/timetable-api";
+import type {
+  EventDate,
+  IndividualSlot,
+  SessionSummary,
+  SessionTrack,
+  TrackKey,
+} from "@/types/timetable-api";
 import { timetableList } from "./timetable";
 
 export const EVENT_DATES: EventDate[] = ["Day1", "Day2"];
@@ -10,53 +16,25 @@ export const EVENT_DATE: Record<EventDate, string> = {
 };
 
 export const TRACK: Record<TrackKey, { name: string; tag: string }> = {
-  LEVERAGES: {
-    name: "Leveragesトラック",
-    tag: "#tskaigi_leverages",
-  },
-  UPSIDER: {
-    name: "UPSIDERトラック",
-    tag: "#tskaigi_upsider",
-  },
-  RIGHTTOUCH: {
-    name: "RightTouchトラック",
-    tag: "#tskaigi_righttouch",
-  },
+  LEVERAGES: { name: "Leveragesトラック", tag: "#tskaigi_leverages" },
+  UPSIDER: { name: "UPSIDERトラック", tag: "#tskaigi_upsider" },
+  RIGHTTOUCH: { name: "RightTouchトラック", tag: "#tskaigi_righttouch" },
 };
 
-export const TALK_TYPE: Record<SessionKey, { name: string; color: string }> = {
-  KEYNOTE: {
-    name: "基調講演",
-    color: "#0CA90E",
-  },
-  LONG: {
-    name: "30分セッション",
-    color: "#0C7EDC",
-  },
-  SHORT: {
-    name: "10分セッション",
-    color: "#c3620f",
-  },
-  SPONSOR: {
-    name: "スポンサーセッション",
-    color: "#E53D84",
-  },
+export const TALK_TYPE: Record<
+  SessionTrack["sessionType"],
+  { name: string; color: string }
+> = {
+  KEYNOTE: { name: "基調講演", color: "#0CA90E" },
+  LONG: { name: "30分セッション", color: "#0C7EDC" },
+  SHORT: { name: "10分セッション", color: "#c3620f" },
+  SPONSOR: { name: "スポンサーセッション", color: "#E53D84" },
 };
 
-export type Speaker = {
-  name: string;
-  profileImageUrl?: string;
-};
-
-export type Talk = {
-  id: string;
+export type Talk = SessionSummary & {
   eventDate: EventDate;
   track: TrackKey;
-  talkType: SessionKey;
-  title: string;
-  overview: string;
   time: string;
-  speaker: Speaker;
 };
 
 function formatTimestamp(ts: number): string {
@@ -66,37 +44,26 @@ function formatTimestamp(ts: number): string {
   return `${h}:${m}`;
 }
 
-function buildTalkList(): Talk[] {
-  const talks: Talk[] = [];
-  for (const day of timetableList) {
-    const eventDate = day.day;
-    for (const slot of day.slots) {
-      if (slot.slotType !== "individual") continue;
-      for (const trackKey of TRACK_KEYS) {
-        const content = slot.tracks[trackKey];
-        if (content.type !== "session") continue;
-        for (const session of content.sessions) {
-          talks.push({
-            id: session.id,
-            eventDate,
-            track: trackKey,
-            talkType: content.sessionType,
-            title: session.title,
-            overview: "",
-            time: `${formatTimestamp(slot.startTime)} 〜 ${formatTimestamp(slot.endTime)}`,
-            speaker: {
-              name: session.speaker.name,
-              profileImageUrl: session.speaker.profileImageUrl,
-            },
-          });
-        }
-      }
-    }
-  }
-  return talks;
+function formatTimeRange(slot: IndividualSlot): string {
+  return `${formatTimestamp(slot.startTime)} 〜 ${formatTimestamp(slot.endTime)}`;
 }
 
-export const talkList: Talk[] = buildTalkList();
+export const talkList: Talk[] = timetableList.flatMap((day) =>
+  day.slots
+    .filter((slot): slot is IndividualSlot => slot.slotType === "individual")
+    .flatMap((slot) =>
+      TRACK_KEYS.flatMap((trackKey) => {
+        const content = slot.tracks[trackKey];
+        if (content.type !== "session") return [];
+        return content.sessions.map((session) => ({
+          ...session,
+          eventDate: day.day,
+          track: trackKey,
+          time: formatTimeRange(slot),
+        }));
+      }),
+    ),
+);
 
 export const SESSION_IDS = talkList.map((talk) => talk.id);
 export type SessionId = (typeof SESSION_IDS)[number];

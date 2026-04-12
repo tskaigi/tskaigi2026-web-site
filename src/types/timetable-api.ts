@@ -9,9 +9,16 @@ export type TrackKey = "LEVERAGES" | "UPSIDER" | "RIGHTTOUCH";
 export type SessionSummary = {
   id: string;
   title: string;
+  overview?: string;
   speaker: {
     name: string;
     profileImageUrl?: string;
+    bio?: string; // 自己紹介文
+    xId?: string;
+    githubId?: string;
+    additionalLink?: string; // 追加リンク
+    affiliation?: string; // 所属企業・団体
+    position?: string; // ポジション・役職
   };
 };
 
