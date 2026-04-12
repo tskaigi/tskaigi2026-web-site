@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -20,24 +21,13 @@ export default function VenuePage() {
 
       <div className="bg-white p-6 flex flex-col gap-6 max-w-screen-xl mx-auto md:rounded-xl lg:p-10">
         <div className="w-full">
-          <object
-            data="/venue_drawing.pdf"
-            type="application/pdf"
-            className="w-full h-[60vh] md:h-[75vh] lg:h-[85vh] rounded-lg border border-black-200"
-          >
-            <p className="text-center text-black-500">
-              PDFの表示に対応していないブラウザです。
-              <Link
-                href="/venue_drawing.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-link-light underline ml-1"
-              >
-                こちらからダウンロード
-              </Link>
-              してご覧ください。
-            </p>
-          </object>
+          <Image
+            src="/venue/venue_drawing.png"
+            alt="会場図"
+            width={1191}
+            height={842}
+            className="w-full h-auto rounded-lg border border-black-200"
+          />
         </div>
 
         <p className="text-sm text-black-500 text-center">
