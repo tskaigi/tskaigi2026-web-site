@@ -14,9 +14,9 @@ const description = "TSKaigi 2026 のスピーカー、トーク情報です。"
 
 const SESSION_TYPE_LABEL: Record<string, string> = {
   KEYNOTE: "基調講演",
-  LONG: "セッション",
-  SHORT: "LT",
-  SPONSOR: "スポンサーLT",
+  LONG: "30分セッション",
+  SHORT: "10分セッション",
+  SPONSOR: "スポンサーセッション",
 };
 
 function formatTime(timestamp: number): string {

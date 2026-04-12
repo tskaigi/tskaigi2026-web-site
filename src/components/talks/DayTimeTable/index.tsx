@@ -239,9 +239,9 @@ function SessionTypeLabel({
     { label: string; color: string }
   > = {
     KEYNOTE: { label: "基調講演", color: "#0CA90E" },
-    LONG: { label: "セッション", color: "#0C7EDC" },
-    SHORT: { label: "LT", color: "#c3620f" },
-    SPONSOR: { label: "スポンサーLT", color: "#E53D84" },
+    LONG: { label: "30分セッション", color: "#0C7EDC" },
+    SHORT: { label: "10分セッション", color: "#c3620f" },
+    SPONSOR: { label: "スポンサーセッション", color: "#E53D84" },
   };
   const { label, color } = config[sessionType];
   return (
