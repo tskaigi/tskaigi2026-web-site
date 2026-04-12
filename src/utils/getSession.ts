@@ -17,7 +17,7 @@ export type SessionDetail = {
   endTime: number;
 };
 
-export function getSession(id: number): SessionDetail {
+export function getSession(id: string): SessionDetail {
   for (const day of timetableList) {
     const trackNameMap: Record<string, string> = {};
     for (const t of day.tracks) {
@@ -56,7 +56,7 @@ export function getAllSessionIds(): { id: string }[] {
       for (const content of Object.values(slot.tracks)) {
         if (content.type !== "session") continue;
         for (const session of content.sessions) {
-          ids.push({ id: String(session.id) });
+          ids.push({ id: session.id });
         }
       }
     }

@@ -4,7 +4,6 @@ import {
   AlertTriangle,
   Check,
   Info,
-  List,
   QrCode,
   RotateCcw,
   Search,

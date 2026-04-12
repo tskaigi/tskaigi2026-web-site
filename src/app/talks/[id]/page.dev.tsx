@@ -34,7 +34,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const { session } = getSession(Number(id));
+  const { session } = getSession(id);
 
   return {
     title: session.title,
@@ -91,7 +91,7 @@ export default async function TalkDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const detail = getSession(Number(id));
+  const detail = getSession(id);
   const { session, sessionType, trackName, startTime, endTime } = detail;
   const timeRange = `${formatTime(startTime)} 〜 ${formatTime(endTime)}`;
   const typeLabel = SESSION_TYPE_LABEL[sessionType] ?? sessionType;
@@ -112,14 +112,14 @@ export default async function TalkDetailPage({
         <div className="px-6 md:px-8 lg:px-10 flex flex-col gap-1">
           <div className="flex items-center gap-2">
             <div className="text-lg">{typeLabel}</div>
-            <TalkStatus talkId={String(session.id)} />
+            <TalkStatus talkId={session.id} />
           </div>
           <div className="text-2xl font-bold">{session.title}</div>
           <div className="text-lg font-bold">
             Day{detail.day} / {timeRange} （{trackName}）
           </div>
           <div className="mt-2">
-            <AddToMyTimetableButton talkId={String(session.id)} />
+            <AddToMyTimetableButton talkId={session.id} />
           </div>
         </div>
 
