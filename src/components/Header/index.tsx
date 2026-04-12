@@ -18,14 +18,9 @@ const links: {
   label: string;
 }[] = [
   { href: "/sponsors", label: "スポンサー" },
-  {
-    href: "/side-events",
-    label: "サイドイベント",
-  },
-  {
-    href: "/code-of-conduct",
-    label: "行動規範",
-  },
+  { href: "/side-events", label: "サイドイベント" },
+  { href: "/venue", label: "会場図" },
+  { href: "/code-of-conduct", label: "行動規範" },
 ];
 
 export function Header() {

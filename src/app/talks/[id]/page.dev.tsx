@@ -1,18 +1,30 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import type { ComponentProps } from "react";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
-import { TALK_TYPE, TRACK, talkIds } from "@/constants/talkList";
-import { getTalk } from "@/utils/getTalk";
-import { shouldDisplaySpeakerInfo } from "@/utils/shouldDisplaySpeakerInfo";
+import { OgpImage, ProfileImage } from "@/components/talks/FallbackImage";
+import { getAllSessionIds, getSession } from "@/utils/getSession";
 
 export async function generateStaticParams() {
-  return talkIds;
+  return getAllSessionIds();
 }
 
-const description = "TSKaigi 2025 のスピーカー、トーク情報です。";
+const description = "TSKaigi 2026 のスピーカー、トーク情報です。";
+
+const SESSION_TYPE_LABEL: Record<string, string> = {
+  KEYNOTE: "基調講演",
+  LONG: "30分セッション",
+  SHORT: "10分セッション",
+  SPONSOR: "スポンサーセッション",
+};
+
+function formatTime(timestamp: number): string {
+  const d = new Date(timestamp * 1000);
+  const h = d.getHours().toString().padStart(2, "0");
+  const m = d.getMinutes().toString().padStart(2, "0");
+  return `${h}:${m}`;
+}
 
 export async function generateMetadata({
   params,
@@ -20,28 +32,20 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const talk = getTalk(id);
+  const { session } = getSession(Number(id));
 
   return {
-    title: talk.title,
+    title: session.title,
     description,
     twitter: {
-      title: talk.title,
+      title: session.title,
       description,
-      images: [
-        {
-          url: `/ogp/talks/${talk.speaker.username}.png`,
-        },
-      ],
+      images: [{ url: `/ogp/talks/${session.speaker.name}.png` }],
     },
     openGraph: {
-      title: talk.title,
+      title: session.title,
       description,
-      images: [
-        {
-          url: `/ogp/talks/${talk.speaker.username}.png`,
-        },
-      ],
+      images: [{ url: `/ogp/talks/${session.speaker.name}.png` }],
     },
   };
 }
@@ -85,7 +89,11 @@ export default async function TalkDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const talk = getTalk(id);
+  const detail = getSession(Number(id));
+  const { session, sessionType, trackName, startTime, endTime } = detail;
+  const timeRange = `${formatTime(startTime)} 〜 ${formatTime(endTime)}`;
+  const typeLabel = SESSION_TYPE_LABEL[sessionType] ?? sessionType;
+  const overview = "（概要は後日公開予定です）";
 
   return (
     <main className="bg-blue-light-100 pt-16 pb-10 md:py-16 md:px-8 lg:px-10">
@@ -96,111 +104,43 @@ export default async function TalkDetailPage({
       <div className="bg-white flex flex-col gap-6 max-w-screen-xl mx-auto md:rounded-xl pb-6 md:pb-8 lg:pb-10">
         {/* トーク OGP */}
         <div className="bg-black-100 flex justify-center md:mt-8 md:mx-8 lg:mt-10 lg:mx-10">
-          <Image
-            width={730}
-            height={383}
-            className="w-full max-w-[730px] h-auto max-h-[383px] mx-auto object-contain"
-            src={`/ogp/talks/${talk.speaker.username}.png`}
-            alt={talk.title}
-          />
+          <OgpImage speakerName={session.speaker.name} title={session.title} />
         </div>
 
         <div className="px-6 md:px-8 lg:px-10 flex flex-col gap-1">
-          <div className="text-lg">{TALK_TYPE[talk.talkType].name}</div>
-          <div className="text-2xl font-bold">{talk.title}</div>
+          <div className="text-lg">{typeLabel}</div>
+          <div className="text-2xl font-bold">{session.title}</div>
           <div className="text-lg font-bold">
-            {talk.eventDate} / {talk.time} （{TRACK[talk.track].name}）
+            Day{detail.day} / {timeRange} （{trackName}）
           </div>
         </div>
 
         {/* トーク説明文 */}
         <div className="px-6 md:px-8 lg:px-10 gap-6 flex flex-col md:text-lg">
           <Markdown components={components} remarkPlugins={[remarkBreaks]}>
-            {talk.overview}
+            {overview}
           </Markdown>
         </div>
 
         {/* スピーカー情報 */}
-        {shouldDisplaySpeakerInfo(talk.talkType) && (
-          <div className="mt-4 px-6 md:px-8 lg:px-10">
-            <div className="bg-blue-light-200 p-6 rounded-xl">
-              <div className="flex flex-col sm:flex-row items-center gap-6">
-                {/* アイコン */}
-                <div className="relative w-[180px] md:w-[220px] aspect-square shrink-0 rounded-full overflow-hidden">
-                  <Image
-                    src={`/talks/speaker/${
-                      talk.speaker.profileImagePath || "dummy.png"
-                    }`}
-                    alt={talk.speaker.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+        <div className="mt-4 px-6 md:px-8 lg:px-10">
+          <div className="bg-blue-light-200 p-6 rounded-xl">
+            <div className="flex flex-col sm:flex-row items-center gap-6">
+              {/* アイコン */}
+              <div className="relative w-[180px] md:w-[220px] aspect-square shrink-0 rounded-full overflow-hidden">
+                <ProfileImage
+                  speakerName={session.speaker.name}
+                  profileImageUrl={session.speaker.profileImageUrl}
+                />
+              </div>
 
-                <div className="flex flex-col gap-4">
-                  {/* 名前 */}
-                  <p className="font-bold text-22">{talk.speaker.name}</p>
-
-                  {/* 自己紹介 */}
-                  <div className="flex flex-col gap-2">
-                    <p className="text-gray-700 text-16 md:text-18">
-                      {talk.speaker.affiliation}
-                      {talk.speaker.affiliation &&
-                        talk.speaker.position &&
-                        " / "}
-                      {talk.speaker.position}
-                    </p>
-                    <p className="text-gray-700 text-16 md:text-18">
-                      {talk.speaker.bio}
-                    </p>
-                    {talk.speaker.additionalLink && (
-                      <Link
-                        href={talk.speaker.additionalLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-700 text-16 md:text-18 underline break-all"
-                      >
-                        {talk.speaker.additionalLink}
-                      </Link>
-                    )}
-                  </div>
-
-                  {/* SNSリンク */}
-                  <div className="flex gap-2 mt-2">
-                    {talk.speaker.xId && (
-                      <Link
-                        href={`https://x.com/${talk.speaker.xId}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Image
-                          src="/talks/sns/x-logo.png"
-                          alt="X"
-                          width={36}
-                          height={36}
-                        />
-                      </Link>
-                    )}
-                    {talk.speaker.githubId && (
-                      <Link
-                        href={`https://github.com/${talk.speaker.githubId}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Image
-                          src="/talks/sns/github-logo.png"
-                          alt="GitHub"
-                          width={36}
-                          height={36}
-                        />
-                      </Link>
-                    )}
-                  </div>
-                </div>
+              <div className="flex flex-col gap-4">
+                {/* 名前 */}
+                <p className="font-bold text-22">{session.speaker.name}</p>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </main>
   );
