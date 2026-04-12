@@ -34,9 +34,125 @@ export function parseTalkTimeToMinutes(timeText: string) {
   return { startMinutes, endMinutes };
 }
 
-const PIXELS_PER_MINUTE = 1.6;
-const TIMELINE_START_MINUTES = 11 * 60;
-const TIMELINE_END_MINUTES = 19 * 60;
+/** セッション時間枠（開始分・終了分） */
+const SESSION_SLOTS = [
+  { start: 670, end: 700 }, // 11:10〜11:40
+  { start: 710, end: 740 }, // 11:50〜12:20
+  { start: 820, end: 850 }, // 13:40〜14:10
+  { start: 860, end: 890 }, // 14:20〜14:50
+  { start: 910, end: 940 }, // 15:10〜15:40
+  { start: 950, end: 980 }, // 15:50〜16:20
+  { start: 1000, end: 1030 }, // 16:40〜17:10
+  { start: 1040, end: 1070 }, // 17:20〜17:50
+  { start: 1080, end: 1130 }, // 18:00〜18:50
+] as const;
+
+const SESSION_SLOT_HEIGHT = 80;
+const BREAK_HEIGHT = 16;
+
+/**
+ * タイムラインのセグメント（セッション枠 + 休憩）を構築する。
+ * 各セグメントの top（px上端）と height（px高さ）を返す。
+ */
+type TimelineSegment = {
+  type: "session" | "break";
+  start: number;
+  end: number;
+  top: number;
+  height: number;
+};
+
+function buildTimelineSegments(): TimelineSegment[] {
+  const segments: TimelineSegment[] = [];
+  let top = 0;
+
+  // 最初のセッション前の休憩
+  const firstSlot = SESSION_SLOTS[0];
+  segments.push({
+    type: "break",
+    start: firstSlot.start,
+    end: firstSlot.start,
+    top,
+    height: BREAK_HEIGHT,
+  });
+  top += BREAK_HEIGHT;
+
+  for (let i = 0; i < SESSION_SLOTS.length; i++) {
+    const slot = SESSION_SLOTS[i];
+
+    // 前のスロットとの間に休憩を挟む
+    if (i > 0) {
+      const prevEnd = SESSION_SLOTS[i - 1].end;
+      if (slot.start > prevEnd) {
+        segments.push({
+          type: "break",
+          start: prevEnd,
+          end: slot.start,
+          top,
+          height: BREAK_HEIGHT,
+        });
+        top += BREAK_HEIGHT;
+      }
+    }
+
+    segments.push({
+      type: "session",
+      start: slot.start,
+      end: slot.end,
+      top,
+      height: SESSION_SLOT_HEIGHT,
+    });
+    top += SESSION_SLOT_HEIGHT;
+  }
+
+  // 最後のセッション後の休憩
+  const lastSlot = SESSION_SLOTS[SESSION_SLOTS.length - 1];
+  segments.push({
+    type: "break",
+    start: lastSlot.end,
+    end: lastSlot.end,
+    top,
+    height: BREAK_HEIGHT,
+  });
+  top += BREAK_HEIGHT;
+
+  return segments;
+}
+
+const TIMELINE_SEGMENTS = buildTimelineSegments();
+const TIMELINE_HEIGHT =
+  TIMELINE_SEGMENTS[TIMELINE_SEGMENTS.length - 1].top +
+  TIMELINE_SEGMENTS[TIMELINE_SEGMENTS.length - 1].height;
+
+/** 分数 → タイムライン上のpx位置（セッション枠・休憩の固定高さベース） */
+function minutesToTop(minutes: number): number {
+  for (const seg of TIMELINE_SEGMENTS) {
+    // start === end のパディング用セグメントはスキップ
+    if (seg.start === seg.end) continue;
+
+    if (minutes <= seg.start) return seg.top;
+    if (minutes <= seg.end) {
+      const ratio = (minutes - seg.start) / (seg.end - seg.start);
+      return seg.top + ratio * seg.height;
+    }
+  }
+
+  // 最後のセグメントより後
+  return TIMELINE_HEIGHT;
+}
+
+function formatMinutes(minutes: number): string {
+  const hour = Math.floor(minutes / 60)
+    .toString()
+    .padStart(2, "0");
+  const minute = (minutes % 60).toString().padStart(2, "0");
+  return `${hour}:${minute}`;
+}
+
+/** 開始分〜終了分のpx高さ */
+function minutesToHeight(startMinutes: number, endMinutes: number): number {
+  return minutesToTop(endMinutes) - minutesToTop(startMinutes);
+}
 
 export type PositionedTalk = TalkWithMinutes & {
   columnIndex: number;
@@ -54,11 +170,11 @@ function compareTalkWithMinutes(a: TalkWithMinutes, b: TalkWithMinutes) {
 
 function getTrackBorderClass(track: Talk["track"]) {
   switch (track) {
-    case "TRACK1":
+    case "LEVERAGES":
       return "border-track-toggle";
-    case "TRACK2":
+    case "UPSIDER":
       return "border-track-ascend";
-    case "TRACK3":
+    case "RIGHTTOUCH":
       return "border-track-leverages";
     default:
       return track satisfies never;
@@ -147,28 +263,16 @@ function groupTalksByDate(
 }
 
 export const MY_TIMETABLE_CONST = {
-  PIXELS_PER_MINUTE,
-  TIMELINE_START_MINUTES,
-  TIMELINE_END_MINUTES,
-  TIMELINE_HEIGHT:
-    (TIMELINE_END_MINUTES - TIMELINE_START_MINUTES) * PIXELS_PER_MINUTE,
-  TIMELINE_MARKERS: Array.from(
-    { length: (TIMELINE_END_MINUTES - TIMELINE_START_MINUTES) / 30 + 1 },
-    (_, i) => TIMELINE_START_MINUTES + i * 30,
-  ),
+  TIMELINE_HEIGHT,
+  TIMELINE_SEGMENTS,
+  /** クリック可能な時間帯 */
+  SESSION_SLOTS,
 } as const;
 
 export const myTimetable = {
-  minutesToPx: (minutes: number) => minutes * PIXELS_PER_MINUTE,
-  minutesToTop: (minutes: number) =>
-    (minutes - TIMELINE_START_MINUTES) * PIXELS_PER_MINUTE,
-  formatMinutes: (minutes: number) => {
-    const hour = Math.floor(minutes / 60)
-      .toString()
-      .padStart(2, "0");
-    const minute = (minutes % 60).toString().padStart(2, "0");
-    return `${hour}:${minute}`;
-  },
+  minutesToTop,
+  minutesToHeight,
+  formatMinutes,
   getTrackBorderClass,
   getPositionedTalks,
   getAllTalksWithMinutes,

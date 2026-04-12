@@ -36,37 +36,53 @@ export function TimelineColumn({
       className="relative rounded-lg border border-black-300 bg-blue-purple-100/30"
       style={{ height: `${MY_TIMETABLE_CONST.TIMELINE_HEIGHT}px` }}
     >
-      {editable &&
-        MY_TIMETABLE_CONST.TIMELINE_MARKERS.slice(0, -1).map((start) => {
-          const top = myTimetable.minutesToTop(start);
-          const height = myTimetable.minutesToPx(30);
-          return (
-            <button
-              type="button"
-              key={`${eventDate}-${start}`}
-              className="absolute left-0 right-0 z-0 hover:bg-blue-purple-200/40"
-              style={{ top: `${top}px`, height: `${height}px` }}
-              onClick={() => onClickTimeSlot(eventDate, start)}
-              aria-label={`${eventDate} ${myTimetable.formatMinutes(start)} の時間帯で追加`}
-            />
-          );
-        })}
+      {/* 休憩帯の背景 */}
+      {MY_TIMETABLE_CONST.TIMELINE_SEGMENTS.filter(
+        (seg) => seg.type === "break",
+      ).map((seg) => (
+        <div
+          key={`${eventDate}-break-${seg.start}`}
+          className="absolute left-0 right-0 z-0 bg-black-100/50"
+          style={{ top: `${seg.top}px`, height: `${seg.height}px` }}
+        />
+      ))}
 
-      {MY_TIMETABLE_CONST.TIMELINE_MARKERS.map((minutes) => {
-        const top = myTimetable.minutesToTop(minutes);
-        return (
-          <div
-            key={`${eventDate}-line-${minutes}`}
-            className="absolute left-0 right-0 z-10 border-t border-black-200"
-            style={{ top: `${top}px` }}
+      {/* セッション枠のクリック領域 */}
+      {editable &&
+        MY_TIMETABLE_CONST.TIMELINE_SEGMENTS.filter(
+          (seg) => seg.type === "session",
+        ).map((seg) => (
+          <button
+            type="button"
+            key={`${eventDate}-${seg.start}`}
+            className="absolute left-0 right-0 z-0 cursor-pointer hover:bg-blue-purple-200/40"
+            style={{ top: `${seg.top}px`, height: `${seg.height}px` }}
+            onClick={() => onClickTimeSlot(eventDate, seg.start)}
+            aria-label={`${eventDate} ${myTimetable.formatMinutes(seg.start)} の時間帯で追加`}
           />
-        );
-      })}
+        ))}
+
+      {/* セグメント境界線（各セグメントの上端＋下端、重複排除） */}
+      {[
+        ...new Set(
+          MY_TIMETABLE_CONST.TIMELINE_SEGMENTS.flatMap((seg) => [
+            seg.top,
+            seg.top + seg.height,
+          ]),
+        ),
+      ].map((y) => (
+        <div
+          key={`${eventDate}-line-${y}`}
+          className="absolute left-0 right-0 z-10 border-t border-black-200"
+          style={{ top: `${y}px` }}
+        />
+      ))}
 
       {positionedTalks.map((talk) => {
         const top = myTimetable.minutesToTop(talk.startMinutes);
-        const height = myTimetable.minutesToPx(
-          talk.endMinutes - talk.startMinutes,
+        const height = myTimetable.minutesToHeight(
+          talk.startMinutes,
+          talk.endMinutes,
         );
 
         const left = `calc(${(100 / talk.columnCount) * talk.columnIndex}% + 8px)`;
@@ -88,7 +104,7 @@ export function TimelineColumn({
           >
             {talk.isOverlapping && (
               <div
-                className="absolute inset-0 opacity-25 pointer-events-none"
+                className="absolute inset-0 opacity-10 pointer-events-none"
                 style={{
                   backgroundImage:
                     "repeating-linear-gradient(-45deg, #ff5a5a 0 6px, transparent 6px 12px)",
@@ -122,7 +138,7 @@ export function TimelineColumn({
               href={`/talks/${talk.id}`}
               className={`relative z-10 hover:underline block ${editable ? "" : "pr-4"}`}
             >
-              <p className="mt-0.5 text-xs font-bold text-black-700 truncate">
+              <p className="mt-0.5 text-xs font-bold text-black-700 line-clamp-2">
                 {talk.title}
               </p>
             </Link>
