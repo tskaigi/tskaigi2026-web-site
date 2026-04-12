@@ -821,6 +821,14 @@ export default function MyTimetablePage() {
           onClose={() => setIsQrOpen(false)}
         />
       )}
+
+      <Button
+        type="button"
+        asChild
+        className="fixed bottom-6 right-6 z-50 rounded-full shadow-lg"
+      >
+        <Link href="/talks">タイムテーブルへ</Link>
+      </Button>
     </main>
   );
 }

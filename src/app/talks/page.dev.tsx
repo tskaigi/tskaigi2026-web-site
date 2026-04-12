@@ -48,11 +48,6 @@ const TalksPage = () => {
       <h1 className="text-2xl font-bold text-blue-light-500 text-center md:text-3xl lg:text-4xl">
         タイムテーブル
       </h1>
-      <div className="text-center mt-4">
-        <Button type="button" variant="outline" asChild>
-          <Link href="/talks/me">マイタイムテーブルへ</Link>
-        </Button>
-      </div>
       <div className="text-center mt-8">
         <EventDateTab
           currentDate={currentEventDate}
@@ -65,6 +60,13 @@ const TalksPage = () => {
           <DayTimeTable data={dayData} />
         </div>
       </div>
+      <Button
+        type="button"
+        asChild
+        className="fixed bottom-6 right-6 z-50 rounded-full shadow-lg"
+      >
+        <Link href="/talks/me">マイタイムテーブルへ</Link>
+      </Button>
     </main>
   );
 };
