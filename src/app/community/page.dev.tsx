@@ -1,9 +1,9 @@
-import CommunityMap from "@/components/CommunityMap";
-import { communityEventList } from "@/constants/communityEventList";
-import { communityList } from "@/constants/communityList";
 import { ExternalLink } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import CommunityMap from "@/components/CommunityMap";
+import { communityEventList } from "@/constants/communityEventList";
+import { communityList } from "@/constants/communityList";
 
 export const metadata: Metadata = {
   title: "コミュニティ",
