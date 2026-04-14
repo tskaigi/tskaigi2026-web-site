@@ -12,12 +12,14 @@ import {
 } from "@/utils/myTimetable";
 
 export function TimelineColumn({
+  id,
   eventDate,
   talks,
   participatedIds,
   onClickTimeSlot,
   onRemoveTalk,
 }: {
+  id?: string;
   eventDate: EventDate;
   talks: TalkWithMinutes[];
   participatedIds: string[];
@@ -33,6 +35,7 @@ export function TimelineColumn({
 
   return (
     <div
+      id={id}
       className="relative rounded-lg border border-black-300 bg-blue-purple-100/30"
       style={{ height: `${MY_TIMETABLE_CONST.TIMELINE_HEIGHT}px` }}
     >
@@ -92,6 +95,7 @@ export function TimelineColumn({
         return (
           <div
             key={talk.id}
+            data-tour-session-id={talk.id}
             className={`absolute left-2 right-2 z-20 overflow-hidden rounded-md border border-black-300 bg-white border-l-4 ${myTimetable.getTrackBorderClass(talk.track)} ${editable ? "py-1 px-2 pr-5" : "p-2"}`}
             title={`${talk.time} / ${TRACK[talk.track].name}\n${talk.title}\n${talk.speaker.name}`}
             style={{

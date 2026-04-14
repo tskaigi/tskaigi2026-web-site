@@ -3,6 +3,7 @@
 import { Copy } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
+import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
 import { ProfileImage } from "@/components/talks/FallbackImage";
 import { Button } from "@/components/ui/button";
 import { useTimetable } from "@/hooks/useTimetable";
@@ -162,10 +163,12 @@ function TrackCell({
   content,
   trackKey,
   trackName,
+  id,
 }: {
   content: TrackContent;
   trackKey: TrackKey;
   trackName: string;
+  id?: string;
 }) {
   const style = TRACK_STYLE[trackKey];
 
@@ -206,7 +209,12 @@ function TrackCell({
   }
 
   return (
-    <SessionCell content={content} trackKey={trackKey} trackName={trackName} />
+    <SessionCell
+      content={content}
+      trackKey={trackKey}
+      trackName={trackName}
+      id={id}
+    />
   );
 }
 
@@ -257,15 +265,20 @@ function SessionCell({
   content,
   trackKey,
   trackName,
+  id,
 }: {
   content: SessionTrack;
   trackKey: TrackKey;
   trackName: string;
+  id?: string;
 }) {
   const style = TRACK_STYLE[trackKey];
 
   return (
-    <div className="bg-white px-5 pt-10 pb-4 md:py-5 min-h-32 flex flex-col gap-2 items-start justify-start text-black-700 relative">
+    <div
+      id={id}
+      className="bg-white px-5 pt-10 pb-4 md:py-5 min-h-32 flex flex-col gap-2 items-start justify-start text-black-700 relative"
+    >
       <div
         className={cn(
           style.bg,
@@ -294,6 +307,9 @@ function SessionCell({
                   profileImageUrl={session.speaker.profileImageUrl}
                 />
               </div>
+            </div>
+            <div className="mt-1">
+              <AddToMyTimetableButton talkId={session.id} iconOnly />
             </div>
           </div>
         ))}
@@ -340,38 +356,47 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
         </div>
       </div>
 
-      {data.slots.map((slot) => {
-        const timeId = formatTime(slot.startTime);
-        const timeText = formatTimeRange(slot.startTime, slot.endTime);
-        const active = isSessionActive(timeId);
+      {(() => {
+        let firstSessionFound = false;
+        return data.slots.map((slot) => {
+          const timeId = formatTime(slot.startTime);
+          const timeText = formatTimeRange(slot.startTime, slot.endTime);
+          const active = isSessionActive(timeId);
 
-        if (slot.slotType === "shared") {
+          if (slot.slotType === "shared") {
+            return (
+              <SharedSlotRow
+                key={timeId}
+                timeText={timeText}
+                label={slot.label}
+                isActive={active}
+                refHandler={(el) => {
+                  sessionRefs.current[timeId] = el;
+                }}
+              />
+            );
+          }
+
+          const hasSession =
+            !firstSessionFound &&
+            TRACK_KEYS.some((k) => slot.tracks[k].type === "session");
+          if (hasSession) firstSessionFound = true;
+
           return (
-            <SharedSlotRow
+            <IndividualSlotRow
               key={timeId}
+              slot={slot}
               timeText={timeText}
-              label={slot.label}
               isActive={active}
+              trackNames={trackNames}
+              isFirstSession={hasSession}
               refHandler={(el) => {
                 sessionRefs.current[timeId] = el;
               }}
             />
           );
-        }
-
-        return (
-          <IndividualSlotRow
-            key={timeId}
-            slot={slot}
-            timeText={timeText}
-            isActive={active}
-            trackNames={trackNames}
-            refHandler={(el) => {
-              sessionRefs.current[timeId] = el;
-            }}
-          />
-        );
-      })}
+        });
+      })()}
 
       {showScrollButton && (
         <div
@@ -399,25 +424,35 @@ function IndividualSlotRow({
   timeText,
   isActive,
   trackNames,
+  isFirstSession,
   refHandler,
 }: {
   slot: IndividualSlot;
   timeText: string;
   isActive: boolean;
   trackNames: Record<string, string>;
+  isFirstSession?: boolean;
   refHandler?: (ref: HTMLDivElement | null) => void;
 }) {
+  let tourIdAssigned = false;
   return (
     <GridRow refHandler={refHandler}>
       <TimeSlot timeText={timeText} isActive={isActive} />
-      {TRACK_KEYS.map((key) => (
-        <TrackCell
-          key={key}
-          content={slot.tracks[key]}
-          trackKey={key}
-          trackName={trackNames[key] ?? key}
-        />
-      ))}
+      {TRACK_KEYS.map((key) => {
+        const content = slot.tracks[key];
+        const shouldAssignTourId =
+          isFirstSession && !tourIdAssigned && content.type === "session";
+        if (shouldAssignTourId) tourIdAssigned = true;
+        return (
+          <TrackCell
+            key={key}
+            content={content}
+            trackKey={key}
+            trackName={trackNames[key] ?? key}
+            id={shouldAssignTourId ? "tour-add-button" : undefined}
+          />
+        );
+      })}
     </GridRow>
   );
 }

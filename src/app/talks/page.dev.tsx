@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { DayTimeTable } from "@/components/talks/DayTimeTable";
 import { EventDateTab } from "@/components/talks/EventDateTab";
+import { StartTourButton } from "@/components/talks/Tour";
 import { Button } from "@/components/ui/button";
 import { timetableList } from "@/constants/timetable";
 import type { EventDate } from "@/types/timetable-api";
@@ -48,11 +49,12 @@ const TalksPage = () => {
       <h1 className="text-2xl font-bold text-blue-light-500 text-center md:text-3xl lg:text-4xl">
         タイムテーブル
       </h1>
-      <div className="text-center mt-8">
+      <div className="text-center mt-8 flex flex-col items-center gap-4">
         <EventDateTab
           currentDate={currentEventDate}
           onTabChange={handleTabChange}
         />
+        <StartTourButton />
       </div>
 
       <div className="overflow-x-auto mt-10">
@@ -61,6 +63,7 @@ const TalksPage = () => {
         </div>
       </div>
       <Button
+        id="tour-floating-button"
         type="button"
         asChild
         className="fixed bottom-6 right-6 z-50 rounded-full shadow-lg"

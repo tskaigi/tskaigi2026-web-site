@@ -139,6 +139,7 @@ export function AddToMyTimetableButton({ talkId, iconOnly = false }: Props) {
           variant="outline"
           size="sm"
           onClick={handleClick}
+          data-talk-id={talkId}
           aria-label={
             isAdded ? "マイタイムテーブルから削除" : "マイタイムテーブルに追加"
           }

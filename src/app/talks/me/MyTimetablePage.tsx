@@ -18,6 +18,7 @@ import {
   DesktopTimelineLayout,
   MobileTimelineLayout,
 } from "@/components/talks/TimelineLayout";
+import { StartTourButton } from "@/components/talks/Tour";
 import { Button } from "@/components/ui/button";
 import { showAppToast } from "@/components/ui/GlobalToast";
 import { TRACK } from "@/constants/talkList";
@@ -416,37 +417,41 @@ function SideToolbar({
 
   return (
     <aside className="flex flex-row lg:flex-col gap-2">
-      <Button type="button" variant="outline" size="icon" asChild>
-        <Link
-          href={xShareHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Xでシェア"
-          title="Xでシェア"
+      <div id="tour-sidebar" className="flex flex-row lg:flex-col gap-2">
+        <Button type="button" variant="outline" size="icon" asChild>
+          <Link
+            href={xShareHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Xでシェア"
+            title="Xでシェア"
+          >
+            <Share2 size={18} />
+          </Link>
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          size="icon"
+          onClick={onOpenQr}
+          aria-label="QRコードを表示"
+          title="QRコードを表示"
         >
-          <Share2 size={18} />
-        </Link>
-      </Button>
-      <Button
-        type="button"
-        variant="outline"
-        size="icon"
-        onClick={onOpenQr}
-        aria-label="QRコードを表示"
-        title="QRコードを表示"
-      >
-        <QrCode size={18} />
-      </Button>
-      <Button
-        type="button"
-        variant="outline"
-        size="icon"
-        onClick={() => setIsInfoOpen(true)}
-        aria-label="マイタイムテーブルについて"
-        title="マイタイムテーブルについて"
-      >
-        <Info size={18} />
-      </Button>
+          <QrCode size={18} />
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          size="icon"
+          onClick={() => setIsInfoOpen(true)}
+          aria-label="マイタイムテーブルについて"
+          title="マイタイムテーブルについて"
+        >
+          <Info size={18} />
+        </Button>
+      </div>
+
+      <StartTourButton iconOnly />
 
       {isInfoOpen && <InfoDialog onClose={() => setIsInfoOpen(false)} />}
     </aside>
@@ -513,6 +518,7 @@ function TalkSearchPanel({
   return (
     <div className="flex flex-wrap items-center gap-1">
       <div
+        id="tour-search-panel"
         ref={popupRef}
         className="relative w-[220px] max-w-full sm:w-full sm:max-w-md"
       >
@@ -551,6 +557,7 @@ function TalkSearchPanel({
         )}
       </div>
       <Button
+        id="tour-reset-button"
         type="button"
         variant="ghost"
         className="text-red-500 hover:bg-red-50 hover:text-red-600"
@@ -729,7 +736,10 @@ export default function MyTimetablePage() {
 
   return (
     <main className="bg-blue-light-100 mt-16 py-10 px-2 md:py-16 md:px-6 lg:px-10">
-      <h1 className="text-2xl font-bold text-blue-light-500 text-center md:text-3xl lg:text-4xl">
+      <h1
+        id="tour-heading"
+        className="text-2xl font-bold text-blue-light-500 text-center md:text-3xl lg:text-4xl"
+      >
         マイタイムテーブル
       </h1>
 
@@ -755,6 +765,9 @@ export default function MyTimetablePage() {
               onTabChange={setCurrentEventDate}
             >
               <TimelineColumn
+                id={
+                  currentEventDate === "Day1" ? "tour-timeline-day1" : undefined
+                }
                 eventDate={currentEventDate}
                 talks={talksByDate[currentEventDate]}
                 participatedIds={participatedIds}
@@ -768,6 +781,7 @@ export default function MyTimetablePage() {
             <DesktopTimelineLayout
               day1Column={
                 <TimelineColumn
+                  id="tour-timeline-day1"
                   eventDate="Day1"
                   talks={talksByDate.Day1}
                   participatedIds={participatedIds}
