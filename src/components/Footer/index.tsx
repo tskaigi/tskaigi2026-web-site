@@ -8,7 +8,7 @@ const links: {
   { href: "/", label: "Home" },
   { href: "/sponsors", label: "スポンサー" },
   { href: "/side-events", label: "サイドイベント" },
-  { href: "/venue", label: "会場図" },
+  // { href: "/venue", label: "会場図" },
   { href: "/code-of-conduct", label: "行動規範" },
   { href: "/specific-commercial", label: "特定商取引法に基づく表記" },
 ];
