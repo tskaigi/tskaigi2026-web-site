@@ -225,7 +225,7 @@ const day1: TimetableResponse = {
               speaker: { name: "たつかわ" },
             },
             {
-              id: 10,
+              id: "10",
               title:
                 "OSSのコードベースにneverthrowを漸進的に導入して、AIにも人間にも優しいエラーハンドリングを実現する",
               speaker: { name: "IkedaNoritaka" },
@@ -370,7 +370,7 @@ const day1: TimetableResponse = {
           sessionType: "LONG",
           sessions: [
             {
-              id: 20,
+              id: "20",
               title:
                 "プラグインで拡張されるContextをtype-safeにする難しさと設計判断",
               speaker: { name: "kazupon" },
@@ -382,18 +382,18 @@ const day1: TimetableResponse = {
           sessionType: "SHORT",
           sessions: [
             {
-              id: 21,
+              id: "21",
               title: "密結合なバックエンドから TypeScript のコードを生成する",
               speaker: { name: "kemuridama" },
             },
             {
-              id: 22,
+              id: "22",
               title:
                 "TypeSpecで繋ぐ複数プロダクトの型安全 — スキーマ共有による「型契約」の実践",
               speaker: { name: "mitsui" },
             },
             {
-              id: 23,
+              id: "23",
               title:
                 "TypeScriptの型はAIに届いているか？ ― AIコーディングツール検証で見えたIDEとの断絶",
               speaker: { name: "中田 章太郎" },
@@ -405,18 +405,18 @@ const day1: TimetableResponse = {
           sessionType: "SHORT",
           sessions: [
             {
-              id: 24,
+              id: "24",
               title: "TanStack StartのcreateServerFnで作る、型が通るAPI",
               speaker: { name: "Yuki Terashima" },
             },
             {
-              id: 25,
+              id: "25",
               title:
                 "実践TanStack Start: 新規プロダクトを開発して確立した、サーバーとクライアント境界の設計パターン",
               speaker: { name: "Shimmy" },
             },
             {
-              id: 26,
+              id: "26",
               title: "TanStack Router の型定義を読み解く",
               speaker: { name: "IORI" },
             },
@@ -669,7 +669,7 @@ const day2: TimetableResponse = {
           sessionType: "SHORT",
           sessions: [
             {
-              id: 43,
+              id: "43",
               title: "ReactとSvelteのその先、Ripple-TS",
               speaker: { name: "ssssota" },
             },
