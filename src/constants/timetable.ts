@@ -224,11 +224,11 @@ const day1: TimetableResponse = {
                 "TypeScriptとAngular Signal で実現する保守性の高いアプリケーション設計 - 3層アーキテクチャによる責務分離の実践",
               speaker: { name: "たつかわ" },
             },
-            // MEMO: Day1午前が不可 Day１が不可能になったためDay２のどなかたと入れ替え調整中。
             {
               id: 10,
-              title: "ReactとSvelteのその先、Ripple-TS",
-              speaker: { name: "ssssota" },
+              title:
+                "OSSのコードベースにneverthrowを漸進的に導入して、AIにも人間にも優しいエラーハンドリングを実現する",
+              speaker: { name: "IkedaNoritaka" },
             },
             {
               id: 11,
@@ -359,7 +359,7 @@ const day1: TimetableResponse = {
       endTime: d1(16, 40),
       label: "休憩",
     },
-    // 16:40–17:10 SHORT x3 (Track1/Track2) + LONG (Track3)
+    // 16:40–17:10 LONG (Track1) + SHORT x3 (Track2/Track3)
     {
       slotType: "individual",
       startTime: d1(16, 40),
@@ -367,24 +367,13 @@ const day1: TimetableResponse = {
       tracks: {
         LEVERAGES: {
           type: "session",
-          sessionType: "SHORT",
+          sessionType: "LONG",
           sessions: [
             {
               id: 20,
-              title: "密結合なバックエンドから TypeScript のコードを生成する",
-              speaker: { name: "kemuridama" },
-            },
-            {
-              id: 21,
               title:
-                "TypeSpecで繋ぐ複数プロダクトの型安全 — スキーマ共有による「型契約」の実践",
-              speaker: { name: "mitsui" },
-            },
-            {
-              id: 22,
-              title:
-                "TypeScriptの型はAIに届いているか？ ― AIコーディングツール検証で見えたIDEとの断絶",
-              speaker: { name: "中田 章太郎" },
+                "プラグインで拡張されるContextをtype-safeにする難しさと設計判断",
+              speaker: { name: "kazupon" },
             },
           ],
         },
@@ -393,32 +382,43 @@ const day1: TimetableResponse = {
           sessionType: "SHORT",
           sessions: [
             {
-              id: 23,
-              title: "TanStack StartのcreateServerFnで作る、型が通るAPI",
-              speaker: { name: "Yuki Terashima" },
+              id: 21,
+              title: "密結合なバックエンドから TypeScript のコードを生成する",
+              speaker: { name: "kemuridama" },
             },
             {
-              id: 24,
+              id: 22,
               title:
-                "実践TanStack Start: 新規プロダクトを開発して確立した、サーバーとクライアント境界の設計パターン",
-              speaker: { name: "Shimmy" },
+                "TypeSpecで繋ぐ複数プロダクトの型安全 — スキーマ共有による「型契約」の実践",
+              speaker: { name: "mitsui" },
             },
             {
-              id: 25,
-              title: "TanStack Router の型定義を読み解く",
-              speaker: { name: "IORI" },
+              id: 23,
+              title:
+                "TypeScriptの型はAIに届いているか？ ― AIコーディングツール検証で見えたIDEとの断絶",
+              speaker: { name: "中田 章太郎" },
             },
           ],
         },
         RIGHTTOUCH: {
           type: "session",
-          sessionType: "LONG",
+          sessionType: "SHORT",
           sessions: [
             {
-              id: 26,
+              id: 24,
+              title: "TanStack StartのcreateServerFnで作る、型が通るAPI",
+              speaker: { name: "Yuki Terashima" },
+            },
+            {
+              id: 25,
               title:
-                "プラグインで拡張されるContextをtype-safeにする難しさと設計判断",
-              speaker: { name: "kazupon" },
+                "実践TanStack Start: 新規プロダクトを開発して確立した、サーバーとクライアント境界の設計パターン",
+              speaker: { name: "Shimmy" },
+            },
+            {
+              id: 26,
+              title: "TanStack Router の型定義を読み解く",
+              speaker: { name: "IORI" },
             },
           ],
         },
@@ -670,9 +670,8 @@ const day2: TimetableResponse = {
           sessions: [
             {
               id: 43,
-              title:
-                "OSSのコードベースにneverthrowを漸進的に導入して、AIにも人間にも優しいエラーハンドリングを実現する",
-              speaker: { name: "IkedaNoritaka" },
+              title: "ReactとSvelteのその先、Ripple-TS",
+              speaker: { name: "ssssota" },
             },
             {
               id: 44,
@@ -795,7 +794,7 @@ const day2: TimetableResponse = {
               id: 52,
               title:
                 "ts-morph でプロジェクト固有のアーキテクチャガードレールを作る",
-              speaker: { name: "Michimasa Suto" },
+              speaker: { name: "msuto / Michimasa Suto" },
             },
             {
               id: 53,
