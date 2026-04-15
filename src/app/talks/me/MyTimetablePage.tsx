@@ -731,7 +731,7 @@ export default function MyTimetablePage() {
 
   const xShareHref =
     yourShareUrl.length > 0
-      ? `https://x.com/intent/tweet?text=${encodeURIComponent("TSKaigiのマイタイムテーブル")}&url=${encodeURIComponent(yourShareUrl)}`
+      ? `https://x.com/intent/tweet?text=${encodeURIComponent("TSKaigi2026のマイタイムテーブルを作成しました！")}&url=${encodeURIComponent(yourShareUrl)}`
       : "https://x.com/intent/tweet";
 
   return (
