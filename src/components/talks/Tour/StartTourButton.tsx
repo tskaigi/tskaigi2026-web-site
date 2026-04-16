@@ -50,7 +50,7 @@ export function StartTourButton({ iconOnly }: { iconOnly?: boolean }) {
       className="gap-1"
     >
       <HelpCircle size={16} />
-      使い方案内
+      マイタイムテーブル機能使い方案内
     </Button>
   );
 }
