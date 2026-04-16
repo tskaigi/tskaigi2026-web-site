@@ -7,11 +7,18 @@ export type Track = {
 export type TrackKey = "LEVERAGES" | "UPSIDER" | "RIGHTTOUCH";
 
 export type SessionSummary = {
-  id: number;
+  id: string;
   title: string;
+  overview?: string;
   speaker: {
     name: string;
     profileImageUrl?: string;
+    bio?: string; // 自己紹介文
+    xId?: string;
+    githubId?: string;
+    additionalLink?: string; // 追加リンク
+    affiliation?: string; // 所属企業・団体
+    position?: string; // ポジション・役職
   };
 };
 
@@ -24,9 +31,11 @@ export type OtherTrack = {
   label: string;
 };
 
+export type SessionKey = "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR" | "HANDSON";
+
 export type SessionTrack = {
   type: "session";
-  sessionType: "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR";
+  sessionType: SessionKey;
   sessions: SessionSummary[];
 };
 
@@ -46,10 +55,12 @@ export type IndividualSlot = {
   tracks: Record<TrackKey, TrackContent>;
 };
 
-export type Slot = SharedSlot | IndividualSlot;
+type Slot = SharedSlot | IndividualSlot;
+
+export type EventDate = "Day1" | "Day2";
 
 export type TimetableResponse = {
-  day: 1 | 2;
+  day: EventDate;
   date: string;
   tracks: Track[];
   slots: Slot[];

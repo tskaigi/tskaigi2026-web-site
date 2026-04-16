@@ -3,11 +3,14 @@ import Link from "next/link";
 import type { ComponentProps } from "react";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
+import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
 import { OgpImage, ProfileImage } from "@/components/talks/FallbackImage";
-import { getAllSessionIds, getSession } from "@/utils/getSession";
+import { TalkStatus } from "@/components/talks/TalkStatus";
+import { SESSION_IDS } from "@/constants/talkList";
+import { getSession } from "@/utils/getSession";
 
 export async function generateStaticParams() {
-  return getAllSessionIds();
+  return SESSION_IDS.map((id) => ({ id }));
 }
 
 const description = "TSKaigi 2026 のスピーカー、トーク情報です。";
@@ -17,6 +20,7 @@ const SESSION_TYPE_LABEL: Record<string, string> = {
   LONG: "30分セッション",
   SHORT: "10分セッション",
   SPONSOR: "スポンサーセッション",
+  HANDSON: "ハンズオン",
 };
 
 function formatTime(timestamp: number): string {
@@ -32,7 +36,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const { session } = getSession(Number(id));
+  const { session } = getSession(id);
 
   return {
     title: session.title,
@@ -89,7 +93,7 @@ export default async function TalkDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const detail = getSession(Number(id));
+  const detail = getSession(id);
   const { session, sessionType, trackName, startTime, endTime } = detail;
   const timeRange = `${formatTime(startTime)} 〜 ${formatTime(endTime)}`;
   const typeLabel = SESSION_TYPE_LABEL[sessionType] ?? sessionType;
@@ -108,10 +112,16 @@ export default async function TalkDetailPage({
         </div>
 
         <div className="px-6 md:px-8 lg:px-10 flex flex-col gap-1">
-          <div className="text-lg">{typeLabel}</div>
+          <div className="flex items-center gap-2">
+            <div className="text-lg">{typeLabel}</div>
+            <TalkStatus talkId={session.id} />
+          </div>
           <div className="text-2xl font-bold">{session.title}</div>
           <div className="text-lg font-bold">
-            Day{detail.day} / {timeRange} （{trackName}）
+            {detail.day} / {timeRange} （{trackName}）
+          </div>
+          <div className="mt-2">
+            <AddToMyTimetableButton talkId={session.id} />
           </div>
         </div>
 
