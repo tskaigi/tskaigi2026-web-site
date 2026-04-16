@@ -76,7 +76,7 @@ export function AddToMyTimetableButton({ talkId, iconOnly = false }: Props) {
   };
 
   const overlapDialog = overlaps.length > 0 && (
-    <div className="fixed inset-0 z-[70] bg-black/40 p-4 flex items-center justify-center">
+    <div className="fixed inset-0 z-[960] bg-black/40 p-4 flex items-center justify-center">
       <button
         type="button"
         className="absolute inset-0"

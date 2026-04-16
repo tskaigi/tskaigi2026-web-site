@@ -104,13 +104,13 @@ const steps: Step[] = [
     nextRoute: "/talks/me",
     prevRoute: "/talks/me",
   },
-  // Step 6: /talks/me — Sidebar icons
+  // Step 6: /talks/me — Share button
   {
     icon: "6️⃣",
-    title: "サイドバー",
+    title: "Xでシェア",
     content:
-      "共有（X）、QRコード表示、マイタイムテーブルの説明を確認できます。QRコードで他のデバイスと同期したり、SNSで共有しましょう。",
-    selector: "#tour-sidebar",
+      "マイタイムテーブルをXでシェアできます。タイムテーブルのURLが共有されるので、友人と予定を共有しましょう。",
+    selector: "#tour-sidebar-share",
     side: "right",
     showControls: true,
     pointerPadding: 4,
@@ -118,9 +118,36 @@ const steps: Step[] = [
     nextRoute: "/talks/me",
     prevRoute: "/talks/me",
   },
-  // Step 7: /talks/me — Reset button
+  // Step 7: /talks/me — QR code button
   {
     icon: "7️⃣",
+    title: "QRコード",
+    content:
+      "QRコードを表示して、他のデバイスでマイタイムテーブルを開けます。スマホとPCで同期しましょう。",
+    selector: "#tour-sidebar-qr",
+    side: "right",
+    showControls: true,
+    pointerPadding: 4,
+    pointerRadius: 8,
+    nextRoute: "/talks/me",
+    prevRoute: "/talks/me",
+  },
+  // Step 8: /talks/me — Info button
+  {
+    icon: "8️⃣",
+    title: "マイタイムテーブルについて",
+    content: "マイタイムテーブルの使い方や機能の説明を確認できます。",
+    selector: "#tour-sidebar-info",
+    side: "right",
+    showControls: true,
+    pointerPadding: 4,
+    pointerRadius: 8,
+    nextRoute: "/talks/me",
+    prevRoute: "/talks/me",
+  },
+  // Step 9: /talks/me — Reset button
+  {
+    icon: "9️⃣",
     title: "リセット",
     content: "追加したセッションをすべてクリアして、最初からやり直せます。",
     selector: "#tour-reset-button",
@@ -131,7 +158,7 @@ const steps: Step[] = [
     nextRoute: "/talks/me",
     prevRoute: "/talks/me",
   },
-  // Step 8: Final message (dialog mode — no highlight target)
+  // Step 10: Final message (dialog mode — no highlight target)
   {
     icon: "🎉",
     title: "全時間参加を目指そう！",

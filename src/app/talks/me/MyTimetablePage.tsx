@@ -417,8 +417,14 @@ function SideToolbar({
 
   return (
     <aside className="flex flex-row lg:flex-col gap-2">
-      <div id="tour-sidebar" className="flex flex-row lg:flex-col gap-2">
-        <Button type="button" variant="outline" size="icon" asChild>
+      <div className="flex flex-row lg:flex-col gap-2">
+        <Button
+          id="tour-sidebar-share"
+          type="button"
+          variant="outline"
+          size="icon"
+          asChild
+        >
           <Link
             href={xShareHref}
             target="_blank"
@@ -430,6 +436,7 @@ function SideToolbar({
           </Link>
         </Button>
         <Button
+          id="tour-sidebar-qr"
           type="button"
           variant="outline"
           size="icon"
@@ -440,6 +447,7 @@ function SideToolbar({
           <QrCode size={18} />
         </Button>
         <Button
+          id="tour-sidebar-info"
           type="button"
           variant="outline"
           size="icon"

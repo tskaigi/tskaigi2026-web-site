@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 type TourCardProps = CardComponentProps & {
   /** 「次へ」ボタンの代わりに表示する操作案内テキスト */
   instructionText?: string;
+  /** step.content を上書きするテキスト */
+  contentOverride?: string;
 };
 
 export function TourCard({
@@ -18,6 +20,7 @@ export function TourCard({
   prevStep,
   arrow,
   instructionText,
+  contentOverride,
 }: TourCardProps) {
   const { closeOnborda } = useOnborda();
   const isFirst = currentStep === 0;
@@ -40,7 +43,7 @@ export function TourCard({
         {currentStep + 1} / {totalSteps}
       </p>
       <div className="mt-2 text-sm text-black-600 leading-relaxed">
-        {step.content}
+        {contentOverride ?? step.content}
       </div>
 
       <div className="mt-4 flex items-center justify-between gap-2">

@@ -2,8 +2,9 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useOnborda } from "onborda";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { myTimetableIds } from "@/utils/myTimetable/ids";
 import { TourCard } from "./TourCard";
 import { useTourStepState } from "./TourProvider";
 import { stepMeta, tourDefinition } from "./tourSteps";
@@ -160,7 +161,63 @@ export function TourOverlay() {
 
   const steps = tourDefinition.find((t) => t.tour === currentTour)?.steps;
   const meta = stepMeta[currentStep];
-  const behaviorType = meta?.behavior.type ?? "default";
+  const rawBehaviorType = meta?.behavior.type ?? "default";
+
+  // Step 0: 対象セッションが既に追加済みなら passthrough-add → default に切り替え
+  // Step 4: addedTalkId がタイムテーブルにないなら passthrough-delete → default に切り替え
+  const [alreadyAdded, setAlreadyAdded] = useState(false);
+  const [deleteTargetMissing, setDeleteTargetMissing] = useState(false);
+
+  useEffect(() => {
+    if (!isOnbordaVisible) {
+      setAlreadyAdded(false);
+      setDeleteTargetMissing(false);
+      return;
+    }
+    if (rawBehaviorType === "passthrough-add") {
+      // #tour-add-button 内の talkId を取得して追加済みかチェック
+      const el = findVisibleElement("#tour-add-button");
+      if (el) {
+        const btn = el.querySelector("[data-talk-id]");
+        if (btn instanceof HTMLElement) {
+          const talkId = btn.dataset.talkId;
+          if (talkId && myTimetableIds.read().includes(talkId)) {
+            setAlreadyAdded(true);
+            setAddedTalkId(talkId);
+            return;
+          }
+        }
+      }
+      setAlreadyAdded(false);
+    } else if (rawBehaviorType === "passthrough-delete") {
+      if (!addedTalkId || !myTimetableIds.read().includes(addedTalkId)) {
+        setDeleteTargetMissing(true);
+      } else {
+        setDeleteTargetMissing(false);
+      }
+    } else {
+      setAlreadyAdded(false);
+      setDeleteTargetMissing(false);
+    }
+  }, [isOnbordaVisible, rawBehaviorType, addedTalkId, setAddedTalkId]);
+
+  const behaviorType = useMemo(() => {
+    if (rawBehaviorType === "passthrough-add" && alreadyAdded) return "default";
+    if (rawBehaviorType === "passthrough-delete" && deleteTargetMissing)
+      return "default";
+    return rawBehaviorType;
+  }, [rawBehaviorType, alreadyAdded, deleteTargetMissing]);
+
+  // 上書き時のカード内容テキスト
+  const contentOverride = useMemo(() => {
+    if (rawBehaviorType === "passthrough-add" && alreadyAdded) {
+      return "このセッションは既にマイタイムテーブルに追加されています。「次へ」を押して進みましょう。";
+    }
+    if (rawBehaviorType === "passthrough-delete" && deleteTargetMissing) {
+      return "削除対象のセッションがマイタイムテーブルにありません。「次へ」を押して進みましょう。";
+    }
+    return undefined;
+  }, [rawBehaviorType, alreadyAdded, deleteTargetMissing]);
 
   // 動的セレクタ: stepMeta に dynamicSelector がある場合はそちらを使用
   const resolveSelector = useCallback(
@@ -181,18 +238,46 @@ export function TourOverlay() {
     ? resolveSelector(currentStep, steps[currentStep].selector)
     : null;
 
-  const updatePosition = useCallback(() => {
+  /** スポットライト位置の更新のみ（スクロールしない） */
+  const syncPosition = useCallback(() => {
     if (!currentSelector) return;
     const el = findVisibleElement(currentSelector);
     if (el) {
       setPosition(getElementPosition(el));
-      const rect = el.getBoundingClientRect();
-      const inView = rect.top >= -20 && rect.bottom <= window.innerHeight + 20;
-      if (!inView) {
-        el.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
     }
   }, [currentSelector]);
+
+  /** ステップ切り替え時に呼ぶ: 位置更新 + カードが見えるようスクロール */
+  const updatePositionAndScroll = useCallback(() => {
+    if (!currentSelector || !steps) return;
+    const step = steps[currentStep];
+    if (!step) return;
+    const el = findVisibleElement(currentSelector);
+    if (el) {
+      setPosition(getElementPosition(el));
+      const rect = el.getBoundingClientRect();
+      const side = step.side ?? "bottom";
+      const cardHeight = 250;
+      const margin = 30;
+
+      const isCardAbove =
+        side.startsWith("top") || side === "left-top" || side === "right-top";
+
+      if (isCardAbove) {
+        const cardTop = rect.top - cardHeight;
+        if (cardTop < 0 || rect.top > window.innerHeight) {
+          const target = window.scrollY + rect.top - cardHeight - margin;
+          window.scrollTo({ top: Math.max(0, target), behavior: "smooth" });
+        }
+      } else {
+        const needed = rect.top + cardHeight;
+        if (rect.top < 0 || needed > window.innerHeight) {
+          const target = window.scrollY + rect.top - margin;
+          window.scrollTo({ top: Math.max(0, target), behavior: "smooth" });
+        }
+      }
+    }
+  }, [currentSelector, steps, currentStep]);
 
   // 要素が見つからない場合に MutationObserver で待機
   const waitForElementRef = useRef<MutationObserver | null>(null);
@@ -213,7 +298,7 @@ export function TourOverlay() {
     const selector = resolveSelector(currentStep, step.selector);
     const el = findVisibleElement(selector);
     if (el) {
-      updatePosition();
+      updatePositionAndScroll();
     } else {
       // 要素がまだ DOM にない → MutationObserver で待つ
       waitForElementRef.current?.disconnect();
@@ -221,7 +306,7 @@ export function TourOverlay() {
         const found = findVisibleElement(selector);
         if (found) {
           observer.disconnect();
-          updatePosition();
+          updatePositionAndScroll();
         }
       });
       observer.observe(document.body, { childList: true, subtree: true });
@@ -229,17 +314,23 @@ export function TourOverlay() {
     }
 
     return () => waitForElementRef.current?.disconnect();
-  }, [isOnbordaVisible, steps, currentStep, updatePosition, resolveSelector]);
+  }, [
+    isOnbordaVisible,
+    steps,
+    currentStep,
+    updatePositionAndScroll,
+    resolveSelector,
+  ]);
 
   useEffect(() => {
     if (!isOnbordaVisible) return;
-    window.addEventListener("resize", updatePosition);
-    window.addEventListener("scroll", updatePosition);
+    window.addEventListener("resize", syncPosition);
+    window.addEventListener("scroll", syncPosition);
     return () => {
-      window.removeEventListener("resize", updatePosition);
-      window.removeEventListener("scroll", updatePosition);
+      window.removeEventListener("resize", syncPosition);
+      window.removeEventListener("scroll", syncPosition);
     };
-  }, [isOnbordaVisible, updatePosition]);
+  }, [isOnbordaVisible, syncPosition]);
 
   const navigateAndWait = useCallback(
     (route: string, selector: string, stepIndex: number) => {
@@ -448,6 +539,7 @@ export function TourOverlay() {
     nextStep,
     prevStep,
     instructionText,
+    contentOverride,
     arrow: isDialogMode ? (
       <span className="hidden" />
     ) : (
