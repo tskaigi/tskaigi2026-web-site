@@ -249,6 +249,7 @@ function SessionTypeLabel({
     LONG: { label: "30分セッション", color: "#0C7EDC" },
     SHORT: { label: "10分セッション", color: "#c3620f" },
     SPONSOR: { label: "スポンサーセッション", color: "#E53D84" },
+    HANDSON: { label: "ハンズオン", color: "#8B5CF6" },
   };
   const { label, color } = config[sessionType];
   return (

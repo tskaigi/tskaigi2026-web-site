@@ -20,6 +20,7 @@ const SESSION_TYPE_LABEL: Record<string, string> = {
   LONG: "30分セッション",
   SHORT: "10分セッション",
   SPONSOR: "スポンサーセッション",
+  HANDSON: "ハンズオン",
 };
 
 function formatTime(timestamp: number): string {

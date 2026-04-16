@@ -29,7 +29,28 @@ export const TALK_TYPE: Record<
   LONG: { name: "30分セッション", color: "#0C7EDC" },
   SHORT: { name: "10分セッション", color: "#c3620f" },
   SPONSOR: { name: "スポンサーセッション", color: "#E53D84" },
+  HANDSON: { name: "ハンズオン", color: "#8B5CF6" },
 };
+
+/** ハンズオンは3枠セットで追加/削除する */
+export const HANDSON_IDS = ["handson-1", "handson-2", "handson-3"] as const;
+
+export function isHandsonId(id: string): boolean {
+  return (HANDSON_IDS as readonly string[]).includes(id);
+}
+
+/** ハンズオンIDを含む場合、3枠すべてを含むIDリストを返す */
+export function expandHandsonIds(ids: string[]): string[] {
+  const hasHandson = ids.some(isHandsonId);
+  if (!hasHandson) return ids;
+  const withoutHandson = ids.filter((id) => !isHandsonId(id));
+  return [...withoutHandson, ...HANDSON_IDS];
+}
+
+/** ハンズオンIDを含む場合、3枠すべてを除外したIDリストを返す */
+export function removeHandsonIds(ids: string[]): string[] {
+  return ids.filter((id) => !isHandsonId(id));
+}
 
 export type Talk = SessionSummary & {
   eventDate: EventDate;

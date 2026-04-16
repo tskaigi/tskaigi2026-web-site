@@ -21,7 +21,7 @@ import {
 import { StartTourButton } from "@/components/talks/Tour";
 import { Button } from "@/components/ui/button";
 import { showAppToast } from "@/components/ui/GlobalToast";
-import { TRACK } from "@/constants/talkList";
+import { HANDSON_IDS, isHandsonId, TRACK } from "@/constants/talkList";
 import type { EventDate } from "@/types/timetable-api";
 import { Input } from "@/ui/input";
 import {
@@ -649,23 +649,35 @@ export default function MyTimetablePage() {
   };
 
   const addTalk = (id: string) => {
-    if (selectedIds.includes(id)) return;
+    // ハンズオンは3枠セットで追加
+    const idsToAdd = isHandsonId(id)
+      ? (HANDSON_IDS as readonly string[]).filter(
+          (hid) => !selectedIds.includes(hid),
+        )
+      : [id];
+    if (idsToAdd.length === 0) return;
 
     const targetTalk = allTalksWithMinutes.find((talk) => talk.id === id);
     if (!targetTalk) return;
 
-    const overlaps = findOverlaps(id, selectedIds);
-    const hasCrossTrackOverlap = overlaps.some(
+    // ハンズオンは全枠まとめて重複チェック
+    const allOverlaps = idsToAdd.flatMap((aid) =>
+      findOverlaps(aid, selectedIds),
+    );
+    const uniqueOverlaps = allOverlaps.filter(
+      (talk, i, arr) => arr.findIndex((t) => t.id === talk.id) === i,
+    );
+    const hasCrossTrackOverlap = uniqueOverlaps.some(
       (talk) => talk.track !== targetTalk.track,
     );
 
     if (hasCrossTrackOverlap) {
-      setOverlapState({ targetTalk, overlaps });
+      setOverlapState({ targetTalk, overlaps: uniqueOverlaps });
       setTimePickerState(null);
       return;
     }
 
-    const next = [...selectedIds, id];
+    const next = Array.from(new Set([...selectedIds, ...idsToAdd]));
     setSelectedIds(next);
     myTimetableIds.write(next);
     window.dispatchEvent(new Event("my-timetable-updated"));
@@ -676,12 +688,20 @@ export default function MyTimetablePage() {
   const resolveOverlapAndAdd = () => {
     if (!overlapState) return;
 
-    if (selectedIds.includes(overlapState.targetTalk.id)) {
+    const targetId = overlapState.targetTalk.id;
+    // ハンズオンは3枠セットで追加
+    const idsToAdd = isHandsonId(targetId)
+      ? (HANDSON_IDS as readonly string[]).filter(
+          (hid) => !selectedIds.includes(hid),
+        )
+      : [targetId];
+
+    if (idsToAdd.length === 0) {
       setOverlapState(null);
       return;
     }
 
-    const next = [...selectedIds, overlapState.targetTalk.id];
+    const next = Array.from(new Set([...selectedIds, ...idsToAdd]));
     setSelectedIds(next);
     myTimetableIds.write(next);
     window.dispatchEvent(new Event("my-timetable-updated"));
@@ -691,8 +711,13 @@ export default function MyTimetablePage() {
   };
 
   const removeTalk = (id: string) => {
-    const nextParticipated = participatedIds.filter((pid) => pid !== id);
-    const next = selectedIds.filter((currentId) => currentId !== id);
+    // ハンズオンは3枠セットで削除
+    const idsToRemove: readonly string[] = isHandsonId(id) ? HANDSON_IDS : [id];
+    const removeSet = new Set(idsToRemove);
+    const nextParticipated = participatedIds.filter(
+      (pid) => !removeSet.has(pid),
+    );
+    const next = selectedIds.filter((currentId) => !removeSet.has(currentId));
     setParticipatedIds(nextParticipated);
     setSelectedIds(next);
     myTimetableIds.write(next);

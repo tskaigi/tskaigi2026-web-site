@@ -4,6 +4,7 @@ import { AlertTriangle, Plus, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { showAppToast } from "@/components/ui/GlobalToast";
+import { HANDSON_IDS, isHandsonId } from "@/constants/talkList";
 import {
   findOverlaps,
   myTimetableIds,
@@ -41,8 +42,15 @@ export function AddToMyTimetableButton({ talkId, iconOnly = false }: Props) {
     setOverlaps([]);
   };
 
+  // ハンズオンの場合に追加/削除する全IDを返す
+  const idsToToggle = isHandsonId(talkId)
+    ? (HANDSON_IDS as readonly string[])
+    : [talkId];
+
   const addWithoutOverlapResolution = () => {
-    const nextIds = Array.from(new Set([...myTimetableIds.read(), talkId]));
+    const nextIds = Array.from(
+      new Set([...myTimetableIds.read(), ...idsToToggle]),
+    );
     myTimetableIds.write(nextIds);
     setStoredIds(nextIds);
     window.dispatchEvent(new Event("my-timetable-updated"));
@@ -54,7 +62,7 @@ export function AddToMyTimetableButton({ talkId, iconOnly = false }: Props) {
     const currentIds = myTimetableIds.read();
 
     if (isAdded) {
-      const nextIds = currentIds.filter((id) => id !== talkId);
+      const nextIds = currentIds.filter((id) => !idsToToggle.includes(id));
       myTimetableIds.write(nextIds);
       setStoredIds(nextIds);
       window.dispatchEvent(new Event("my-timetable-updated"));
@@ -62,13 +70,19 @@ export function AddToMyTimetableButton({ talkId, iconOnly = false }: Props) {
       return;
     }
 
-    const foundOverlaps = findOverlaps(talkId, currentIds);
-    if (foundOverlaps.length > 0) {
-      setOverlaps(foundOverlaps);
+    // ハンズオンは全枠まとめて重複チェック
+    const allOverlaps = idsToToggle.flatMap((id) =>
+      findOverlaps(id, currentIds),
+    );
+    const uniqueOverlaps = allOverlaps.filter(
+      (talk, i, arr) => arr.findIndex((t) => t.id === talk.id) === i,
+    );
+    if (uniqueOverlaps.length > 0) {
+      setOverlaps(uniqueOverlaps);
       return;
     }
 
-    const nextIds = Array.from(new Set([...currentIds, talkId]));
+    const nextIds = Array.from(new Set([...currentIds, ...idsToToggle]));
     myTimetableIds.write(nextIds);
     setStoredIds(nextIds);
     window.dispatchEvent(new Event("my-timetable-updated"));
