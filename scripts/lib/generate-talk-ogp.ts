@@ -2,7 +2,7 @@ import sharp from "sharp";
 import fs from "fs";
 import path from "path";
 
-type TalkOgpInput = {
+export type TalkOgpInput = {
   title: string;
   profileImagePath: string;
   speakerName: string;
@@ -14,66 +14,17 @@ type TalkOgpInput = {
   outputPath: string;
 };
 
+type SvgInput = TalkOgpInput & {
+  baseImageBuffer: string;
+  profileImageBuffer: string;
+};
+
 /**
  * 画像ファイルを読み込む
  */
 async function loadImageAsBuffer(filePath: string): Promise<Buffer> {
   const absolutePath = path.resolve(filePath);
   return fs.promises.readFile(absolutePath);
-}
-
-/**
- * SVGを生成
- */
-function generateOgpSvg(input: TalkOgpInput): string {
-  const dayLabel = input.dayNumber === 1 ? "DAY1" : "DAY2";
-  const padding = 40;
-  const badgeHeight = 44;
-  const badgeGap = 12;
-  const profileRadius = 40;
-
-  // メタ情報レイアウト
-  const metadataY = padding;
-  const titleY = 250;
-  const speakerY = 530;
-
-  return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630">
-    <defs>
-      <clipPath id="profileClip">
-        <circle cx="${padding + profileRadius}" cy="${speakerY + profileRadius}" r="${profileRadius}" />
-      </clipPath>
-    </defs>
-
-    <!-- ベース画像 -->
-    <image width="1200" height="630" xlink:href="data:image/png;base64,${input.baseImageBuffer}" />
-
-    <!-- 上部: メタ情報 -->
-    <!-- トラック名バッジ -->
-    <rect x="${padding}" y="${metadataY}" width="210" height="${badgeHeight}" fill="#00D4AA" rx="4" />
-    <text x="${padding + 105}" y="${metadataY + 29}" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF" text-anchor="middle">${escapeXml(input.trackName)}</text>
-
-    <!-- セッションタイプバッジ -->
-    <rect x="${padding + 222}" y="${metadataY}" width="190" height="${badgeHeight}" fill="#FFFFFF" stroke="#333333" stroke-width="2" rx="4" />
-    <text x="${padding + 317}" y="${metadataY + 29}" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333333" text-anchor="middle">${escapeXml(input.sessionType)}</text>
-
-    <!-- DAYバッジ -->
-    <rect x="${padding + 424}" y="${metadataY}" width="90" height="${badgeHeight}" fill="#0066FF" rx="4" />
-    <text x="${padding + 469}" y="${metadataY + 29}" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF" text-anchor="middle">${dayLabel}</text>
-
-    <!-- 時刻テキスト -->
-    <text x="${padding + 526}" y="${metadataY + 29}" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333333">${escapeXml(input.timeRange)}</text>
-
-    <!-- 中央: タイトル -->
-    <text x="${padding}" y="${titleY}" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="#1A1A1A" line-height="1.3">${escapeXml(input.title.substring(0, 50))}</text>
-    ${input.title.length > 50 ? `<text x="${padding}" y="${titleY + 70}" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="#1A1A1A">${escapeXml(input.title.substring(50))}</text>` : ""}
-
-    <!-- 下部: 登壇者情報 -->
-    <!-- プロフィール画像（円形） -->
-    <image x="${padding}" y="${speakerY}" width="${profileRadius * 2}" height="${profileRadius * 2}" xlink:href="data:image/png;base64,${input.profileImageBuffer}" clip-path="url(#profileClip)" />
-
-    <!-- 登壇者名 -->
-    <text x="${padding + profileRadius * 2 + 20}" y="${speakerY + 50}" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1A1A1A">${escapeXml(input.speakerName)}</text>
-  </svg>`;
 }
 
 /**
@@ -89,34 +40,142 @@ function escapeXml(str: string): string {
 }
 
 /**
+ * タイトルを単語単位で折り返す（最大3行）
+ * 英字フォントサイズ52pxで1文字約30px、利用可能幅1120px → 約37文字/行
+ */
+function wrapTitleLines(text: string): string[] {
+  const maxCharsPerLine = 37;
+  const words = text.split(" ");
+  const lines: string[] = [];
+  let currentLine = "";
+
+  for (const word of words) {
+    const candidate = currentLine ? `${currentLine} ${word}` : word;
+    if (candidate.length <= maxCharsPerLine) {
+      currentLine = candidate;
+    } else {
+      if (currentLine) lines.push(currentLine);
+      currentLine = word;
+    }
+    if (lines.length >= 2 && currentLine) break;
+  }
+  if (currentLine) lines.push(currentLine);
+  return lines.slice(0, 3);
+}
+
+/**
+ * バッジSVGを生成する
+ */
+function badge(
+  x: number,
+  y: number,
+  label: string,
+  fill: string,
+  textColor: string,
+  stroke?: string
+): { svg: string; width: number } {
+  const paddingH = 20;
+  const height = 44;
+  const approxCharWidth = 19;
+  const width = Math.max(label.length * approxCharWidth + paddingH * 2, 90);
+  const cx = x + width / 2;
+  const ty = y + 31;
+  const strokeAttr = stroke
+    ? `stroke="${stroke}" stroke-width="2"`
+    : "";
+  const svg = `
+    <rect x="${x}" y="${y}" width="${width}" height="${height}" fill="${fill}" rx="22" ${strokeAttr}/>
+    <text x="${cx}" y="${ty}" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="${textColor}" text-anchor="middle">${escapeXml(label)}</text>`;
+  return { svg, width };
+}
+
+/**
+ * SVGを生成
+ */
+function generateOgpSvg(input: SvgInput): string {
+  const dayLabel = input.dayNumber === 1 ? "DAY1" : "DAY2";
+  const paddingLeft = 56;
+  const paddingRight = 56;
+  const badgeGap = 12;
+  const profileSize = 80;
+  const profileRadius = profileSize / 2;
+
+  // バッジ群のY位置：ロゴ下（ロゴは約100px高さ）
+  const badgeY = 148;
+  const badgeHeight = 44;
+
+  // タイトル：バッジ下 + ギャップ（バッジのbaseline + フォントサイズ分のオフセット）
+  const titleStartY = badgeY + badgeHeight + 72;
+  const titleLineHeight = 70;
+
+  // 登壇者：下部右寄せ
+  const speakerCenterY = 500;
+  const profileX = 1200 - paddingRight - profileSize;
+  const profileCY = speakerCenterY - profileRadius;
+
+  // バッジを順番に並べる
+  const trackBadge = badge(paddingLeft, badgeY, input.trackName, "#00D4AA", "#FFFFFF");
+  const sessionX = paddingLeft + trackBadge.width + badgeGap;
+  const sessionBadge = badge(sessionX, badgeY, input.sessionType, "#FFFFFF", "#333333", "#333333");
+  const dayX = sessionX + sessionBadge.width + badgeGap;
+  const dayBadge = badge(dayX, badgeY, dayLabel, "#3D7EFF", "#FFFFFF");
+  const timeX = dayX + dayBadge.width + badgeGap + 4;
+
+  // タイトル折り返し
+  const titleLines = wrapTitleLines(input.title);
+
+  const titleSvg = titleLines
+    .map(
+      (line, i) =>
+        `<text x="${paddingLeft}" y="${titleStartY + i * titleLineHeight}" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="#1A1A1A">${escapeXml(line)}</text>`
+    )
+    .join("\n    ");
+
+  // プロフィール画像の clipPath
+  const clipId = "profileClip";
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <clipPath id="${clipId}">
+      <circle cx="${profileX + profileRadius}" cy="${profileCY + profileRadius}" r="${profileRadius}" />
+    </clipPath>
+  </defs>
+
+  <!-- ベース画像 -->
+  <image width="1200" height="630" xlink:href="data:image/png;base64,${input.baseImageBuffer}" />
+
+  <!-- バッジ群 -->
+  ${trackBadge.svg}
+  ${sessionBadge.svg}
+  ${dayBadge.svg}
+  <text x="${timeX}" y="${badgeY + 31}" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#333333">${escapeXml(input.timeRange)}</text>
+
+  <!-- タイトル -->
+  ${titleSvg}
+
+  <!-- 登壇者情報（右寄せ） -->
+  <image x="${profileX}" y="${profileCY}" width="${profileSize}" height="${profileSize}" xlink:href="data:image/png;base64,${input.profileImageBuffer}" clip-path="url(#${clipId})" />
+  <text x="${profileX - 16}" y="${speakerCenterY}" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1A1A1A" text-anchor="end">${escapeXml(input.speakerName)}</text>
+</svg>`;
+}
+
+/**
  * トークOGP画像を生成
  */
 export async function generateTalkOgpImage(
   input: TalkOgpInput
 ): Promise<Buffer> {
-  // 基本画像とプロフィール画像を読み込む
   const baseImageBuffer = await loadImageAsBuffer(input.baseImagePath);
   const profileImageBuffer = await loadImageAsBuffer(input.profileImagePath);
 
-  const baseImageBase64 = baseImageBuffer.toString("base64");
-  const profileImageBase64 = profileImageBuffer.toString("base64");
-
-  // SVGを生成
-  const svg = generateOgpSvg({
+  const svgInput: SvgInput = {
     ...input,
-    baseImageBuffer: baseImageBase64,
-    profileImageBuffer: profileImageBase64,
-  } as TalkOgpInput & {
-    baseImageBuffer: string;
-    profileImageBuffer: string;
-  });
+    baseImageBuffer: baseImageBuffer.toString("base64"),
+    profileImageBuffer: profileImageBuffer.toString("base64"),
+  };
 
-  // SVGをPNGに変換
-  const pngBuffer = await sharp(Buffer.from(svg))
-    .png()
-    .toBuffer();
-
-  return pngBuffer;
+  const svg = generateOgpSvg(svgInput);
+  return sharp(Buffer.from(svg)).png().toBuffer();
 }
 
 /**
