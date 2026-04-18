@@ -93,7 +93,7 @@ export const useTimetable = ({
   useEffect(() => {
     const now = new Date();
     const isConferenceDay =
-      now.getFullYear() === 2025 &&
+      now.getFullYear() === 2026 &&
       now.getMonth() === 4 &&
       (now.getDate() === 23 || now.getDate() === 24);
     if (!isConferenceDay) return;

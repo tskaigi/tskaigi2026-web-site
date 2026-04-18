@@ -1,7 +1,7 @@
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { Decoration } from "@/components/Decoration";
-import { Button } from "@/ui/button";
+// import { ArrowRight } from "lucide-react";
+// import Link from "next/link";
+// import { Button } from "@/ui/button";
 
 export const ApplyToProposalSection = () => {
   return (

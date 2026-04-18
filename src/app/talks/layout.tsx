@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { TourWrapper } from "@/components/talks/Tour";
 
 export const metadata: Metadata = {
   title: {
@@ -24,5 +25,5 @@ export default function TalksLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <TourWrapper>{children}</TourWrapper>;
 }
