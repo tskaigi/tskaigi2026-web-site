@@ -1,13 +1,20 @@
 import sharp from "sharp";
 import fs from "fs";
 import path from "path";
+import {
+  TRACK_STYLE,
+  SESSION_TYPE_STYLE,
+  type TrackKey,
+  type SessionTypeKey,
+} from "./ogp-constants";
 
 export type TalkOgpInput = {
   title: string;
   profileImagePath: string;
   speakerName: string;
+  trackKey: TrackKey;
   trackName: string;
-  sessionType: string;
+  sessionTypeKey: SessionTypeKey;
   dayNumber: 1 | 2;
   timeRange: string;
   baseImagePath: string;
@@ -75,17 +82,19 @@ function badge(
   stroke?: string
 ): { svg: string; width: number } {
   const paddingH = 20;
-  const height = 44;
-  const approxCharWidth = 19;
-  const width = Math.max(label.length * approxCharWidth + paddingH * 2, 90);
+  const height = 48;
+  const fontSize = 26;
+  // 日本語の場合は1文字≈26px、英数字は1文字≈16px で近似
+  const estimatedWidth = [...label].reduce((acc, ch) => {
+    return acc + (ch.charCodeAt(0) > 127 ? fontSize : fontSize * 0.65);
+  }, 0);
+  const width = Math.max(estimatedWidth + paddingH * 2, 90);
   const cx = x + width / 2;
-  const ty = y + 31;
-  const strokeAttr = stroke
-    ? `stroke="${stroke}" stroke-width="2"`
-    : "";
+  const ty = y + 32;
+  const strokeAttr = stroke ? `stroke="${stroke}" stroke-width="2"` : "";
   const svg = `
     <rect x="${x}" y="${y}" width="${width}" height="${height}" fill="${fill}" rx="8" ${strokeAttr}/>
-    <text x="${cx}" y="${ty}" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="${textColor}" text-anchor="middle">${escapeXml(label)}</text>`;
+    <text x="${cx}" y="${ty}" font-family="Arial, sans-serif" font-size="${fontSize}" font-weight="bold" fill="${textColor}" text-anchor="middle">${escapeXml(label)}</text>`;
   return { svg, width };
 }
 
@@ -95,45 +104,47 @@ function badge(
 function generateOgpSvg(input: SvgInput): string {
   const dayLabel = input.dayNumber === 1 ? "DAY1" : "DAY2";
   const paddingLeft = 56;
-  const paddingRight = 56;
   const badgeGap = 12;
-  const profileSize = 80;
+  const profileSize = 100;
   const profileRadius = profileSize / 2;
 
-  // バッジ群のY位置：ロゴ下（ロゴは約100px高さ）
+  // バッジ群のY位置：ロゴ下
   const badgeY = 148;
-  const badgeHeight = 44;
+  const badgeHeight = 48;
 
   // タイトル：バッジ下 + ギャップ
   const titleStartY = badgeY + badgeHeight + 100;
   const titleLineHeight = 70;
 
   // 登壇者：[画像] [名前] の順で右寄せ
-  // 画像をx=880に固定し、名前をその右に配置
-  const speakerCenterY = 500;
-  const profileX = 880;
+  const speakerCenterY = 510;
+  const profileX = 860;
   const profileCY = speakerCenterY - profileRadius;
   const nameX = profileX + profileSize + 20;
 
-  // バッジを順番に並べる
-  const trackBadge = badge(paddingLeft, badgeY, input.trackName, "#00D4AA", "#FFFFFF");
+  // トラック色（定数から参照）
+  const trackStyle = TRACK_STYLE[input.trackKey];
+  const trackBadge = badge(paddingLeft, badgeY, input.trackName, trackStyle.bg, trackStyle.text);
+
+  // セッションタイプ（定数から参照）
+  const sessionStyle = SESSION_TYPE_STYLE[input.sessionTypeKey];
   const sessionX = paddingLeft + trackBadge.width + badgeGap;
-  const sessionBadge = badge(sessionX, badgeY, input.sessionType, "#FFFFFF", "#333333", "#333333");
+  const sessionBadge = badge(sessionX, badgeY, sessionStyle.label, sessionStyle.bg, sessionStyle.text);
+
+  // DAYバッジ
   const dayX = sessionX + sessionBadge.width + badgeGap;
-  const dayBadge = badge(dayX, badgeY, dayLabel, "#3D7EFF", "#FFFFFF");
+  const dayBadge = badge(dayX, badgeY, dayLabel, "#3D7EFF", "#ffffff");
   const timeX = dayX + dayBadge.width + badgeGap + 4;
 
   // タイトル折り返し
   const titleLines = wrapTitleLines(input.title);
-
   const titleSvg = titleLines
     .map(
       (line, i) =>
-        `<text x="${paddingLeft}" y="${titleStartY + i * titleLineHeight}" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="#444444">${escapeXml(line)}</text>`
+        `<text x="${paddingLeft}" y="${titleStartY + i * titleLineHeight}" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="#222222">${escapeXml(line)}</text>`
     )
     .join("\n    ");
 
-  // プロフィール画像の clipPath
   const clipId = "profileClip";
 
   return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630">
@@ -141,7 +152,6 @@ function generateOgpSvg(input: SvgInput): string {
     <clipPath id="${clipId}">
       <circle cx="${profileX + profileRadius}" cy="${profileCY + profileRadius}" r="${profileRadius}" />
     </clipPath>
-
   </defs>
 
   <!-- ベース画像 -->
@@ -151,7 +161,7 @@ function generateOgpSvg(input: SvgInput): string {
   ${trackBadge.svg}
   ${sessionBadge.svg}
   ${dayBadge.svg}
-  <text x="${timeX}" y="${badgeY + 31}" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#333333">${escapeXml(input.timeRange)}</text>
+  <text x="${timeX}" y="${badgeY + 32}" font-family="Arial, sans-serif" font-size="26" font-weight="normal" fill="#333333">${escapeXml(input.timeRange)}</text>
 
   <!-- タイトル -->
   ${titleSvg}

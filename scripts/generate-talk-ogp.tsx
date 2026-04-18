@@ -6,13 +6,13 @@ import { generateAndSaveTalkOgp } from "./lib/generate-talk-ogp";
  */
 async function main() {
   try {
-    // テスト用のサンプルデータ
     const sampleInput = {
       title: "The New Powerful ESLint Config with Type Safety",
       profileImagePath: "public/logo.png",
       speakerName: "IIHARA議長",
-      trackName: "トグルルーム",
-      sessionType: "招待講演",
+      trackKey: "LEVERAGES" as const,
+      trackName: "Leveragesトラック",
+      sessionTypeKey: "KEYNOTE" as const,
       dayNumber: 1 as const,
       timeRange: "11:00 ~ 11:40",
       baseImagePath: "public/OGP-talk.png",
