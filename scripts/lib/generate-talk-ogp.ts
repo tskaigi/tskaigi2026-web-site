@@ -84,7 +84,7 @@ function badge(
     ? `stroke="${stroke}" stroke-width="2"`
     : "";
   const svg = `
-    <rect x="${x}" y="${y}" width="${width}" height="${height}" fill="${fill}" rx="22" ${strokeAttr}/>
+    <rect x="${x}" y="${y}" width="${width}" height="${height}" fill="${fill}" rx="8" ${strokeAttr}/>
     <text x="${cx}" y="${ty}" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="${textColor}" text-anchor="middle">${escapeXml(label)}</text>`;
   return { svg, width };
 }
@@ -104,14 +104,16 @@ function generateOgpSvg(input: SvgInput): string {
   const badgeY = 148;
   const badgeHeight = 44;
 
-  // タイトル：バッジ下 + ギャップ（バッジのbaseline + フォントサイズ分のオフセット）
-  const titleStartY = badgeY + badgeHeight + 72;
+  // タイトル：バッジ下 + ギャップ
+  const titleStartY = badgeY + badgeHeight + 100;
   const titleLineHeight = 70;
 
-  // 登壇者：下部右寄せ
+  // 登壇者：[画像] [名前] の順で右寄せ
+  // 画像をx=880に固定し、名前をその右に配置
   const speakerCenterY = 500;
-  const profileX = 1200 - paddingRight - profileSize;
+  const profileX = 880;
   const profileCY = speakerCenterY - profileRadius;
+  const nameX = profileX + profileSize + 20;
 
   // バッジを順番に並べる
   const trackBadge = badge(paddingLeft, badgeY, input.trackName, "#00D4AA", "#FFFFFF");
@@ -127,7 +129,7 @@ function generateOgpSvg(input: SvgInput): string {
   const titleSvg = titleLines
     .map(
       (line, i) =>
-        `<text x="${paddingLeft}" y="${titleStartY + i * titleLineHeight}" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="#1A1A1A">${escapeXml(line)}</text>`
+        `<text x="${paddingLeft}" y="${titleStartY + i * titleLineHeight}" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="#444444">${escapeXml(line)}</text>`
     )
     .join("\n    ");
 
@@ -139,6 +141,7 @@ function generateOgpSvg(input: SvgInput): string {
     <clipPath id="${clipId}">
       <circle cx="${profileX + profileRadius}" cy="${profileCY + profileRadius}" r="${profileRadius}" />
     </clipPath>
+
   </defs>
 
   <!-- ベース画像 -->
@@ -153,9 +156,9 @@ function generateOgpSvg(input: SvgInput): string {
   <!-- タイトル -->
   ${titleSvg}
 
-  <!-- 登壇者情報（右寄せ） -->
+  <!-- 登壇者情報（[画像] [名前] で右寄せ） -->
   <image x="${profileX}" y="${profileCY}" width="${profileSize}" height="${profileSize}" xlink:href="data:image/png;base64,${input.profileImageBuffer}" clip-path="url(#${clipId})" />
-  <text x="${profileX - 16}" y="${speakerCenterY}" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1A1A1A" text-anchor="end">${escapeXml(input.speakerName)}</text>
+  <text x="${nameX}" y="${speakerCenterY}" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1A1A1A">${escapeXml(input.speakerName)}</text>
 </svg>`;
 }
 
