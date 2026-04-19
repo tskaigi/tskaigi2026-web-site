@@ -24,6 +24,7 @@ export type TalkOgpInput = {
 type SvgInput = TalkOgpInput & {
   baseImageBuffer: string;
   profileImageBuffer: string;
+  speakerNameWidth: number;
 };
 
 /**
@@ -44,6 +45,43 @@ function escapeXml(str: string): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
+}
+
+const textWidthCache = new Map<string, number>();
+
+async function measureRenderedTextWidth(
+  text: string,
+  fontSize: number,
+  fontWeight: string
+): Promise<number> {
+  const cacheKey = `${text}__${fontSize}__${fontWeight}`;
+  const cached = textWidthCache.get(cacheKey);
+  if (cached !== undefined) return cached;
+
+  const height = fontSize * 2;
+  const width = 2000;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+    <rect width="${width}" height="${height}" fill="white"/>
+    <text x="0" y="${fontSize}" font-family="Arial, sans-serif" font-size="${fontSize}" font-weight="${fontWeight}" fill="black">${escapeXml(text)}</text>
+  </svg>`;
+
+  const { data, info } = await sharp(Buffer.from(svg))
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  let result = 0;
+  outer: for (let x = info.width - 1; x >= 0; x--) {
+    for (let y = 0; y < info.height; y++) {
+      const i = (y * info.width + x) * info.channels;
+      if (data[i] < 255) {
+        result = x + 1;
+        break outer;
+      }
+    }
+  }
+
+  textWidthCache.set(cacheKey, result);
+  return result;
 }
 
 function estimateWidth(text: string, fontSize: number): number {
@@ -134,12 +172,14 @@ function generateOgpSvg(input: SvgInput): string {
   const titleStartY = 288;
   const titleLineHeight = 70;
 
-  // 登壇者：プロフィール画像を固定位置、ギャップ固定で名前を右に配置
+  // 登壇者：名前の右端を speakerRightX に固定し、実測幅でプロフィール画像位置を算出
   const speakerCenterY = 510;
   const nameFontSize = 29;
-  const profileX = 830;
+  const speakerRightX = 1160;
+  const nameGap = 20;
+  const profileX = speakerRightX - input.speakerNameWidth - nameGap - profileSize;
   const profileCY = speakerCenterY - profileRadius;
-  const nameX = profileX + profileSize + 20;
+  const nameX = speakerRightX - input.speakerNameWidth;
 
   // トラック色（定数から参照）
   const trackStyle = TRACK_STYLE[input.trackKey];
@@ -202,13 +242,17 @@ function generateOgpSvg(input: SvgInput): string {
 export async function generateTalkOgpImage(
   input: TalkOgpInput
 ): Promise<Buffer> {
-  const baseImageBuffer = await loadImageAsBuffer(input.baseImagePath);
-  const profileImageBuffer = await sharp(await loadImageAsBuffer(input.profileImagePath)).png().toBuffer();
+  const [baseImageBuffer, profileImageBuffer, speakerNameWidth] = await Promise.all([
+    loadImageAsBuffer(input.baseImagePath),
+    sharp(await loadImageAsBuffer(input.profileImagePath)).png().toBuffer(),
+    measureRenderedTextWidth(input.speakerName, 29, "bold"),
+  ]);
 
   const svgInput: SvgInput = {
     ...input,
     baseImageBuffer: baseImageBuffer.toString("base64"),
     profileImageBuffer: profileImageBuffer.toString("base64"),
+    speakerNameWidth,
   };
 
   const svg = generateOgpSvg(svgInput);
