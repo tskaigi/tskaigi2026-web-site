@@ -44,12 +44,12 @@ export async function generateMetadata({
     twitter: {
       title: session.title,
       description,
-      images: [{ url: `/ogp/talks/${session.speaker.name}.png` }],
+      images: [{ url: `/ogp/talks/${id}.png` }],
     },
     openGraph: {
       title: session.title,
       description,
-      images: [{ url: `/ogp/talks/${session.speaker.name}.png` }],
+      images: [{ url: `/ogp/talks/${id}.png` }],
     },
   };
 }
@@ -108,7 +108,7 @@ export default async function TalkDetailPage({
       <div className="bg-white flex flex-col gap-6 max-w-screen-xl mx-auto md:rounded-xl pb-6 md:pb-8 lg:pb-10">
         {/* トーク OGP */}
         <div className="bg-black-100 flex justify-center md:mt-8 md:mx-8 lg:mt-10 lg:mx-10">
-          <OgpImage speakerName={session.speaker.name} title={session.title} />
+          <OgpImage id={id} title={session.title} />
         </div>
 
         <div className="px-6 md:px-8 lg:px-10 flex flex-col gap-1">
