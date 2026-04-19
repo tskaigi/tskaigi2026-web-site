@@ -6,7 +6,6 @@ import type {
   Track,
   TrackKey,
 } from "@/types/timetable-api";
-import { myTimetable } from "@/utils/myTimetable";
 import { timetableList } from "./timetable";
 
 export const EVENT_DATES: EventDate[] = ["Day1", "Day2"];
@@ -118,7 +117,7 @@ export const talkList: Talk[] = timetableList.flatMap((day) =>
           ...session,
           eventDate: day.day,
           track: trackKey,
-          time: myTimetable.formatTimeRange(slot.startTime, slot.endTime),
+          time: formatTimeRange(slot),
         }));
       }),
     ),
