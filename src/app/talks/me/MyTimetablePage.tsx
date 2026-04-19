@@ -21,7 +21,12 @@ import {
 import { StartTourButton } from "@/components/talks/Tour";
 import { Button } from "@/components/ui/button";
 import { showAppToast } from "@/components/ui/GlobalToast";
-import { HANDSON_IDS, isHandsonId, TRACK } from "@/constants/talkList";
+import {
+  HANDSON_IDS,
+  isHandsonId,
+  TRACK,
+  TRACK_STYLE,
+} from "@/constants/timetable";
 import type { EventDate } from "@/types/timetable-api";
 import { Input } from "@/ui/input";
 import {
@@ -76,7 +81,7 @@ function TalkSelectItem({
   return (
     <button
       type="button"
-      className={`w-full py-2 text-left cursor-pointer rounded-md border px-2 border-l-4 ${isAdded ? `border-black-300 ${myTimetable.getTrackBorderClass(talk.track)} bg-blue-purple-100/40` : "border-black-200 border-l-black-200 hover:bg-black-100"}`}
+      className={`w-full py-2 text-left cursor-pointer rounded-md border px-2 border-l-4 ${isAdded ? `border-black-300 ${TRACK_STYLE[talk.track].border} bg-blue-purple-100/40` : "border-black-200 border-l-black-200 hover:bg-black-100"}`}
       onClick={onClick}
     >
       <div className="flex items-center justify-between gap-2">

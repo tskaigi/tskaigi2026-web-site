@@ -1,4 +1,4 @@
-import { talkList } from "@/constants/talkList";
+import { talkList } from "@/constants/timetable";
 import {
   myTimetable,
   parseTalkTimeToMinutes,

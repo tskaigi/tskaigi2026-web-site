@@ -1,3 +1,4 @@
+import { TRACK } from "@/constants/timetable";
 import type {
   TimetableListResponse,
   TimetableResponse,
@@ -15,23 +16,7 @@ const d2 = (h: number, m: number) => DAY2_BASE + h * 3600 + m * 60;
 const day1: TimetableResponse = {
   day: "Day1",
   date: "2026-05-23",
-  tracks: [
-    {
-      id: "LEVERAGES",
-      name: "Leveragesトラック",
-      hashtag: "#tskaigi_leverages",
-    },
-    {
-      id: "UPSIDER",
-      name: "UPSIDERトラック",
-      hashtag: "#tskaigi_upsider",
-    },
-    {
-      id: "RIGHTTOUCH",
-      name: "RightTouchトラック",
-      hashtag: "#tskaigi_righttouch",
-    },
-  ],
+  tracks: Object.values(TRACK),
   slots: [
     // 10:00–10:40 一般開場
     {

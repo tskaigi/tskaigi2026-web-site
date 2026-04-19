@@ -3,7 +3,7 @@
 import { Check, X } from "lucide-react";
 import Link from "next/link";
 import { useMemo } from "react";
-import { TRACK } from "@/constants/talkList";
+import { TRACK, TRACK_STYLE } from "@/constants/timetable";
 import type { EventDate } from "@/types/timetable-api";
 import {
   MY_TIMETABLE_CONST,
@@ -96,7 +96,7 @@ export function TimelineColumn({
           <div
             key={talk.id}
             data-tour-session-id={talk.id}
-            className={`absolute left-2 right-2 z-20 overflow-hidden rounded-md border border-black-300 bg-white border-l-4 ${myTimetable.getTrackBorderClass(talk.track)} ${editable ? "py-1 px-2 pr-5" : "p-2"}`}
+            className={`absolute left-2 right-2 z-20 overflow-hidden rounded-md border border-black-300 bg-white border-l-4 ${TRACK_STYLE[talk.track].border} ${editable ? "py-1 px-2 pr-5" : "p-2"}`}
             title={`${talk.time} / ${TRACK[talk.track].name}\n${talk.title}\n${talk.speaker.name}`}
             style={{
               top: `${top}px`,
