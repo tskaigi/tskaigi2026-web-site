@@ -25,6 +25,7 @@ type SvgInput = TalkOgpInput & {
   baseImageBuffer: string;
   profileImageBuffer: string;
   speakerNameWidth: number;
+  fonts: FontBuffers;
 };
 
 /**
@@ -47,6 +48,52 @@ function escapeXml(str: string): string {
     .replace(/'/g, "&apos;");
 }
 
+const FONTSOURCE_DIR =
+  "node_modules/@fontsource/noto-sans-jp/files";
+const FONT_FILES = {
+  latin400:   `${FONTSOURCE_DIR}/noto-sans-jp-latin-400-normal.woff2`,
+  latin700:   `${FONTSOURCE_DIR}/noto-sans-jp-latin-700-normal.woff2`,
+  japanese400:`${FONTSOURCE_DIR}/noto-sans-jp-japanese-400-normal.woff2`,
+  japanese700:`${FONTSOURCE_DIR}/noto-sans-jp-japanese-700-normal.woff2`,
+} as const;
+
+type FontBuffers = Record<keyof typeof FONT_FILES, string>;
+let fontBuffersCache: FontBuffers | null = null;
+
+async function loadFontBuffers(): Promise<FontBuffers> {
+  if (fontBuffersCache !== null) return fontBuffersCache;
+  const entries = await Promise.all(
+    (Object.entries(FONT_FILES) as [keyof typeof FONT_FILES, string][]).map(
+      async ([key, filePath]) => {
+        const buf = await fs.promises.readFile(path.resolve(filePath));
+        return [key, buf.toString("base64")] as const;
+      }
+    )
+  );
+  fontBuffersCache = Object.fromEntries(entries) as FontBuffers;
+  return fontBuffersCache;
+}
+
+function buildFontFaceStyle(fonts: FontBuffers): string {
+  const face = (weight: number, latin: string, jp: string) => `
+    @font-face {
+      font-family: "Noto Sans JP";
+      font-weight: ${weight};
+      src: url("data:font/woff2;base64,${latin}") format("woff2");
+      unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+FEFF,U+FFFD;
+    }
+    @font-face {
+      font-family: "Noto Sans JP";
+      font-weight: ${weight};
+      src: url("data:font/woff2;base64,${jp}") format("woff2");
+      unicode-range: U+3000-9FFF,U+F900-FAFF,U+FF00-FFEF;
+    }`;
+  return (
+    face(400, fonts.latin400, fonts.japanese400) +
+    face(700, fonts.latin700, fonts.japanese700)
+  );
+}
+
 const textWidthCache = new Map<string, number>();
 
 async function measureRenderedTextWidth(
@@ -58,11 +105,13 @@ async function measureRenderedTextWidth(
   const cached = textWidthCache.get(cacheKey);
   if (cached !== undefined) return cached;
 
+  const fonts = await loadFontBuffers();
   const height = fontSize * 2;
   const width = 2000;
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+    <defs><style>${buildFontFaceStyle(fonts)}</style></defs>
     <rect width="${width}" height="${height}" fill="white"/>
-    <text x="0" y="${fontSize}" font-family="Arial, sans-serif" font-size="${fontSize}" font-weight="${fontWeight}" fill="black">${escapeXml(text)}</text>
+    <text x="0" y="${fontSize}" font-family="Noto Sans JP, sans-serif" font-size="${fontSize}" font-weight="${fontWeight}" fill="black">${escapeXml(text)}</text>
   </svg>`;
 
   const { data, info } = await sharp(Buffer.from(svg))
@@ -158,7 +207,7 @@ function badge(
   const strokeAttr = stroke ? `stroke="${stroke}" stroke-width="2"` : "";
   const svg = `
     <rect x="${x}" y="${y}" width="${width}" height="${height}" fill="${fill}" rx="8" ${strokeAttr}/>
-    <text x="${cx}" y="${ty}" font-family="Arial, sans-serif" font-size="${fontSize}" font-weight="bold" fill="${textColor}" text-anchor="middle">${escapeXml(label)}</text>`;
+    <text x="${cx}" y="${ty}" font-family="Noto Sans JP, sans-serif" font-size="${fontSize}" font-weight="bold" fill="${textColor}" text-anchor="middle">${escapeXml(label)}</text>`;
   return { svg, width };
 }
 
@@ -231,7 +280,7 @@ function generateOgpSvg(input: SvgInput): string {
   const titleSvg = titleLines
     .map(
       (line, i) =>
-        `<text x="${paddingLeft + 2}" y="${titleStartY + titleAreaOffset + i * titleLineHeight}" font-family="Arial, sans-serif" font-size="${titleFontSize}" font-weight="bold" fill="#222222">${escapeXml(line)}</text>`,
+        `<text x="${paddingLeft + 2}" y="${titleStartY + titleAreaOffset + i * titleLineHeight}" font-family="Noto Sans JP, sans-serif" font-size="${titleFontSize}" font-weight="bold" fill="#222222">${escapeXml(line)}</text>`,
     )
     .join("\n    ");
 
@@ -239,6 +288,7 @@ function generateOgpSvg(input: SvgInput): string {
 
   return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
+    <style>${buildFontFaceStyle(input.fonts)}</style>
     <clipPath id="${clipId}">
       <circle cx="${profileX + profileRadius}" cy="${profileCY + profileRadius}" r="${profileRadius}" />
     </clipPath>
@@ -251,14 +301,14 @@ function generateOgpSvg(input: SvgInput): string {
   ${trackBadge.svg}
   ${sessionBadge.svg}
   ${dayBadge.svg}
-  <text x="${timeX}" y="${badgeY + 34}" font-family="Arial, sans-serif" font-size="26" font-weight="normal" fill="#333333">${escapeXml(input.timeRange)}</text>
+  <text x="${timeX}" y="${badgeY + 34}" font-family="Noto Sans JP, sans-serif" font-size="26" font-weight="normal" fill="#333333">${escapeXml(input.timeRange)}</text>
 
   <!-- タイトル -->
   ${titleSvg}
 
   <!-- 登壇者情報（[画像] [名前] で右寄せ） -->
   <image x="${profileX}" y="${profileCY}" width="${profileSize}" height="${profileSize}" xlink:href="data:image/png;base64,${input.profileImageBuffer}" clip-path="url(#${clipId})" />
-  <text x="${nameX}" y="${speakerCenterY + 2}" font-family="Arial, sans-serif" font-size="${nameFontSize}" font-weight="bold" fill="#1A1A1A">${escapeXml(input.speakerName)}</text>
+  <text x="${nameX}" y="${speakerCenterY + 8}" font-family="Noto Sans JP, sans-serif" font-size="${nameFontSize}" font-weight="bold" fill="#1A1A1A">${escapeXml(input.speakerName)}</text>
 </svg>`;
 }
 
@@ -268,13 +318,14 @@ function generateOgpSvg(input: SvgInput): string {
 export async function generateTalkOgpImage(
   input: TalkOgpInput,
 ): Promise<Buffer> {
-  const [baseImageBuffer, profileImageBuffer, speakerNameWidth] =
+  const [baseImageBuffer, profileImageBuffer, speakerNameWidth, fonts] =
     await Promise.all([
       loadImageAsBuffer(input.baseImagePath),
       sharp(await loadImageAsBuffer(input.profileImagePath))
         .png()
         .toBuffer(),
       measureRenderedTextWidth(input.speakerName, 29, "bold"),
+      loadFontBuffers(),
     ]);
 
   const svgInput: SvgInput = {
@@ -282,6 +333,7 @@ export async function generateTalkOgpImage(
     baseImageBuffer: baseImageBuffer.toString("base64"),
     profileImageBuffer: profileImageBuffer.toString("base64"),
     speakerNameWidth,
+    fonts,
   };
 
   const svg = generateOgpSvg(svgInput);
