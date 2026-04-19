@@ -46,28 +46,51 @@ function escapeXml(str: string): string {
     .replace(/'/g, "&apos;");
 }
 
-/**
- * タイトルを単語単位で折り返す（最大3行）
- * 英字フォントサイズ52pxで1文字約30px、利用可能幅1120px → 約37文字/行
- */
-function wrapTitleLines(text: string): string[] {
-  const maxCharsPerLine = 37;
+function estimateWidth(text: string, fontSize: number): number {
+  return [...text].reduce((acc, ch) => {
+    const code = ch.charCodeAt(0);
+    if (code > 127) return acc + fontSize;
+    if (ch >= "A" && ch <= "Z") return acc + fontSize * 0.72;
+    if (ch >= "a" && ch <= "z") return acc + fontSize * 0.58;
+    if (ch >= "0" && ch <= "9") return acc + fontSize * 0.62;
+    if (ch === " ") return acc + fontSize * 0.3;
+    return acc + fontSize * 0.5;
+  }, 0);
+}
+
+function wrapTitleLines(text: string, maxWidth: number, fontSize: number): string[] {
   const words = text.split(" ");
   const lines: string[] = [];
   let currentLine = "";
 
   for (const word of words) {
     const candidate = currentLine ? `${currentLine} ${word}` : word;
-    if (candidate.length <= maxCharsPerLine) {
+    if (estimateWidth(candidate, fontSize) <= maxWidth) {
       currentLine = candidate;
     } else {
-      if (currentLine) lines.push(currentLine);
-      currentLine = word;
+      if (currentLine) {
+        lines.push(currentLine);
+        currentLine = "";
+      }
+      if (estimateWidth(word, fontSize) > maxWidth) {
+        let partial = "";
+        for (const ch of word) {
+          const test = partial + ch;
+          if (estimateWidth(test, fontSize) <= maxWidth) {
+            partial = test;
+          } else {
+            if (partial) lines.push(partial);
+            partial = ch;
+          }
+        }
+        currentLine = partial;
+      } else {
+        currentLine = word;
+      }
     }
-    if (lines.length >= 2 && currentLine) break;
   }
   if (currentLine) lines.push(currentLine);
-  return lines.slice(0, 3);
+  return lines;
 }
 
 /**
@@ -84,13 +107,9 @@ function badge(
   const paddingH = 20;
   const height = 48;
   const fontSize = 26;
-  // 日本語の場合は1文字≈26px、英数字は1文字≈16px で近似
-  const estimatedWidth = [...label].reduce((acc, ch) => {
-    return acc + (ch.charCodeAt(0) > 127 ? fontSize : fontSize * 0.65);
-  }, 0);
-  const width = Math.max(estimatedWidth + paddingH * 2, 90);
+  const width = Math.max(Math.ceil(estimateWidth(label, fontSize)) + paddingH * 2, 90);
   const cx = x + width / 2;
-  const ty = y + 32;
+  const ty = y + 34;
   const strokeAttr = stroke ? `stroke="${stroke}" stroke-width="2"` : "";
   const svg = `
     <rect x="${x}" y="${y}" width="${width}" height="${height}" fill="${fill}" rx="8" ${strokeAttr}/>
@@ -103,22 +122,22 @@ function badge(
  */
 function generateOgpSvg(input: SvgInput): string {
   const dayLabel = input.dayNumber === 1 ? "DAY1" : "DAY2";
-  const paddingLeft = 56;
+  const paddingLeft = 40;
   const badgeGap = 12;
   const profileSize = 100;
   const profileRadius = profileSize / 2;
 
   // バッジ群のY位置：ロゴ下
-  const badgeY = 148;
-  const badgeHeight = 48;
+  const badgeY = 170;
 
-  // タイトル：バッジ下 + ギャップ
-  const titleStartY = badgeY + badgeHeight + 100;
+  // タイトル：バッジとは独立した固定位置
+  const titleStartY = 288;
   const titleLineHeight = 70;
 
-  // 登壇者：[画像] [名前] の順で右寄せ
+  // 登壇者：プロフィール画像を固定位置、ギャップ固定で名前を右に配置
   const speakerCenterY = 510;
-  const profileX = 860;
+  const nameFontSize = 29;
+  const profileX = 830;
   const profileCY = speakerCenterY - profileRadius;
   const nameX = profileX + profileSize + 20;
 
@@ -129,19 +148,24 @@ function generateOgpSvg(input: SvgInput): string {
   // セッションタイプ（定数から参照）
   const sessionStyle = SESSION_TYPE_STYLE[input.sessionTypeKey];
   const sessionX = paddingLeft + trackBadge.width + badgeGap;
-  const sessionBadge = badge(sessionX, badgeY, sessionStyle.label, sessionStyle.bg, sessionStyle.text);
+  // セッションタイプ：白背景、文字と枠線が定数の色
+  const sessionBadge = badge(sessionX, badgeY, sessionStyle.label, "#ffffff", sessionStyle.bg, sessionStyle.bg);
 
   // DAYバッジ
   const dayX = sessionX + sessionBadge.width + badgeGap;
   const dayBadge = badge(dayX, badgeY, dayLabel, "#3D7EFF", "#ffffff");
   const timeX = dayX + dayBadge.width + badgeGap + 4;
 
-  // タイトル折り返し
-  const titleLines = wrapTitleLines(input.title);
+  // タイトル折り返し（\n があれば手動改行、なければ自動折り返し）
+  const titleFontSize = 48;
+  const titleMaxWidth = 1200 - paddingLeft - 40;
+  const titleLines = input.title.includes("\n")
+    ? input.title.split("\n")
+    : wrapTitleLines(input.title, titleMaxWidth, titleFontSize);
   const titleSvg = titleLines
     .map(
       (line, i) =>
-        `<text x="${paddingLeft}" y="${titleStartY + i * titleLineHeight}" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="#222222">${escapeXml(line)}</text>`
+        `<text x="${paddingLeft + 2}" y="${titleStartY + i * titleLineHeight}" font-family="Arial, sans-serif" font-size="${titleFontSize}" font-weight="bold" fill="#222222">${escapeXml(line)}</text>`
     )
     .join("\n    ");
 
@@ -161,14 +185,14 @@ function generateOgpSvg(input: SvgInput): string {
   ${trackBadge.svg}
   ${sessionBadge.svg}
   ${dayBadge.svg}
-  <text x="${timeX}" y="${badgeY + 32}" font-family="Arial, sans-serif" font-size="26" font-weight="normal" fill="#333333">${escapeXml(input.timeRange)}</text>
+  <text x="${timeX}" y="${badgeY + 34}" font-family="Arial, sans-serif" font-size="26" font-weight="normal" fill="#333333">${escapeXml(input.timeRange)}</text>
 
   <!-- タイトル -->
   ${titleSvg}
 
   <!-- 登壇者情報（[画像] [名前] で右寄せ） -->
   <image x="${profileX}" y="${profileCY}" width="${profileSize}" height="${profileSize}" xlink:href="data:image/png;base64,${input.profileImageBuffer}" clip-path="url(#${clipId})" />
-  <text x="${nameX}" y="${speakerCenterY}" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1A1A1A">${escapeXml(input.speakerName)}</text>
+  <text x="${nameX}" y="${speakerCenterY + 2}" font-family="Arial, sans-serif" font-size="${nameFontSize}" font-weight="bold" fill="#1A1A1A">${escapeXml(input.speakerName)}</text>
 </svg>`;
 }
 
@@ -179,7 +203,7 @@ export async function generateTalkOgpImage(
   input: TalkOgpInput
 ): Promise<Buffer> {
   const baseImageBuffer = await loadImageAsBuffer(input.baseImagePath);
-  const profileImageBuffer = await loadImageAsBuffer(input.profileImagePath);
+  const profileImageBuffer = await sharp(await loadImageAsBuffer(input.profileImagePath)).png().toBuffer();
 
   const svgInput: SvgInput = {
     ...input,
