@@ -1,6 +1,9 @@
 import { timetableList } from "../../src/constants/timetable";
-import type { IndividualSlot, SessionTrack } from "../../src/types/timetable-api";
-import type { TrackKey, SessionTypeKey } from "./ogp-constants";
+import type {
+  IndividualSlot,
+  SessionTrack,
+} from "../../src/types/timetable-api";
+import type { SessionTypeKey, TrackKey } from "./ogp-constants";
 
 export type SessionMeta = {
   trackKey: TrackKey;
@@ -47,7 +50,7 @@ function buildMetaMap(): Map<string, SessionMeta> {
       const timeRange = `${toHHMM(slot.startTime)} ~ ${toHHMM(slot.endTime)}`;
 
       for (const [trackId, trackContent] of Object.entries(
-        individualSlot.tracks
+        individualSlot.tracks,
       )) {
         if (trackContent.type !== "session") continue;
         if (!isValidTrackKey(trackId)) continue;

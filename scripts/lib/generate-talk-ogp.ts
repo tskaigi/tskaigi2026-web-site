@@ -1,11 +1,11 @@
-import sharp from "sharp";
 import fs from "fs";
 import path from "path";
+import sharp from "sharp";
 import {
-  TRACK_STYLE,
   SESSION_TYPE_STYLE,
-  type TrackKey,
   type SessionTypeKey,
+  TRACK_STYLE,
+  type TrackKey,
 } from "./ogp-constants";
 
 export type TalkOgpInput = {
@@ -52,7 +52,7 @@ const textWidthCache = new Map<string, number>();
 async function measureRenderedTextWidth(
   text: string,
   fontSize: number,
-  fontWeight: string
+  fontWeight: string,
 ): Promise<number> {
   const cacheKey = `${text}__${fontSize}__${fontWeight}`;
   const cached = textWidthCache.get(cacheKey);
@@ -96,7 +96,11 @@ function estimateWidth(text: string, fontSize: number): number {
   }, 0);
 }
 
-function wrapTitleLines(text: string, maxWidth: number, fontSize: number): string[] {
+function wrapTitleLines(
+  text: string,
+  maxWidth: number,
+  fontSize: number,
+): string[] {
   const words = text.split(" ");
   const lines: string[] = [];
   let currentLine = "";
@@ -140,12 +144,15 @@ function badge(
   label: string,
   fill: string,
   textColor: string,
-  stroke?: string
+  stroke?: string,
 ): { svg: string; width: number } {
   const paddingH = 20;
   const height = 48;
   const fontSize = 26;
-  const width = Math.max(Math.ceil(estimateWidth(label, fontSize)) + paddingH * 2, 90);
+  const width = Math.max(
+    Math.ceil(estimateWidth(label, fontSize)) + paddingH * 2,
+    90,
+  );
   const cx = x + width / 2;
   const ty = y + 34;
   const strokeAttr = stroke ? `stroke="${stroke}" stroke-width="2"` : "";
@@ -177,19 +184,33 @@ function generateOgpSvg(input: SvgInput): string {
   const nameFontSize = 29;
   const speakerRightX = 1160;
   const nameGap = 20;
-  const profileX = speakerRightX - input.speakerNameWidth - nameGap - profileSize;
+  const profileX =
+    speakerRightX - input.speakerNameWidth - nameGap - profileSize;
   const profileCY = speakerCenterY - profileRadius;
   const nameX = speakerRightX - input.speakerNameWidth;
 
   // トラック色（定数から参照）
   const trackStyle = TRACK_STYLE[input.trackKey];
-  const trackBadge = badge(paddingLeft, badgeY, input.trackName, trackStyle.bg, trackStyle.text);
+  const trackBadge = badge(
+    paddingLeft,
+    badgeY,
+    input.trackName,
+    trackStyle.bg,
+    trackStyle.text,
+  );
 
   // セッションタイプ（定数から参照）
   const sessionStyle = SESSION_TYPE_STYLE[input.sessionTypeKey];
   const sessionX = paddingLeft + trackBadge.width + badgeGap;
   // セッションタイプ：白背景、文字と枠線が定数の色
-  const sessionBadge = badge(sessionX, badgeY, sessionStyle.label, "#ffffff", sessionStyle.bg, sessionStyle.bg);
+  const sessionBadge = badge(
+    sessionX,
+    badgeY,
+    sessionStyle.label,
+    "#ffffff",
+    sessionStyle.bg,
+    sessionStyle.bg,
+  );
 
   // DAYバッジ
   const dayX = sessionX + sessionBadge.width + badgeGap;
@@ -202,10 +223,15 @@ function generateOgpSvg(input: SvgInput): string {
   const titleLines = input.title.includes("\n")
     ? input.title.split("\n")
     : wrapTitleLines(input.title, titleMaxWidth, titleFontSize);
+  // 3行分の領域内で縦中央揃え
+  const maxLines = 3;
+  const titleAreaOffset = Math.round(
+    ((maxLines - titleLines.length) * titleLineHeight) / 2,
+  );
   const titleSvg = titleLines
     .map(
       (line, i) =>
-        `<text x="${paddingLeft + 2}" y="${titleStartY + i * titleLineHeight}" font-family="Arial, sans-serif" font-size="${titleFontSize}" font-weight="bold" fill="#222222">${escapeXml(line)}</text>`
+        `<text x="${paddingLeft + 2}" y="${titleStartY + titleAreaOffset + i * titleLineHeight}" font-family="Arial, sans-serif" font-size="${titleFontSize}" font-weight="bold" fill="#222222">${escapeXml(line)}</text>`,
     )
     .join("\n    ");
 
@@ -240,13 +266,16 @@ function generateOgpSvg(input: SvgInput): string {
  * トークOGP画像を生成
  */
 export async function generateTalkOgpImage(
-  input: TalkOgpInput
+  input: TalkOgpInput,
 ): Promise<Buffer> {
-  const [baseImageBuffer, profileImageBuffer, speakerNameWidth] = await Promise.all([
-    loadImageAsBuffer(input.baseImagePath),
-    sharp(await loadImageAsBuffer(input.profileImagePath)).png().toBuffer(),
-    measureRenderedTextWidth(input.speakerName, 29, "bold"),
-  ]);
+  const [baseImageBuffer, profileImageBuffer, speakerNameWidth] =
+    await Promise.all([
+      loadImageAsBuffer(input.baseImagePath),
+      sharp(await loadImageAsBuffer(input.profileImagePath))
+        .png()
+        .toBuffer(),
+      measureRenderedTextWidth(input.speakerName, 29, "bold"),
+    ]);
 
   const svgInput: SvgInput = {
     ...input,
@@ -263,7 +292,7 @@ export async function generateTalkOgpImage(
  * トークOGP画像を生成して保存
  */
 export async function generateAndSaveTalkOgp(
-  input: TalkOgpInput
+  input: TalkOgpInput,
 ): Promise<void> {
   const pngBuffer = await generateTalkOgpImage(input);
 

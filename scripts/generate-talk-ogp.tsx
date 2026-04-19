@@ -1,12 +1,13 @@
 import fs from "fs";
-import path from "path";
-import https from "https";
 import http from "http";
+import https from "https";
+import path from "path";
+import type { SessionSummary } from "../src/types/timetable-api";
 import { generateAndSaveTalkOgp } from "./lib/generate-talk-ogp";
 import { getSessionMeta } from "./lib/session-metadata";
-import type { SessionSummary } from "../src/types/timetable-api";
 
-const DEFAULT_PROFILE_IMAGE = "/Users/wota/Documents/images/bdm-SEDd_400x400.jpeg";
+const DEFAULT_PROFILE_IMAGE =
+  "/Users/wota/Documents/images/bdm-SEDd_400x400.jpeg";
 const OUTPUT_DIR = "public/ogp/talks";
 
 async function downloadImage(url: string, destPath: string): Promise<void> {
@@ -30,7 +31,7 @@ async function downloadImage(url: string, destPath: string): Promise<void> {
 
 async function resolveProfileImagePath(
   session: SessionSummary,
-  tempDir: string
+  tempDir: string,
 ): Promise<string> {
   const profileImageUrl = session.speaker.profileImageUrl;
   if (!profileImageUrl) return DEFAULT_PROFILE_IMAGE;
@@ -43,7 +44,7 @@ async function resolveProfileImagePath(
     return tempPath;
   } catch {
     console.warn(
-      `⚠️ プロフィール画像のダウンロードに失敗しました (${session.id}): ${profileImageUrl}`
+      `⚠️ プロフィール画像のダウンロードに失敗しました (${session.id}): ${profileImageUrl}`,
     );
     return DEFAULT_PROFILE_IMAGE;
   }
@@ -58,11 +59,13 @@ async function main() {
   }
 
   const sessions: SessionSummary[] = JSON.parse(
-    fs.readFileSync(jsonPath, "utf-8")
+    fs.readFileSync(jsonPath, "utf-8"),
   );
 
   if (!Array.isArray(sessions)) {
-    console.error("❌ JSONファイルの形式が正しくありません。配列を指定してください。");
+    console.error(
+      "❌ JSONファイルの形式が正しくありません。配列を指定してください。",
+    );
     process.exit(1);
   }
 
@@ -75,7 +78,9 @@ async function main() {
     for (const session of sessions) {
       const meta = getSessionMeta(session.id);
       if (!meta) {
-        console.warn(`⚠️ セッションID "${session.id}" のメタデータが見つかりません。スキップします。`);
+        console.warn(
+          `⚠️ セッションID "${session.id}" のメタデータが見つかりません。スキップします。`,
+        );
         continue;
       }
 
