@@ -1,7 +1,7 @@
 [
   {
     "id": "1",
-    "title": "tscからtsgoへ\n── DenoのTypeScript基盤はどう変わったか",
+    "title": "tscからtsgoへ\n─ DenoのTypeScript基盤はどう変わったか",
     "speaker": { "name": "maguro" }
   },
   {
@@ -176,7 +176,7 @@
   },
   {
     "id": "33",
-    "title": "TypeScriptの型だけでオセロを完全実装する\n── 型は\"仕様\"をどこまで語れるか",
+    "title": "TypeScriptの型だけでオセロを完全実装する\n─ 型は\"仕様\"をどこまで語れるか",
     "speaker": { "name": "籏野 拓" }
   },
   {
@@ -246,7 +246,7 @@
   },
   {
     "id": "47",
-    "title": "JSで実装した自作プログラミング言語をTSに移行した話",
+    "title": "JSで実装した自作プログラミング言語を\nTSに移行した話",
     "speaker": { "name": "Keisuke Ikeda" }
   },
   {
