@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation";
-import { type SessionId, TRACK_KEYS } from "@/constants/talkList";
-import { timetableList } from "@/constants/timetable";
+import {
+  type SessionId,
+  TRACK_KEYS,
+  timetableList,
+} from "@/constants/timetable";
 import type {
   EventDate,
   SessionSummary,

@@ -1,10 +1,10 @@
+export type TrackKey = "LEVERAGES" | "UPSIDER" | "RIGHTTOUCH";
+
 export type Track = {
-  id: string;
+  id: TrackKey;
   name: string;
   hashtag: string;
 };
-
-export type TrackKey = "LEVERAGES" | "UPSIDER" | "RIGHTTOUCH";
 
 export type SessionSummary = {
   id: string;

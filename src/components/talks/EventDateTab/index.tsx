@@ -1,4 +1,4 @@
-import { EVENT_DATES } from "@/constants/talkList";
+import { EVENT_DATES } from "@/constants/timetable";
 import { cn } from "@/lib/utils";
 import type { EventDate } from "@/types/timetable-api";
 

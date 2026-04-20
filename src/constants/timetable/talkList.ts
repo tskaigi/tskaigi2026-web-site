@@ -15,10 +15,28 @@ export const EVENT_DATE: Record<EventDate, string> = {
   Day2: "2026-05-24",
 };
 
-export const TRACK: Record<TrackKey, { name: string; tag: string }> = {
-  LEVERAGES: { name: "Leveragesトラック", tag: "#tskaigi_leverages" },
-  UPSIDER: { name: "UPSIDERトラック", tag: "#tskaigi_upsider" },
-  RIGHTTOUCH: { name: "RightTouchトラック", tag: "#tskaigi_righttouch" },
+export const TRACK_STYLE: Record<
+  TrackKey,
+  { bg: string; text: string; border: string; cssVar: string }
+> = {
+  LEVERAGES: {
+    bg: "bg-track-leverages",
+    text: "text-black",
+    border: "border-track-leverages",
+    cssVar: "var(--track-leverages)",
+  },
+  UPSIDER: {
+    bg: "bg-track-upsider",
+    text: "text-white",
+    border: "border-track-upsider",
+    cssVar: "var(--track-upsider)",
+  },
+  RIGHTTOUCH: {
+    bg: "bg-track-righttouch",
+    text: "text-white",
+    border: "border-track-righttouch",
+    cssVar: "var(--track-righttouch)",
+  },
 };
 
 export const TALK_TYPE: Record<
@@ -36,7 +54,7 @@ export const TALK_TYPE: Record<
 export const HANDSON_IDS = ["handson-1", "handson-2", "handson-3"] as const;
 
 export function isHandsonId(id: string): boolean {
-  return (HANDSON_IDS as readonly string[]).includes(id);
+  return HANDSON_IDS.some((v) => v === id);
 }
 
 /** ハンズオンIDを含む場合、3枠すべてを含むIDリストを返す */

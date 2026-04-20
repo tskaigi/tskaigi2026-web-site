@@ -6,6 +6,7 @@ import { useMemo, useRef, useState } from "react";
 import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
 import { ProfileImage } from "@/components/talks/FallbackImage";
 import { Button } from "@/components/ui/button";
+import { TALK_TYPE, TRACK_KEYS, TRACK_STYLE } from "@/constants/timetable";
 import { useTimetable } from "@/hooks/useTimetable";
 import { cn } from "@/lib/utils";
 import type {
@@ -15,40 +16,7 @@ import type {
   TrackContent,
   TrackKey,
 } from "@/types/timetable-api";
-
-const TRACK_KEYS: TrackKey[] = ["LEVERAGES", "UPSIDER", "RIGHTTOUCH"];
-
-const TRACK_STYLE: Record<
-  TrackKey,
-  { bg: string; text: string; cssVar: string }
-> = {
-  LEVERAGES: {
-    bg: "bg-track-leverages",
-    text: "text-black",
-    cssVar: "var(--track-leverages)",
-  },
-  UPSIDER: {
-    bg: "bg-track-upsider",
-    text: "text-white",
-    cssVar: "var(--track-upsider)",
-  },
-  RIGHTTOUCH: {
-    bg: "bg-track-righttouch",
-    text: "text-white",
-    cssVar: "var(--track-righttouch)",
-  },
-};
-
-function formatTime(timestamp: number): string {
-  const d = new Date(timestamp * 1000);
-  const h = d.getHours().toString().padStart(2, "0");
-  const m = d.getMinutes().toString().padStart(2, "0");
-  return `${h}:${m}`;
-}
-
-function formatTimeRange(start: number, end: number): string {
-  return `${formatTime(start)} ~ ${formatTime(end)}`;
-}
+import { myTimetable } from "@/utils/myTimetable";
 
 function SlotTrackHeader({
   track,
@@ -241,23 +209,13 @@ function SessionTypeLabel({
 }: {
   sessionType: SessionTrack["sessionType"];
 }) {
-  const config: Record<
-    SessionTrack["sessionType"],
-    { label: string; color: string }
-  > = {
-    KEYNOTE: { label: "基調講演", color: "#0CA90E" },
-    LONG: { label: "30分セッション", color: "#0C7EDC" },
-    SHORT: { label: "10分セッション", color: "#c3620f" },
-    SPONSOR: { label: "スポンサーセッション", color: "#E53D84" },
-    HANDSON: { label: "ハンズオン", color: "#8B5CF6" },
-  };
-  const { label, color } = config[sessionType];
+  const { name, color } = TALK_TYPE[sessionType];
   return (
     <span
       className="inline-block rounded px-2 py-0.5 text-xs font-bold text-white"
       style={{ backgroundColor: color }}
     >
-      {label}
+      {name}
     </span>
   );
 }
@@ -325,7 +283,7 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
   const sessionTimeTable = useMemo(
     () =>
       data.slots.map((slot) => ({
-        id: formatTime(slot.startTime),
+        id: myTimetable.formatTime(slot.startTime),
         start: new Date(slot.startTime * 1000),
         end: new Date(slot.endTime * 1000),
       })),
@@ -360,8 +318,11 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
       {(() => {
         let firstSessionFound = false;
         return data.slots.map((slot) => {
-          const timeId = formatTime(slot.startTime);
-          const timeText = formatTimeRange(slot.startTime, slot.endTime);
+          const timeId = myTimetable.formatTime(slot.startTime);
+          const timeText = myTimetable.formatTimeRange(
+            slot.startTime,
+            slot.endTime,
+          );
           const active = isSessionActive(timeId);
 
           if (slot.slotType === "shared") {
