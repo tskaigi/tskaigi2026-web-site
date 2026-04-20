@@ -1,12 +1,14 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import sharp from "sharp";
-import {
-  SESSION_TYPE_STYLE,
-  type SessionTypeKey,
-  TRACK_STYLE,
-  type TrackKey,
-} from "./ogp-constants";
+import { TALK_TYPE } from "../../src/constants/timetable/talkList";
+import type { SessionKey, TrackKey } from "../../src/types/timetable-api";
+
+const TRACK_STYLE: Record<TrackKey, { bg: string; text: string }> = {
+  LEVERAGES: { bg: "#0cf8c0", text: "#000000" },
+  UPSIDER: { bg: "#005faa", text: "#ffffff" },
+  RIGHTTOUCH: { bg: "#000000", text: "#ffffff" },
+};
 
 export type TalkOgpInput = {
   title: string;
@@ -14,7 +16,7 @@ export type TalkOgpInput = {
   speakerName: string;
   trackKey: TrackKey;
   trackName: string;
-  sessionTypeKey: SessionTypeKey;
+  sessionTypeKey: SessionKey;
   dayNumber: 1 | 2;
   timeRange: string;
   baseImagePath: string;
@@ -48,13 +50,12 @@ function escapeXml(str: string): string {
     .replace(/'/g, "&apos;");
 }
 
-const FONTSOURCE_DIR =
-  "node_modules/@fontsource/noto-sans-jp/files";
+const FONTSOURCE_DIR = "node_modules/@fontsource/noto-sans-jp/files";
 const FONT_FILES = {
-  latin400:   `${FONTSOURCE_DIR}/noto-sans-jp-latin-400-normal.woff2`,
-  latin700:   `${FONTSOURCE_DIR}/noto-sans-jp-latin-700-normal.woff2`,
-  japanese400:`${FONTSOURCE_DIR}/noto-sans-jp-japanese-400-normal.woff2`,
-  japanese700:`${FONTSOURCE_DIR}/noto-sans-jp-japanese-700-normal.woff2`,
+  latin400: `${FONTSOURCE_DIR}/noto-sans-jp-latin-400-normal.woff2`,
+  latin700: `${FONTSOURCE_DIR}/noto-sans-jp-latin-700-normal.woff2`,
+  japanese400: `${FONTSOURCE_DIR}/noto-sans-jp-japanese-400-normal.woff2`,
+  japanese700: `${FONTSOURCE_DIR}/noto-sans-jp-japanese-700-normal.woff2`,
 } as const;
 
 type FontBuffers = Record<keyof typeof FONT_FILES, string>;
@@ -67,8 +68,8 @@ async function loadFontBuffers(): Promise<FontBuffers> {
       async ([key, filePath]) => {
         const buf = await fs.promises.readFile(path.resolve(filePath));
         return [key, buf.toString("base64")] as const;
-      }
-    )
+      },
+    ),
   );
   fontBuffersCache = Object.fromEntries(entries) as FontBuffers;
   return fontBuffersCache;
@@ -249,16 +250,16 @@ function generateOgpSvg(input: SvgInput): string {
   );
 
   // セッションタイプ（定数から参照）
-  const sessionStyle = SESSION_TYPE_STYLE[input.sessionTypeKey];
+  const sessionStyle = TALK_TYPE[input.sessionTypeKey];
   const sessionX = paddingLeft + trackBadge.width + badgeGap;
   // セッションタイプ：白背景、文字と枠線が定数の色
   const sessionBadge = badge(
     sessionX,
     badgeY,
-    sessionStyle.label,
+    sessionStyle.name,
     "#ffffff",
-    sessionStyle.bg,
-    sessionStyle.bg,
+    sessionStyle.color,
+    sessionStyle.color,
   );
 
   // DAYバッジ

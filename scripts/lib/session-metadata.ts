@@ -1,14 +1,15 @@
 import { timetableList } from "../../src/constants/timetable";
 import type {
   IndividualSlot,
+  SessionKey,
   SessionTrack,
+  TrackKey,
 } from "../../src/types/timetable-api";
-import type { SessionTypeKey, TrackKey } from "./ogp-constants";
 
 export type SessionMeta = {
   trackKey: TrackKey;
   trackName: string;
-  sessionTypeKey: SessionTypeKey;
+  sessionTypeKey: SessionKey;
   dayNumber: 1 | 2;
   timeRange: string;
 };
@@ -28,7 +29,7 @@ const SESSION_TYPE_KEYS = new Set<string>([
   "HANDSON",
 ]);
 
-function isValidSessionTypeKey(key: string): key is SessionTypeKey {
+function isValidSessionKey(key: string): key is SessionKey {
   return SESSION_TYPE_KEYS.has(key);
 }
 
@@ -56,7 +57,7 @@ function buildMetaMap(): Map<string, SessionMeta> {
         if (!isValidTrackKey(trackId)) continue;
 
         const sessionTrack = trackContent as SessionTrack;
-        if (!isValidSessionTypeKey(sessionTrack.sessionType)) continue;
+        if (!isValidSessionKey(sessionTrack.sessionType)) continue;
 
         const trackInfo = day.tracks.find((t) => t.id === trackId);
         const trackName = trackInfo?.name ?? trackId;

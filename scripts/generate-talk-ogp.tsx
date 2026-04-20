@@ -6,8 +6,7 @@ import type { SessionSummary } from "../src/types/timetable-api";
 import { generateAndSaveTalkOgp } from "./lib/generate-talk-ogp";
 import { getSessionMeta } from "./lib/session-metadata";
 
-const DEFAULT_PROFILE_IMAGE =
-  "/Users/wota/Documents/images/bdm-SEDd_400x400.jpeg";
+const DEFAULT_PROFILE_IMAGE = "public/logo-2026.png";
 const OUTPUT_DIR = "public/ogp/talks";
 
 async function downloadImage(url: string, destPath: string): Promise<void> {
