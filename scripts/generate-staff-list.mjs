@@ -24,7 +24,14 @@ const output = `/* eslint-disable */
 
 ${imports.join("\n")}
 
-export const staffList = [
+export type Staff = {
+  name: string;
+  image: string;
+  href?: string;
+};
+
+
+export const STAFF_LIST: Staff[] = [
 ${entries.join("\n")}
 ];
 `;

@@ -1,4 +1,4 @@
-import { type Talk, talkList } from "@/constants/talkList";
+import { type Talk, talkList } from "@/constants/timetable";
 import type { EventDate } from "@/types/timetable-api";
 
 export type TalkWithMinutes = Talk & {
@@ -169,19 +169,6 @@ function compareTalkWithMinutes(a: TalkWithMinutes, b: TalkWithMinutes) {
   return a.id.localeCompare(b.id);
 }
 
-function getTrackBorderClass(track: Talk["track"]) {
-  switch (track) {
-    case "LEVERAGES":
-      return "border-track-leverages";
-    case "UPSIDER":
-      return "border-track-upsider";
-    case "RIGHTTOUCH":
-      return "border-track-righttouch";
-    default:
-      return track satisfies never;
-  }
-}
-
 function getPositionedTalks(talks: TalkWithMinutes[]): PositionedTalk[] {
   const sorted = [...talks].sort(compareTalkWithMinutes);
 
@@ -263,6 +250,17 @@ function groupTalksByDate(
   );
 }
 
+function formatTime(timestamp: number): string {
+  const d = new Date(timestamp * 1000);
+  const h = d.getHours().toString().padStart(2, "0");
+  const m = d.getMinutes().toString().padStart(2, "0");
+  return `${h}:${m}`;
+}
+
+function formatTimeRange(start: number, end: number): string {
+  return `${formatTime(start)} ~ ${formatTime(end)}`;
+}
+
 export const MY_TIMETABLE_CONST = {
   TIMELINE_HEIGHT,
   TIMELINE_SEGMENTS,
@@ -274,8 +272,9 @@ export const myTimetable = {
   minutesToTop,
   minutesToHeight,
   formatMinutes,
-  getTrackBorderClass,
   getPositionedTalks,
   getAllTalksWithMinutes,
   groupTalksByDate,
+  formatTime,
+  formatTimeRange,
 };

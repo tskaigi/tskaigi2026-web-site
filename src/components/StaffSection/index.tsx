@@ -1,13 +1,13 @@
 import Image from "next/image";
 import { useMemo } from "react";
-import { getStaffList, type Staff } from "@/constants/staffList";
+import { STAFF_LIST, type Staff } from "@/constants/staff.generated";
 
 export function StaffSection() {
   const sortedStaffList = useMemo(() => {
     const alphabetStaff: Staff[] = [];
     const japaneseStaff: Staff[] = [];
 
-    const staffList = getStaffList();
+    const staffList = STAFF_LIST;
 
     for (const staff of staffList) {
       if (/^[a-zA-Z]/.test(staff.name)) {

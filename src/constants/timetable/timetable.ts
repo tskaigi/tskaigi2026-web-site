@@ -1,7 +1,27 @@
 import type {
   TimetableListResponse,
   TimetableResponse,
+  Track,
+  TrackKey,
 } from "@/types/timetable-api";
+
+export const TRACK: Record<TrackKey, Track> = {
+  LEVERAGES: {
+    id: "LEVERAGES",
+    name: "Leveragesトラック",
+    hashtag: "#tskaigi_leverages",
+  },
+  UPSIDER: {
+    id: "UPSIDER",
+    name: "UPSIDERトラック",
+    hashtag: "#tskaigi_upsider",
+  },
+  RIGHTTOUCH: {
+    id: "RIGHTTOUCH",
+    name: "RightTouchトラック",
+    hashtag: "#tskaigi_righttouch",
+  },
+};
 
 /** 2026-05-23T00:00:00+09:00 in unix seconds */
 const DAY1_BASE = 1779462000;
@@ -15,23 +35,7 @@ const d2 = (h: number, m: number) => DAY2_BASE + h * 3600 + m * 60;
 const day1: TimetableResponse = {
   day: "Day1",
   date: "2026-05-23",
-  tracks: [
-    {
-      id: "LEVERAGES",
-      name: "Leveragesトラック",
-      hashtag: "#tskaigi_leverages",
-    },
-    {
-      id: "UPSIDER",
-      name: "UPSIDERトラック",
-      hashtag: "#tskaigi_upsider",
-    },
-    {
-      id: "RIGHTTOUCH",
-      name: "RightTouchトラック",
-      hashtag: "#tskaigi_righttouch",
-    },
-  ],
+  tracks: Object.values(TRACK),
   slots: [
     // 10:00–10:40 一般開場
     {
@@ -572,23 +576,7 @@ const day1: TimetableResponse = {
 const day2: TimetableResponse = {
   day: "Day2",
   date: "2026-05-24",
-  tracks: [
-    {
-      id: "LEVERAGES",
-      name: "Leveragesトラック",
-      hashtag: "#tskaigi_leverages",
-    },
-    {
-      id: "UPSIDER",
-      name: "UPSIDERトラック",
-      hashtag: "#tskaigi_upsider",
-    },
-    {
-      id: "RIGHTTOUCH",
-      name: "RightTouchトラック",
-      hashtag: "#tskaigi_righttouch",
-    },
-  ],
+  tracks: Object.values(TRACK),
   slots: [
     // 10:00–10:40 一般開場
     {
