@@ -1,4 +1,4 @@
-import { TRACK } from "@/constants/timetable";
+import { TRACK } from "./talkList";
 import type {
   TimetableListResponse,
   TimetableResponse,
