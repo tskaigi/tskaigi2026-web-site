@@ -3,7 +3,6 @@ import type {
   IndividualSlot,
   SessionSummary,
   SessionTrack,
-  Track,
   TrackKey,
 } from "@/types/timetable-api";
 import { timetableList } from "./timetable";
@@ -14,24 +13,6 @@ export const TRACK_KEYS: TrackKey[] = ["LEVERAGES", "UPSIDER", "RIGHTTOUCH"];
 export const EVENT_DATE: Record<EventDate, string> = {
   Day1: "2026-05-23",
   Day2: "2026-05-24",
-};
-
-export const TRACK: Record<TrackKey, Track> = {
-  LEVERAGES: {
-    id: "LEVERAGES",
-    name: "Leveragesトラック",
-    hashtag: "#tskaigi_leverages",
-  },
-  UPSIDER: {
-    id: "UPSIDER",
-    name: "UPSIDERトラック",
-    hashtag: "#tskaigi_upsider",
-  },
-  RIGHTTOUCH: {
-    id: "RIGHTTOUCH",
-    name: "RightTouchトラック",
-    hashtag: "#tskaigi_righttouch",
-  },
 };
 
 export const TRACK_STYLE: Record<
