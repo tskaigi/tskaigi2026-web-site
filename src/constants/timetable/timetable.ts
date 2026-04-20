@@ -1,8 +1,8 @@
-import { TRACK } from "./talkList";
 import type {
   TimetableListResponse,
   TimetableResponse,
 } from "@/types/timetable-api";
+import { TRACK } from "./talkList";
 
 /** 2026-05-23T00:00:00+09:00 in unix seconds */
 const DAY1_BASE = 1779462000;
