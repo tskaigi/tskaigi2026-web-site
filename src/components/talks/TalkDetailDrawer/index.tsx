@@ -95,9 +95,9 @@ function DrawerContent({ talk }: { talk: TalkWithMinutes }) {
       </div>
 
       <div>
-        <h2 className="text-xl font-bold text-black-700 leading-snug">
+        <h3 className="text-xl font-bold text-black-700 leading-snug">
           {talk.title}
-        </h2>
+        </h3>
         <div className="mt-2 flex items-center gap-2 flex-wrap text-sm text-black-500">
           <span
             className={cn(
