@@ -140,6 +140,7 @@ export function TalkDetailDrawer({
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const dragControls = useDragControls();
 
+  // オーバーレイクリック以外の閉じ手段として Esc キーに対応する
   useEffect(() => {
     if (!talk) return;
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -149,6 +150,7 @@ export function TalkDetailDrawer({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [talk, onClose]);
 
+  // ドロワー表示中にページ本体をスクロールさせない
   useEffect(() => {
     document.body.style.overflow = talk ? "hidden" : "";
     return () => {
