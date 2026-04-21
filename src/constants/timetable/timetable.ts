@@ -85,8 +85,9 @@ const day1: TimetableResponse = {
           sessions: [
             {
               id: "2",
-              title: "「関数型プログラミング」を分解する.ts",
-              speaker: { name: "おーみー" },
+              title:
+                "開発体験を左右するライブラリの API 設計 ― GraphQL スキーマ構築ライブラリから考える",
+              speaker: { name: "izumin5210" },
             },
           ],
         },
@@ -96,9 +97,8 @@ const day1: TimetableResponse = {
           sessions: [
             {
               id: "3",
-              title:
-                "開発体験を左右するライブラリの API 設計 ― GraphQL スキーマ構築ライブラリから考える",
-              speaker: { name: "izumin5210" },
+              title: "「関数型プログラミング」を分解する.ts",
+              speaker: { name: "おーみー" },
             },
           ],
         },
