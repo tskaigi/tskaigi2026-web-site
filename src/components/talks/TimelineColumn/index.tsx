@@ -18,6 +18,7 @@ export function TimelineColumn({
   participatedIds,
   onClickTimeSlot,
   onRemoveTalk,
+  onTalkClick,
 }: {
   id?: string;
   eventDate: EventDate;
@@ -25,6 +26,7 @@ export function TimelineColumn({
   participatedIds: string[];
   onClickTimeSlot?: (eventDate: EventDate, minutes: number) => void;
   onRemoveTalk?: (id: string) => void;
+  onTalkClick?: (talk: TalkWithMinutes) => void;
 }) {
   const editable = !!onClickTimeSlot && !!onRemoveTalk;
   const participatedIdsSet = useMemo(
@@ -138,14 +140,26 @@ export function TimelineColumn({
                 ? `${talk.time} / ${TRACK[talk.track].name}`
                 : talk.time}
             </p>
-            <Link
-              href={`/talks/${talk.id}`}
-              className={`relative z-10 hover:underline block ${editable ? "" : "pr-4"}`}
-            >
-              <p className="mt-0.5 text-xs font-bold text-black-700 line-clamp-2">
-                {talk.title}
-              </p>
-            </Link>
+            {onTalkClick ? (
+              <button
+                type="button"
+                className={`relative z-10 hover:underline block text-left w-full ${editable ? "" : "pr-4"}`}
+                onClick={() => onTalkClick(talk)}
+              >
+                <p className="mt-0.5 text-xs font-bold text-black-700 line-clamp-2">
+                  {talk.title}
+                </p>
+              </button>
+            ) : (
+              <Link
+                href={`/talks/${talk.id}`}
+                className={`relative z-10 hover:underline block ${editable ? "" : "pr-4"}`}
+              >
+                <p className="mt-0.5 text-xs font-bold text-black-700 line-clamp-2">
+                  {talk.title}
+                </p>
+              </Link>
+            )}
             <p
               className={`relative z-10 mt-0.5 text-[10px] text-black-500 truncate ${editable ? "" : "pr-4"}`}
             >
