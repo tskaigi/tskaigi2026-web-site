@@ -6,6 +6,7 @@ const links: {
   label: string;
 }[] = [
   { href: "/", label: "Home" },
+  { href: "/talks", label: "タイムテーブル" },
   { href: "/sponsors", label: "スポンサー" },
   { href: "/side-events", label: "サイドイベント" },
   // { href: "/venue", label: "会場図" },
