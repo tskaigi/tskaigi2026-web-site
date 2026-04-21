@@ -160,12 +160,12 @@ const day1: TimetableResponse = {
       endTime: d1(12, 30),
       label: "ランチ配布",
     },
-    // 12:30–13:30 ランチ
+    // 12:30–13:30 ランチ/スポンサーセッション
     {
       slotType: "shared",
       startTime: d1(12, 30),
       endTime: d1(13, 30),
-      label: "ランチ",
+      label: "ランチ/スポンサーセッション",
     },
     // 13:30–13:40 休憩
     {
@@ -542,17 +542,17 @@ const day1: TimetableResponse = {
         },
       },
     },
-    // 17:50–18:00 休憩
+    // 17:50–18:10 休憩
     {
       slotType: "shared",
       startTime: d1(17, 50),
-      endTime: d1(18, 0),
+      endTime: d1(18, 10),
       label: "休憩",
     },
-    // 18:00–18:50 KEYNOTE / サテライト / クローズ
+    // 18:10–18:50 KEYNOTE / サテライト / クローズ
     {
       slotType: "individual",
-      startTime: d1(18, 0),
+      startTime: d1(18, 10),
       endTime: d1(18, 50),
       tracks: {
         LEVERAGES: {

@@ -1,10 +1,12 @@
 "use client";
 
+// TODO: トーク詳細画面が用意でき次第有効化
+// import Link from "next/link";
 import { Copy } from "lucide-react";
-import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
-import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
-import { ProfileImage } from "@/components/talks/FallbackImage";
+// import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
+// TODO: プロフィールアイコンが用意でき次第有効化
+// import { ProfileImage } from "@/components/talks/FallbackImage";
 import { Button } from "@/components/ui/button";
 import { TALK_TYPE, TRACK_KEYS, TRACK_STYLE } from "@/constants/timetable";
 import { useTimetable } from "@/hooks/useTimetable";
@@ -252,24 +254,29 @@ function SessionCell({
       <div className="flex flex-col gap-5">
         {content.sessions.map((session) => (
           <div key={session.id} className="flex flex-col gap-1">
+            {/* TODO: トーク詳細画面が用意でき次第有効化
             <Link
               href={`/talks/${session.id}`}
               className="underline hover:text-blue-purple-500"
             >
               <p className="text-16">{session.title}</p>
             </Link>
+            */}
+            <p className="text-16">{session.title}</p>
             <div className="flex items-center gap-2">
               <span className="text-14">{session.speaker.name}</span>
+              {/* TODO: プロフィールアイコンが用意でき次第有効化
               <div className="relative h-6 w-6 rounded-full shrink-0 overflow-hidden">
                 <ProfileImage
                   speakerName={session.speaker.name}
                   profileImageUrl={session.speaker.profileImageUrl}
                 />
               </div>
+              */}
             </div>
-            <div className="mt-1">
+            {/* <div className="mt-1">
               <AddToMyTimetableButton talkId={session.id} iconOnly />
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
