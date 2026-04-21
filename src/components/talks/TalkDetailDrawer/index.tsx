@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { TALK_TYPE, TRACK, TRACK_STYLE } from "@/constants/timetable";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { cn } from "@/lib/utils";
-import { findSession } from "@/utils/getSession";
+import { getSession } from "@/utils/getSession";
 import type { TalkWithMinutes } from "@/utils/myTimetable";
 
 function SpeakerSection({ talk }: { talk: TalkWithMinutes }) {
@@ -80,7 +80,7 @@ function SpeakerSection({ talk }: { talk: TalkWithMinutes }) {
 }
 
 function DrawerContent({ talk }: { talk: TalkWithMinutes }) {
-  const sessionDetail = findSession(talk.id);
+  const sessionDetail = getSession(talk.id);
   const typeLabel = sessionDetail
     ? TALK_TYPE[sessionDetail.sessionType].name
     : null;
