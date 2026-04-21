@@ -202,25 +202,19 @@ const day1: TimetableResponse = {
             },
           ],
         },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "HANDSON",
-          sessions: [
-            {
-              id: "handson-1",
-              title: "ハンズオン（前半）",
-              speaker: { name: "" },
-            },
-          ],
-        },
+        RIGHTTOUCH: { type: "other", label: "ハンズオン" },
       },
     },
-    // 14:10–14:20 休憩
+    // 14:10–14:20 休憩 + ハンズオン
     {
-      slotType: "shared",
+      slotType: "individual",
       startTime: d1(14, 10),
       endTime: d1(14, 20),
-      label: "休憩",
+      tracks: {
+        LEVERAGES: { type: "other", label: "休憩" },
+        UPSIDER: { type: "other", label: "休憩" },
+        RIGHTTOUCH: { type: "other", label: "ハンズオン" },
+      },
     },
     // 14:20–14:50 SHORT x3 (Track1/Track2) + ハンズオン
     {
@@ -275,25 +269,19 @@ const day1: TimetableResponse = {
             },
           ],
         },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "HANDSON",
-          sessions: [
-            {
-              id: "handson-2",
-              title: "ハンズオン（中盤）",
-              speaker: { name: "" },
-            },
-          ],
-        },
+        RIGHTTOUCH: { type: "other", label: "ハンズオン" },
       },
     },
-    // 14:50–15:10 休憩
+    // 14:50–15:10 休憩 + ハンズオン
     {
-      slotType: "shared",
+      slotType: "individual",
       startTime: d1(14, 50),
       endTime: d1(15, 10),
-      label: "休憩",
+      tracks: {
+        LEVERAGES: { type: "other", label: "休憩" },
+        UPSIDER: { type: "other", label: "休憩" },
+        RIGHTTOUCH: { type: "other", label: "ハンズオン" },
+      },
     },
     // 15:10–15:40 LONG x2 + ハンズオン
     {
@@ -324,17 +312,7 @@ const day1: TimetableResponse = {
             },
           ],
         },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "HANDSON",
-          sessions: [
-            {
-              id: "handson-3",
-              title: "ハンズオン（後半）",
-              speaker: { name: "" },
-            },
-          ],
-        },
+        RIGHTTOUCH: { type: "other", label: "ハンズオン" },
       },
     },
     // 15:40–15:50 休憩
@@ -569,6 +547,14 @@ const day1: TimetableResponse = {
         UPSIDER: { type: "other", label: "サテライト" },
         RIGHTTOUCH: { type: "closed" },
       },
+    },
+  ],
+  spanGroups: [
+    {
+      tracks: ["RIGHTTOUCH"],
+      label: "ハンズオン",
+      startTime: d1(13, 40),
+      endTime: d1(15, 40),
     },
   ],
 };
@@ -1097,6 +1083,14 @@ const day2: TimetableResponse = {
         UPSIDER: { type: "other", label: "懇親会" },
         RIGHTTOUCH: { type: "closed" },
       },
+    },
+  ],
+  spanGroups: [
+    {
+      tracks: ["LEVERAGES", "UPSIDER"],
+      label: "懇親会準備",
+      startTime: d2(17, 20),
+      endTime: d2(18, 40),
     },
   ],
 };
