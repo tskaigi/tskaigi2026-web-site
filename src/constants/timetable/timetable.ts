@@ -160,12 +160,12 @@ const day1: TimetableResponse = {
       endTime: d1(12, 30),
       label: "ランチ配布",
     },
-    // 12:30–13:30 ランチ
+    // 12:30–13:30 ランチ/スポンサーセッション
     {
       slotType: "shared",
       startTime: d1(12, 30),
       endTime: d1(13, 30),
-      label: "ランチ",
+      label: "ランチ/スポンサーセッション",
     },
     // 13:30–13:40 休憩
     {
@@ -736,12 +736,12 @@ const day2: TimetableResponse = {
       endTime: d2(12, 30),
       label: "ランチ配布",
     },
-    // 12:30–13:30 ランチ
+    // 12:30–13:30 ランチ/スポンサーセッション
     {
       slotType: "shared",
       startTime: d2(12, 30),
       endTime: d2(13, 30),
-      label: "ランチ",
+      label: "ランチ/スポンサーセッション",
     },
     // 13:30–13:40 休憩
     {
