@@ -6,29 +6,15 @@ import remarkBreaks from "remark-breaks";
 import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
 import { OgpImage, ProfileImage } from "@/components/talks/FallbackImage";
 import { TalkStatus } from "@/components/talks/TalkStatus";
-import { SESSION_IDS } from "@/constants/talkList";
+import { SESSION_IDS, TALK_TYPE } from "@/constants/timetable";
 import { getSession } from "@/utils/getSession";
+import { myTimetable } from "@/utils/myTimetable";
 
 export async function generateStaticParams() {
   return SESSION_IDS.map((id) => ({ id }));
 }
 
 const description = "TSKaigi 2026 のスピーカー、トーク情報です。";
-
-const SESSION_TYPE_LABEL: Record<string, string> = {
-  KEYNOTE: "基調講演",
-  LONG: "30分セッション",
-  SHORT: "10分セッション",
-  SPONSOR: "スポンサーセッション",
-  HANDSON: "ハンズオン",
-};
-
-function formatTime(timestamp: number): string {
-  const d = new Date(timestamp * 1000);
-  const h = d.getHours().toString().padStart(2, "0");
-  const m = d.getMinutes().toString().padStart(2, "0");
-  return `${h}:${m}`;
-}
 
 export async function generateMetadata({
   params,
@@ -95,8 +81,8 @@ export default async function TalkDetailPage({
   const { id } = await params;
   const detail = getSession(id);
   const { session, sessionType, trackName, startTime, endTime } = detail;
-  const timeRange = `${formatTime(startTime)} 〜 ${formatTime(endTime)}`;
-  const typeLabel = SESSION_TYPE_LABEL[sessionType] ?? sessionType;
+  const timeRange = myTimetable.formatTimeRange(startTime, endTime);
+  const typeLabel = TALK_TYPE[sessionType].name;
   const overview = "（概要は後日公開予定です）";
 
   return (

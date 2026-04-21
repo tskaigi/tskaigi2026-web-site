@@ -4,7 +4,7 @@ import { AlertTriangle, Plus, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { showAppToast } from "@/components/ui/GlobalToast";
-import { HANDSON_IDS, isHandsonId } from "@/constants/talkList";
+import { HANDSON_IDS, isHandsonId } from "@/constants/timetable";
 import {
   findOverlaps,
   myTimetableIds,

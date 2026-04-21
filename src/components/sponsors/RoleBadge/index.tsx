@@ -1,5 +1,7 @@
-import type { SponsorRole } from "@/constants/sponsorList";
 import { convertToUpperCamelCase } from "./utils";
+
+type SponsorClass = "platinum" | "gold" | "silver" | "bronze";
+type SponsorRole = SponsorClass | "coffee" | "beer" | "naming-rights";
 
 const bgColor: { [key in SponsorRole]: string } = {
   platinum: "bg-blue-purple-600",

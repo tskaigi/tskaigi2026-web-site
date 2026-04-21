@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { EventDateTab } from "@/components/talks/EventDateTab";
 import { TimelineAxis } from "@/components/talks/TimelineAxis";
-import { EVENT_DATE } from "@/constants/talkList";
+import { EVENT_DATE } from "@/constants/timetable";
 import type { EventDate } from "@/types/timetable-api";
 
 export function DesktopTimelineLayout({
