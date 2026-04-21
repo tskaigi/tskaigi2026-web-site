@@ -29,6 +29,11 @@ export type ClosedTrack = {
 export type OtherTrack = {
   type: "other";
   label: string;
+  compact?: boolean;
+};
+
+export type OverrideTrack = {
+  type: "override";
 };
 
 export type SessionKey = "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR";
@@ -39,7 +44,11 @@ export type SessionTrack = {
   sessions: SessionSummary[];
 };
 
-export type TrackContent = ClosedTrack | OtherTrack | SessionTrack;
+export type TrackContent =
+  | ClosedTrack
+  | OtherTrack
+  | OverrideTrack
+  | SessionTrack;
 
 export type SharedSlot = {
   slotType: "shared";
