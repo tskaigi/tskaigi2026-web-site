@@ -144,9 +144,15 @@ function TrackCell({
 }) {
   const style = TRACK_STYLE[trackKey];
 
+  if (content.type === "override") {
+    return (
+      <div className="bg-gray-50 px-5 h-16 flex items-center justify-center text-black-700" />
+    );
+  }
+
   if (content.type === "closed") {
     return (
-      <div className="bg-gray-200 px-5 pt-10 pb-4 md:py-5 min-h-32 flex flex-col gap-2 items-center justify-center text-black-700 relative">
+      <div className="bg-gray-50 px-5 h-full min-h-16 flex flex-col gap-2 items-center justify-center text-black-700 relative">
         <div
           className={cn(
             style.bg,
@@ -163,6 +169,13 @@ function TrackCell({
   }
 
   if (content.type === "other") {
+    if (content.compact) {
+      return (
+        <div className="bg-gray-50 px-5 h-16 flex items-center justify-center text-black-700">
+          {content.label}
+        </div>
+      );
+    }
     return (
       <div className="bg-white px-5 pt-10 pb-4 md:py-5 min-h-32 flex flex-col gap-2 items-center justify-center text-black-700 relative">
         <div
