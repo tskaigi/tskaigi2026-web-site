@@ -58,4 +58,24 @@ export const personalSponsorList: {
     link: "https://x.com/karukan013l23",
     imgSrc: "/personalSponsors/karukan013l23.jpg",
   },
+  {
+    name: "みっちー",
+    link: "https://x.com/michiya_nishida",
+    imgSrc: "/personalSponsors/michiya_nishida.jpg",
+  },
+  {
+    name: "にしこりさぶろ〜",
+    link: "https://x.com/subroh_0508",
+    imgSrc: "/personalSponsors/subroh_0508.jpg",
+  },
+  {
+    name: "tnir",
+    link: "https://github.com/tnir",
+    imgSrc: "/personalSponsors/tnir.jpg",
+  },
+  {
+    name: "とーくん",
+    link: "https://x.com/kaito071831",
+    imgSrc: "/personalSponsors/kaito071831.jpg",
+  },
 ];
