@@ -47,7 +47,6 @@ export const TALK_TYPE: Record<
   LONG: { name: "30分セッション", color: "#0C7EDC" },
   SHORT: { name: "10分セッション", color: "#c3620f" },
   SPONSOR: { name: "スポンサーセッション", color: "#E53D84" },
-  HANDSON: { name: "ハンズオン", color: "#8B5CF6" },
 };
 
 /** ハンズオンは3枠セットで追加/削除する */

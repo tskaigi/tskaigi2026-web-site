@@ -31,7 +31,7 @@ export type OtherTrack = {
   label: string;
 };
 
-export type SessionKey = "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR" | "HANDSON";
+export type SessionKey = "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR";
 
 export type SessionTrack = {
   type: "session";
@@ -55,7 +55,14 @@ export type IndividualSlot = {
   tracks: Record<TrackKey, TrackContent>;
 };
 
-type Slot = SharedSlot | IndividualSlot;
+export type Slot = SharedSlot | IndividualSlot;
+
+export type SpanGroup = {
+  tracks: TrackKey[];
+  label: string;
+  startTime: number;
+  endTime: number;
+};
 
 export type EventDate = "Day1" | "Day2";
 
@@ -64,6 +71,7 @@ export type TimetableResponse = {
   date: string;
   tracks: Track[];
   slots: Slot[];
+  spanGroups?: SpanGroup[];
 };
 
 export type TimetableListResponse = TimetableResponse[];
