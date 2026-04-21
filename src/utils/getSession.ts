@@ -22,7 +22,7 @@ export type SessionDetail = {
   endTime: number;
 };
 
-function lookupSession(id: string): SessionDetail | null {
+function lookupSession(id: SessionId): SessionDetail | null {
   for (const day of timetableList) {
     const trackNameMap: Record<string, string> = {};
     for (const t of day.tracks) {
@@ -60,6 +60,6 @@ export function getSession(id: SessionId): SessionDetail {
   return result;
 }
 
-export function findSession(id: string): SessionDetail | null {
+export function findSession(id: SessionId): SessionDetail | null {
   return lookupSession(id);
 }
