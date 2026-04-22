@@ -143,7 +143,7 @@ export function TimelineColumn({
             {onTalkClick ? (
               <button
                 type="button"
-                className={`relative z-10 hover:underline block text-left w-full ${editable ? "" : "pr-4"}`}
+                className={`relative z-10 cursor-pointer hover:underline block text-left w-full ${editable ? "" : "pr-4"}`}
                 onClick={() => onTalkClick(talk)}
               >
                 <p className="mt-0.5 text-xs font-bold text-black-700 line-clamp-2">
