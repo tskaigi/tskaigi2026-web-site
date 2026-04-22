@@ -13,6 +13,7 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { TalkDetailDrawer } from "@/components/talks/TalkDetailDrawer";
 import { TimelineColumn } from "@/components/talks/TimelineColumn";
 import {
   DesktopTimelineLayout,
@@ -598,6 +599,7 @@ export default function MyTimetablePage() {
   const [overlapState, setOverlapState] = useState<OverlapState>(null);
   const [isClearConfirmOpen, setIsClearConfirmOpen] = useState(false);
   const [isQrOpen, setIsQrOpen] = useState(false);
+  const [drawerTalk, setDrawerTalk] = useState<TalkWithMinutes | null>(null);
   const allTalksWithMinutes = useMemo(
     () => myTimetable.getAllTalksWithMinutes(),
     [],
@@ -811,6 +813,7 @@ export default function MyTimetablePage() {
                 participatedIds={participatedIds}
                 onClickTimeSlot={handleClickTimeSlot}
                 onRemoveTalk={removeTalk}
+                onTalkClick={setDrawerTalk}
               />
             </MobileTimelineLayout>
           </div>
@@ -825,6 +828,7 @@ export default function MyTimetablePage() {
                   participatedIds={participatedIds}
                   onClickTimeSlot={handleClickTimeSlot}
                   onRemoveTalk={removeTalk}
+                  onTalkClick={setDrawerTalk}
                 />
               }
               day2Column={
@@ -834,6 +838,7 @@ export default function MyTimetablePage() {
                   participatedIds={participatedIds}
                   onClickTimeSlot={handleClickTimeSlot}
                   onRemoveTalk={removeTalk}
+                  onTalkClick={setDrawerTalk}
                 />
               }
             />
@@ -882,6 +887,8 @@ export default function MyTimetablePage() {
       >
         <Link href="/talks">タイムテーブルへ</Link>
       </Button>
+
+      <TalkDetailDrawer talk={drawerTalk} onClose={() => setDrawerTalk(null)} />
     </main>
   );
 }
