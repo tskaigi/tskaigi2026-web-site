@@ -11,8 +11,8 @@ export const EVENT_DATES: EventDate[] = ["Day1", "Day2"];
 export const TRACK_KEYS: TrackKey[] = ["LEVERAGES", "UPSIDER", "RIGHTTOUCH"];
 
 export const EVENT_DATE: Record<EventDate, string> = {
-  Day1: "2026-05-23",
-  Day2: "2026-05-24",
+  Day1: "2026-05-22",
+  Day2: "2026-05-23",
 };
 
 export const TRACK_STYLE: Record<

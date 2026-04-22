@@ -138,7 +138,7 @@ export function HeroSectionWithMotion() {
       className="relative max-w-[1280px] mx-auto aspect-[32/15]"
     >
       <h1>
-        <span className="sr-only">TSKaigi 2025 5月23日、24日 東京、神田</span>
+        <span className="sr-only">TSKaigi 2026 5月22日、23日 東京、神田</span>
         <img
           className="fadein absolute top-[43.3%] left-[26.25%] w-[25.85%] h-auto origin-center"
           src="/logo.png"
