@@ -4,6 +4,7 @@ import { List, Pencil } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
+import { TalkDetailDrawer } from "@/components/talks/TalkDetailDrawer";
 import { TimelineColumn } from "@/components/talks/TimelineColumn";
 import {
   DesktopTimelineLayout,
@@ -11,11 +12,16 @@ import {
 } from "@/components/talks/TimelineLayout";
 import { Button } from "@/components/ui/button";
 import type { EventDate } from "@/types/timetable-api";
-import { getTalksByDateFromIds, myTimetableQuery } from "@/utils/myTimetable";
+import {
+  getTalksByDateFromIds,
+  myTimetableQuery,
+  type TalkWithMinutes,
+} from "@/utils/myTimetable";
 
 export default function YourTimetablePage() {
   const searchParams = useSearchParams();
   const [currentEventDate, setCurrentEventDate] = useState<EventDate>("Day1");
+  const [drawerTalk, setDrawerTalk] = useState<TalkWithMinutes | null>(null);
 
   const { ids, participatedIds } = useMemo(
     () => myTimetableQuery.parse(searchParams),
@@ -61,6 +67,7 @@ export default function YourTimetablePage() {
                 eventDate={currentEventDate}
                 talks={talksByDate[currentEventDate]}
                 participatedIds={participatedIds}
+                onTalkClick={setDrawerTalk}
               />
             </MobileTimelineLayout>
           </div>
@@ -72,6 +79,7 @@ export default function YourTimetablePage() {
                   eventDate="Day1"
                   talks={talksByDate.Day1}
                   participatedIds={participatedIds}
+                  onTalkClick={setDrawerTalk}
                 />
               }
               day2Column={
@@ -79,12 +87,15 @@ export default function YourTimetablePage() {
                   eventDate="Day2"
                   talks={talksByDate.Day2}
                   participatedIds={participatedIds}
+                  onTalkClick={setDrawerTalk}
                 />
               }
             />
           </div>
         </div>
       </div>
+
+      <TalkDetailDrawer talk={drawerTalk} onClose={() => setDrawerTalk(null)} />
     </main>
   );
 }
