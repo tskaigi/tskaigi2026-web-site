@@ -120,9 +120,9 @@ function DrawerContent({ talk }: { talk: TalkWithMinutes }) {
 
       <div className="mt-auto pt-4">
         <Button asChild variant="outline" className="w-full gap-2">
-          <Link href={`/talks/${talk.id}`}>
-            <ExternalLink size={16} />
+          <Link href={`/talks/${talk.id}`} target="_blank">
             詳細ページで見る
+            <ExternalLink size={16} />
           </Link>
         </Button>
       </div>
