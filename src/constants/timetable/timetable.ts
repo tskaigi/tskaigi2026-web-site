@@ -469,7 +469,7 @@ const day1: TimetableResponse = {
               id: "29",
               title:
                 "Oxlintはいかにしてtsgolintのlint ruleを呼び出しているのか",
-              speaker: { name: "hakshu" },
+              speaker: { name: "syumai" },
             },
           ],
         },
