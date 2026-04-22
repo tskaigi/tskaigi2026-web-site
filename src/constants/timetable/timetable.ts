@@ -23,10 +23,10 @@ export const TRACK: Record<TrackKey, Track> = {
   },
 };
 
+/** 2026-05-22T00:00:00+09:00 in unix seconds */
+const DAY1_BASE = 1779375600;
 /** 2026-05-23T00:00:00+09:00 in unix seconds */
-const DAY1_BASE = 1779462000;
-/** 2026-05-24T00:00:00+09:00 in unix seconds */
-const DAY2_BASE = 1779548400;
+const DAY2_BASE = 1779462000;
 
 /** HH:MM → unix timestamp (seconds) */
 const d1 = (h: number, m: number) => DAY1_BASE + h * 3600 + m * 60;
@@ -34,7 +34,7 @@ const d2 = (h: number, m: number) => DAY2_BASE + h * 3600 + m * 60;
 
 const day1: TimetableResponse = {
   day: "Day1",
-  date: "2026-05-23",
+  date: "2026-05-22",
   tracks: Object.values(TRACK),
   slots: [
     // 10:00–10:40 一般開場
@@ -561,7 +561,7 @@ const day1: TimetableResponse = {
 
 const day2: TimetableResponse = {
   day: "Day2",
-  date: "2026-05-24",
+  date: "2026-05-23",
   tracks: Object.values(TRACK),
   slots: [
     // 10:00–10:40 一般開場

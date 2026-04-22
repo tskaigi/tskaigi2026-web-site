@@ -13,7 +13,7 @@ export function EventDateTab({ currentDate, onTabChange }: Props) {
       <div className="inline-flex rounded-lg overflow-hidden">
         {EVENT_DATES.map((date) => {
           const isActive = date === currentDate;
-          const dateText = date === "Day1" ? "Day 1  5/23" : "Day 2  5/24";
+          const dateText = date === "Day1" ? "Day 1  5/22" : "Day 2  5/23";
 
           return (
             <button
