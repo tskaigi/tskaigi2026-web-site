@@ -11,7 +11,7 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { TalkDetailDrawer } from "@/components/talks/TalkDetailDrawer";
 import { TimelineColumn } from "@/components/talks/TimelineColumn";
@@ -587,8 +587,6 @@ function TalkSearchPanel({
 }
 
 export default function MyTimetablePage() {
-  const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -635,26 +633,6 @@ export default function MyTimetablePage() {
     }
   }, [searchParams, hasQueryIds, isInitialized]);
 
-  const updateQuery = (
-    ids: string[],
-    participated: string[] = participatedIds,
-  ) => {
-    const next = new URLSearchParams(searchParams.toString());
-    next.delete("m");
-    next.delete("p");
-
-    const tokens = myTimetableQuery.encode(ids, participated);
-    if (tokens.m) {
-      next.set("m", tokens.m);
-    }
-    if (tokens.p) {
-      next.set("p", tokens.p);
-    }
-
-    const query = next.toString();
-    router.replace(query.length > 0 ? `${pathname}?${query}` : pathname);
-  };
-
   const addTalk = (id: string) => {
     // ハンズオンは3枠セットで追加
     const idsToAdd = isHandsonId(id)
@@ -688,7 +666,6 @@ export default function MyTimetablePage() {
     setSelectedIds(next);
     myTimetableIds.write(next);
     window.dispatchEvent(new Event("my-timetable-updated"));
-    updateQuery(next);
     showAppToast("マイタイムテーブルに追加しました");
   };
 
@@ -712,7 +689,6 @@ export default function MyTimetablePage() {
     setSelectedIds(next);
     myTimetableIds.write(next);
     window.dispatchEvent(new Event("my-timetable-updated"));
-    updateQuery(next);
     setOverlapState(null);
     showAppToast("マイタイムテーブルに追加しました");
   };
@@ -728,17 +704,17 @@ export default function MyTimetablePage() {
     setParticipatedIds(nextParticipated);
     setSelectedIds(next);
     myTimetableIds.write(next);
+    myParticipatedIds.write(nextParticipated);
     window.dispatchEvent(new Event("my-timetable-updated"));
-    updateQuery(next, nextParticipated);
     showAppToast("マイタイムテーブルから削除しました");
   };
 
   const resetTalks = () => {
     setSelectedIds([]);
     myTimetableIds.write([]);
+    myParticipatedIds.write([]);
     window.dispatchEvent(new Event("my-timetable-updated"));
     showAppToast("マイタイムテーブルをリセットしました");
-    updateQuery([], []);
   };
 
   const handleClickTimeSlot = (eventDate: EventDate, minutes: number) =>
