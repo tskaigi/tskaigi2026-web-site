@@ -211,9 +211,9 @@ const day1: TimetableResponse = {
       startTime: d1(14, 10),
       endTime: d1(14, 20),
       tracks: {
-        LEVERAGES: { type: "other", label: "休憩" },
-        UPSIDER: { type: "other", label: "休憩" },
-        RIGHTTOUCH: { type: "other", label: "ハンズオン" },
+        LEVERAGES: { type: "other", label: "休憩", compact: true },
+        UPSIDER: { type: "other", label: "休憩", compact: true },
+        RIGHTTOUCH: { type: "override" },
       },
     },
     // 14:20–14:50 SHORT x3 (Track1/Track2) + ハンズオン
@@ -278,9 +278,9 @@ const day1: TimetableResponse = {
       startTime: d1(14, 50),
       endTime: d1(15, 10),
       tracks: {
-        LEVERAGES: { type: "other", label: "休憩" },
-        UPSIDER: { type: "other", label: "休憩" },
-        RIGHTTOUCH: { type: "other", label: "ハンズオン" },
+        LEVERAGES: { type: "other", label: "休憩", compact: true },
+        UPSIDER: { type: "other", label: "休憩", compact: true },
+        RIGHTTOUCH: { type: "override" },
       },
     },
     // 15:10–15:40 LONG x2 + ハンズオン
@@ -1068,8 +1068,8 @@ const day2: TimetableResponse = {
       startTime: d2(18, 30),
       endTime: d2(18, 40),
       tracks: {
-        LEVERAGES: { type: "other", label: "懇親会準備" },
-        UPSIDER: { type: "other", label: "懇親会準備" },
+        LEVERAGES: { type: "override" },
+        UPSIDER: { type: "override" },
         RIGHTTOUCH: { type: "closed" },
       },
     },
