@@ -21,7 +21,7 @@ export const TRACK_STYLE: Record<
 > = {
   LEVERAGES: {
     bg: "bg-track-leverages",
-    text: "text-black",
+    text: "text-white",
     border: "border-track-leverages",
     cssVar: "var(--track-leverages)",
   },
