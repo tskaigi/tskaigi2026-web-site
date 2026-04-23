@@ -5,6 +5,7 @@ import type {
   SessionTrack,
   TrackKey,
 } from "@/types/timetable-api";
+import { myTimetable } from "@/utils/myTimetable";
 import { timetableList } from "./timetable";
 
 export const EVENT_DATES: EventDate[] = ["Day1", "Day2"];
@@ -21,7 +22,7 @@ export const TRACK_STYLE: Record<
 > = {
   LEVERAGES: {
     bg: "bg-track-leverages",
-    text: "text-black",
+    text: "text-white",
     border: "border-track-leverages",
     cssVar: "var(--track-leverages)",
   },
@@ -62,17 +63,6 @@ export type Talk = SessionSummary & {
   time: string;
 };
 
-function formatTimestamp(ts: number): string {
-  const d = new Date(ts * 1000);
-  const h = d.getHours().toString().padStart(2, "0");
-  const m = d.getMinutes().toString().padStart(2, "0");
-  return `${h}:${m}`;
-}
-
-function formatTimeRange(slot: IndividualSlot): string {
-  return `${formatTimestamp(slot.startTime)} 〜 ${formatTimestamp(slot.endTime)}`;
-}
-
 function findSpanGroup(
   day: (typeof timetableList)[number],
   slot: IndividualSlot,
@@ -95,8 +85,8 @@ export const talkList: Talk[] = timetableList.flatMap((day) =>
         if (content.type !== "session") return [];
         const span = findSpanGroup(day, slot, trackKey);
         const time = span
-          ? `${formatTimestamp(span.startTime)} 〜 ${formatTimestamp(span.endTime)}`
-          : formatTimeRange(slot);
+          ? myTimetable.formatTimeRange(span.startTime, span.endTime)
+          : myTimetable.formatTimeRange(slot.startTime, slot.endTime);
         return content.sessions.map((session) => ({
           ...session,
           eventDate: day.day,
