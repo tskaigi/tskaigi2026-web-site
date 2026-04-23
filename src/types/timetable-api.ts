@@ -36,7 +36,7 @@ export type OverrideTrack = {
   type: "override";
 };
 
-export type SessionKey = "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR";
+export type SessionKey = "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR" | "HANDSON";
 
 export type SessionTrack = {
   type: "session";
