@@ -1,4 +1,4 @@
-import { normalizeIds } from "@/utils/myTimetable/ids";
+import { normalizeIds } from "./normalizeIds";
 
 function decodeMyTimetableToken(token: string) {
   if (token.trim().length === 0) return [];

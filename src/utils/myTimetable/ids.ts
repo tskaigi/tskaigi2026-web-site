@@ -1,9 +1,11 @@
 import { talkList } from "@/constants/timetable";
+import { myTimetableQuery } from "@/utils/myTimetable/query";
 import {
   myTimetable,
   parseTalkTimeToMinutes,
   type TalkWithMinutes,
 } from "@/utils/myTimetable/time";
+import { normalizeIds } from "./normalizeIds";
 
 const STORAGE_KEYS = {
   timetable: "tskaigi:my-timetable-talk-ids",
@@ -11,11 +13,6 @@ const STORAGE_KEYS = {
 } as const;
 
 type StorageKeyType = (typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS];
-
-export function normalizeIds(ids: string[]) {
-  const talkIds = new Set(talkList.map((talk) => talk.id));
-  return Array.from(new Set(ids)).filter((id) => talkIds.has(id));
-}
 
 function readStorageIds(key: StorageKeyType): string[] {
   const raw = localStorage.getItem(key);
@@ -30,8 +27,27 @@ function readStorageIds(key: StorageKeyType): string[] {
   }
 }
 
+function syncQueryParams() {
+  if (typeof window === "undefined") return;
+  const ids = readStorageIds(STORAGE_KEYS.timetable);
+  const participatedIds = readStorageIds(STORAGE_KEYS.participated);
+  const tokens = myTimetableQuery.encode(ids, participatedIds);
+  const params = new URLSearchParams(window.location.search);
+  params.delete("m");
+  params.delete("p");
+  if (tokens.m) params.set("m", tokens.m);
+  if (tokens.p) params.set("p", tokens.p);
+  const query = params.toString();
+  const url =
+    query.length > 0
+      ? `${window.location.pathname}?${query}`
+      : window.location.pathname;
+  window.history.replaceState(null, "", url);
+}
+
 function writeStorageIds(key: StorageKeyType, ids: string[]) {
   localStorage.setItem(key, JSON.stringify(normalizeIds(ids)));
+  syncQueryParams();
 }
 
 export const myTimetableIds = {
