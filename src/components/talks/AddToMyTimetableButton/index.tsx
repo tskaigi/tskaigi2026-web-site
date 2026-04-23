@@ -1,10 +1,9 @@
 "use client";
 
-import { AlertTriangle, Plus, X } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { showAppToast } from "@/components/ui/GlobalToast";
-import { HANDSON_IDS, isHandsonId } from "@/constants/timetable";
 import {
   findOverlaps,
   myTimetableIds,
@@ -13,10 +12,15 @@ import {
 
 type Props = {
   talkId: string;
-  iconOnly?: boolean;
+  talkIds?: string[];
+  withCheckbox?: boolean;
 };
 
-export function AddToMyTimetableButton({ talkId, iconOnly = false }: Props) {
+export function AddToMyTimetableButton({
+  talkId,
+  talkIds,
+  withCheckbox = false,
+}: Props) {
   const [storedIds, setStoredIds] = useState<string[]>([]);
   const [overlaps, setOverlaps] = useState<TalkWithMinutes[]>([]);
 
@@ -33,19 +37,18 @@ export function AddToMyTimetableButton({ talkId, iconOnly = false }: Props) {
     };
   }, []);
 
+  const resolvedIds: readonly string[] = talkIds ?? [talkId];
+
   const isAdded = useMemo(
-    () => storedIds.includes(talkId),
-    [storedIds, talkId],
+    () => resolvedIds.every((id) => storedIds.includes(id)),
+    [storedIds, resolvedIds],
   );
 
   const closeOverlapDialog = () => {
     setOverlaps([]);
   };
 
-  // ハンズオンの場合に追加/削除する全IDを返す
-  const idsToToggle = isHandsonId(talkId)
-    ? (HANDSON_IDS as readonly string[])
-    : [talkId];
+  const idsToToggle = resolvedIds;
 
   const addWithoutOverlapResolution = () => {
     const nextIds = Array.from(
@@ -145,25 +148,20 @@ export function AddToMyTimetableButton({ talkId, iconOnly = false }: Props) {
     </div>
   );
 
-  if (iconOnly) {
+  if (withCheckbox) {
     return (
       <>
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={handleClick}
-          data-talk-id={talkId}
-          aria-label={
-            isAdded ? "マイタイムテーブルから削除" : "マイタイムテーブルに追加"
-          }
-          title={
-            isAdded ? "マイタイムテーブルから削除" : "マイタイムテーブルに追加"
-          }
-        >
-          {isAdded ? <X size={16} /> : <Plus size={16} />}
-          {isAdded ? "削除" : "追加"}
-        </Button>
+        <label className="flex items-center gap-1 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={isAdded}
+            onChange={handleClick}
+            className="accent-blue-purple-500 w-4 h-4"
+          />
+          <span className="text-xs text-black-600">
+            {isAdded ? "登録済み" : "参加登録"}
+          </span>
+        </label>
         {overlapDialog}
       </>
     );

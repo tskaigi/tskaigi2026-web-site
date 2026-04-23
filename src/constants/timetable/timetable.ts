@@ -202,7 +202,17 @@ const day1: TimetableResponse = {
             },
           ],
         },
-        RIGHTTOUCH: { type: "other", label: "ハンズオン" },
+        RIGHTTOUCH: {
+          type: "session",
+          sessionType: "HANDSON",
+          sessions: [
+            {
+              id: "76",
+              title: "ハンズオン",
+              speaker: { name: "" },
+            },
+          ],
+        },
       },
     },
     // 14:10–14:20 休憩 + ハンズオン
@@ -269,7 +279,7 @@ const day1: TimetableResponse = {
             },
           ],
         },
-        RIGHTTOUCH: { type: "other", label: "ハンズオン" },
+        RIGHTTOUCH: { type: "override" },
       },
     },
     // 14:50–15:10 休憩 + ハンズオン
@@ -312,7 +322,7 @@ const day1: TimetableResponse = {
             },
           ],
         },
-        RIGHTTOUCH: { type: "other", label: "ハンズオン" },
+        RIGHTTOUCH: { type: "override" },
       },
     },
     // 15:40–15:50 休憩

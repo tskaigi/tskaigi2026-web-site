@@ -4,7 +4,7 @@
 // import Link from "next/link";
 import { Copy } from "lucide-react";
 import React, { useMemo, useRef, useState } from "react";
-// import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
+import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
 // TODO: プロフィールアイコンが用意でき次第有効化
 // import { ProfileImage } from "@/components/talks/FallbackImage";
 import { Button } from "@/components/ui/button";
@@ -265,7 +265,14 @@ function SessionCell({
         {trackName}
       </div>
       <TriangleBadge cssVar={style.cssVar} />
-      <SessionTypeLabel sessionType={content.sessionType} />
+      <div className="flex items-center justify-between w-full">
+        <SessionTypeLabel sessionType={content.sessionType} />
+        <AddToMyTimetableButton
+          talkId={content.sessions[0].id}
+          talkIds={content.sessions.map((s) => s.id)}
+          withCheckbox
+        />
+      </div>
       <div className="flex flex-col gap-5">
         {content.sessions.map((session) => (
           <div key={session.id} className="flex flex-col gap-1">
@@ -289,9 +296,6 @@ function SessionCell({
               </div>
               */}
             </div>
-            {/* <div className="mt-1">
-              <AddToMyTimetableButton talkId={session.id} iconOnly />
-            </div> */}
           </div>
         ))}
       </div>
@@ -446,6 +450,11 @@ function SpanGroupSection({
 
                 const span = spanCells.get(cellKey);
                 if (span) {
+                  const spanContent = slot.tracks[key];
+                  const spanSessionId =
+                    spanContent.type === "session"
+                      ? spanContent.sessions[0]?.id
+                      : undefined;
                   return (
                     <div
                       key={key}
@@ -456,6 +465,12 @@ function SpanGroupSection({
                     >
                       <TriangleBadge cssVar={TRACK_STYLE[key].cssVar} />
                       {span.label}
+                      {spanSessionId && (
+                        <AddToMyTimetableButton
+                          talkId={spanSessionId}
+                          withCheckbox
+                        />
+                      )}
                     </div>
                   );
                 }

@@ -47,26 +47,13 @@ export const TALK_TYPE: Record<
   LONG: { name: "30分セッション", color: "#0C7EDC" },
   SHORT: { name: "10分セッション", color: "#c3620f" },
   SPONSOR: { name: "スポンサーセッション", color: "#E53D84" },
+  HANDSON: { name: "ハンズオン", color: "#6B21A8" },
 };
 
-/** ハンズオンは3枠セットで追加/削除する */
-export const HANDSON_IDS = ["handson-1", "handson-2", "handson-3"] as const;
+export const HANDSON_ID = "76";
 
 export function isHandsonId(id: string): boolean {
-  return HANDSON_IDS.some((v) => v === id);
-}
-
-/** ハンズオンIDを含む場合、3枠すべてを含むIDリストを返す */
-export function expandHandsonIds(ids: string[]): string[] {
-  const hasHandson = ids.some(isHandsonId);
-  if (!hasHandson) return ids;
-  const withoutHandson = ids.filter((id) => !isHandsonId(id));
-  return [...withoutHandson, ...HANDSON_IDS];
-}
-
-/** ハンズオンIDを含む場合、3枠すべてを除外したIDリストを返す */
-export function removeHandsonIds(ids: string[]): string[] {
-  return ids.filter((id) => !isHandsonId(id));
+  return id === HANDSON_ID;
 }
 
 export type Talk = SessionSummary & {
@@ -86,6 +73,19 @@ function formatTimeRange(slot: IndividualSlot): string {
   return `${formatTimestamp(slot.startTime)} 〜 ${formatTimestamp(slot.endTime)}`;
 }
 
+function findSpanGroup(
+  day: (typeof timetableList)[number],
+  slot: IndividualSlot,
+  trackKey: TrackKey,
+) {
+  return day.spanGroups?.find(
+    (g) =>
+      g.tracks.includes(trackKey) &&
+      slot.startTime >= g.startTime &&
+      slot.endTime <= g.endTime,
+  );
+}
+
 export const talkList: Talk[] = timetableList.flatMap((day) =>
   day.slots
     .filter((slot): slot is IndividualSlot => slot.slotType === "individual")
@@ -93,11 +93,15 @@ export const talkList: Talk[] = timetableList.flatMap((day) =>
       TRACK_KEYS.flatMap((trackKey) => {
         const content = slot.tracks[trackKey];
         if (content.type !== "session") return [];
+        const span = findSpanGroup(day, slot, trackKey);
+        const time = span
+          ? `${formatTimestamp(span.startTime)} 〜 ${formatTimestamp(span.endTime)}`
+          : formatTimeRange(slot);
         return content.sessions.map((session) => ({
           ...session,
           eventDate: day.day,
           track: trackKey,
-          time: formatTimeRange(slot),
+          time,
         }));
       }),
     ),
