@@ -198,22 +198,62 @@ function getPositionedTalks(talks: TalkWithMinutes[]): PositionedTalk[] {
     active.push({ id: talk.id, end: talk.endMinutes, column: nextColumn });
   }
 
-  return sorted.map((talk) => {
-    const overlaps = sorted.filter(
-      (other) =>
-        other.eventDate === talk.eventDate &&
-        other.startMinutes < talk.endMinutes &&
-        talk.startMinutes < other.endMinutes,
+  const directOverlaps = new Map<string, string[]>();
+  for (const talk of sorted) {
+    directOverlaps.set(
+      talk.id,
+      sorted
+        .filter(
+          (other) =>
+            other.eventDate === talk.eventDate &&
+            other.startMinutes < talk.endMinutes &&
+            talk.startMinutes < other.endMinutes,
+        )
+        .map((t) => t.id),
     );
+  }
 
-    const maxColumn = Math.max(
-      ...overlaps.map((item) => columnById.get(item.id) ?? 0),
-      0,
-    );
+  const ufParent = new Map<string, string>();
+  const find = (x: string): string => {
+    if (!ufParent.has(x)) ufParent.set(x, x);
+    const p = ufParent.get(x) ?? x;
+    if (p !== x) {
+      const root = find(p);
+      ufParent.set(x, root);
+      return root;
+    }
+    return x;
+  };
+  const union = (a: string, b: string) => {
+    ufParent.set(find(a), find(b));
+  };
+
+  for (const [id, neighbors] of directOverlaps) {
+    for (const n of neighbors) {
+      union(id, n);
+    }
+  }
+
+  const maxColumnByRoot = new Map<string, number>();
+  for (const talk of sorted) {
+    const root = find(talk.id);
+    const col = columnById.get(talk.id) ?? 0;
+    maxColumnByRoot.set(root, Math.max(maxColumnByRoot.get(root) ?? 0, col));
+  }
+
+  const talkById = new Map(sorted.map((t) => [t.id, t]));
+
+  return sorted.map((talk) => {
+    const root = find(talk.id);
+    const maxColumn = maxColumnByRoot.get(root) ?? 0;
+    const neighbors = directOverlaps.get(talk.id) ?? [];
 
     const hasCrossTrackOverlap =
-      overlaps.length > 1 &&
-      overlaps.some((other) => other.track !== talk.track);
+      neighbors.length > 1 &&
+      neighbors.some((nId) => {
+        const other = talkById.get(nId);
+        return other && other.track !== talk.track;
+      });
 
     return {
       ...talk,

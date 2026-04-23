@@ -73,6 +73,19 @@ function formatTimeRange(slot: IndividualSlot): string {
   return `${formatTimestamp(slot.startTime)} 〜 ${formatTimestamp(slot.endTime)}`;
 }
 
+function findSpanGroup(
+  day: (typeof timetableList)[number],
+  slot: IndividualSlot,
+  trackKey: TrackKey,
+) {
+  return day.spanGroups?.find(
+    (g) =>
+      g.tracks.includes(trackKey) &&
+      slot.startTime >= g.startTime &&
+      slot.endTime <= g.endTime,
+  );
+}
+
 export const talkList: Talk[] = timetableList.flatMap((day) =>
   day.slots
     .filter((slot): slot is IndividualSlot => slot.slotType === "individual")
@@ -80,11 +93,15 @@ export const talkList: Talk[] = timetableList.flatMap((day) =>
       TRACK_KEYS.flatMap((trackKey) => {
         const content = slot.tracks[trackKey];
         if (content.type !== "session") return [];
+        const span = findSpanGroup(day, slot, trackKey);
+        const time = span
+          ? `${formatTimestamp(span.startTime)} 〜 ${formatTimestamp(span.endTime)}`
+          : formatTimeRange(slot);
         return content.sessions.map((session) => ({
           ...session,
           eventDate: day.day,
           track: trackKey,
-          time: formatTimeRange(slot),
+          time,
         }));
       }),
     ),
