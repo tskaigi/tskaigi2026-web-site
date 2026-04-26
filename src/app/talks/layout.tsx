@@ -11,12 +11,14 @@ export const metadata: Metadata = {
       template: "%s | TSKaigi 2026",
       default: "タイムテーブル",
     },
+    images: ["/timetable-ogp.png"],
   },
   openGraph: {
     title: {
       template: "%s | TSKaigi 2026",
       default: "タイムテーブル",
     },
+    images: ["/timetable-ogp.png"],
   },
 };
 
