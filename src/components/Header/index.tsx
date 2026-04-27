@@ -17,8 +17,7 @@ const links: {
   href: string;
   label: string;
 }[] = [
-  // TODO: activate later
-  // { href: "/talks", label: "タイムテーブル" },
+  { href: "/talks", label: "タイムテーブル" },
   { href: "/sponsors", label: "スポンサー" },
   { href: "/side-events", label: "サイドイベント" },
   // { href: "/venue", label: "会場図" },

@@ -23,10 +23,10 @@ export const TRACK: Record<TrackKey, Track> = {
   },
 };
 
+/** 2026-05-22T00:00:00+09:00 in unix seconds */
+const DAY1_BASE = 1779375600;
 /** 2026-05-23T00:00:00+09:00 in unix seconds */
-const DAY1_BASE = 1779462000;
-/** 2026-05-24T00:00:00+09:00 in unix seconds */
-const DAY2_BASE = 1779548400;
+const DAY2_BASE = 1779462000;
 
 /** HH:MM → unix timestamp (seconds) */
 const d1 = (h: number, m: number) => DAY1_BASE + h * 3600 + m * 60;
@@ -34,7 +34,7 @@ const d2 = (h: number, m: number) => DAY2_BASE + h * 3600 + m * 60;
 
 const day1: TimetableResponse = {
   day: "Day1",
-  date: "2026-05-23",
+  date: "2026-05-22",
   tracks: Object.values(TRACK),
   slots: [
     // 10:00–10:40 一般開場
@@ -85,8 +85,9 @@ const day1: TimetableResponse = {
           sessions: [
             {
               id: "2",
-              title: "「関数型プログラミング」を分解する.ts",
-              speaker: { name: "おーみー" },
+              title:
+                "開発体験を左右するライブラリの API 設計 ― GraphQL スキーマ構築ライブラリから考える",
+              speaker: { name: "izumin5210" },
             },
           ],
         },
@@ -96,9 +97,8 @@ const day1: TimetableResponse = {
           sessions: [
             {
               id: "3",
-              title:
-                "開発体験を左右するライブラリの API 設計 ― GraphQL スキーマ構築ライブラリから考える",
-              speaker: { name: "izumin5210" },
+              title: "「関数型プログラミング」を分解する.ts",
+              speaker: { name: "おーみー" },
             },
           ],
         },
@@ -207,20 +207,24 @@ const day1: TimetableResponse = {
           sessionType: "HANDSON",
           sessions: [
             {
-              id: "handson-1",
-              title: "ハンズオン（前半）",
+              id: "76",
+              title: "ハンズオン",
               speaker: { name: "" },
             },
           ],
         },
       },
     },
-    // 14:10–14:20 休憩
+    // 14:10–14:20 休憩 + ハンズオン
     {
-      slotType: "shared",
+      slotType: "individual",
       startTime: d1(14, 10),
       endTime: d1(14, 20),
-      label: "休憩",
+      tracks: {
+        LEVERAGES: { type: "other", label: "休憩", compact: true },
+        UPSIDER: { type: "other", label: "休憩", compact: true },
+        RIGHTTOUCH: { type: "override" },
+      },
     },
     // 14:20–14:50 SHORT x3 (Track1/Track2) + ハンズオン
     {
@@ -275,25 +279,19 @@ const day1: TimetableResponse = {
             },
           ],
         },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "HANDSON",
-          sessions: [
-            {
-              id: "handson-2",
-              title: "ハンズオン（中盤）",
-              speaker: { name: "" },
-            },
-          ],
-        },
+        RIGHTTOUCH: { type: "override" },
       },
     },
-    // 14:50–15:10 休憩
+    // 14:50–15:10 休憩 + ハンズオン
     {
-      slotType: "shared",
+      slotType: "individual",
       startTime: d1(14, 50),
       endTime: d1(15, 10),
-      label: "休憩",
+      tracks: {
+        LEVERAGES: { type: "other", label: "休憩", compact: true },
+        UPSIDER: { type: "other", label: "休憩", compact: true },
+        RIGHTTOUCH: { type: "override" },
+      },
     },
     // 15:10–15:40 LONG x2 + ハンズオン
     {
@@ -324,17 +322,7 @@ const day1: TimetableResponse = {
             },
           ],
         },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "HANDSON",
-          sessions: [
-            {
-              id: "handson-3",
-              title: "ハンズオン（後半）",
-              speaker: { name: "" },
-            },
-          ],
-        },
+        RIGHTTOUCH: { type: "override" },
       },
     },
     // 15:40–15:50 休憩
@@ -491,7 +479,7 @@ const day1: TimetableResponse = {
               id: "29",
               title:
                 "Oxlintはいかにしてtsgolintのlint ruleを呼び出しているのか",
-              speaker: { name: "hakshu" },
+              speaker: { name: "syumai" },
             },
           ],
         },
@@ -542,17 +530,17 @@ const day1: TimetableResponse = {
         },
       },
     },
-    // 17:50–18:00 休憩
+    // 17:50–18:10 休憩
     {
       slotType: "shared",
       startTime: d1(17, 50),
-      endTime: d1(18, 0),
+      endTime: d1(18, 10),
       label: "休憩",
     },
-    // 18:00–18:50 KEYNOTE / サテライト / クローズ
+    // 18:10–18:50 KEYNOTE / サテライト / クローズ
     {
       slotType: "individual",
-      startTime: d1(18, 0),
+      startTime: d1(18, 10),
       endTime: d1(18, 50),
       tracks: {
         LEVERAGES: {
@@ -571,11 +559,19 @@ const day1: TimetableResponse = {
       },
     },
   ],
+  spanGroups: [
+    {
+      tracks: ["RIGHTTOUCH"],
+      label: "ハンズオン",
+      startTime: d1(13, 40),
+      endTime: d1(15, 40),
+    },
+  ],
 };
 
 const day2: TimetableResponse = {
   day: "Day2",
-  date: "2026-05-24",
+  date: "2026-05-23",
   tracks: Object.values(TRACK),
   slots: [
     // 10:00–10:40 一般開場
@@ -736,12 +732,12 @@ const day2: TimetableResponse = {
       endTime: d2(12, 30),
       label: "ランチ配布",
     },
-    // 12:30–13:30 ランチ
+    // 12:30–13:30 ランチ/スポンサーセッション
     {
       slotType: "shared",
       startTime: d2(12, 30),
       endTime: d2(13, 30),
-      label: "ランチ",
+      label: "ランチ/スポンサーセッション",
     },
     // 13:30–13:40 休憩
     {
@@ -1082,8 +1078,8 @@ const day2: TimetableResponse = {
       startTime: d2(18, 30),
       endTime: d2(18, 40),
       tracks: {
-        LEVERAGES: { type: "other", label: "懇親会準備" },
-        UPSIDER: { type: "other", label: "懇親会準備" },
+        LEVERAGES: { type: "override" },
+        UPSIDER: { type: "override" },
         RIGHTTOUCH: { type: "closed" },
       },
     },
@@ -1097,6 +1093,14 @@ const day2: TimetableResponse = {
         UPSIDER: { type: "other", label: "懇親会" },
         RIGHTTOUCH: { type: "closed" },
       },
+    },
+  ],
+  spanGroups: [
+    {
+      tracks: ["LEVERAGES", "UPSIDER"],
+      label: "懇親会準備",
+      startTime: d2(17, 20),
+      endTime: d2(18, 40),
     },
   ],
 };

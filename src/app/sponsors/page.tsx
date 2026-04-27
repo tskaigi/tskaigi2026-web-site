@@ -9,9 +9,11 @@ export const metadata: Metadata = {
   title: "スポンサー",
   twitter: {
     title: "スポンサー",
+    images: ["/sponsors-ogp.png"],
   },
   openGraph: {
     title: "スポンサー",
+    images: ["/sponsors-ogp.png"],
   },
 };
 

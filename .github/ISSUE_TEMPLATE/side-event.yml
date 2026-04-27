@@ -39,8 +39,8 @@ body:
     id: date
     attributes:
       label: 開催日
-      description: YYYY-MM-DD形式で入力してください（自動的に「5/23 (金)」形式に変換されます）
-      placeholder: "2026-05-23"
+      description: YYYY-MM-DD形式で入力してください（自動的に「5/22 (金)」形式に変換されます）
+      placeholder: "2026-05-22"
     validations:
       required: true
 

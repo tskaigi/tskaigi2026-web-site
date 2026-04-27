@@ -3,9 +3,9 @@
 @import "./theme.css";
 
 :root {
-  --track-leverages: #0cf8c0;
-  --track-upsider: #005faa;
-  --track-righttouch: #000000;
+  --track-leverages: #26919f;
+  --track-upsider: #000000;
+  --track-righttouch: #ff4a56;
 
   --white: #ffffff;
 

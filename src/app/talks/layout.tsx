@@ -3,20 +3,22 @@ import { TourWrapper } from "@/components/talks/Tour";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | TSKaigi 2025",
+    template: "%s | TSKaigi 2026",
     default: "タイムテーブル",
   },
   twitter: {
     title: {
-      template: "%s | TSKaigi 2025",
+      template: "%s | TSKaigi 2026",
       default: "タイムテーブル",
     },
+    images: ["/timetable-ogp.png"],
   },
   openGraph: {
     title: {
-      template: "%s | TSKaigi 2025",
+      template: "%s | TSKaigi 2026",
       default: "タイムテーブル",
     },
+    images: ["/timetable-ogp.png"],
   },
 };
 

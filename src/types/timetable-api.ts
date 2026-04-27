@@ -29,6 +29,11 @@ export type ClosedTrack = {
 export type OtherTrack = {
   type: "other";
   label: string;
+  compact?: boolean;
+};
+
+export type OverrideTrack = {
+  type: "override";
 };
 
 export type SessionKey = "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR" | "HANDSON";
@@ -39,7 +44,11 @@ export type SessionTrack = {
   sessions: SessionSummary[];
 };
 
-export type TrackContent = ClosedTrack | OtherTrack | SessionTrack;
+export type TrackContent =
+  | ClosedTrack
+  | OtherTrack
+  | OverrideTrack
+  | SessionTrack;
 
 export type SharedSlot = {
   slotType: "shared";
@@ -55,7 +64,14 @@ export type IndividualSlot = {
   tracks: Record<TrackKey, TrackContent>;
 };
 
-type Slot = SharedSlot | IndividualSlot;
+export type Slot = SharedSlot | IndividualSlot;
+
+export type SpanGroup = {
+  tracks: TrackKey[];
+  label: string;
+  startTime: number;
+  endTime: number;
+};
 
 export type EventDate = "Day1" | "Day2";
 
@@ -64,6 +80,7 @@ export type TimetableResponse = {
   date: string;
   tracks: Track[];
   slots: Slot[];
+  spanGroups?: SpanGroup[];
 };
 
 export type TimetableListResponse = TimetableResponse[];

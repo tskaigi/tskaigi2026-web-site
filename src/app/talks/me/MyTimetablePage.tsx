@@ -11,8 +11,9 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { TalkDetailDrawer } from "@/components/talks/TalkDetailDrawer";
 import { TimelineColumn } from "@/components/talks/TimelineColumn";
 import {
   DesktopTimelineLayout,
@@ -21,12 +22,7 @@ import {
 import { StartTourButton } from "@/components/talks/Tour";
 import { Button } from "@/components/ui/button";
 import { showAppToast } from "@/components/ui/GlobalToast";
-import {
-  HANDSON_IDS,
-  isHandsonId,
-  TRACK,
-  TRACK_STYLE,
-} from "@/constants/timetable";
+import { TRACK, TRACK_STYLE } from "@/constants/timetable";
 import type { EventDate } from "@/types/timetable-api";
 import { Input } from "@/ui/input";
 import {
@@ -586,8 +582,6 @@ function TalkSearchPanel({
 }
 
 export default function MyTimetablePage() {
-  const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -598,6 +592,7 @@ export default function MyTimetablePage() {
   const [overlapState, setOverlapState] = useState<OverlapState>(null);
   const [isClearConfirmOpen, setIsClearConfirmOpen] = useState(false);
   const [isQrOpen, setIsQrOpen] = useState(false);
+  const [drawerTalk, setDrawerTalk] = useState<TalkWithMinutes | null>(null);
   const allTalksWithMinutes = useMemo(
     () => myTimetable.getAllTalksWithMinutes(),
     [],
@@ -633,45 +628,13 @@ export default function MyTimetablePage() {
     }
   }, [searchParams, hasQueryIds, isInitialized]);
 
-  const updateQuery = (
-    ids: string[],
-    participated: string[] = participatedIds,
-  ) => {
-    const next = new URLSearchParams(searchParams.toString());
-    next.delete("m");
-    next.delete("p");
-
-    const tokens = myTimetableQuery.encode(ids, participated);
-    if (tokens.m) {
-      next.set("m", tokens.m);
-    }
-    if (tokens.p) {
-      next.set("p", tokens.p);
-    }
-
-    const query = next.toString();
-    router.replace(query.length > 0 ? `${pathname}?${query}` : pathname);
-  };
-
   const addTalk = (id: string) => {
-    // ハンズオンは3枠セットで追加
-    const idsToAdd = isHandsonId(id)
-      ? (HANDSON_IDS as readonly string[]).filter(
-          (hid) => !selectedIds.includes(hid),
-        )
-      : [id];
-    if (idsToAdd.length === 0) return;
+    if (selectedIds.includes(id)) return;
 
     const targetTalk = allTalksWithMinutes.find((talk) => talk.id === id);
     if (!targetTalk) return;
 
-    // ハンズオンは全枠まとめて重複チェック
-    const allOverlaps = idsToAdd.flatMap((aid) =>
-      findOverlaps(aid, selectedIds),
-    );
-    const uniqueOverlaps = allOverlaps.filter(
-      (talk, i, arr) => arr.findIndex((t) => t.id === talk.id) === i,
-    );
+    const uniqueOverlaps = findOverlaps(id, selectedIds);
     const hasCrossTrackOverlap = uniqueOverlaps.some(
       (talk) => talk.track !== targetTalk.track,
     );
@@ -682,11 +645,10 @@ export default function MyTimetablePage() {
       return;
     }
 
-    const next = Array.from(new Set([...selectedIds, ...idsToAdd]));
+    const next = [...selectedIds, id];
     setSelectedIds(next);
     myTimetableIds.write(next);
     window.dispatchEvent(new Event("my-timetable-updated"));
-    updateQuery(next);
     showAppToast("マイタイムテーブルに追加しました");
   };
 
@@ -694,49 +656,31 @@ export default function MyTimetablePage() {
     if (!overlapState) return;
 
     const targetId = overlapState.targetTalk.id;
-    // ハンズオンは3枠セットで追加
-    const idsToAdd = isHandsonId(targetId)
-      ? (HANDSON_IDS as readonly string[]).filter(
-          (hid) => !selectedIds.includes(hid),
-        )
-      : [targetId];
-
-    if (idsToAdd.length === 0) {
-      setOverlapState(null);
-      return;
-    }
-
-    const next = Array.from(new Set([...selectedIds, ...idsToAdd]));
+    const next = Array.from(new Set([...selectedIds, targetId]));
     setSelectedIds(next);
     myTimetableIds.write(next);
     window.dispatchEvent(new Event("my-timetable-updated"));
-    updateQuery(next);
     setOverlapState(null);
     showAppToast("マイタイムテーブルに追加しました");
   };
 
   const removeTalk = (id: string) => {
-    // ハンズオンは3枠セットで削除
-    const idsToRemove: readonly string[] = isHandsonId(id) ? HANDSON_IDS : [id];
-    const removeSet = new Set(idsToRemove);
-    const nextParticipated = participatedIds.filter(
-      (pid) => !removeSet.has(pid),
-    );
-    const next = selectedIds.filter((currentId) => !removeSet.has(currentId));
+    const nextParticipated = participatedIds.filter((pid) => pid !== id);
+    const next = selectedIds.filter((currentId) => currentId !== id);
     setParticipatedIds(nextParticipated);
     setSelectedIds(next);
     myTimetableIds.write(next);
+    myParticipatedIds.write(nextParticipated);
     window.dispatchEvent(new Event("my-timetable-updated"));
-    updateQuery(next, nextParticipated);
     showAppToast("マイタイムテーブルから削除しました");
   };
 
   const resetTalks = () => {
     setSelectedIds([]);
     myTimetableIds.write([]);
+    myParticipatedIds.write([]);
     window.dispatchEvent(new Event("my-timetable-updated"));
     showAppToast("マイタイムテーブルをリセットしました");
-    updateQuery([], []);
   };
 
   const handleClickTimeSlot = (eventDate: EventDate, minutes: number) =>
@@ -811,6 +755,7 @@ export default function MyTimetablePage() {
                 participatedIds={participatedIds}
                 onClickTimeSlot={handleClickTimeSlot}
                 onRemoveTalk={removeTalk}
+                onTalkClick={setDrawerTalk}
               />
             </MobileTimelineLayout>
           </div>
@@ -825,6 +770,7 @@ export default function MyTimetablePage() {
                   participatedIds={participatedIds}
                   onClickTimeSlot={handleClickTimeSlot}
                   onRemoveTalk={removeTalk}
+                  onTalkClick={setDrawerTalk}
                 />
               }
               day2Column={
@@ -834,6 +780,7 @@ export default function MyTimetablePage() {
                   participatedIds={participatedIds}
                   onClickTimeSlot={handleClickTimeSlot}
                   onRemoveTalk={removeTalk}
+                  onTalkClick={setDrawerTalk}
                 />
               }
             />
@@ -882,6 +829,8 @@ export default function MyTimetablePage() {
       >
         <Link href="/talks">タイムテーブルへ</Link>
       </Button>
+
+      <TalkDetailDrawer talk={drawerTalk} onClose={() => setDrawerTalk(null)} />
     </main>
   );
 }
