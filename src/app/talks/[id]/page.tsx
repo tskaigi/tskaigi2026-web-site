@@ -110,7 +110,7 @@ export default async function TalkDetailPage({
         {/* トーク説明文 */}
         <div className="px-6 md:px-8 lg:px-10 gap-6 flex flex-col md:text-lg">
           <Markdown components={components} remarkPlugins={[remarkBreaks]}>
-            {session.overview ?? "（概要は後日公開予定です）"}
+            {session.overview || "（概要は後日公開予定です）"}
           </Markdown>
         </div>
 

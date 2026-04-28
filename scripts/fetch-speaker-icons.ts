@@ -127,6 +127,12 @@ async function main(force: boolean) {
     const { speaker } = entry;
     const manifestEntry = nextManifest[entry.speakerId];
 
+    if (!speaker.profileImageUrl.startsWith("/speakers/")) {
+      skipped++;
+      console.log(`⏭️  skip: ${speaker.name} — 外部管理画像`);
+      continue;
+    }
+
     if (!speaker.userIcon) {
       skipped++;
       console.log(`⏭️  skip: ${speaker.name} — アイコン情報なし`);

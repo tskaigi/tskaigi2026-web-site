@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export function OgpImage({ id, title }: { id: string; title: string }) {
   const [hasError, setHasError] = useState(false);
-  const src = hasError ? "/key-visual-2026.svg" : `/ogp/talks/${id}.png`;
+  const src = hasError ? "/key-visual-2026.svg" : `/talks/${id}.png`;
 
   return (
     <Image

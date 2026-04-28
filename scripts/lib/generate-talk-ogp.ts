@@ -323,6 +323,7 @@ export async function generateTalkOgpImage(
     await Promise.all([
       loadImageAsBuffer(input.baseImagePath),
       sharp(await loadImageAsBuffer(input.profileImagePath))
+        .resize(200, 200, { fit: "cover" })
         .png()
         .toBuffer(),
       measureRenderedTextWidth(input.speakerName, 29, "bold"),

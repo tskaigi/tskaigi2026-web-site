@@ -2,6 +2,7 @@ import fs from "node:fs";
 import type { SpeakerSource } from "./types";
 
 const SPEAKERS_JSON = "scripts/data/speakers.json";
+const KEYNOTE_JSON = "scripts/data/keynote.json";
 const SESSION_MASTER_JSON = "scripts/data/session-master.json";
 
 function main() {
@@ -25,6 +26,21 @@ function main() {
       },
     }),
   );
+
+  if (fs.existsSync(KEYNOTE_JSON)) {
+    const keynote: SpeakerSource = JSON.parse(
+      fs.readFileSync(KEYNOTE_JSON, "utf-8"),
+    );
+    renamed.push({
+      speakerId: keynote.id,
+      title: keynote.title,
+      overview: keynote.overview,
+      speaker: {
+        ...keynote.speaker,
+        profileImageUrl: keynote.speaker.profileImageUrl,
+      },
+    });
+  }
 
   fs.writeFileSync(
     SESSION_MASTER_JSON,
