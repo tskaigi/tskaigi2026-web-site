@@ -14,7 +14,7 @@ export const NewsSection = () => {
           >
             タイムテーブル
           </Link>
-          公開
+          を公開しました
         </div>
         <div>2026.04.18. </div>
         <div>チケット販売第二弾を開始しました</div>
