@@ -1,0 +1,1682 @@
+[
+  {
+    "id": "yuki-terashima",
+    "title": "TanStack StartのcreateServerFnで作る、型が通るAPI",
+    "overview": "TanStack StartのcreateServerFnを用いることで、フロントエンドとバックエンドの境界を越えて型安全なアプリケーションを構築できます。\r\n\r\n一方で、公式ドキュメントやサンプルを読んでも、設計の意図や使い分けの判断基準が分かりづらく、どのように活用すればよいか迷う場面も少なくありません。\r\n\r\n本セッションでは、最小構成のサンプルをもとにcreateServerFnを用いた型安全なAPI設計の基本パターンと、実装時に陥りやすい落とし穴を整理します。\r\n\r\nさらに、TanStack Startのloaderやスキーマ設計との連携を通じて、型が通る状態を継続的に維持するための実践的な指針を紹介します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Yuki Terashima",
+      "userIcon": "x",
+      "profileImageUrl": "/yuki-terashima.jpg",
+      "bio": "フリーランスのWebエンジニア。React / TypeScriptを用いたWebアプリケーション開発に従事。フロントエンドのアーキテクチャや型安全な設計に関心が深い。XやZennでWebフロントエンド技術の知見を発信している。",
+      "xId": "y_temp4",
+      "githubId": "y-temp4",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/yt4",
+      "noteLink": "",
+      "additionalLink": "https://y-temp4.com/",
+      "affiliation": "",
+      "position": ""
+    }
+  },
+  {
+    "id": "infixer",
+    "title": "inferと仲良くなる10分間",
+    "overview": "私が最初にinferと出会ったのは、type-challengesの初級に取り掛かったときです。\r\ntype-challengesではこの他にも様々な型を覚えることができますが、今回はinferに絞って紹介します。\r\n\r\n普段フロントエンドエンジニアをしていると、あまりinferを使うことはそう多くないのではないでしょうか。自分もその一人です。\r\n\r\nこのトークでは、infer を「型のパターンマッチにおける変数束縛」という1つのメンタルモデルで捉え直し、基本的な仕組みからTipsを紹介します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "infixer",
+      "userIcon": "x",
+      "profileImageUrl": "/infixer.jpg",
+      "bio": "マークアップおじさんです。HTML、CSSが大好きです。",
+      "xId": "ryo__kts",
+      "githubId": "ryokatsuse",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社タイミー",
+      "position": "フロントエンドエンジニア"
+    }
+  },
+  {
+    "id": "kanon",
+    "title": "Road to contibuter of Valibot - ValibotにISBN validationを追加するまで -",
+    "overview": "みなさん、Valibot 使っていますか？\r\n\r\nValibotとはTypeScript 用のスキーマライブラリです。データ構造を定義してデータをバリデーションすることができます。\r\n同様のライブラリにはZodやArkTypeなどがあります。\r\n\r\nそんななかでも私はValibotにISBNをバリデーションする機能のPRを送り、見事マージされました。\r\nhttps://github.com/open-circle/valibot/pull/1097\r\n\r\nこのセッションでは以上の経験をもとに、以下の内容を10分に詰め込んでお話ししたいと思います。\r\n\r\n- 簡単にValibotの使い方などの紹介\r\n- Valibotの内部実装はどうなっているのか？\r\n- ISBNの仕様について\r\n- (Valibotに限らず)スキーマライブラリにどういったFeature Requestを送るとマージされやすいか",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Kanon",
+      "userIcon": "x",
+      "profileImageUrl": "/kanon.jpg",
+      "bio": "合同会社DMM.comでJS/TS周りのテックリードをしています。またType Challengesのメンテナもしています。趣味はOSSコントリビュート、旅行、散歩、読書、ベースです。特技は、日本の47都道府県のどこでも即座に日帰り旅行プランを立てることです。推しは声優の水瀬いのりさんです。",
+      "xId": "ysknsid25",
+      "githubId": "ysknsid25",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "https://blog.inorinrinrin.com/",
+      "affiliation": "合同会社DMM.com",
+      "position": "テックリード"
+    }
+  },
+  {
+    "id": "yoshiaki-togami",
+    "title": "制約と時代から読み解くTypeScriptコンパイラ設計史",
+    "overview": "TypeScript コンパイラの Go 移植の際に話題になったのが「なぜ Rust ではないのか」という問いでした。その障壁の一つとして挙げられたのが、複雑な循環参照と GC 前提の設計です。実際、それをはじめとして TypeScript コンパイラには独特な実装が多くあります。しかし、なぜそもそもそのような設計になっているのかを掘り下げた話はあまり見かけません。\r\n\r\n本セッションでは、開発当時の時代背景や制約、VSCodeとの関係、C# Roslyn など他のコンパイラとの比較、そして関係者の言及を通じて、TypeScript コンパイラの設計判断の背景を読み解きます。その帰結としてGo移植で解消が期待されるポイントにも触れます。\r\n\r\n制約の中でなされた設計判断を知り、「ネイティブでportしたから速くなった」からさらに解像度を上げることを目指します",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Yoshiaki Togami",
+      "userIcon": "github",
+      "profileImageUrl": "/yoshiaki-togami.jpg",
+      "bio": "2023年に株式会社メルペイにフロントエンドエンジニアとして新卒入社。現在はTSを中心とした何でも屋。\r\nかれこれ4年ほどTypeScript Compilerの亡霊に囚われている。",
+      "xId": "togami2864",
+      "githubId": "togami2864",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/togami2864",
+      "noteLink": "",
+      "additionalLink": "https://togami.dev/",
+      "affiliation": "株式会社メルペイ",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
+  {
+    "id": "ssssota",
+    "title": "ReactとSvelteのその先、Ripple-TS",
+    "overview": "“the elegant TypeScript UI framework” を謳うRipple-TS (ripple)を知っていますか？\r\n\r\nReactやSvelte 5の開発に携わってきたDominic Gannaway氏が「React、Solid、Svelteの優れたところを統合した」として新たに開発したフレームワークです。\r\n\r\nReactやSolidのようにJSXっぽい？\r\nSvelteのようなDSLっぽい？\r\nはたまたJetpack ComposeやSwift UIのよう？\r\n\r\nReactやSvelteを開発した先にはなにが見えるのでしょうか。\r\nRipple-TSの概要と仕組みを見てみましょう。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "ssssota",
+      "userIcon": "github",
+      "profileImageUrl": "/ssssota.jpg",
+      "bio": "sは4つです。\r\n仕事はReact、趣味はSvelte、Preactです。\r\n趣味でOSS作ったりしてます。",
+      "xId": "ssssotaro",
+      "githubId": "ssssota",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社ZOZO",
+      "position": "テックリード"
+    }
+  },
+  {
+    "id": "shoma-fujita",
+    "title": "Oxlint は ESLint / typescript-eslint を置き換えられるか？",
+    "overview": "VoidZero構想の核であるRust製Linter「Oxlint」は、2025年に安定版となり、ESLint比で50〜100倍という圧倒的な高速性を実現しました。\r\nしかし、実務のTypeScriptプロジェクトにおいて、typescript-eslintが提供する型情報を用いた解析をどう代替・併用すべきかは、多くのエンジニアが直面する課題です。\r\n\r\n本セッションでは、Type-Aware Lintingのための tsgolint の導入ハードル、メモリ使用量、ルール網羅率といった現状の懸念点を整理します。\r\nその上で、なぜ型解析がパフォーマンスのボトルネックとなるのかを構造的に解説し、既存ESLint環境と比較した定量的・定性的なメリットを提示します。\r\n\r\n「爆速の環境のためにどこまで攻め、どこで妥協すべきか」現場の導入判断の指針をお話しします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "藤田 翔雅",
+      "userIcon": "github",
+      "profileImageUrl": "/shoma-fujita.jpg",
+      "bio": "大学卒業後、株式会社うるるに入社。\r\nフロントエンド開発をメインに、バックエンド開発やプロジェクトの牽引にも携わっています。\r\n新機能開発から保守運用まで幅広く担当しており、Oxlintなどの次世代ツールや既存のエコシステムを積極的に活用した開発に取り組んでいます。\r\n本セッションでは、日々の業務における「ESLintのリント実行時間を短縮したい」という課題感をきっかけに着目したOxlintについてお話しします。",
+      "xId": "",
+      "githubId": "shoma-fujita",
+      "qiitaLink": "https://qiita.com/fujisho1216",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社うるる",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
+  {
+    "id": "minako-ph",
+    "title": "柔軟なPDFレイアウトエディタを支える型システム設計 — Discriminated UnionとConditional Typeの実践",
+    "overview": "バクラク請求書発行では、請求書・見積書・納品書などのPDFレイアウトをGUIで自由にデザインできるビジュアルエディタを提供しています。テキスト・画像・動的テーブルなど6種類のノードを自由に配置し、実際の書類データをバインドしてPDFを生成する仕組みです。\r\n\r\nしかし自由度が高いほど、コードの複雑さも増します。テキストノードにはフォント設定があり、テーブルノードには列定義があり、画像ノードにはフィット方法がある——同じ「ノード」でも中身はまったく別物です。さらにノードの値は固定テキストかもしれないし、書類データから動的に取得するかもしれない。こうした組み合わせの中で「テキストノードなのにテーブルの列定義を参照してしまう」ような取り違えをどう防ぐか。人のレビューに頼るのではなく、型に任せられないか—— 本トークはその問いから始まります。\r\n\r\nProtocol Buffersのoneof定義からZod経由でDiscriminated Unionを自動生成する仕組み、Conditional Typeでノード型名から値型を安全に取り出すパターン、DeepPartialでReducerの部分更新を型安全にする設計、そして同一の型定義でエディタのプレビューとPDF本番生成の両方を駆動するアーキテクチャを、具体的なコードとともに紹介します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "minako-ph",
+      "userIcon": "x",
+      "profileImageUrl": "/minako-ph.jpg",
+      "bio": "DMM.comグループ 株式会社終活ねっとに入社後 DMMのお葬式をはじめとする複数サービスほぼ全てのフルリニューアルを担当。同社にてフロントエンドの開発を牽引する。\r\nその後は複数のモバイルアプリケーション新規開発や PjMとしてプロジェクト立ち上げからリリースまでのマネジメント経験を積み メディカルフォースへ創業期のタイミングで１人目のメンバーとしてジョイン。\r\n同社にてリードエンジニアとして自費診療現場向けのVertical SaaS「medicalforce」の開発へ従事。2021年3月のサービス開始から1年9か月で導入院数200院を突破。\r\n2023年7月にLayerXに入社し、経費精算や法人カード、勤怠管理などバックオフィス向けAIエージェントサービスなどを提供する「バクラク」シリーズの開発に従事。",
+      "xId": "minako__ph",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社LayerX",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
+  {
+    "id": "susisu",
+    "title": "Stage 3 Decorators でできること / できないこと",
+    "overview": "デコレータの仕様が Stage 3 に達し、さらに TypeScript に実装されてから数年が経ちましたが、実際に利用されているケースはまだ少ないように思います。\r\n\r\nなぜ Stage 3 のデコレータの採用は限定的なのでしょうか？そもそも Stage 3 のデコレータでは何ができるのでしょうか？\r\n\r\nこの発表では TypeScript における Stage 3 のデコレータについて、できることとできないことを整理しつつ、従来からある実験的なデコレータとの比較や、DI や observable などの具体的なユースケースを交えながら、これらの疑問に対する現時点での回答を考えてみます。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "susisu",
+      "userIcon": "github",
+      "profileImageUrl": "/susisu.jpg",
+      "bio": "たけのこ派です。普段は人間静的検査器として活動しています",
+      "xId": "susisu2413",
+      "githubId": "susisu",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "https://susisu.hatenablog.com",
+      "affiliation": "株式会社はてな",
+      "position": "Webアプリケーションエンジニア"
+    }
+  },
+  {
+    "id": "hal",
+    "title": "checker.tsにチキンレース仕掛けてみた：型エラー(TS2589)が発生する境界線を求めて",
+    "overview": "Type instantiation is excessively deep and possibly infinite.: ts-plugin(2589)’\r\n\r\n型が複雑すぎたり再帰呼び出しが無限ループしている際によく起きると言われているこの型エラー。\r\nネット上では「anyで回避しよう！」や「型を注釈で解消できます」など、多くのワークアラウンドが提示されていました。\r\n\r\nしかし、私はふと疑問に思いました。\r\n「コンパイラが『無限』と呼ぶ境界線はどこにあるのだろう」と…。\r\n\r\nそこで私はchecker.tsにチキンレースを仕掛けることにしました。\r\n\r\n本セッションではTS2589を発生させる「3つの門番（instantiationDepth / instantiationCount / tailCount）」の正体と、コンパイラによる「型の複雑さ」の定義を紐解きます。\r\n\r\nそして『無限』の境界線の向こう側で私たちを待つ衝撃のラストとは…\r\n\r\nTS2589を正しく理解し、『無限』を味方につけるための10分間をお届けします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Hal",
+      "userIcon": "x",
+      "profileImageUrl": "/hal.jpg",
+      "bio": "2025/3 株式会社LIXILにアプリケーションエキスパートとして入社。 \r\nフロントエンドからクラウドインフラまで含めたパフォーマンスチューニングを得意としています。\r\n\r\nVue Fes Japan2025,2026コアスタッフとして参加するなど、OSS活動にも精力的に取り組んでいます。",
+      "xId": "hal_spidernight",
+      "githubId": "Hal-Spidernight",
+      "qiitaLink": "https://qiita.com/hal_spider",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社LIXIL",
+      "position": "DevOps. アプリケーションエキスパート"
+    }
+  },
+  {
+    "id": "omote",
+    "title": "ビジネスモデルから紐解く、AI+型駆動開発",
+    "overview": "ビジネスモデルによって「型の重心」は大きく異なります。\r\n\r\nSaaSのようなUI操作が複雑なプロダクトでは、コンポーネントのProps・状態遷移・権限分岐がアプリケーションの型設計の中心になります。\r\n一方、データプラットフォームやマーケットプレイスでは、外部データのスキーマやドメインモデルこそが型のコアです。\r\n\r\nこのセッションでは、「型の重心」の違いを整理した上で、AIコーディングツールが各パターンでどう活きるか、そしてどこで効かないかを実際の経験を通して、考察します。\r\nAI時代において、型をはじめとした設計の意思決定こそが、開発において人間に残る最も重要な仕事であると仮定し、型駆動開発の実践的な戦略を提案します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "omote",
+      "userIcon": "x",
+      "profileImageUrl": "/omote.jpg",
+      "bio": "株式会社estieにて、プロダクト開発とデザインシステムのアーキテクチャ設計を担当。\r\nNext.js/Nest.jsによるフロントエンド〜バックエンド、Figmaを起点としたデザイン業務を中心に行う。\r\nまた、プロダクト間のFrontend技術方針策定と設計判断をリード。\r\n\r\n現在は子会社で技術戦略室の室長として、B2Bメディアのプラットフォーム刷新を単独で推進中。\r\n認証基盤統合・コマース基盤刷新・記事アクセス制御などの設計と実装を行う。\r\n趣味がガンダム。",
+      "xId": "HirokiOmote",
+      "githubId": "HirokiOmote",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/omote",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社estie",
+      "position": "デザインエンジニア マネージャー"
+    }
+  },
+  {
+    "id": "kazuya-serizawa",
+    "title": "アンチパターンを避ける型駆動React最適化",
+    "overview": "React 19の登場とともに広く普及したReact Compilerは、コンポーネント最適化のあり方を大きく変えました。これまでuseMemoやuseCallback、React.memoに依存していた手動メモ化は、多くのケースでコンパイラによって自動化されつつあります。\n\nただし、副作用やミュータブルな操作を含むコードでは最適化は適用されず、その仕組みの理解は依然として重要です。\n\n本セッションでは、React CompilerがASTとデータフロー解析によって依存関係と副作用を検出し、メモ化境界を決定する仕組みを解説します。また、最適化を阻害するアンチパターンを整理し、TypeScriptの型システムや Biome / Oxc といったツールを用いた検知・防止方法を紹介します。\n\nさらに、手動メモ化の負担軽減に伴い、設計の重心が「再レンダリング最適化」から「純粋性・副作用分離・責務の明確化」へ移行している点を踏まえ、大規模プロジェクトにおける最新の設計指針も提案します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Kazuya Serizawa",
+      "userIcon": "x",
+      "profileImageUrl": "/kazuya-serizawa.jpg",
+      "bio": "Goodpatchおよび複数のスタートアップ企業でモバイルアプリやSaaSプロダクトの開発に従事。2024年よりPeopleXでAIプロダクトのフロントエンドリードを務める。",
+      "xId": "",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/seriiiii",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社PeopleX",
+      "position": ""
+    }
+  },
+  {
+    "id": "kosui",
+    "title": "TypeScriptのclassはなぜこうなったのか — 歴史・落とし穴・そして使いどころを探る",
+    "overview": "JavaやC#、Goなどの他の静的型付け言語のユーザーの多くは、TypeScriptのclassの挙動を理解するまでに多くの時間を費やしてきたと思います。そんなTypeScriptのclassについて、その歴史と落とし穴に向き合い、その使いどころを提案します。\n\n2012年にTypeScriptが誕生したとき、classはまだECMAScriptの仕様に存在しませんでした。TypeScriptは独自のclass実装を先行して提供し、その後ES2015でclassが標準化されると、両者の仕様を統合する長い道のりが始まりました。クラスフィールドにおける[[Define]] vs [[Set]]論争、useDefineForClassFieldsの導入、そして長い年月を要したデコレーターの標準化など、TypeScriptのclassの複雑さの多くは、そうした歴史的必然から生まれています。\n\n本セッションでは、TypeScriptのclassが今の形になるまでの歴史を紐解いた上で、開発者が日常的に遭遇する落とし穴を「根本原因」から体系的に整理します。\n\n⚫︎ 構造的部分型とclass\nなぜ異なるクラスが同じ型として扱われるのか。Javaとの対比からBranded Typeによる対処まで。\n\n⚫︎ thisバインディング\nプロトタイプベースOOPの遺産がもたらす問題と、アロー関数フィールドのトレードオフについて。\n\n⚫︎ private修飾子と型消去\nTypeScriptのprivateが実行時に効かない理由と、ES #privateとの違いについて。\n\n⚫︎ instanceofと型消去\n型ガードとしてのinstanceofの限界と、Discriminated Unionによる代替。\n\nこれらの落とし穴は、構造的部分型と実行時型消去という2つの特性が、他言語ユーザーにとってはしばしば直感に反しうることが原因となります。この2つを理解することで、classを使うべき場面・避けるべき場面の判断軸が明確になります。\n\n最後に、classが適するケース（デコレーター、フレームワークの要請）と、classを避けるケース（ドメインモデリング、イミュータブルなデータ構造など）を簡潔に整理し、「classをやめよう」ではなく「理解して意識的に選択しよう」というメッセージで締めくくります。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "kosui",
+      "userIcon": "x",
+      "profileImageUrl": "/kosui.jpg",
+      "bio": "",
+      "xId": "",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "",
+      "position": ""
+    }
+  },
+  {
+    "id": "ozawa-shotaro",
+    "title": "型で頑張るプロダクト国際化",
+    "overview": "# トークの主題\r\n\r\nこのトークでは、Reactアプリケーションの多言語化ライブラリreact-i18nextの実践的なチーム運用と、型を活用した安全な開発サイクルの構築についてお話しします。\r\nヒューマンエラーを型の力で未然に防ぎ、チーム全員が安心して新機能開発に集中できるようになった実践的なアプローチをお伝えします。\r\n\r\n# トークの背景\r\n\r\n私は業務でプロダクトの国際化を担当し、react-i18nextを導入しました。\r\nチームにAPIの知見を共有しつつ運用を進めてみたところ、フレームワークが素の状態のままではtypoなどにより国際化関数のパラメータ設定ミスが頻発し、翻訳辞書データが正常に出力されない問題が相次ぎました。\r\n今回は実際にあったいくつかの失敗談に触れつつ、それらをTypeScriptの型を活かしてどう乗り越えたのかをご紹介します。\r\n\r\n# 想定聴衆\r\n\r\n* これからプロダクトの国際化を進められる方、特にreact-i18nextの採用を検討されている方\r\n* チーム開発における多言語化の運用課題に取り組んでいる方",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Shotaro Ozawa",
+      "userIcon": "x",
+      "profileImageUrl": "/ozawa-shotaro.jpg",
+      "bio": "2022年にテックタッチ株式会社に入社。フロントエンドエンジニアとして、デジタルアダプションプラットフォーム「テックタッチ株式会社」の開発に従事。",
+      "xId": "shzawa",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "テックタッチ株式会社",
+      "position": "フロントエンドエンジニア"
+    }
+  },
+  {
+    "id": "naoaki-kitagawa",
+    "title": "権限チェックの一貫性を型で守る TypeScript による多層防御",
+    "overview": "私たちのプロダクトでは、ユーザーがテーブルやワークフローなどのリソースをフォルダ階層の中に自由に構築できるデータベースシステムを提供しています。\r\nこの柔軟性から認可の設計は複雑になり、「誰が」「どのリソースに」「何をできるか」を階層構造に沿って制御する必要があります。\r\nこの権限チェックはフロントエンド・バックエンド・データベースの全レイヤーに及ぶため、あるレイヤーで分岐の修正を忘れる「静かなバグ」が生まれやすく、テストもすり抜けがちです。\r\n\r\n本セッションでは、権限アクションの SSoT を定義し、TypeScript における型レベルの制約や網羅性チェックを組み合わせることで、システム全体で権限チェックの一貫性を保つアーキテクチャを紹介します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "北川 直昭",
+      "userIcon": "github",
+      "profileImageUrl": "/naoaki-kitagawa.jpg",
+      "bio": "2024年に株式会社フライルへ入社。",
+      "xId": "",
+      "githubId": "aster-mnch",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社フライル",
+      "position": ""
+    }
+  },
+  {
+    "id": "glassmonkey",
+    "title": "TypeScriptでWebAssemblyを用いた型安全なプラグイン設計",
+    "overview": "他言語で書かれたライブラリや既存資産を活用したい場面は多いものの、実行環境の違いや配布方法、インターフェースの整合性といった課題から、プラグインとして安全に統合することは容易ではありません。特にTypeScriptを中心とした開発では言語境界を越えた拡張機構の設計や、他言語コンポーネントの実務的な扱い方について、共通理解がまだ十分に整理されていないのが現状です。\r\nWebAssemblyは言語非依存の実行形式として、こうした課題への現実的な選択肢になりつつあります。Component ModelやWITといった技術でコンポーネント間のインターフェースを型付きで定義することで、言語を越えた型共有を可能にします。さらにjcoによってブラウザやNode.js環境で実際に利用できる形へ橋渡しすることもできるようになってきています。\r\n本トークでは、Wasmプラグインという具体例を通して、このレイヤー構造と各技術の役割・関係性を整理し、TypeScriptから他言語コンポーネントを利用するまでの流れを実践的に解説します。WebAssemblyを単なる高速化の手段ではなく、既存資産の再利用と拡張性を支える基盤としてどう位置づけるべきかを理解し、今後の技術選択に活かせる視点を持ち帰っていただけます",
+    "slidesLink": "",
+    "speaker": {
+      "name": "glassmonkey",
+      "userIcon": "x",
+      "profileImageUrl": "/glassmonkey.jpg",
+      "bio": "WebAssemblyが好きなソフトウェアエンジニアです。\r\n最近はデータと戯れることが多いです。",
+      "xId": "glassmonekey",
+      "githubId": "glassmonkey",
+      "qiitaLink": "https://qiita.com/glassmonkey",
+      "zennLink": "https://zenn.dev/glassmonkey",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "Ubie株式会社",
+      "position": "データプロダクトマネージャー"
+    }
+  },
+  {
+    "id": "higak9",
+    "title": "TypeScriptの「型」をAIのスキルに昇華させてみた件について",
+    "overview": "TypeScriptの型は従来、静的型チェックによる安全性の確保や入力補完・コードジャンプの支援、またドキュメントとしての役割など幅広く活用されてきました。今回のセッションではAIが普及してきた近年の動向も加味し、さらにもう一歩踏み込んだ型の使い方として、「AIへの動的な指示書の構築」という面で考察していこうと思います。AIのツールを構築する際に、よく手書きでJSONファイルへ定義を書き込んでいく場面があったりしますが、TypeScriptの型やCompiler APIを駆使することで、実際の実装から自動でAIのスキル（MCPなど含め）を構築します。実装したコードの内容からAIがスキルを得て、そのスキルを使ってAIが実装して、さらにそこからスキルを得て…とAIの自走にも繋げられる可能性も秘めており、何より自身の実装がどのようにAIのスキルに繋げられるかという点も楽しみながら、具体例と合わせて見ていきます。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "higak9",
+      "userIcon": "x",
+      "profileImageUrl": "/higak9.jpg",
+      "bio": "沖縄県出身、WebアプリやChrome拡張機能などを中心にエンジニアしています。\r\nフロントエンド、バックエンド（ちょっとインフラ）と幅広めに開発を担当し、AngularやReact（Next.jsやRemix、Viteなど）、vanilla-tsなどのフレームワークを通してTypeScriptの開発に従事してきました。\r\nプライベートではDenoやAI関連のツールなど気になるOSSに気軽に触れながら楽しんでいます。",
+      "xId": "higakazuaki9",
+      "githubId": "higak926",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社ｉｉｍｏｎ所属",
+      "position": ""
+    }
+  },
+  {
+    "id": "kemuridama",
+    "title": "密結合なバックエンドから TypeScript のコードを生成する",
+    "overview": "「バックエンドとフロントエンドは疎結合であるべき」——理想はそうですが、現実のプロダクト開発、特に大規模開発やモノリスな構成において、両者は不可分な関係にあります。\r\nAPIレスポンスの変更がフロントエンドを静かに破壊したり、バックエンドの仕様変更への追従に疲弊したりしていませんか？これらは管理されていない「悪い密結合」によって引き起こされます。\r\n\r\nfreee会計では10年以上動き続けるプロダクトを開発する中で、この課題に対し、Rubyのコードを Prism を使って構文解析し、その結果をもとにTypeScriptのコード（型定義など）を生成するアプローチを取りました。\r\nこれにより、「バックエンドの変更が即座にフロントエンドの型エラーとして検知される」ようになり、仕様変更に対する追従コストを劇的に下げることができました。結果として、TypeScriptの強力な型恩恵を受けながら、安心してコード変更を行える状態を実現しています。\r\n\r\n本セッションでは、具体的にどのようにこれを実現しているのかについて、以下の技術的詳細を交えて紹介します。\r\n• Node.js 環境で Prismを用いたRubyコードからのAST抽出と解析\r\n• Rubyの構造をTypeScriptの型システムへマッピングする際の変換ロジック\r\n• 長年の運用で得られた、大規模モノリスにおける型運用の知見",
+    "slidesLink": "",
+    "speaker": {
+      "name": "kemuridama",
+      "userIcon": "github",
+      "profileImageUrl": "/kemuridama.jpg",
+      "bio": "2018年にフリー株式会社に新卒入社。入社以降ずっとfreee会計の開発に携わり、現在は機能開発の傍らフロントエンドの技術基盤を支えている。DevRelを兼務しており「freee 技術の日」や「freee Tech Night」の企画・運営にも関わる。TSKaigi コアスタッフ。",
+      "xId": "_kemuridama",
+      "githubId": "kemuridama",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "フリー株式会社",
+      "position": "ソフトウェアエンジニア/DevRel"
+    }
+  },
+  {
+    "id": "pvcresin",
+    "title": "関係性から理解する\"同一性\"の型用語たち",
+    "overview": "TypeScriptの話題において、nominal / structural / branded / opaque / phantomといった型に関する用語を見かける機会が増えてきました。\r\nしかし、これらの違いや関係性を説明しようとすると曖昧になりがちです。\r\n私自身も「なんとなく分かったつもり」で流してしまった過去があり、後からうまく説明できずに後ろめたさを感じる場面がありました。\r\n本発表ではTypeScriptが構造的型付けであることを起点に、型の同一性に関するこれらの用語を、コード例を交えて紹介します。\r\nそのうえで、これらの違いと関係性を理解し、解説記事や議論を追える状態を目指します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "pvcresin",
+      "userIcon": "x",
+      "profileImageUrl": "/pvcresin.jpg",
+      "bio": "PVCレジンです。長いので単にレジンと呼んでもらえればと思います。\r\n大学・大学院ではHCI（Human-Computer Interaction）を専攻し、2019年よりSansanで名刺アプリ「Eight」の開発をしています。\r\nWebフロントエンドのビルド高速化やデザインシステム構築、Railsへの型導入など、開発者体験（DX）の向上を主導しています。",
+      "xId": "pvcresin",
+      "githubId": "pvcresin",
+      "qiitaLink": "https://qiita.com/pvcresin",
+      "zennLink": "https://zenn.dev/pvcresin",
+      "noteLink": "",
+      "additionalLink": "https://pvcresin.github.io/",
+      "affiliation": "Sansan株式会社",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
+  {
+    "id": "saji",
+    "title": "業務に残された「よくない型」で考える「TypeScriptの難しさ」",
+    "overview": "TypeScriptがJS環境全般に広がった今、型を使いこなすことはある種当たり前になっています\r\n\r\n一方でふと業務で書いた・書かれたコード振り返ってみると、「一旦諦めてunknown型にしてしまった」「泣く泣くasをしてしまっている」といった場所に心当たりがある人も多いのではないでしょうか？複雑なドメインを扱うコードや、複数人で開発しているコードベースには、そういった「型の妥協点」が少なからず潜んでいます。\r\n\r\n誰も書きたくでasしているわけではないし、unknownで満足してるわけでもない。それでも放置・妥協されたコードには「TSの難しさ」や「TSの限界」を学ぶための重要なヒントが隠されていると思います。\r\n\r\nこのトークでは実際に業務で放置されていた「一般的に良くないとされる型(as/unknown/緩すぎる型)」を収集・パターン化し、「何が難しかったのか」「どう改善できるか」「今のTSの仕組みで解決可能か」を解説します。これらを紐解き、整理する中にはTypeScriptを学ぶ・教える・AIに書かせる上で参考になるポイントが含まれているはずです。\r\n\r\nこのトークではTypeScript初学者の方はもちろん、既に使いこなせている方も含めて「TypeScriptの難しさのパターン」について考える30分を提供します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Saji",
+      "userIcon": "github",
+      "profileImageUrl": "/saji.jpg",
+      "bio": "サイボウズのフロントエンドエンジニア。\r\nTypeScriptはもちろん、JavaScript の言語仕様やParser/Linter と言ったらフロントエンドツールに興味がある。\r\nまたwebにおける国際化技術や標準も好き。",
+      "xId": "sajikix",
+      "githubId": "sajikix",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/sajikix",
+      "noteLink": "",
+      "additionalLink": "https://sajikix.dev",
+      "affiliation": "サイボウズ株式会社",
+      "position": "フロントエンドエンジニア"
+    }
+  },
+  {
+    "id": "ikedanoritaka",
+    "title": "OSSのコードベースにneverthrowを漸進的に導入して、AIにも人間にも優しいエラーハンドリングを実現する",
+    "overview": "OSSプロダクト「Liam」で実際にtry/catchからneverthrowへ移行した過程を、コードベースを公開しながら共有します。\n\nまず、なぜneverthrowを導入したのかについて。Liamでは開発にAIコード生成を積極的に活用しています。しかしAIが生成するコードはtry/catchの配置が不安定で、エラーハンドリングの設計の整備にコストが発生していました。関数シグネチャにエラー型が表れるneverthrowを導入し、さらに throw new Error を禁止するカスタムESLintルールを設けることで、AIが生成するコードにもエラー処理を強制できるようになりました。\n\n漸進的な移行戦略について、過程で得られた実践的なtipsも紹介します。\n\n- エラー型をErrorに統一した薄いラッパーパッケージの設計\n- .andThen() チェーンと isErr() による early returnの実務的な制約の中での使い分け\n\nLiamはOSSのため、実際に使用されているコードを公開しながら説明させていただきます。本トークが、既存プロジェクトへの導入を検討する方の判断材料になれば幸いです。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "IkedaNoritaka",
+      "userIcon": "x",
+      "profileImageUrl": "/ikedanoritaka.jpg",
+      "bio": "",
+      "xId": "",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "",
+      "position": ""
+    }
+  },
+  {
+    "id": "izumin5210",
+    "title": "開発体験を左右するライブラリの API 設計 ― GraphQL スキーマ構築ライブラリから考える",
+    "overview": "TypeScript で GraphQL を実装するためのライブラリには、さまざまな API 設計が存在します。Schema-first と Code-first といったスキーマ記述アプローチの違い、スキーマと TypeScript 型をどのように接続するか、resolver をどのような形で記述させるかといった設計上の選択は、単なる記法の違いではなく、開発者がどのようにスキーマと向き合い、どのように設計を組み立てるかという開発体験そのものを規定します。\r\n\r\n本発表では、既存の GraphQL 実装ライブラリを比較しながら、スキーマ構築と resolver 実装の API 設計を整理します。特に、スキーマと型の結びつけ方や、開発者に与えるメンタルモデルの違いに注目し、それぞれのトレードオフを明らかにします。そのうえで、AI Coding が前提となりつつある現在、ライブラリに求められる API 形状や型情報の役割がどのように変化しうるのかを検討します。整理を踏まえ、新たに開発した GraphQL 実装ライブラリ「gqlkit」の設計を一例として紹介し、今後の GraphQL 実装基盤の方向性を提案します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "izumin5210",
+      "userIcon": "x",
+      "profileImageUrl": "/izumin5210.jpg",
+      "bio": "バクラク事業部 PlatformEngineering部 Enablingチーム。 プロダクト開発やバックエンド・Webフロントエンドの基盤開発などをしています。APIスキーマ関連技術とコードの静的解析・自動生成技術が好き。",
+      "xId": "izumin5210",
+      "githubId": "izumin5210",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/izumin",
+      "noteLink": "",
+      "additionalLink": "https://www.wantedly.com/id/izumin",
+      "affiliation": "株式会社LayerX",
+      "position": "スタッフソフトウェアエンジニア"
+    }
+  },
+  {
+    "id": "syumai",
+    "title": "Oxlintはいかにしてtsgolintのlint ruleを呼び出しているのか",
+    "overview": "Oxlintは、VoidZeroによって開発されている、Rust製の高速なJavaScript / TypeScript Linterです。\r\n既に安定版のv1がリリース済みですが、実は、そこにはTypeScriptの型情報に依存するルールの実装が含まれていません。\r\nその役割を担うtype-aware lintingの実装は、typescript-goベースの別リポジトリである、oxc-project/tsgolintで行われています。\r\ntsgolintを通じてlintを行うことで、Oxlintは `no-floating-promises` などのlint ruleをサポートすることができます。\r\n\r\nつまり、Rust実装であるOxlintから、Go実装のtsgolintを呼び出していることになるのですが、一体これはどのように実装されているかご存知でしょうか？\r\n\r\n本発表では、発表者がOxlintおよびtsgolintの実装を読んで知った、プロセス間通信に基づくOxlintとtsgolintの通信方法についての概要と、tsgolint側にルールを追加する度に必要となるOxlint側での実装について解説を行います。\r\nまた、発表者が、tsgolintにカスタムルールを実装しようとした過程で得た知見についてもお話しします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "syumai",
+      "userIcon": "github",
+      "profileImageUrl": "/syumai.jpg",
+      "bio": "株式会社LayerXにて、バクラクヘルプデスク エージェントの開発を行っている。主な技術領域はGo、TypeScript、JavaScript。『Web開発者のための［入門］Cloudflare Workers』を執筆。",
+      "xId": "__syumai",
+      "githubId": "syumai",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/syumai",
+      "noteLink": "",
+      "additionalLink": "https://syum.ai",
+      "affiliation": "株式会社LayerX",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
+  {
+    "id": "aumy",
+    "title": "「関数型プログラミング」を分解する.ts",
+    "overview": "関数型プログラミングはさまざまなプログラミング言語などに影響を与えてきました。TypeScriptにおいても代数的データ型や純粋性などといった概念が日常的に使われていますし、async/awaitのような機能、Node.jsのfs.readFileといったAPIにも関数型でよく見かける概念が隣り合っています。その一方で、関数型プログラミングはHaskell, OCaml, Scalaといったいわゆる関数型言語でこそ真価を発揮するという主張もあります。実際のところ「関数型プログラミング」という言葉にはあらゆる概念が魔法の箱のように詰め込まれており、とてもTypeScriptでは手の届かないようなテクニックも含まれています。この発表では、そんな関数型プログラミングの手法や概念をいくつか取り上げ、それらの利点やモチベーションからわれわれがTypeScriptでの開発に活かせる点を考えていきます。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "おーみー",
+      "userIcon": "x",
+      "profileImageUrl": "/aumy.jpg",
+      "bio": "2022年に公立工業高校を卒業後長期インターン期間を経て株式会社HERPに入社し、Webフロントエンドを中心にいろいろに従事しています。\r\n自分のことをわりと多趣味だと思っている。",
+      "xId": "aumy_f",
+      "githubId": "AumyF",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/aumy",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社HERP",
+      "position": ""
+    }
+  },
+  {
+    "id": "maguro",
+    "title": "tscからtsgoへ ── DenoのTypeScript基盤はどう変わったか",
+    "overview": "2025年3月にMicrosoftが発表したTypeScriptコンパイラのGo移植「tsgo」。Rust製のJavaScript/TypeScriptランタイムであるDenoは、このGo移行にどのように対応したのでしょうか？\r\n本セッションでは、まずDenoがtsgo以前にtscとどのように連携してきたのかを説明します。その後、tsgoに対応するために初期に検討されたcgoによるインプロセス統合案から、最終的に採用されたstdio経由でのプロセス間通信方式への変遷をまとめます。他のRust製ツールが採ったアプローチとも比較しながら、Denoのアーキテクチャ判断について立体的に深掘っていきます。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "maguro",
+      "userIcon": "x",
+      "profileImageUrl": "/maguro.jpg",
+      "bio": "趣味の一環でDenoにコントリビュートしていたらいつの間にか入社することになった。主にDeno Deployの開発を担当。米ジョージア工科大学大学院コンピュータサイエンス専攻修了",
+      "xId": "yusuktan",
+      "githubId": "magurotuna",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/magurotuna",
+      "noteLink": "https://note.com/maguro_tuna",
+      "additionalLink": "https://maguro.dev",
+      "affiliation": "Deno Land Inc.",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
+  {
+    "id": "keisuke-ikeda",
+    "title": "JavaScript実装の自作プログラミング言語をTypeScript実装に移行した話",
+    "overview": "皆さんはプログラミング言語を自作したことはあるでしょうか？\r\n私は過去にJavaScriptでLispを実装したことがあるのですが、大変でした。\r\n\r\nプログラミング言語の実装は、字句解析・構文解析・評価器などから成り、それぞれが複雑な機能を持ちます。JavaScriptで書いていた頃は、ノードの扱い、予期しないundefinedの混入など、実行してみて初めて気づくバグに何度も悩まされました。\r\n\r\n本セッションでは自作プログラミング言語をJavaScriptで実装したあと、TypeScriptへ移行した実体験、言語実装という複雑なドメインだからこそ浮かび上がるTypeScriptの強みと限界を、具体的なコードとともに紹介します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Keisuke Ikeda",
+      "userIcon": "x",
+      "profileImageUrl": "/keisuke-ikeda.jpg",
+      "bio": "東京と関西(大阪＆京都)の二拠点生活をしているエンジニア。勉強会大好きマン。\r\n\r\n大学で情報系学部に入学し、コンピュータやプログラミングの面白さを知る。 卒業後、東京のSESの会社に新卒で入社。通常のエンジニア業務だけでなく、社内のエンジニア組織・イベントの運営、グループ会社のテックリード、案件内でのマネジメントなどにも携わる。 \r\n\r\nオファーを受け現会社に入社。現在もSESという業務形態でさまざまな開発に携わりながら、自身の知識と経験を活かしてクライアントの課題解決に取り組んでいます。",
+      "xId": "ike_keichan",
+      "githubId": "ike-keichan",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/ike_keichan",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "",
+      "position": ""
+    }
+  },
+  {
+    "id": "iori",
+    "title": "TanStack Router の型定義を読み解く",
+    "overview": "TypeScript で書かれているルーターは多いですが、型定義を実装に後から被せているだけのものがほとんどです。その場合、存在しないパスへのナビゲーションや検索パラメータの型不一致をコンパイル時に検出することが難しく、実行時まで気づけないことがほとんどです。\r\nTanStack Router はルート定義そのものを TypeScript の型情報の源泉として設計されており、パス・パスパラメータ・検索パラメータ・ローダーの返り値まで、型情報がアプリ全体に伝播します。しかし使う側から見ると、その仕組みは見えにくい部分でもあります。\r\n本発表では TanStack Router の型定義のコードを実際に読み解きながら、型安全ルーティングを支える TypeScript の仕組みを解説します。TypeScript の型システムへの理解を深めるきっかけになれば幸いです。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "IORI",
+      "userIcon": "x",
+      "profileImageUrl": "/iori.jpg",
+      "bio": "フロントエンドでは React/Next.js を中心にプロダクト開発をしています。\r\n趣味はサッカー観戦で、プレミアリーグを中心に観ています。いつか現地で観戦したいです。",
+      "xId": "Yz_Iori",
+      "githubId": "yziori",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "",
+      "position": ""
+    }
+  },
+  {
+    "id": "tsukudani",
+    "title": "TypeScriptでドット絵エディタ実装録: 状態設計と実装判断",
+    "overview": "TypeScript+CanvasAPI利用で開発したWeb上のドット絵エディタを題材としたセッションを行います。\r\n「操作性が良いドット絵エディタをTypeScriptでどう成立させるか」という観点から、機能要件をどのように設計へ落とし込んだかを共有します。\r\nCanvasAPIそのものについてはあまり取り扱いません。\r\n実装時のトレードオフと改善ポイントまでを、実装録として整理して話します。\r\n内容としては基本的な機能（描画・直線等のツール・レイヤー管理）を元に、\r\nレイヤー合成を支える状態管理、線描画や塗りつぶしの実装判断、モバイル向け操作の工夫等の説明を行います。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "つくだに",
+      "userIcon": "x",
+      "profileImageUrl": "/tsukudani.jpg",
+      "bio": "オプティムという会社でエンジニアをやっている、つくだにというものです。\r\nTypeScriptが好きですが、最近あまり書けていません・・・",
+      "xId": "tukudanium",
+      "githubId": "tukudanium",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社オプティム",
+      "position": "エンジニア"
+    }
+  },
+  {
+    "id": "banri-kake",
+    "title": "コーディングエージェントはTypeScriptの型エラーをどう自己修正しているのか",
+    "overview": "コーディングエージェントが大きく発達し、コード生成後にLanguage Serverからのエラー診断の情報を読み取り、自動的に修正を試みるようになりました。これによって、AIにどう型エラーの情報を正しく伝えるかが関心事になったといえます。\r\n\r\nこの仕組み自体は言語を問わず動作しますが、TypeScriptの型情報がエージェントの修正精度に深く関わってきます。そのため、型設計の基礎がより重要になりそうです。\r\n\r\n本セッションでは、ClineなどOSSの実装から、エージェントが診断情報をどのように活用しているのかを考察します。あわせて、diagnosticsの情報が省略されたり、打ち切りされる仕組みを踏まえ、私たちが型設計で意識できることを考えます。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "筧万里",
+      "userIcon": "x",
+      "profileImageUrl": "/banri-kake.jpg",
+      "bio": "2025年にパナソニック株式会社に新卒入社。IoT製品のSREをしつつ、Observability関連のプロダクトをTypeScriptで書いています。YamdaUIのメンテナ、クラウドネイティブ会議のコアスタッフなど。",
+      "xId": "Melonps_",
+      "githubId": "Melonps",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/melonps",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "パナソニック エレクトリックワークス株式会社",
+      "position": "一般社員"
+    }
+  },
+  {
+    "id": "hayato-kudoh",
+    "title": "静的解析への投資がAI時代のコード品質を支える ── カスタムESLintルールの設計と運用",
+    "overview": "私たちのプロダクトでは、エンジニアだけでなくPMやデザイナー・ビジネスチームもバイブコーディングでPRを出しています。\r\n日々多くのPRが作成されますが、それでもコード品質を維持しレビューコストを抑えられているのは、100以上のカスタムESLintルール等を中心とした静的解析基盤があるからです。\r\n\r\n本トークでは、「なぜ標準プラグインでは足りないのか」を整理し、Valibot・Hono・Drizzle・Svelteなど、既存のESLintプラグインではカバーしきれないライブラリ群に対して、プロジェクト固有のガードレールをどのように設計したのかを解説します。\r\nさらに、コードレビューの指摘からESLintルール候補を自動抽出しルール化につなげる仕組みや、CI高速化のための設計、AIによるCIエラー自動修正を試みて見えた限界と教訓についても共有します。\r\n\r\n静的解析への投資がAI時代にどう効くのか、カスタムESLintルールの設計からCI運用まで具体的に共有します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "工藤 颯斗",
+      "userIcon": "x",
+      "profileImageUrl": "/hayato-kudoh.jpg",
+      "bio": "顧客分析A エージェント「Flyle」の開発をしています",
+      "xId": "metalic_kudo_h",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社フライル",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
+  {
+    "id": "yuta-takahashi",
+    "title": "次世代リンターで探る、tsgo 時代における型認識カスタムルールの現実解",
+    "overview": "TypeScript 7.0（tsgo）は、コンパイラを Go で再実装し、最大 10 倍の高速化を実現する一方で、typescript-eslint の型認識カスタムルールの基盤を根本的に覆すことになります。従来の `getTypeChecker()` 経由で JS/TS から直接型情報を取得する方法は、ネイティブ Go プロセスとして動作する tsgo では使用できません。\r\n\r\n本セッションでは、2026 年 4 月時点で確立された手法が存在しない tsgo の型認識カスタムルールについて、その現実解を探ります。\r\nまず、次世代リンター（Oxlint、RSLint、Biome など）の型認識リントに関するアーキテクチャの違いを明確にし、それぞれで型認識カスタムルールの実現可能性を評価します。そこから、tsgolint（Oxlint の型チェックバックエンド）と RSLint 向けに カスタムルールを Go 言語で実装し、独自ビルドしたリンターバイナリで実際に検出できることを確認した Proof-of-Concept を共有します。\r\nさらに、PoC の結果に基づいた tsgo 時代における型認識リントの持続可能な運用戦略について考察します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Yuta Takahashi",
+      "userIcon": "github",
+      "profileImageUrl": "/yuta-takahashi.jpg",
+      "bio": "株式会社メドレーにて、クラウド診療支援システム「CLINICS」の開発に従事。直近では、AIを活用した業務効率化機能の開発に取り組むとともに、フロントエンド設計のベストプラクティスの整備や、Agent Skills化によるAI駆動の実装・コードレビューの推進を担当。また、大規模なレガシーフロントエンドのリライトプロジェクトをリードし、長期的な保守性と開発効率の向上に貢献している。",
+      "xId": "Wakeupsloth",
+      "githubId": "YTakahashii",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/yuta_takahashi",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社メドレー 医科診療所プロダクト開発室 AI推進グループ",
+      "position": "テックリード"
+    }
+  },
+  {
+    "id": "wanko",
+    "title": "バックエンドにElysiaJSを採用して気付いた、良い点・悪い点",
+    "overview": "JS/TSのバックエンドフレームワークの一つとして、ElysiaJSというものがあります。\r\nElysiaJSは、State of JavaScript 2025にて「Bun上に構築された唯一のバックエンドフレームワーク」として紹介されており、数あるフレームワークの中でも独自の立ち位置にあります。\r\n皆さん、ElysiaJSがどのような使い心地、書き心地なのか気になりませんか？\r\n\r\n本トークでは、私がElysiaJSを利用して個人開発を行った経験をもとに、ElysiaJSのメリット・デメリットについてお話します。\r\nElysiaJSとはどんなフレームワークなのか、他のフレームワークとはどう違うのか、ElysiaJSを使ったことがない方向けに解説します。\r\n\r\n本トークを通じてElysiaJSの実装例を見ることで、ElysiaJSの全体像を掴むことができます。\r\nさらに、Bunランタイムを前提としたフレームワークの良さ・大変さも押さえつつ、今後のJS/TSの流れをより見通すヒントを得られる時間にします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "わんこ",
+      "userIcon": "x",
+      "profileImageUrl": "/wanko.jpg",
+      "bio": "2024年4月に株式会社レコチョクに新卒入社。toC向け楽曲配信サービスであるレコチョクの開発を担当。2026年5月に株式会社ユーザベースに入社。現在は、toB向け情報プラットフォームサービスである、Speeda(スピーダ)の開発に携わっている。",
+      "xId": "Wanko_IT",
+      "githubId": "Wanko-IT",
+      "qiitaLink": "https://qiita.com/Wanko_IT",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "https://speakerdeck.com/wanko_it",
+      "affiliation": "株式会社ユーザベース",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
+  {
+    "id": "taisei-yamamoto",
+    "title": "TypeScriptバックエンドのオブザーバビリティ戦略 — Datadog × NestJSの実践",
+    "overview": "NestJS + GraphQL + SQS で構築したTypeScriptバックエンドの本番運用でのオブザーバビリティ戦略を紹介します。構造化ログ基盤（JSON / テキスト切替、コンテキスト自動付与）、APM との統合（trace_id 埋め込みによるログとトレースの紐付け, SQSポーリング処理における span 定義）、ExceptionFilter によるエラーハンドリングと Datadog Error Tracking 連携。TypeScriptバックエンドの「作った後どう監視するか」の運用知見を凝縮してお届けします。TypeScript でバックエンドを運用している方、Datadog をもっと活用したい方に向けた内容です。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "山本大星",
+      "userIcon": "github",
+      "profileImageUrl": "/taisei-yamamoto.jpg",
+      "bio": "AIナレッジプラットフォーム「Qast」のエンジニアを務める。技術的負債の解消、運用オペレーションの改善、パフォーマンス、オブザーバビリティ、開発者体験の向上を軸に、プロダクトを継続的に良くしていく仕組みづくりに取り組んでいる。エンジニア歴9年目、TypeScript歴5年目。大手通信事業者でISP事業のB向けWebアプリ開発に従事したのち、バーチャルオフィスSaaSの開発を経て現職。約2年前に「Qast」へのDatadog導入プロジェクトを牽引し、以降「個に頼りすぎない運用・オブザーバビリティ戦略」に関心を寄せている。",
+      "xId": "",
+      "githubId": "taisei-yamamoto-an",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "any株式会社",
+      "position": "エンジニア"
+    }
+  },
+  {
+    "id": "naoki-kiryu",
+    "title": "Node.js+TypeScriptにおけるCJS/ESM相互運用の最新ポイント",
+    "overview": "2020年にESModuleのネイティブサポートが追加されて以来、Node.jsにおけるCommonJSとESModuleの相互運用は数多くの開発者にとって悩みの種となってきました。2024年10月にrequire(esm)サポートが追加され主要な問題は解決されるには至りましたが、テストフレームワークとの互換性など、依然として注意すべきポイントが存在します。本セッションではCJSとESMの相互運用に関するメカニズムを特にTypeScriptの視点から深掘りし、2026年現在においてどのような対応が不要となり、どのような対応が依然として必要であるかを明らかにしていきます。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "桐生直輝",
+      "userIcon": "x",
+      "profileImageUrl": "/naoki-kiryu.jpg",
+      "bio": "スタートアップでtoB SaaSの開発に4年間従事した後、2023年にレバレジーズ株式会社に中途入社。HRテックSaaS「NALYSYS」のリードエンジニアとして、技術的な方針決定や基盤整備などを担当。キャリア開始当初よりNode.js+TypeScriptによるバックエンド開発を行っており、内部のレイヤーに入り込んでのデバッグやハックを得意とする。",
+      "xId": "grain_sb",
+      "githubId": "grainrigi",
+      "qiitaLink": "https://qiita.com/grainrigi",
+      "zennLink": "https://zenn.dev/grainrigi",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "",
+      "position": "リードエンジニア"
+    }
+  },
+  {
+    "id": "kanato",
+    "title": "自動レビューエンジンの実装と運用 ~レビューのない世界へ~",
+    "overview": "AIエージェントが世の中に広く普及し、実装が爆速になる一方、PRレビューがボトルネックになりがちという悩みを抱えている人は多いと思います。そのボトルネックを解消する(レビュー自体を無くす)ために、Biome/tsc・gitleaks・osv-scanner・trivy・ast-grep等を1つの品質ゲートに束ね、さらにTypeScript Compiler APIで型・シンボル・参照まで解決して、「フォーマット/静的解析/型/アーキテクチャ/セキュリティ/テスト/スキーマ互換」を機械的に判断するツールを実装し、自分の開発に使ってみました。本発表では、AI実装→自動解析→AIレビューを回す開発サイクル設計で開発を数ヶ月試した所感について話します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Kanato",
+      "userIcon": "x",
+      "profileImageUrl": "/kanato.jpg",
+      "bio": "トグルホールディングス所属。エンジニア2年目。フロントエンドバックエンドどちらも触ります。",
+      "xId": "kanayan_toggle",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "トグルホールディングス",
+      "position": ""
+    }
+  },
+  {
+    "id": "elecdeer",
+    "title": "型プラグインシステムの実装に使われるテクニック",
+    "overview": "昨今のTypeScriptライブラリには、ユーザー側でライブラリの型を拡張できる仕組み（型レベルのプラグインシステム）を持つものが増えています。\r\nHonoのMiddlewareでは、Genericsを通じてContextの型を拡張しその型情報を後続のHandlerへと伝播させることで、Middlewareによって追加された値への型安全なアクセスを実現しています。\r\nTanStack Routerでは、生成されたルートの型をグローバルに定義することで、Linkコンポーネントなどで間接的に使用できるようになっています。\r\n\r\n本トークでは、これらのライブラリがGenericsやInterfaceのDeclaration Mergingを使いどのように型プラグインシステムを実装しているのかを解説します。\r\n型プラグインの仕組みを理解したい人や、自作ライブラリに実装したい人に向け、コードの例を交えて説明します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "elecdeer",
+      "userIcon": "x",
+      "profileImageUrl": "/elecdeer.jpg",
+      "bio": "TypeScriptとReactのファン。手触りの良いアプリや便利なツールを作ることに関心があります。",
+      "xId": "elecdeerdev",
+      "githubId": "elecdeer",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "チームラボ",
+      "position": "フロントエンドエンジニア"
+    }
+  },
+  {
+    "id": "lacolaco",
+    "title": "いつテストを書くか？―ソフトウェア開発における安心と不安について考える",
+    "overview": "TypeScriptの型システムは、JavaScript開発の世界に多くの安心をもたらしています。同様に、ソフトウェア開発において安心をもたらすものといえばテストです。その安心は、Agentic Codingが広がる中では、AIを自律的にのびのびと動かすためにも重要になっています。テスト駆動開発にもここ数年でさらに注目が集まっているように思います。\r\n\r\n本セッションは、「安心」をテーマにして、いまあらためてテストについて考える場を作りたいと思います。わたしたちは開発の現場で何に不安を感じているのでしょうか。型やテストはその不安を解消できているでしょうか。どうすればいまよりも安心してソフトウェアを開発できるでしょうか。明確な答えはありませんが、一緒に考えてみませんか？",
+    "slidesLink": "",
+    "speaker": {
+      "name": "lacolaco",
+      "userIcon": "x",
+      "profileImageUrl": "/lacolaco.jpg",
+      "bio": "Google Developers Expert for Angular。Angularを中心にWeb周辺のオープンソースコミュニティでコントリビューションや翻訳、登壇、イベント主催などの活動をしています。『JavaScript Primer』共著者。ポッドキャスト「リファクタリングとともに生きるラジオ」でも活動中。",
+      "xId": "laco2net",
+      "githubId": "lacolaco",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/lacolaco",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社TwoGate",
+      "position": "シニアアーキテクト"
+    }
+  },
+  {
+    "id": "yuta-ike",
+    "title": "AI時代に考える、Branded Typesで実現する堅牢な型付け",
+    "overview": "AIがコードを生成する今、型の重要性は高まっています。しかし従来の構造的部分型を多用するアプローチでは、ドメインロジックの「意味」を十分に表現できません。そこで本セッションでは、ビジネス上の値の「意味」を型で表現し、ドメインモデルやビジネスロジックの堅牢性と可読性を高めるアプローチについてお話しします。\r\n\r\nBranded Typesというと「引数の渡し間違えを防げる」といったテクニック的な側面が注目されることが多いです。しかし私は、「値の意味（= その値がどんなDomainModelや状態を表しているのか）を型で表現できる」という点に非常に魅力を感じています。\r\n\r\n例えばバリデーション済みのEntityをバリデーション前と区別できたり、同じstringでも異なる概念を明示的に区別することができます。変数名やコードコメントとは異なり、型であるため代入や引数で渡してもその性質が維持されることも大きなメリットです。\r\n\r\n本セッションでは、Branded Typesを活用することでTypeScriptの型安全性を高めることができるアプローチについて説明し、ドメインモデリングに導入することのメリットや従来のアプローチとの違いなどを、実際の経験も交えながらお話しします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "池奥裕太/@yuta-ike",
+      "userIcon": "x",
+      "profileImageUrl": "/yuta-ike.jpg",
+      "bio": "2024年にエムスリー株式会社に新卒入社。新規立ち上げサービスのバックエンド・インフラを担当し、昨年からはチームリーダーを務めています。\r\n\r\n2024年度 未踏採択。好きなエディタはFigmaです。",
+      "xId": "Selria1",
+      "githubId": "yuta-ike",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "エムスリー株式会社",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
+  {
+    "id": "akira-higuchi",
+    "title": "TypeScriptでPlatform SDKを作る技術",
+    "overview": "発表者はPaaS（Headless ERP開発プラットフォーム）のTypeScript SDKをゼロから設計・開発しています。\r\n独自のCLIツールやTerraform providerがすでにある中で、より良い開発者体験を目指して生まれたSDKです。\r\n\r\n本発表では、SDK開発において選択した開発者体験とそれを支える技術や実装について紹介します。\r\n\r\n・ユーザー設定に応じた正確な型の提供\r\nビルド済みパッケージにユーザー固有の型情報を後から注入する仕組み\r\n\r\n・実行環境を意識させないコードの書き方\r\n不要コードの排除と、ローカルテストとプラットフォームでの実行を両立するコード変換\r\n\r\n・AIフレンドリーなSDK\r\nLLMにSDKを使った実装問題を解かせて品質を評価するベンチマーク",
+    "slidesLink": "",
+    "speaker": {
+      "name": "樋口 彰",
+      "userIcon": "x",
+      "profileImageUrl": "/akira-higuchi.jpg",
+      "bio": "テイラー株式会社で自社プラットフォームのSDKの開発をしています。",
+      "xId": "toiroakr",
+      "githubId": "toiroakr",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "テイラー株式会社",
+      "position": ""
+    }
+  },
+  {
+    "id": "ryutaro-yako",
+    "title": "Zod v4 Codec でスキーマに型変換を埋め込む REST API 設計",
+    "overview": "REST API 開発ではアプリの型と API レスポンスの型が一致しない場面が多く、たとえば日時はアプリでは Dayjs で扱いたいのに、レスポンスでは ISO 文字列になります。tRPC 等では透過的に解決できますが、既存の REST API を維持したいプロジェクトでは変換レイヤーを手書きしがちではないでしょうか？\r\n\r\n本トークでは Zod v4.1 で導入された Codec 機能を活用し、スキーマに encode / decode の双方向変換を組み込むことで、フロントエンドとバックエンドでバリデーション・レスポンス変換を共有し、さらにバックエンドでは DB 結果からのプロパティ絞り込みまでを一つのスキーマ定義に集約できる実装パターンを、Hono + Drizzle を例にご紹介します！",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Ryutaro Yako",
+      "userIcon": "github",
+      "profileImageUrl": "/ryutaro-yako.jpg",
+      "bio": "ユニークビジョン株式会社でフルスタックエンジニア / テックリードをしています。普段は Vue.js でのフロントエンド開発が中心ですが、バックエンドも含めたフルスタック TypeScript やモノレポ構成にも関心があります。",
+      "xId": "",
+      "githubId": "RyutaroYako",
+      "qiitaLink": "https://qiita.com/Yappii_111",
+      "zennLink": "https://zenn.dev/yappii",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "ユニークビジョン株式会社",
+      "position": "テックリード"
+    }
+  },
+  {
+    "id": "yusuke-izumi",
+    "title": "400超のデータポイントを型で制す —— UPSIDERの与信審査エンジンを支えるTypeScriptの「柔軟性」と「結合力」",
+    "overview": "スタートアップの成長を支えるUPSIDERのカード与信審査。その心臓部はNext.js/TypeScriptで構築されています。400を超える膨大なデータポイントを扱い、複雑な計算ロジックが絡み合うこの領域で、なぜ私たちはTypeScriptを選んだのか。\n\n本セッションでは、フロントエンドとバックエンドを1 Interfaceで統合し、型安全を維持しながら開発スピードを最大化する戦略を公開します。特に、実行時（Runtime）のデータインジェクションや、複雑なグローバル設定へのマージ、テスト時におけるデータのオーバーライドなど、動的な性質と堅牢性が求められるロジックにおいて、TypeScriptが他の言語以上に「ビジネスの武器」となる理由を深掘りします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "泉雄介",
+      "userIcon": "x",
+      "profileImageUrl": "/yusuke-izumi.jpg",
+      "bio": "",
+      "xId": "",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "",
+      "position": ""
+    }
+  },
+  {
+    "id": "riku-takada",
+    "title": "string地獄を脱出する — ValueObject + Zod 実践パターン",
+    "overview": "「string同士の取り違えが本番でしか分からない」「Zodと型定義を二重に書いている」——この2つの悩みを、ValueObject + Zodで解消するパターンを実コードで紹介します。\n\n数十行の基底クラス ValueObject<T> のコンストラクタでZodを叩き、コンパイル時の型安全とランタイム検証を1箇所に集約する設計です。プリミティブ型VO（z.number().positive().int()で不正値を弾くSystemId）とEnum型VO（z.enumからz.inferで型を導出し二重定義をなくすTaskStatus）の2パターンを実例で解説します。\n\nまた、プロダクションで113個のValueObjectを運用する中で得た知見として、Plopによる2層構造（Generated層+手動実装層）での効率的な管理手法と、Object型VOのequals問題という実務の落とし穴にも触れます。\n\n聞くと、型とランタイム検証を一本化する設計パターンと、大量のVOを破綻なく運用する仕組みが持ち帰れます。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "高田 理功",
+      "userIcon": "x",
+      "profileImageUrl": "/riku-takada.jpg",
+      "bio": "",
+      "xId": "",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "",
+      "position": ""
+    }
+  },
+  {
+    "id": "nakamura",
+    "title": "tsserverとは何だったのか、これからどうなるのか",
+    "overview": "TypeScript 7では、Goによる新しい実装への移行に伴い、Language Server Protocol（LSP）を前提として言語サービスが提供される構成へと移行します。\r\n\r\nこれまでTypeScriptのテキストエディタ統合は、tsserverプロセスを通じて提供されるLanguage Service APIを基盤として成立してきました。現在のTypeScriptにおける補完や定義ジャンプといった機能は、この構成の上に成り立っています。\r\n\r\n本セッションでは、従来のtscのAPIアーキテクチャとLanguage Service APIの位置づけを整理し、tsserverとはどのようなものだったのかを振り返ります。また、あまりLSPに馴染みがない開発者にもどのようなプロトコルなのかを簡単に解説したうえで、TypeScript 7においてテキストエディタ統合がどのように変化するのかを整理します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "中村遼大",
+      "userIcon": "x",
+      "profileImageUrl": "/nakamura.jpg",
+      "bio": "Web標準やテキストエディタなどに関心があります。",
+      "xId": "nowaki28",
+      "githubId": "nowaki28",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "https://speakerdeck.com/nowaki28",
+      "affiliation": "株式会社ドワンゴ",
+      "position": "Webフロントエンドエンジニア"
+    }
+  },
+  {
+    "id": "msuto-michimasa-suto",
+    "title": "ts-morph でプロジェクト固有のアーキテクチャガードレールを作る",
+    "overview": "アーキテクチャルールへの違反をレビューで毎回指摘したり、AI コーディングエージェントがルールに反したコードを生成してきたり、そんな経験はないでしょうか。ドキュメントにルールを書いても、それは人間にとっても AI にとっても「お願い」でしかなく、コードベースの成長とともに違反は静かに増えていきます。\r\n\r\nESLint のプラグインや、dependency-cruiser などはモジュール間の import 制約を宣言的に定義できますが、ファイルの役割やディレクトリの親子関係に基づく制約となると、カバーしきれないことが多いのが実情です。本セッションでは、ts-morph による TypeScript AST 解析でプロジェクト固有のアーキテクチャルールを CI で自動検出する仕組みを構築した過程を紹介します。実際にツールを導入したところ、対応が追いついていなかった箇所が数十件見つかり、ルールの形骸化を防ぐには自動検出が不可欠だと実感しました。また AI コーディングエージェントへのガードレールとしても活用できています。既存ツールとの使い分けの判断基準から、実装で直面した課題とその解決策まで、具体的なコードとともにお伝えします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "msuto / Michimasa Suto",
+      "userIcon": "x",
+      "profileImageUrl": "/msuto-michimasa-suto.jpg",
+      "bio": "2025年に株式会社PKSHA Technologyに新卒入社。コールセンター向けSaaSのプロダクト開発・運用を担当。ポーカー歴5年。社内ポーカー部の運営に従事しています。",
+      "xId": "michimasa_suto",
+      "githubId": "Suto-Michimasa",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/msuto",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社PKSHA Technology",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
+  {
+    "id": "oiki",
+    "title": "Typiaで配信JSONの安全性を構造的に担保する",
+    "overview": "TypeScript における外部入力のバリデーションでは、型定義とバリデーションスキーマの二重管理が課題となりやすい。特に複雑な型を扱う場面では、従来利用していたバリデーションライブラリが型をうまく表現できず、バリデーション用に別途型を定義しなければならないケースがあります。\r\n本発表では、型情報そのものを起点にバリデーションと不要なプロパティの排除を行う Typia を導入し、二重管理を解消した事例を紹介します。移行の背景と実際に行った作業の概要を示したうえで、Typia が複雑な型をどのように扱っているのかを、実装レベルで踏み込んで解説します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "oiki",
+      "userIcon": "x",
+      "profileImageUrl": "/oiki.jpg",
+      "bio": "新卒でヤフー株式会社に入社し、画像検索のフルリニューアルにフロントエンドエンジニアとして携わった後、AI 系ベンチャーを経て 2022 年より現職。TypeScript × Next.js を中心としたフロントエンド開発から、SaaS プロダクトの0-1立ち上げなどをしてきました。\r\n最近はRightTouchでプロダクトエンジニアをしていたり、採用広報をやっていたりします。趣味はランニングです。",
+      "xId": "kn_prg",
+      "githubId": "t0iki",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社RightTouch",
+      "position": "プロダクトエンジニア"
+    }
+  },
+  {
+    "id": "ken-ichikawa",
+    "title": "LLM時代のリファクタリング戦略：AIエージェントによる段階的・安全なTS移行方法",
+    "overview": "「既存の巨大なJavaScriptプロジェクトをTypeScriptへ移行する」——これは多くの開発者が直面する課題です。しかし、LLMと自律型AIエージェントの登場により、この課題のハードルは下がりつつあります。\n本セッションでは、Reactで構築された大規模なフロントエンドプロジェクトを、AIエージェントを活用して「段階的」かつ「安全」にTypeScript化した実録とその知見を共有します。\n単に型を当てるだけでなく、OpenAPIから生成されたクライアントSDKとAIエージェントをいかに連携させ、コンポーネントやロジックに「意味のある型」を浸透させたのか。\nその具体的なプロセスを紹介します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "市川 賢",
+      "userIcon": "x",
+      "profileImageUrl": "/ken-ichikawa.jpg",
+      "bio": "",
+      "xId": "",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "",
+      "position": ""
+    }
+  },
+  {
+    "id": "takuma-ru",
+    "title": "enum よ、さようなら",
+    "overview": "Node.js 22.18 / 23.6 以降、TypeScript ファイルをフラグなしでそのまま実行できるようになりました。ただしこのモードは型アノテーションを「剥がす」だけで、enum・namespace・パラメータプロパティは動作しません。\r\n\r\nTypeScript 5.8 で追加された --erasableSyntaxOnly はこれをコンパイル時に強制するフラグで、「実行時 JS に痕跡を残すような構文は書かせない」という宣言でもあります。\r\n\r\nこの LT では const enum（tsc がインライン展開するため一見 erasable に見えて、実は type-strip ツールには扱えない）との違いを整理しつつ、as const + satisfies による代替パターンも紹介します。今後の TypeScript プロジェクトでどういう構文設計をとるべきか、一緒に考えてみましょう。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "takuma-ru",
+      "userIcon": "x",
+      "profileImageUrl": "/takuma-ru.jpg",
+      "bio": "チームラボ パッケージチーム 所属\r\n現在はフロントエンドスペシャリストとして、横断的な課題解決に従事",
+      "xId": "takumaru_2222",
+      "githubId": "takuma-ru",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/takumaru",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "チームラボ",
+      "position": "フロントエンドスペシャリスト"
+    }
+  },
+  {
+    "id": "taku-hatano",
+    "title": "TypeScriptの型だけでオセロを完全実装する ── 型は\"仕様\"をどこまで語れるか",
+    "overview": "TypeScriptで型を用いる際に、型でデータの「形」を記述するだけで終わってしまい、ある条件下で取るべき状態が型に反映されず、不要な型アサーションやランタイムチェックに頼ってしまうことが多々あるように感じています。\r\nそこで今回の発表ではボードゲームのようないくつものルールが重なり合う「仕様」をTypeScriptの型だけで実装することで、型がどこまで仕様を表現できるのかを示します。\r\nこのセッションを通じて「こんな仕様も表現できるなら自分たちのプロダクトでも活用できるかも」と感じていただくことが大きな目的です。\r\n\r\n本発表では実装対象として「オセロ」を選択し、合法手の判定、石の反転、盤面の進行、勝敗判定といったルールを型のみで表現します。\r\nさらに、型名や文脈を伏せた状態でこの型定義をAIに与え、「これは何のルールを表している型か？」と推論させる実験も行います。\r\nその結果から型がどれほど「仕様の意味」を保持しうるのかも考察します。\r\n\r\n本セッションを通じて、TypeScriptの型を「値の形を記述する道具」から「仕様そのものを記述する言語」へと捉え直す視点を提示します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "籏野 拓",
+      "userIcon": "github",
+      "profileImageUrl": "/taku-hatano.jpg",
+      "bio": "2018年よりフォルシア株式会社に所属。\r\n最適な検索を実現するための技術基盤であるSpookを用いた開発・運用に携わったのち、商品販売プラットフォームwebコネクトの新規開発にジョイン。\r\nここ最近はAIを用いた開発フローの構築に取り組んでいる",
+      "xId": "",
+      "githubId": "taku-hatano",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "フォルシア株式会社",
+      "position": ""
+    }
+  },
+  {
+    "id": "ryo",
+    "title": "Polymorphic Components パターンで作る、型安全でセマンティックな UI コンポーネント",
+    "overview": "デザインシステムでコンポーネントを実装する際、決められたスタイルや制約を維持しながらセマンティックな HTML を実現したい場面があります。こうしたケースで有用なのが、レンダリングされる要素を柔軟に選択できる Polymorphic Components パターンです。\r\n本トークでは、このパターンの実装方法を紹介します。あわせて、TypeScript の型システムを活用することで、デザイントークンの補完や、選択した要素に応じた適切な HTML 属性の型チェックといった型安全性の実現方法もご紹介します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "ryo",
+      "userIcon": "github",
+      "profileImageUrl": "/ryo.jpg",
+      "bio": "株式会社Belong の Frontend Engineer / Software Engineer。中古スマートフォンの販売・買取サービス「にこスマ」の開発に、フロントエンド領域を中心に従事。TypeScript をはじめとしたフロントエンド関連領域に興味関心がある。最近は趣味で Three.js を触っている。",
+      "xId": "ryohiy_",
+      "githubId": "ryohiy",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "https://ryohiy.dev/",
+      "affiliation": "株式会社Belong",
+      "position": "Frontend Engineer / Software Engineer"
+    }
+  },
+  {
+    "id": "mahito",
+    "title": "childrenの順序まで型で縛る ── Branded Typesで実践するJSXの構造安全",
+    "overview": "JSXのchildrenに何が来るべきか、順序はどうあるべきか、ReactNodeでは全部素通りで、型が構造を守ってくれる世界になっていません。このセッションでは、Branded Typeでコンポーネントのreturn型に「slot名」を付け、childrenをタプル型で制約することで、構造の間違いをコンパイル時に弾くアプローチを紹介します。asアサーションをライブラリ内部に閉じ込めて利用側は何も気にしなくていい設計や、JSX記法だとブランドが消える問題とそのworkaroundにも触れます。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Mahito",
+      "userIcon": "x",
+      "profileImageUrl": "/mahito.jpg",
+      "bio": "Sansan株式会社にて、Frontend Engineerとして個人向け転職サービス「Eight Career Design」のフロントエンド開発、およびプロダクト開発における主要業務を担当",
+      "xId": "Mahito6",
+      "githubId": "kerukukku1",
+      "qiitaLink": "https://qiita.com/Mahito6",
+      "zennLink": "https://zenn.dev/kerukukku1",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "Sansan株式会社",
+      "position": "エンジニア"
+    }
+  },
+  {
+    "id": "shota-une",
+    "title": "Auth.jsからBetter Authへの移行に見る「型とランタイム」の設計思想の変化",
+    "overview": "フロントエンドの認証において広く使用されていたAuth.jsですが、コアメンテナ達がBetter Authの開発へ移行し注目を集めています。本セッションでは、この移行における「型情報の扱い」の設計思想の変化に焦点を当てます。\r\n\r\nAuth.jsではSessionなどの組み込み型の拡張にModule Augmentationを用いましたが、型定義とランタイムの実装が独立し、型のドリフトが生じることがありました。\r\nBetter Authではこれを避け、ユーザーによる手動の型拡張を廃止しました。代わりに、ランタイム挙動を決める設定オブジェクトから型を推論し、typeof auth.$Infer.Sessionのように実インスタンスから直接型を抽出して利用するアプローチへと変化しています。\r\n\r\n両者を比較し、開発チームの中で「型とランタイム」に対する思想がどう変化したのかを覗き見てみたいと思います。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "宇根昇汰",
+      "userIcon": "x",
+      "profileImageUrl": "/shota-une.jpg",
+      "bio": "チームラボ パッケージチーム 所属",
+      "xId": "uneruby2664",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "チームラボ",
+      "position": "フロントエンドエンジニア"
+    }
+  },
+  {
+    "id": "tatsukawa",
+    "title": "TypeScriptとAngular Signal で実現する保守性の高いアプリケーション設計 - 3層アーキテクチャによる責務分離の実践",
+    "overview": "Component 内にすべてのロジックを実装すると、ビジネスロジック、状態管理、API 呼び出しが混在し、コードの可読性とテスタビリティが低下する課題があります。本トークでは、プレゼンテーション層・ユースケース層・データアクセス層の3層アーキテクチャを導入し、各層の責務を明確に分離することで保守性を向上させた事例を紹介します。特に、Writable signals と Computed signals による状態管理のカプセル化、各層の責務範囲の明確化、TypeScript の型システムを活用した型安全な設計など、実務で直面する具体的な課題への実践的なアプローチをコード例と共に紹介します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "たつかわ",
+      "userIcon": "x",
+      "profileImageUrl": "/tatsukawa.jpg",
+      "bio": "大学院卒業後、受託開発を主とする会社でWebアプリケーションエンジニアとしてキャリアをスタート。2社目の音声認識サービスを提供する会社にて、Webアプリケーションエンジニア、ネイティブアプリケーションエンジニア、サーバー開発エンジニアとして経験を積む。その後コンサル仲介サービスを提供する会社にて一定期間エンジニアとして従事した後、チームリーダーとしてマネジメント業務を担当。\r\n2024年12月よりニーリーに入社。現在は、既存の技術的負債の解消、開発コストの削減、エンジニアの開発体験の向上をミッションとして開発・改善業務に取り組んでいる。",
+      "xId": "Ryu04132",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社ニーリー",
+      "position": "テックリード"
+    }
+  },
+  {
+    "id": "kohei-watanabe",
+    "title": "型のないDSLを安全に扱う: TypeScriptとメタプログラミングによるElasticsearch連携の実践",
+    "overview": "Elasticsearchは強力な検索エンジンですが、柔軟すぎるJSONベースのクエリDSLは、TypeScript環境下においてはタイポや構造間違いによる実行時エラーを引き起こしやすい課題があります。\r\nまた、インデックスのマッピング定義とアプリケーション層のエンティティ定義の二重管理も、保守性を下げる要因になりがちです。\r\n\r\n本セッションでは、TypeScriptの型システムとメタプログラミングを駆使して、Elasticsearchの動的な振る舞いを型安全に扱うためのアプローチを紹介します。\r\n\r\n具体的には以下の2点を解説します：\r\n1. Template Literal Typesや再帰的な型定義（Recursive Types）を活用し、products.priceOptions.quantity のような深いネストを持つクエリパスをコンパイラに検証させる仕組みの構築\r\n2. デコレータを用いて、アプリケーションのエンティティクラスからElasticsearchのマッピング定義を動的かつ型安全に自動生成し、単一情報源（SSOT）とする手法\r\n\r\n特定のフレームワークに依存せず、外部の動的なDSLやスキーマに対して、TypeScriptの言語機能を活用してどのように静的型検査の恩恵を適用するかという、実プロジェクトでの工夫と知見を共有します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "渡邊 耕平",
+      "userIcon": "github",
+      "profileImageUrl": "/kohei-watanabe.jpg",
+      "bio": "自社 Web サービスのリニューアルやバックエンドシステムのモダナイゼーションを担当してきました。現在はCI/CDの整備やインフラ最適化、パフォーマンスチューニングなど、システムの「足回り」の改善に注力しています。現場の泥臭い課題を技術的なアプローチやアーキテクチャの工夫で解決していくプロセスが好きです。",
+      "xId": "",
+      "githubId": "koohq",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "https://developers.gnavi.co.jp/archive/category/%E3%80%90%E5%9F%B7%E7%AD%86%E8%80%85%E3%80%91%E6%B8%A1%E9%82%8A",
+      "affiliation": "株式会社ぐるなび",
+      "position": "バックエンドエンジニア"
+    }
+  },
+  {
+    "id": "yanaemon",
+    "title": "TypeScript の型で副作用の実行順序を制御する",
+    "overview": "バリデーション前にデータを保存する、ログを取らずに重要な処理を実行する、認証前に API を呼ぶ。\r\n副作用を持つ処理では実行順序のミスがデータ破損やセキュリティ問題を引き起こします。\r\nテストを書く前、コードを実行する前に、エディタ上で即座に気づきたい。\r\nこれをコンパイル時に防げないか。\r\n本トークでは、TypeScript の型システムで副作用の実行順序をどこまで制御できるのかを探ります。\r\nまた、純粋関数でもデータの形状を保証するために実行順序の制約が有効であることを示します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "yanaemon",
+      "userIcon": "x",
+      "profileImageUrl": "/yanaemon.jpg",
+      "bio": "株式会社ミツモアでプロダクト本部長を務めています。\r\nミツモアではフロントエンドからバックエンドまで一貫して開発するフルスタック TypeScript を実践し、プロダクト開発のスピードと品質を両立するための設計・実装・運用を推進しています。\r\nTSKaigi 2024 では「TypeScript の抽象構文木を用いた、数百を超える API の大規模リファクタリング」で登壇。今回は「TypeScript の型で副作用の実行順序を制御する」をテーマに、型の力で “安全に動かす” ための実践的な考え方と手法を紹介します。",
+      "xId": "yanaemon169",
+      "githubId": "yanaemon",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "https://speakerdeck.com/yanaemon",
+      "affiliation": "株式会社ミツモア",
+      "position": "プロダクト本部長"
+    }
+  },
+  {
+    "id": "irie",
+    "title": "10秒のビルドを1秒へ：tsdown が切り拓く 2026 年の TypeScript ライブラリ開発",
+    "overview": "TypeScript ライブラリの開発において、ビルド時間は開発者の生産性に直結します。本セッションでは、Vite の次世代コアとしても注目される Rust 製バンドラ Rolldown と高速なパーサ Oxc を基盤とした、新進気鋭のビルドツール「tsdown」を徹底解説します。\r\n\r\n従来の tsup と比較して圧倒的なパフォーマンスを実現するアーキテクチャの秘密から、d.ts 生成・複数フォーマット出力といった実用的な機能を紹介し、単なるベンチマーク比較に留まらず既存プロジェクトからのスムーズな移行パスや、開発ワークフローをさらに加速させる実践的な設定方法など、2026 年のライブラリ開発における「新たな強力な選択肢」としての tsdown の活用法を提案します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "irie",
+      "userIcon": "x",
+      "profileImageUrl": "/irie.jpg",
+      "bio": "チームラボ パッケージチーム 所属",
+      "xId": "purinpopo2",
+      "githubId": "iririn1998",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "チームラボ",
+      "position": "フロントエンドエンジニア"
+    }
+  },
+  {
+    "id": "tamasho-tomoya",
+    "title": "typescript-goで変わるリンターの世界 — Flintという第三の選択肢",
+    "overview": "現在、TypeScriptプロジェクトのリンターはESLintかBiomeの二択が主流です。\r\n\r\nしかし、それぞれに課題があります。\r\n・ESLint：型チェックを伴うルールが遅い\r\n・Biome：カスタムルールの実装にRustの知識が必要\r\n\r\n本発表では、この課題を解決しうる第三の選択肢「Flint」を紹介します。Flintはtypescript-goでパース・型解析を行い、ルールはTypeScriptで記述できるハイブリッドリンターです。ESLintの拡張性とBiomeの速度、両方の良さの両立を目指しています。3ツールの設計思想とベンチマーク比較(Flintは現在アルファ版なので行えない可能性があります)を通じて、2026年のリンター選定の判断軸を説明します。さらに、Flintの実装を題材に、解析処理をGo側に委譲し、ルール実装をTypeScriptで行う構成が、開発体験やパフォーマンスにどのような影響を与えるのかを整理します。\r\n\r\nFlint HP: https://www.flint.fyi/\r\nFlint GitHub: https://github.com/flint-fyi/flint",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Tamasho Tomoya",
+      "userIcon": "github",
+      "profileImageUrl": "/tamasho-tomoya.jpg",
+      "bio": "楽天の25卒エンジニアです",
+      "xId": "t_tamasho",
+      "githubId": "Tamashoo",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "楽天グループ株式会社",
+      "position": ""
+    }
+  },
+  {
+    "id": "ayu",
+    "title": "TypeScript7 - 非推奨設定から読む責務の変化",
+    "overview": "TypeScript7 では、従来の JavaScript 実装から Go によるネイティブ実装へ移行し、ビルド速度やエディタ体験が大きく改善されるます。\r\nその一方で 6 系は “7 への橋渡し” として位置づけられており、多数の非推奨設定や挙動変更が段階的に導入されています。\r\n\r\nこれらは単なる設定変更ではなく、「TypeScript が担っていた責務」や「前提」が変わっていることに起因しています。\r\n\r\nそのため放置すると 7 系へのアップグレード時にコンパイルエラーや不整合が発生するだけでなく、なぜ動かないのか分かりにくい状態に陥る可能性があります。\r\n\r\n本セッションでは、非推奨となった設定やコードパターンを単に列挙するのではなく\r\n\r\n・なぜ削除されるのか（設計の変化）\r\n・どのように置き換えるべきか（実務での判断）\r\n\r\nという観点で整理します。\r\n\r\n対象としては target や moduleResolution、tsconfig 周りの設定に加え、React / Vue などのプロジェクトで\r\n影響を受けやすい具体例も取り上げます。\r\n\r\n10 分という短い時間で「理解」と「すぐに使える対応」を持ち帰れる時間にできるように努めます。\r\n当日はよろしくお願いします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Ayu",
+      "userIcon": "x",
+      "profileImageUrl": "/ayu.jpg",
+      "bio": "株式会社うるる / フロントエンドエンジニア\r\n\r\n株式会社うるるにて、「入札情報速報サービス NJSS」と「入札資格管理業務サービス NSP」のフロントエンド開発を担当しています。\r\n普段は TypeScript を中心に、プロダクト開発や開発体験の改善に取り組んでいます。\r\n\r\nこの度は貴重な登壇の機会をいただき、大変嬉しく思っています。\r\n当日はどうぞよろしくお願いいたします。",
+      "xId": "0819_tateishi",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社うるる",
+      "position": ""
+    }
+  },
+  {
+    "id": "shimmy",
+    "title": "実践TanStack Start: 新規プロダクトを開発して確立した、サーバーとクライアント境界の設計パターン",
+    "overview": "新規プロダクトでTanStack Startを導入しました。サーバーとクライアントの境界を担うloaderとServer Functionsをどう設計するかが、アプリケーション全体の品質を左右します。\r\n\r\nloaderにデータ取得を集中させると、コンポーネントがルーティング構造に依存し、データ取得の再利用性と変更容易性が下がります。Server Functionsにロジックを集中させると、バリデーションやDB操作やビジネスロジックが混在し、Fat controllerと同じ問題を抱えます。\r\n\r\n本セッションでは、loaderとServer Functionsそれぞれの責務をどう限定し、どこにデータ取得やビジネスロジックを配置したかを、実際のコードと設計の変遷を通じて共有します。TanStack Startでプロダクション開発をする際の設計指針を提供します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Shimmy",
+      "userIcon": "x",
+      "profileImageUrl": "/shimmy.jpg",
+      "bio": "カミナシでソフトウェアエンジニアをしています\r\n大阪在住です",
+      "xId": "naoya7076",
+      "githubId": "naoya7076",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "https://note.com/naoya7076",
+      "additionalLink": "https://github.com/naoya7076/",
+      "affiliation": "株式会社カミナシ",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
+  {
+    "id": "haruki-fukuchi",
+    "title": "TypeScriptだけでAIエージェントを作る ― フロント・エージェント・インフラのフルスタック実践",
+    "overview": "2026年、AIエージェント開発はもはや一部の専門家だけのものではなくなりました。しかし、いざ開発を始めようとすると「Pythonじゃないとダメ？」「どのフレームワークを選べばいい？」「作ったエージェントをどうやってデプロイする？」と壁にぶつかる方も多いのではないでしょうか。\n\n本トークでは、普段使い慣れたTypeScriptだけで、フロントエンド・エージェント・サーバー・インフラのすべてを構築する実践手法を紹介します。Claude Agent SDKによるエージェント構築をメインに、AgentCore SDKによるサーバー層、React（Vite）によるフロントエンド、AWS CDKによるインフラ定義までを一気通貫で解説します。\n\n実際に動くアプリケーションのデモを交えながら、TypeScriptで統一することで得られる型安全性や開発体験の向上、そして開発中に得たTipsもお伝えします。さらに、Strands Agents SDKやMastraといった他のエージェントフレームワークとの比較にも触れ、技術選定の判断材料を提供します。\n\nAIエージェント開発の世界はPython中心に見えがちですが、TypeScriptエコシステムも急速に充実してきています。「自分たちの武器で戦える」という感覚を持ち帰っていただけるセッションを目指します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "福地開",
+      "userIcon": "x",
+      "profileImageUrl": "/haruki-fukuchi.jpg",
+      "bio": "",
+      "xId": "",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "",
+      "position": ""
+    }
+  },
+  {
+    "id": "hedrall",
+    "title": "「雰囲気tsconfig」からの脱却：pnpmモノレポ運用で学び直したProject Referencesの基礎と実践",
+    "overview": "pnpm workspacesなどのモノレポ環境で推奨される「Project References」。しかし実態として「とりあえず composite: true にして references を書けばいい」と、”おまじない”のように設定していませんか？\r\n\r\n本トークは、現場のエンジニアが「なぜモノレポでProject Referencesが必要なのか？」をコンパイラの基礎的な挙動に立ち返った解説の実践の共有を主題します。\r\n\r\n単一の巨大な tsconfig.json が引き起こす全ファイルASTパースから、パッケージ境界の .d.ts を活用した参照への変化、そして .tsbuildinfo を用いた差分ビルド（tsc -b）の仕組みを整理します。\r\n\r\nコンパイラの気持ちを少し理解し、自信を持って tsconfig.json を設計・運用できるようになるための、明日から使える基礎知識をお届けします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "hedrall",
+      "userIcon": "x",
+      "profileImageUrl": "/hedrall.jpg",
+      "bio": "2024年から株式会社RightTouchで新規プロダクトの立ち上げや、LLMを利用したプロダクトの開発を進めています。\r\n2016年に朝日新聞社に新卒入社して以来、10年ほど Full Typescript で、特に0, 1の立ち上げに多く取り組んできました。その経験から、中長期的に保守性を高める設計や技術に特に関心があります。　\r\n趣味で園芸や、毎週畑に行って野菜を育てています。",
+      "xId": "_hedrall",
+      "githubId": "hedrall",
+      "qiitaLink": "https://qiita.com/hedrall",
+      "zennLink": "https://zenn.dev/hedrall",
+      "noteLink": "",
+      "additionalLink": "https://blog.hedrall.work/",
+      "affiliation": "株式会社RightTouch",
+      "position": "プロダクトエンジニア"
+    }
+  },
+  {
+    "id": "yoshikouki",
+    "title": "AIエージェントと協働するCLI開発 — BunとOpenClawで学んだこと",
+    "overview": "AIエージェントが日常的に使われる時代に、エージェントが操作しやすいCLIツールの設計はどうあるべきか。本トークでは、BunとTypeScriptを用いたCLIツールの開発・検証を通じて見えてきた「エージェント親和性の高いCLI設計」の知見を共有する。\r\n\r\nBunのネイティブ実行速度・TypeScript直実行・標準APIの充実により、CLIのプロトタイピングが劇的に速くなった。一方でAIエージェントがCLIを操作する場合、出力の機械可読性・エラーハンドリングの明示性・冪等性など、人間向けとは異なる設計上の考慮が必要になる。\r\n\r\n実際にOpenClawのエージェントハーネスをBunで量産する中で得た具体的な知見と、TypeScript/Bunエコシステムがこの文脈でどう活きるかを10分でまとめる。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "yoshikouki",
+      "userIcon": "x",
+      "profileImageUrl": "/yoshikouki.jpg",
+      "bio": "GMOペパボ 事業開発部 エンジニアリングリード。TypeScriptやBunを用いた開発者向けツールづくりや、AIエージェントと協働するための開発体験づくりに取り組んでいます。元理学療法士。",
+      "xId": "yoshikouki_",
+      "githubId": "yoshikouki",
+      "qiitaLink": "https://qiita.com/yoshikouki",
+      "zennLink": "https://zenn.dev/yoshikouki",
+      "noteLink": "https://note.com/yoshikouki",
+      "additionalLink": "https://yoshikouki.com",
+      "affiliation": "GMOペパボ株式会社",
+      "position": "事業開発部 エンジニアリングリード"
+    }
+  },
+  {
+    "id": "tony",
+    "title": "スプレッド構文によるブランド流出問題を乗り越えて、オブジェクト型に対する Branded Types を使い倒す",
+    "overview": "TypeScript において公称型を実現するために Branded Types というものがしばしば使われます。異なるエンティティの ID や異なる単位を持つ量の区別といった代表的なユースケースからさらに一歩踏み込んで、オブジェクト型を含む一般的な型についてもブランドを付与して制約を表現することは有益に思えます。ただし、そこにはスプレッド構文によるブランドの流出という罠が潜んでいます。\r\n\r\n本発表では、declare class との交差型によりこのブランド流出問題を解決する方法を提案します。ランタイム性能やシリアライゼーションに懸念のある class を直接取り回すことなく、複雑な型に対しても安全に公称型を実現することが可能になります。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "tony",
+      "userIcon": "x",
+      "profileImageUrl": "/tony.jpg",
+      "bio": "東京都でソフトウェアエンジニアをやっています。チャーチ＝チューリングのテーゼに懐疑的です。",
+      "xId": "tony998244353",
+      "githubId": "tony998244353",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/tony998244353",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社 mutex",
+      "position": "開発責任者"
+    }
+  },
+  {
+    "id": "takuto-sato",
+    "title": "AIのために、AIを使った、Effect-TSからの脱却 〜テストを活用した安全なリファクタリングの進め方〜",
+    "overview": "2024年3月からバックエンドの一部でEffect-TSを導入して運用してきました。Effect-TSの思想は非常に魅力的でありつつも、AIが活躍する現代において「チームでの習熟度を上げることが難しく、AIの成果物をチームで評価することが難しいこと」に課題を感じ、2026年初にEffect-TSから脱却することを決断しました。\r\n\r\nEffect-TSというエコシステムの特性上、影響範囲は非常に広く脱却するには多くの修正が必要でしたが、書籍「レガシーコード改善ガイド」にも記載されているように、まず既存仕様のテストを実装してからリファクタリングする方針をとること、UseCaseやRepository、Domainレイヤごとの戦略や実行順順序をコントロールすること、で安全にAIエージェントを使ってリファクタリングを実施、1つも問題を発生させることなくリリースを完遂させました。\r\n\r\nEffect-TS導入当初から思想は魅力的に感じつつもチームにフィットしない懸念があったため、後から排除することも一定考慮して導入を進めてきました。Effect-TSの良かったことと辛かったこと、アーキテクチャ視点も含めてどのようにEffect-TSを導入したか、そしてどのようにAIを活用して脱却したか、Effect-TSを具体的な例にしつつ、他のリファクタリングにも適用可能な進め方を発表します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "佐藤 拓人",
+      "userIcon": "x",
+      "profileImageUrl": "/takuto-sato.jpg",
+      "bio": "株式会社ビットキーで開発してます。2児の父で日々精進しています。 好きな言葉は「為せば成る」。 世の中に幸せなエンジニアが増えてほしい。好きなこと: 設計 / DDD / typescript。ベンチプレスMax 130kg",
+      "xId": "takuuuuuuu777",
+      "githubId": "",
+      "qiitaLink": "https://qiita.com/takuuuuuuu777",
+      "zennLink": "https://zenn.dev/takuuuuuuu777",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社ビットキー",
+      "position": "homehub開発部部長"
+    }
+  },
+  {
+    "id": "kazupon",
+    "title": "プラグインで拡張されるContextをtype-safeにする難しさと設計判断",
+    "overview": "筆者が開発したCLIライブラリGunshiは、コマンドの引数を宣言的にモジュール化し、Contextを通じてコマンド実行を制御します。GunshiのContextはCLI引数の解析結果や解決された値を持ち、TypeScriptでコマンドに宣言した引数の型から推論してtype-safeに扱えます。\r\n\r\nGunshiを拡張していくうちにプラグインシステムを導入しました。プラグインはContextを拡張でき、コマンドモジュールや他のプラグインで拡張されたContextもtype-safeに使えます。\r\n\r\ntype-safeの提供は型チェックによる堅牢性だけでなく、エディタのコード補完といった開発者体験(DX)にも直結します。一方で、プラグインで動的に拡張されるデータに対してtype-safeを保証することは、一般的なアプリケーション開発とは異なる難しさがあります。\r\n\r\n発表では、GunshiとContextの概要、プラグインシステム導入の背景を共有します。また、type-safeなContext拡張のいくつかのアプローチを他のライブラリ/フレームワークの事例を用いながら比較し、Gunshiが採用した設計とトレードオフを解説します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "kazupon",
+      "userIcon": "x",
+      "profileImageUrl": "/kazupon.jpg",
+      "bio": "Software engineer / Part-time open sourceror. Vue.js core team, Vite+ team, creator of Gunshi, Intlify, Vue.js Japan User Group & Vue Fes Japan organizer.",
+      "xId": "kazu_pon",
+      "githubId": "kazupon",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社プレイド",
+      "position": ""
+    }
+  },
+  {
+    "id": "shotaro-nakata",
+    "title": "TypeScriptの型はAIに届いているか？ ― AIコーディングツール検証で見えたIDEとの断絶",
+    "overview": "TypeScriptの型システムは型推論・定義元特定・参照追跡といったリッチな構造情報を持ち、IDEではLSP経由で日常的に活用されています。ではAIコーディングツールはどうか。Claude Code・Cursor・GitHub Copilot・Codex・Geminiを調査した結果、tsc実行による型エラーは取得できるものの、型の構造情報はほとんどAIに届いていませんでした。本発表では「何が届いていて何が届いていないか」を整理し、LSPに対する3つの設計思想（不要派・必要派・中間派）を比較します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "shotaro",
+      "userIcon": "x",
+      "profileImageUrl": "/shotaro-nakata.jpg",
+      "bio": "株式会社Nature Innovation Groupにてフルスタックエンジニアとしてシステム・アプリ開発に従事し、リードエンジニアとして開発を牽引。フリーランスとしての活動を経て、現在は株式会社UPSIDERにてカード基盤プラットフォームの開発に携わっている。",
+      "xId": "sh0o0000",
+      "githubId": "sh0o0",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/nakar0",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社UPSIDER",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
+  {
+    "id": "nabeliwo",
+    "title": "React の props は値の集合ではない — UI の状態を宣言するコンポーネント設計",
+    "overview": "React コンポーネントの props 設計は、UI の状態や責務をどれだけ明確に表現できるかに大きく影響します。\r\nしかし実務では、`data` や `isLoading`、`error` といった複数の値の組み合わせによって状態を表現することが多く、コンポーネントが取りうる状態や振る舞いが props から直感的に読み取れないケースも少なくありません。\r\n本セッションでは、props 設計を見直すことでコンポーネントの分かりやすさを高めていくための考え方を紹介します。\r\nその一例として、discriminated union を用いて props を「値の集合」ではなく「状態そのもの」として表現する設計を取り上げ、条件分岐を減らし、不正な状態を型レベルで防ぐアプローチを解説します。\r\nさらに、コンポーネント分割との関係にも触れながら、props 設計によって UI の構造や責務をどのように表現すると良いのか、その判断軸を整理します。\r\n本セッションを通して、参加者が自分のコンポーネントの props 設計を振り返り、「その設計が UI の状態や責務を適切に表現できているか」を判断できるようになることを目指します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "nabeliwo",
+      "userIcon": "x",
+      "profileImageUrl": "/nabeliwo.jpg",
+      "bio": "ウェブフロントエンドが好きなソフトウェアエンジニアです。普段は Next.js / React で開発しています。ユーザー体験やコンポーネントの設計、状態の扱いについて考えるのが好きです。",
+      "xId": "nabeliwo",
+      "githubId": "nabeliwo",
+      "qiitaLink": "https://qiita.com/nabeliwo",
+      "zennLink": "https://zenn.dev/nabeliwo",
+      "noteLink": "",
+      "additionalLink": "https://www.nabeliwo.blue",
+      "affiliation": "株式会社SmartHR",
+      "position": "プロダクトエンジニア"
+    }
+  },
+  {
+    "id": "mitsui",
+    "title": "TypeSpecで繋ぐ複数プロダクトの型安全 — スキーマ共有による「型契約」の実践",
+    "overview": "2つのプロダクトをTypeScriptでフルスタック構築する中で、TypeSpecを「型契約」の基盤として運用し、スキーマ管理とサービス連携を自動化した事例を紹介します。\r\n\r\nチーム内の開発では、TypeSpecからバリデーション用のZod、APIクライアント、MSWモックを一貫して自動生成するパイプラインを構築しました。これにより手動の同期作業を完全に排除し、フロントエンドとバックエンドの実装を常に型で一致させています。さらにこの仕組みをチーム間の連携にも広げ、一方のサービスが定義したAPIやWebhookのスキーマをnpmパッケージとして共有する体制を整えました。スキーマをドキュメントではなく物理的な「型」として直接参照し合うことで、サービスを跨ぐインターフェースの変更をコンパイルタイムで確実に検知できます。\r\n\r\n複数チームが関わる開発において、いかに「型」を境界のガードレールとして機能させ、認識のズレを未然に防ぐか。その具体的な構成と運用の知見を共有します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "mitsui",
+      "userIcon": "github",
+      "profileImageUrl": "/mitsui.jpg",
+      "bio": "株式会社UPSIDER\r\nエンジニアリングマネージャー\r\n\r\n株式会社ワークスアプリケーションズにてフロントエンド共通ライブラリやERPパッケージの開発に携わった後、株式会社CureAppにてチームリーダーとして医療機関向けWebアプリ開発を主導。株式会社kubell（旧Chatwork）ではエンジニア兼スクラムマスターとして活動し、現在は株式会社UPSIDERのエンジニアリングマネージャーとして、法人カード基盤の外部提供プラットフォームの開発組織を牽引している。",
+      "xId": "",
+      "githubId": "maroon8021",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "https://speakerdeck.com/maroon8021",
+      "affiliation": "株式会社UPSIDER",
+      "position": "エンジニアリングマネージャー"
+    }
+  },
+  {
+    "id": "kenta-tsunemi",
+    "title": "TypeScript Compiler はどのように未使用変数を検出しているのか？",
+    "overview": "TypeScript には `noUnusedLocals` / `noUnusedParameters` といった未使用変数に関するオプションが存在します。\r\n\r\nこれらはどのように変数が未使用であることを検出しているのでしょうか？\r\n\r\n本トークでは、調査過程で得られた知見をもとに、TypeScript Compiler の未使用変数の検出ロジックや、ロジックをどのように紐解いていったかを整理してお伝えしようと思います！\r\n\r\n## 背景\r\n\r\nReact コンポーネントの型付けに関する記事(https://engineering.gusto.com/the-journey-to-a-safer-frontend-why-we-removed-react-fc-095ff0b3e2e4)を読み、引数の型付けの仕方によって TypeScript の未使用変数の検出の挙動が変わるという内容に興味を持ちました。\r\n\r\nそこで、検出の内部的な挙動を理解するために、TypeScript Compiler の実装を実際に追跡して未使用判定がどのような仕組みで行われているのかを調査することにしました。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "つねみ@tocomi",
+      "userIcon": "x",
+      "profileImageUrl": "/kenta-tsunemi.jpg",
+      "bio": "野球とお笑いが好きです。\r\n笑いの取れるエンジニアを目指しています🗿\r\nM-1グランプリ2025 1回戦敗退",
+      "xId": "tocomi0112",
+      "githubId": "tocomi",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "https://tocomi.net/",
+      "affiliation": "テックタッチ株式会社",
+      "position": "フロントエンドエンジニア"
+    }
+  },
+  {
+    "id": "yudai-shinnoki",
+    "title": "Hono RPCとDrizzle ORMで実現する、AIにも優しいTypeScriptファーストな開発",
+    "overview": "TypeScriptを用いた開発において、バックエンドとフロントエンドのようなレイヤー間の型定義をどうするかは悩ましい課題です。\r\n近年台頭しているHono RPCやtRPCは、以前から使われていたOpenAPIやGraphQLのCode Generatorと違い、コード生成処理を挟むことなく型安全性が担保できます。\r\nこれは人間にとっての開発者体験を向上させるだけでなく、Claude Code等のAIエージェントにとっても大きなメリットをもたらします。\r\n\r\n本セッションでは、先日リリースしたウェブサイトにおいて、Next.js/Hono(Hono RPC)/Drizzle ORMという技術スタックでDBまで含めて一気通貫でTypeScriptファーストなアプローチをとった事例と、その中でのAIツールの活用について紹介いたします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "Yudai Shinnoki",
+      "userIcon": "x",
+      "profileImageUrl": "/yudai-shinnoki.jpg",
+      "bio": "スタートアップCTOとして3年ほど店舗接客SaaS「デジちゃいむ」の開発をリードした後、事業譲渡に伴い2023年にGENDAに入社。GENDAでは複数のプロダクト開発に関わりつつ、現在開発2部マネージャー。フルスタックTypeScript+サーバーレスな構成が好き。最近は遊びながら痩せるのを狙って某ダンスゲームを激しめにプレイしている。",
+      "xId": "y_shinnoki",
+      "githubId": "shinnoki",
+      "qiitaLink": "https://qiita.com/shinnoki",
+      "zennLink": "https://zenn.dev/shinnoki",
+      "noteLink": "https://note.com/shinnoki",
+      "additionalLink": "",
+      "affiliation": "株式会社GENDA",
+      "position": "開発2部マネージャー"
+    }
+  },
+  {
+    "id": "ayano",
+    "title": "TypeScriptエンジニアのためのWASMランタイム入門：AssemblyScriptから理解するメモリの実態",
+    "overview": "TypeScriptは高水準言語であり、その実行時のメモリ構造はJavaScriptエンジンに依存しています。そのため、通常はオブジェクトや配列がどのようにメモリ上に配置されているかを意識する機会はほとんどありません。本トークでは、TypeScriptに近い構文からWebAssemblyを生成するAssemblyScriptを題材に、「高水準なコードが低レイヤーの線形メモリにどのように配置されるか」を具体的に解説します。\r\n\r\n特に以下にフォーカスします：\r\n- WASMの線形メモリモデルの基本\r\n- AssemblyScriptにおけるオブジェクトレイアウトの実態\r\n- classインスタンスがどのようにメモリ上に配置されるか\r\n- 配列（ArrayBuffer / TypedArray含む）の内部構造",
+    "slidesLink": "",
+    "speaker": {
+      "name": "ayano",
+      "userIcon": "github",
+      "profileImageUrl": "/ayano.jpg",
+      "bio": "2025年に新卒入社のために上京。現在は新卒入社した企業で動画配信サービスの特殊デバイスのWEBフロントエンドを開発。主に保守・新規開発、パフォーマンス改善に従事。",
+      "xId": "",
+      "githubId": "ayano-yuki",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/yuki_ayano",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "",
+      "position": ""
+    }
+  },
+  {
+    "id": "asa1984",
+    "title": "Real World Effect-TS: 堅牢なプロダクトを型で組み上げる",
+    "overview": "Effect-TS は、エラーハンドリング・DI・非同期処理を型レベルで統一的に扱う TypeScript ライブラリです。\r\n本トークでは、Effect-TS を実際に採用した toB SaaS プロダクトを題材に、この仕組みがなぜ従来のエラーハンドリングや DI の手法より強力なのかを、素朴な TypeScript での実装との比較を交えて解説します。\r\nまた、学習コストやテスト戦略といった開発での実態を共有すると同時に、そのトレードオフについて議論し、Effect-TS は本当に必要なのか？という率直な疑問にも向き合います。\r\n\r\nEffect-TS から見いだせる TypeScript の可能性と、現場の経験に基づく実践知の両方を持ち帰れる内容を目指します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "asa1984",
+      "userIcon": "x",
+      "profileImageUrl": "/asa1984.jpg",
+      "bio": "株式会社HERPで『HERP AI Recruiter』の開発全般を担当。フルスタックで TypeScript を書いている。satisfies 演算子と React の Suspense が好き。",
+      "xId": "asa_high_ost",
+      "githubId": "asa1984",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/asa1984",
+      "noteLink": "",
+      "additionalLink": "https://asa1984.dev",
+      "affiliation": "株式会社HERP",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
+  {
+    "id": "yamanoku",
+    "title": "Navigation APIがlib.dom.d.tsに採用されるまでの道のり",
+    "overview": "皆さんは「Navigation API」をご存じでしょうか？\r\n\r\nSPAのクライアントサイドルーティングを実現するために使われるHistory APIの後継のWeb APIです。昨年のInteropプロジェクトでの採用を経て、今年1月よりすべての主要ブラウザにて利用可能になりました。\r\n\r\nしかしこのような最新のWeb APIを使おうとしたら型が未定義で、自らinterface Windowを拡張した経験は皆さんはありませんか？\r\n\r\n本セッションでは、Navigation APIの概要を紹介しつつ、普段何気なく利用しているDOM APIがどのようなフローでTypeScriptでの型定義（lib.dom.d.ts）に採用されるのかを解説します。\r\n\r\nこの発表を通じて、Web標準の技術が「型」として届けられるまでの裏側を知り、最新技術をより安全かつ深く理解して扱えるようになることを目指します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "yamanoku",
+      "userIcon": "github",
+      "profileImageUrl": "/yamanoku.jpg",
+      "bio": "一次の父",
+      "xId": "yamanoku",
+      "githubId": "yamanoku",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/yamanoku",
+      "noteLink": "",
+      "additionalLink": "https://yamanoku.net",
+      "affiliation": "",
+      "position": "会社員"
+    }
+  },
+  {
+    "id": "bicstone",
+    "title": "プロパティの順序で型推論が壊れる!? TS6.0 の修正から Context-Sensitivity の仕組みを追う",
+    "overview": "TypeScript 6.0 に入った1つの PR を起点に、TypeScript コンパイラの型推論の内部に踏み込むセッションです。\r\n\r\nオブジェクトリテラル内でメソッド構文を使うと、プロパティの記述順序を入れ替えただけでコールバック引数の型が number から unknown に変わる挙動がありました。アロー関数なら順序に関係なく推論が通るのに、メソッド構文にした途端に型推論が壊れていました。\r\n\r\nこの挙動は、型推論における context-sensitive の判定ロジックに起因します。メソッド構文は暗黙の this パラメータを持つため context-sensitive と判定され、推論の処理順が変わります。アロー関数はこれを持たないため、この影響を受けません。\r\n\r\nこの挙動は PR #62243 によって修正され、TS 6.0 でリリースされました。this を実際に使用していない関数を context-sensitive と見なさないよう変更されています。\r\n\r\n本トークではこの PR の差分 (utilities.ts, binder.ts, checker.ts) を追い、変更の意図を読み解きます。この事例を通じて context-sensitivity という概念と、TypeScript の内部に踏み込むきっかけを持ち帰っていただくことを目指します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "おおいし (bicstone)",
+      "userIcon": "x",
+      "profileImageUrl": "/bicstone.jpg",
+      "bio": "建設業界で機械設計に従事していたが、テクノロジーの力で世の中の摩擦を解決したいと考えるようになり2019年にWebエンジニアに転向。5年以上一貫してVertical SaaSの開発に携わる。技術だけにこだわらずに広い視野を持ち、多角的なアプローチで迅速かつ効果的にプロダクトの価値を最大化し、社会やステークホルダーの課題解決に貢献。",
+      "xId": "bicstone_me",
+      "githubId": "bicstone",
+      "qiitaLink": "https://qiita.com/bicstone",
+      "zennLink": "https://zenn.dev/bicstone",
+      "noteLink": "https://note.com/bicstone",
+      "additionalLink": "https://bicstone.me",
+      "affiliation": "ファインディ株式会社",
+      "position": "Webエンジニア"
+    }
+  },
+  {
+    "id": "ei",
+    "title": "決定論的な型チェックへ：Go 製コンパイラによる10倍速の裏側で --stableTypeOrdering から見える並列化への挑戦",
+    "overview": "「ロジックとして独立した宣言が，関数の型定義の順序を変更してしまう」\r\nこの挙動は，TypeScript の ype IDs を使用した仕組みによるものです．\r\n\r\nTypeScript 6.0 で --stableTypeOrdering フラグが追加される．このオプションは，上記の問題の解決であるのと同時に，TypeScript 7.0 で実現される「Go言語によるネイティブコンパイラ」へ移行準備の意味合いを持ちます．\r\n\r\nGo言語によるコンパイル高速化のための「並列化」は，Type IDsの仕組みだと，型の処理順序に対する「非決定性」の課題が出てきます．\r\n\r\n本セッションでは，TypeScript 6.0 で導入された --stableTypeOrdering フラグに焦点を当て，以下の構成で話します．\r\n\r\n- なぜ離れた場所の const 宣言が，ユニオン型の並び順を変更してしまうのか\r\n\r\n- なぜ TypeScript 7.0 では Type IDs 順を捨て，「コンテンツに基づく決定論的ソート」を導入したのか\r\n\r\n- チェック速度を最大 25% 犠牲にしてまでも提供されるこのフラグの価値と，移行時に発生しうる推論エラー",
+    "slidesLink": "",
+    "speaker": {
+      "name": "えーたろー",
+      "userIcon": "x",
+      "profileImageUrl": "/ei.jpg",
+      "bio": "学生フリーランスのFlutterエンジニアを経て、ディップ株式会社に新卒入社。バックエンドエンジニアとして「バイトル」のリアーキに従事した後、SREに転向。\r\n現在は、負荷テストやオブザーバビリティを通じたパフォーマンス向上に興味を持ち，「技術領域を問わず、システム全体を横断して最適化できるエンジニア」を目指し、日々勉強中。",
+      "xId": "komugi8448",
+      "githubId": "komugi8",
+      "qiitaLink": "http://qiita.com/komugi8",
+      "zennLink": "https://zenn.dev/komugi8",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "ディップ株式会社",
+      "position": "バックエンド，SRE"
+    }
+  },
+  {
+    "id": "dowod",
+    "title": "型の深宇宙へ飛び込め ─ tscを遅くする記述パターンの全解剖 ─",
+    "overview": "TypeScriptプロジェクトが大きくなるにつれ、型チェックに時間がかかるようになった経験はないでしょうか。その重さの正体は、型の深宇宙に潜んでいます。\r\n本セッションでは、tscの型チェックを著しく遅くするコードパターンに焦点を当てます。\r\n以下のような型がなぜコンパイラに負荷をかけるのかを、@typescript/analyze-traceなどのツールを用いてボトルネックを可視化しながら解説します。\r\n\r\n- 再帰的な条件型\r\n- 巨大なUnion型\r\n- 複雑なMapped Type\r\n\r\n「なんとなく重い」を「なぜ重いか」に変えることで、意識的に型を設計できるエンジニアを増やすことが目標です。\r\n実際の重いコード例と改善後のコードを比較しながら、明日から使える知識をお届けします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "dowod",
+      "userIcon": "x",
+      "profileImageUrl": "/dowod.jpg",
+      "bio": "WIP",
+      "xId": "_dowod",
+      "githubId": "dOwOd",
+      "qiitaLink": "https://qiita.com/l_dOwOd_l",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "https://dowo.dev/",
+      "affiliation": "KINTOテクノロジーズ株式会社",
+      "position": ""
+    }
+  },
+  {
+    "id": "assign",
+    "title": "ドメインを組織の資産にする — 少人数で複数プロダクトを支えるTypeScript運用の実践",
+    "overview": "少人数で10プロダクト以上を運用するASSIGNが、散在していた「型とドメイン」を少しずつ組織の資産として整理してきた3年間の変遷を共有します。\r\nAIがコードを量産できる今、そのスピードを破綻させずに事業へ活かす土台となったのは、型による境界定義や業務語彙といった地道な設計でした。\r\nモノレポによる業務語彙の集約、Zodを用いた仕様の一本化、AI駆動開発の土台作りといった、実践的なTypeScript運用の過程をお伝えします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "須永 高弘",
+      "userIcon": "x",
+      "profileImageUrl": "/assign.jpg",
+      "bio": "大学卒業後、総合コンサルファームに入社。\r\n製造・メディア顧客に対し戦略・業務・ITプロジェクトを経験。\r\n若手転職支援アプリ「ASSIGN」の開発・運用、LLMの事業活用、エンジニア組織開発等に従事。",
+      "xId": "taka_ganasu",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/takahiro_sunaga",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社アサイン",
+      "position": "執行役員 CTO"
+    }
+  },
+  {
+    "id": "coderabbit",
+    "title": "AI活用の格差をなくす：チーム全体のAI開発生産性を底上げする方法",
+    "overview": "AIツールはすでに多くのエンジニアにとって日常の一部になっています。しかし現場では、使いこなせる人とそうでない人の間で生産性に大きな差が生まれ、チーム全体としては最適化されていないケースが増えています。\r\n\r\nその要因の一つは、AI活用が個人のローカル環境に閉じていることです。プロンプトやノウハウは個人の中に蓄積され、チームとして再利用されないまま分断されています。NotionやIssue管理、コードベースなどに知見は存在しているにもかかわらず、それらはAIと十分に接続されていません。また、プロンプト共有のような取り組みも試みられていますが、文脈依存性が高く、再現性や持続性に課題があります。\r\n\r\n本セッションでは、CodeRabbitのレビュー・実装計画生成・エージェントといった機能を軸に、AI活用が「個人最適」から「チーム最適」へと移行することで何が変わるのかを整理します。GitHub、Notion、Issue管理ツールなどに分散した知識をAIが横断的に扱うことで、レビューの質や開発プロセスがどのように変化するのか、その構造を解説します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "中津川篤司",
+      "userIcon": "x",
+      "profileImageUrl": "/coderabbit.jpg",
+      "bio": "CodeRabbit デベロッパーアドボケイト、一般社団法人DevRel代表理事。プログラマ、エンジニアとしていくつかの企業で働き、28歳のときに独立。2004年、まだ情報が少なかったオープンソースソフトの技術ブログ『MOONGIFT』を開設し、毎日情報を発信（2021年に更新終了）。2013年に株式会社MOONGIFT設立、ビジネスとエンジニアを結ぶエバンジェリスト業「DevRel」活動をスタートした。ソーシャルIDはすべて goofmint",
+      "xId": "goofmint",
+      "githubId": "goofmint",
+      "qiitaLink": "https://qiita.com/goofmint",
+      "zennLink": "https://zenn.dev/goofmint",
+      "noteLink": "https://note.com/goofmint",
+      "additionalLink": "https://goofmint.dev/",
+      "affiliation": "CodeRabbit, Inc.",
+      "position": "デベロッパーアドボケイト"
+    }
+  },
+  {
+    "id": "wealthnavi",
+    "title": "Next.js × OpenAPIで型安全なデータ境界を設計するアーキテクチャ改善",
+    "overview": "ウェルスナビではOpenAPIによるスキーマ駆動開発を採用しており、バックエンドにSpring Bootを導入することで、型安全なシステムを構築しています。\r\n\r\n一方、フロントエンドにはNext.jsを採用していますが、開発初期は型を厳密に意識せずUI層とBFF層程度の分割で開発を進めていたため、OpenAPIによるスキーマ駆動開発やSpring Bootが持つ型安全性の恩恵を十分に享受できていませんでした。\r\n\r\nそこで私たちは、Next.jsのBFF層に Data Access Layer（DAL）を新設し、バックエンドの型安全な設計をフロントエンドまで継承し、スキーマ駆動開発による品質および生産性の向上を目的としたリファクタリングを実施しました。\r\n\r\n本セッションでは、DALを設けてUIへ渡すデータの型を明示的に定義し、型安全な「データ境界」を実現したリアーキテクチャの実例を紹介するとともに、実際に運用して感じたメリット・デメリットを紹介します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "土本祐介",
+      "userIcon": "x",
+      "profileImageUrl": "/wealthnavi.jpg",
+      "bio": "ウェルスナビ株式会社  /  フロントエンドエンジニア\r\n\r\n2024年、ウェルスナビ株式会社に新卒入社。Next.js × TypeScriptを用いた新規サービスにおいて、フロントエンド業務に従事",
+      "xId": "yusuke_issiki",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "",
+      "position": ""
+    }
+  },
+  {
+    "id": "hacobu",
+    "title": "AI Agent に“攻略本”を渡したら、150フォームの移行が回り始めた話",
+    "overview": "React Final Form 製の 150 フォームを、React Hook Form + Zod へどう移行し切るか。\r\n私たちは、移行ノウハウを Agent Skills に閉じ込め、AI Agent に“攻略本”として渡すことで、この大規模移行を進めました。\r\n人がアーキテクチャと型を設計し、AI が量をこなす。この分業を成立させるために何を標準化し、どこを人が握るべきだったのか。現場で得た知見を共有します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "高橋悟生",
+      "userIcon": "x",
+      "profileImageUrl": "/hacobu.jpg",
+      "bio": "24卒で株式会社BuySell Technologiesに入社し、複数のプロダクトにおける技術検証・設計・開発を経験。\r\n現在は株式会社Hacobuにてソフトウェアエンジニアとして、トラック予約受付サービス「MOVO Berth」の設計・開発に携わっている。",
+      "xId": "go20001104",
+      "githubId": "takahashigo",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/takahashigo",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社Hacobu、テクノロジー本部",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
+  {
+    "id": "layerx",
+    "title": "未定",
+    "overview": "-",
+    "slidesLink": "",
+    "speaker": {
+      "name": "ypresto",
+      "userIcon": "x",
+      "profileImageUrl": "/layerx.jpg",
+      "bio": "2012年に新卒でMIXIに入社。2014年より「みてね」の立ち上げに関わり、Androidを中心に開発を担当。その後、教育・流通系のスタートアップ複数社に籍を移し、開発全般を担いつつ、フロントエンドやUIデザインをリードする役割を担う。2024年1月にLayerXに入社し、バクラク事業部にてフロントエンドを中心に開発に携わる。TypeScript自体のパフォーマンスについて調査し、改善のためのPull Requestがマージされた。型魔術師は憧れ。",
+      "xId": "yuya_presto",
+      "githubId": "ypresto",
+      "qiitaLink": "https://qiita.com/yuya_presto",
+      "zennLink": "https://zenn.dev/ypresto",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社LayerX",
+      "position": "バクラク事業部 Software Engineer"
+    }
+  },
+  {
+    "id": "dresscode",
+    "title": "AIコーディングエージェントの活用で、コードは静かに肥大化した —— 型・Lint・Skillsで挽回する10分",
+    "overview": "近年、CursorやClaude CodeといったAIコーディングエージェントの活用により、TypeScriptプロジェクトの開発サイクルは劇的に加速しました。一方で、高速なイテレーションを繰り返したコードベースは、人間が気づかないうちに構造的な肥大化を招く危険性を孕んでいます。\r\n\r\n本セッションでは、コンパウンド型SaaSのバックエンドをAIと共に1年間育ててきた経験から、重複コード・Fat Usecase・ゴッドメソッドといった「AI由来の負債」に対する3つの防衛策を10分で紹介します。\r\n\r\n具体的には、Discriminated UnionやBranded Typeなどを用いた型による不正状態の排除、ESLintやoxlintによる行数・複雑度の機械的なガード、そしてAgent Skillsを活用したチーム規約のAIへの継承という3つの軸について、実践的な知見を広く浅くお話しします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "篠田 陽介",
+      "userIcon": "github",
+      "profileImageUrl": "/dresscode.jpg",
+      "bio": "2025年6月にDress Code株式会社に入社後、プロダクトエンジニアとしてプロダクトの価値と向き合いながら日々フルスタックに開発をしています。",
+      "xId": "",
+      "githubId": "shinoda-yosuke",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/p/dress_code",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "Dress Code株式会社",
+      "position": "Product & Technology プロダクトエンジニア"
+    }
+  },
+  {
+    "id": "bitkey",
+    "title": "キャリア25年目にしてTypeScript に出会うまで",
+    "overview": "エンジニアとしてのキャリアをスタートしてから現在に至るまでの25年間、Java / Objective-C / Python / Swift などさまざまな言語でプログラミングしてきた私にとって、いま人気を集める TypeScript がどのように見えているかをお話しします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "かねうちてつや",
+      "userIcon": "x",
+      "profileImageUrl": "/bitkey.jpg",
+      "bio": "1975年新潟県長岡市出身、大阪市在住。小学生で MSX BASIC に触れ、高校時代に出会った HyperCard で開発の楽しさを知る。大学で UNIX と Emacs のパワーに圧倒されて以来、Emacs と共にキャリアを歩み続ける。電機メーカーやフェンリルでのエンジニア、2016 年からのハート・オーガナイゼーション CTO を経て、2025年にビットキー参画。これまでの知見を携え、再び現場のエンジニアとして挑戦中。",
+      "xId": "kaniza",
+      "githubId": "kaniza",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社ビットキー",
+      "position": "エンジニア"
+    }
+  },
+  {
+    "id": "mosh",
+    "title": "TypeScriptで実現する既存APIを活用したリモートMCPサーバー構築",
+    "overview": "MCP（Model Context Protocol）とその周辺技術の発展に伴い、国内でもリモートMCPサーバーの活用事例が増えつつあります。一方で、構築に関する実践的な知見は、まだ十分に共有されているとは言えません。\r\n\r\n本セッションでは、TypeScriptを用いてリモートMCPサーバーをどのように迅速かつ実運用を前提とした形で構築したのかをご紹介します。新たにAPIを設計・実装するのではなく、既存のAPI資産を活用し、短期間で実用的な構成を実現しました。\r\n\r\nその過程で得られた知見を、アーキテクチャを中心に設計・実装・運用まで含めた全体像として整理し、実現方法にフォーカスしてお伝えします。また、モノレポやパッケージ管理による既存資産の再利用や、API仕様を起点とした構築など、TypeScriptの特性を活かした設計についても触れます。さらに、ユーザーにとって扱いやすい利用体験の設計についても取り上げます。\r\n\r\nMCPに関心のある方や、これからリモートMCPサーバーの構築を検討している方にとって、構築の一つのパターンとして参考にしつつ、リモートMCPサーバーの全体像を理解できるセッションを目指します。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "鈴木翔大",
+      "userIcon": "x",
+      "profileImageUrl": "/mosh.jpg",
+      "bio": "IdaaSプラットフォーム、IoT農園サービスなど様々な組織で技術マネジメントを経験してきました。MOSHではVPoTとして技術戦略の立案・執行および技術部の管掌を行っています。個人ではorvalのmaintainerとしての開発やrailsなど複数のOSSへのコントリビュート活動を行なっています。",
+      "xId": "SoartecL",
+      "githubId": "soartec-lab",
+      "qiitaLink": "https://qiita.com/SoarTec-lab",
+      "zennLink": "https://zenn.dev/soartec_lab",
+      "noteLink": "https://note.com/soartec_lab",
+      "additionalLink": "",
+      "affiliation": "MOSH株式会社",
+      "position": "VPoT"
+    }
+  },
+  {
+    "id": "dwango",
+    "title": "10周年を迎えたZEN Study Webフロントエンドの次の10年へ向けた工夫",
+    "overview": "ドワンゴ教育事業が提供する学習アプリ・ZEN Studyは、2026年4月にサービス開始から10周年を迎えました。10年間の積み重ねがあるコードをベースとして、今後10年間の新機能開発と保守を継続していくために組み入れている工夫を、TypeScriptの観点からお話しします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "小松 翔",
+      "userIcon": "github",
+      "profileImageUrl": "/dwango.jpg",
+      "bio": "高専卒業後、鉄道事業会社において列車の運転士、運転士養成の講師、業務システムを開発する情報システム部門などに従事。2024年3月にドワンゴへ入社し、ZEN Study Webフロントエンドを開発中。",
+      "xId": "tris5572",
+      "githubId": "tris5572",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/tris",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社ドワンゴ",
+      "position": ""
+    }
+  },
+  {
+    "id": "dip",
+    "title": "TypeScriptフルリニューアルの裏でパフォーマンスと戦った1ヶ月",
+    "overview": "ディップ株式会社では、20年超の歴史を持つアルバイト求人サービス「バイトル」の大規模フルリニューアルとしてTypeScriptで求職者向けサイトのリニューアルを行っています。\r\n\r\n本セッションでは、このリニューアルにあたってパフォーマンスがリリースの品質基準に届かなかったところから、フロントエンドエンジニアが1秒、0.1秒を削るためにパフォーマンスに向き合った1ヶ月の試行錯誤をお話しします。\r\n\r\n求人メディアとしてバイトルには\r\n・複数種類のレコメンド取得\r\n・大量の画像・動画表示\r\n・メディアサイト特有のSEOのためのリクエスト増加\r\n\r\nのようなパフォーマンス改善をする上での難しい制約も抱えています。\r\n\r\nこうしたサービスの制約と戦いながら、Lighthouseのスコア向上、クリティカルレンダリングパスの最適化に取り組んだ1ヶ月をお伝えします。",
+    "slidesLink": "",
+    "speaker": {
+      "name": "横山 隼",
+      "userIcon": "github",
+      "profileImageUrl": "/dip.jpg",
+      "bio": "ディップ株式会社アルバイト求人サービス「バイトル」の求職者向けサイト開発を担うエンジニア。\r\n\r\n2022年に新卒入社後、「バイトル」や「スポットバイトル」など社内の様々なプロダクトを経験し、現在は「バイトル」フルリニューアルプロジェクトの求職者向けサイトチームのテックリードを務める。",
+      "xId": "",
+      "githubId": "hayato-yokoyama",
+      "qiitaLink": "https://qiita.com/h_yokoyama",
+      "zennLink": "https://zenn.dev/h_yokoyama",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "ディップ株式会社",
+      "position": "フロントエンドエンジニア"
+    }
+  }
+]

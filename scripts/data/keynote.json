@@ -1,0 +1,20 @@
+{
+  "id": "jake-bailey",
+  "title": "『TS 7: How We Got There』",
+  "overview": "",
+  "slidesLink": "",
+  "speaker": {
+    "name": "Jake Bailey",
+    "userIcon": "x",
+    "profileImageUrl": "/keynote/jake.jpg",
+    "bio": "Jake is a programming language lover and Principal Software\nEngineer at Microsoft. He currently works on TypeScript, mainly\nfocusing on performance, infrastructure, and the ecosystem, along\nwith side adventures in Go.",
+    "xId": "",
+    "githubId": "jakebailey",
+    "qiitaLink": "",
+    "zennLink": "",
+    "noteLink": "",
+    "additionalLink": "https://jakebailey.dev",
+    "affiliation": "Microsoft",
+    "position": "Principal Software Engineer"
+  }
+}
