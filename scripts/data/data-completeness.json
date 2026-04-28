@@ -1,0 +1,1766 @@
+[
+  {
+    "speakerName": "Yuki Terashima",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "TanStack StartのcreateServerFnで作る、型が通るAPI",
+      "ogpTitle": "TanStack StartのcreateServerFnで作る\n型が通るAPI"
+    }
+  },
+  {
+    "speakerName": "infixer",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "inferと仲良くなる10分間",
+      "ogpTitle": "inferと仲良くなる10分間"
+    }
+  },
+  {
+    "speakerName": "Kanon",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "Road to contibuter of Valibot - ValibotにISBN validationを追加するまで -",
+      "ogpTitle": "Road to contibuter of Valibot\n- ValibotにISBN validationを追加するまで -"
+    }
+  },
+  {
+    "speakerName": "Yoshiaki Togami",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "制約と時代から読み解くTypeScriptコンパイラ設計史",
+      "ogpTitle": "TypeScriptコンパイラの設計考古学"
+    }
+  },
+  {
+    "speakerName": "ssssota",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "ReactとSvelteのその先、Ripple-TS",
+      "ogpTitle": "ReactとSvelteのその先、Ripple-TS"
+    }
+  },
+  {
+    "speakerName": "藤田 翔雅",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "Oxlint は ESLint / typescript-eslint を置き換えられるか？",
+      "ogpTitle": "Oxlint は ESLint / typescript-eslintを\n置き換えられるか？"
+    }
+  },
+  {
+    "speakerName": "minako-ph",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": false,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "柔軟なPDFレイアウトエディタを支える型システム設計 — Discriminated UnionとConditional Typeの実践",
+      "ogpTitle": "柔軟なPDFレイアウトエディタを支える\n型システム設計\n— Discriminated UnionとConditional Typeの実践"
+    }
+  },
+  {
+    "speakerName": "susisu",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "Stage 3 Decorators でできること / できないこと",
+      "ogpTitle": "Stage 3 Decoratorsで\nできること / できないこと"
+    }
+  },
+  {
+    "speakerName": "Hal",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "checker.tsにチキンレース仕掛けてみた：型エラー(TS2589)が発生する境界線を求めて",
+      "ogpTitle": "checker.tsにチキンレース仕掛けてみた：\n型エラー(TS2589)が発生する境界線を求めて"
+    }
+  },
+  {
+    "speakerName": "omote",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "ビジネスモデルから紐解く、AI+型駆動開発",
+      "ogpTitle": "ビジネスモデルから紐解くAI+型駆動開発"
+    }
+  },
+  {
+    "speakerName": "Kazuya Serizawa",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": false,
+      "hasUseIcon": false,
+      "hasBio": false
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "アンチパターンを避ける型駆動React最適化",
+      "ogpTitle": "アンチパターンを避ける型駆動React最適化"
+    }
+  },
+  {
+    "speakerName": "kosui",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": false,
+      "hasUseIcon": false,
+      "hasBio": false
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "TypeScriptのclassはなぜこうなったのか — 歴史・落とし穴・そして使いどころを探る",
+      "ogpTitle": "TypeScriptのclassはなぜこうなったのか\n— 歴史・落とし穴・そして使いどころを探る"
+    }
+  },
+  {
+    "speakerName": "Shotaro Ozawa",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": false,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "型で頑張るプロダクト国際化",
+      "ogpTitle": ""
+    }
+  },
+  {
+    "speakerName": "北川 直昭",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "権限チェックの一貫性を型で守る TypeScript による多層防御",
+      "ogpTitle": "権限チェックの一貫性を型で守る\nTypeScriptによる多層防御"
+    }
+  },
+  {
+    "speakerName": "glassmonkey",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "TypeScriptでWebAssemblyを用いた型安全なプラグイン設計",
+      "ogpTitle": "TypeScriptでWebAssemblyを用いた\n型安全なプラグイン設計"
+    }
+  },
+  {
+    "speakerName": "higak9",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "TypeScriptの「型」をAIのスキルに昇華させてみた件について",
+      "ogpTitle": "TypeScriptの「型」を\nAIのスキルに昇華させてみた件について"
+    }
+  },
+  {
+    "speakerName": "kemuridama",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "密結合なバックエンドから TypeScript のコードを生成する",
+      "ogpTitle": "密結合なバックエンドから\nTypeScriptのコードを生成する"
+    }
+  },
+  {
+    "speakerName": "pvcresin",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "関係性から理解する\"同一性\"の型用語たち",
+      "ogpTitle": "関係性から理解する\"同一性\"の型用語たち"
+    }
+  },
+  {
+    "speakerName": "Saji",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "業務に残された「よくない型」で考える「TypeScriptの難しさ」",
+      "ogpTitle": "業務に残された「よくない型」で考える\n「TypeScriptの難しさ」"
+    }
+  },
+  {
+    "speakerName": "IkedaNoritaka",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": false,
+      "hasUseIcon": false,
+      "hasBio": false
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "OSSのコードベースにneverthrowを漸進的に導入して、AIにも人間にも優しいエラーハンドリングを実現する",
+      "ogpTitle": "OSSのコードベースにneverthrowを漸進的に導入して、AIにも人間にも優しいエラーハンドリングを実現する"
+    }
+  },
+  {
+    "speakerName": "izumin5210",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "開発体験を左右するライブラリの API 設計 ― GraphQL スキーマ構築ライブラリから考える",
+      "ogpTitle": "開発体験を左右するライブラリのAPI設計\n― GraphQLスキーマ構築ライブラリから考える"
+    }
+  },
+  {
+    "speakerName": "syumai",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "Oxlintはいかにしてtsgolintのlint ruleを呼び出しているのか",
+      "ogpTitle": ""
+    }
+  },
+  {
+    "speakerName": "おーみー",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "「関数型プログラミング」を分解する.ts",
+      "ogpTitle": "「関数型プログラミング」を分解する.ts"
+    }
+  },
+  {
+    "speakerName": "maguro",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "tscからtsgoへ ── DenoのTypeScript基盤はどう変わったか",
+      "ogpTitle": "tscからtsgoへ\n─ DenoのTypeScript基盤はどう変わったか"
+    }
+  },
+  {
+    "speakerName": "Keisuke Ikeda",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "JavaScript実装の自作プログラミング言語をTypeScript実装に移行した話",
+      "ogpTitle": "JSで実装した自作プログラミング言語を\nTSに移行した話"
+    }
+  },
+  {
+    "speakerName": "IORI",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "TanStack Router の型定義を読み解く",
+      "ogpTitle": "TanStack Router の型定義を読み解く"
+    }
+  },
+  {
+    "speakerName": "つくだに",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "TypeScriptでドット絵エディタ実装録: 状態設計と実装判断",
+      "ogpTitle": "TypeScriptでドット絵エディタ実装録：\n状態設計と実装判断"
+    }
+  },
+  {
+    "speakerName": "筧万里",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "コーディングエージェントはTypeScriptの型エラーをどう自己修正しているのか",
+      "ogpTitle": "コーディングエージェントはTypeScriptの\n型エラーをどう自己修正しているのか"
+    }
+  },
+  {
+    "speakerName": "工藤 颯斗",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": false,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "静的解析への投資がAI時代のコード品質を支える ── カスタムESLintルールの設計と運用",
+      "ogpTitle": "静的解析への投資がAI時代のコード品質を支える\n─ カスタムESLintルールの設計と運用"
+    }
+  },
+  {
+    "speakerName": "Yuta Takahashi",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "次世代リンターで探る、tsgo 時代における型認識カスタムルールの現実解",
+      "ogpTitle": "次世代リンターで探る\ntsgo 時代における型認識カスタムルールの現実解"
+    }
+  },
+  {
+    "speakerName": "わんこ",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "バックエンドにElysiaJSを採用して気付いた、良い点・悪い点",
+      "ogpTitle": "バックエンドにElysiaJSを採用して気付いた\n良い点・悪い点"
+    }
+  },
+  {
+    "speakerName": "山本大星",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "TypeScriptバックエンドのオブザーバビリティ戦略 — Datadog × NestJSの実践",
+      "ogpTitle": "TypeScriptバックエンドのオブザーバビリティ戦略\n— Datadog × NestJSの実践"
+    }
+  },
+  {
+    "speakerName": "桐生直輝",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "Node.js+TypeScriptにおけるCJS/ESM相互運用の最新ポイント",
+      "ogpTitle": "Node.js+TypeScriptにおける\nCJS/ESM相互運用の最新ポイント"
+    }
+  },
+  {
+    "speakerName": "Kanato",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": false,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "自動レビューエンジンの実装と運用 ~レビューのない世界へ~",
+      "ogpTitle": "自動レビューエンジンの実装と運用\n~レビューのない世界へ~"
+    }
+  },
+  {
+    "speakerName": "elecdeer",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "型プラグインシステムの実装に使われるテクニック",
+      "ogpTitle": "型プラグインシステムの実装に使われるテクニック"
+    }
+  },
+  {
+    "speakerName": "lacolaco",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "いつテストを書くか？―ソフトウェア開発における安心と不安について考える",
+      "ogpTitle": "いつテストを書くか？\n―ソフトウェア開発における\n安心と不安について考える"
+    }
+  },
+  {
+    "speakerName": "池奥裕太/@yuta-ike",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "AI時代に考える、Branded Typesで実現する堅牢な型付け",
+      "ogpTitle": ""
+    }
+  },
+  {
+    "speakerName": "樋口 彰",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "TypeScriptでPlatform SDKを作る技術",
+      "ogpTitle": "TypeScriptでPlatform SDKを作る技術"
+    }
+  },
+  {
+    "speakerName": "Ryutaro Yako",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "Zod v4 Codec でスキーマに型変換を埋め込む REST API 設計",
+      "ogpTitle": "Zod v4 codec でスキーマに型変換を埋め込む REST API 設計"
+    }
+  },
+  {
+    "speakerName": "泉雄介",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": false,
+      "hasUseIcon": false,
+      "hasBio": false
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "400超のデータポイントを型で制す —— UPSIDERの与信審査エンジンを支えるTypeScriptの「柔軟性」と「結合力」",
+      "ogpTitle": "400超のデータポイントを型で制す\n— UPSIDERの与信審査エンジンを支える\nTypeScriptの「柔軟性」と「結合力」"
+    }
+  },
+  {
+    "speakerName": "高田 理功",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": false,
+      "hasUseIcon": false,
+      "hasBio": false
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "string地獄を脱出する — ValueObject + Zod 実践パターン",
+      "ogpTitle": "string地獄を脱出する\n— ValueObject + Zod 実践パターン"
+    }
+  },
+  {
+    "speakerName": "中村遼大",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "tsserverとは何だったのか、これからどうなるのか",
+      "ogpTitle": "tsserverとは\n何だったのか、これからどうなるのか"
+    }
+  },
+  {
+    "speakerName": "msuto / Michimasa Suto",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "ts-morph でプロジェクト固有のアーキテクチャガードレールを作る",
+      "ogpTitle": "ts-morph でプロジェクト固有の\nアーキテクチャガードレールを作る"
+    }
+  },
+  {
+    "speakerName": "oiki",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "Typiaで配信JSONの安全性を構造的に担保する",
+      "ogpTitle": "Typiaで配信JSONの安全性を構造的に担保する"
+    }
+  },
+  {
+    "speakerName": "市川 賢",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": false,
+      "hasUseIcon": false,
+      "hasBio": false
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "LLM時代のリファクタリング戦略：AIエージェントによる段階的・安全なTS移行方法",
+      "ogpTitle": "LLM時代のリファクタリング戦略：\nAIエージェントによる段階的・安全なTS移行方法"
+    }
+  },
+  {
+    "speakerName": "takuma-ru",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "enum よ、さようなら",
+      "ogpTitle": "enumよ、さようなら"
+    }
+  },
+  {
+    "speakerName": "籏野 拓",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "TypeScriptの型だけでオセロを完全実装する ── 型は\"仕様\"をどこまで語れるか",
+      "ogpTitle": "TypeScriptの型だけでオセロを完全実装する\n─ 型は\"仕様\"をどこまで語れるか"
+    }
+  },
+  {
+    "speakerName": "ryo",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "Polymorphic Components パターンで作る、型安全でセマンティックな UI コンポーネント",
+      "ogpTitle": "Polymorphic Components パターンで作る\n型安全でセマンティックなUIコンポーネント"
+    }
+  },
+  {
+    "speakerName": "Mahito",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "childrenの順序まで型で縛る ── Branded Typesで実践するJSXの構造安全",
+      "ogpTitle": "childrenの順序まで型で縛る\n─ Branded Typesで実践するJSXの構造安全"
+    }
+  },
+  {
+    "speakerName": "宇根昇汰",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": false,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "Auth.jsからBetter Authへの移行に見る「型とランタイム」の設計思想の変化",
+      "ogpTitle": "Auth.jsからBetter Authへの移行に見る\n「型とランタイム」の設計思想の変化"
+    }
+  },
+  {
+    "speakerName": "たつかわ",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": false,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "TypeScriptとAngular Signal で実現する保守性の高いアプリケーション設計 - 3層アーキテクチャによる責務分離の実践",
+      "ogpTitle": "TypeScriptとAngular Signalで実現する\n保守性の高いアプリケーション設計\n- 3層アーキテクチャによる責務分離の実践"
+    }
+  },
+  {
+    "speakerName": "渡邊 耕平",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "型のないDSLを安全に扱う: TypeScriptとメタプログラミングによるElasticsearch連携の実践",
+      "ogpTitle": "型のないDSLを安全に扱う:\nTypeScriptとメタプログラミングによる\nElasticsearch連携の実践"
+    }
+  },
+  {
+    "speakerName": "yanaemon",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "TypeScript の型で副作用の実行順序を制御する",
+      "ogpTitle": "TypeScript の型で副作用の実行順序を制御する"
+    }
+  },
+  {
+    "speakerName": "irie",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "10秒のビルドを1秒へ：tsdown が切り拓く 2026 年の TypeScript ライブラリ開発",
+      "ogpTitle": "10秒のビルドを1秒へ：\ntsdown が切り拓く2026年の\nTypeScriptライブラリ開発"
+    }
+  },
+  {
+    "speakerName": "Tamasho Tomoya",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "typescript-goで変わるリンターの世界 — Flintという第三の選択肢",
+      "ogpTitle": "typescript-goで変わるリンターの世界\n— Flintという第三の選択肢"
+    }
+  },
+  {
+    "speakerName": "Ayu",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": false,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "TypeScript7 - 非推奨設定から読む責務の変化",
+      "ogpTitle": "これから非推奨になる設定・コードと代替について"
+    }
+  },
+  {
+    "speakerName": "Shimmy",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "実践TanStack Start: 新規プロダクトを開発して確立した、サーバーとクライアント境界の設計パターン",
+      "ogpTitle": "実践TanStack Start:\n新規プロダクトを開発して確立した\nサーバーとクライアント境界の設計パターン"
+    }
+  },
+  {
+    "speakerName": "福地開",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": false,
+      "hasUseIcon": false,
+      "hasBio": false
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "TypeScriptだけでAIエージェントを作る ― フロント・エージェント・インフラのフルスタック実践",
+      "ogpTitle": "TypeScriptだけでAIエージェントを作る\n― フロント・エージェント・インフラの\nフルスタック実践"
+    }
+  },
+  {
+    "speakerName": "hedrall",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "「雰囲気tsconfig」からの脱却：pnpmモノレポ運用で学び直したProject Referencesの基礎と実践",
+      "ogpTitle": "「雰囲気tsconfig」からの脱却：\npnpmモノレポ運用で学び直した\nProject Referencesの基礎と実践"
+    }
+  },
+  {
+    "speakerName": "yoshikouki",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "AIエージェントと協働するCLI開発 — BunとOpenClawで学んだこと",
+      "ogpTitle": "AIエージェントと協働するCLI開発\n— BunとOpenClawで学んだこと"
+    }
+  },
+  {
+    "speakerName": "tony",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "スプレッド構文によるブランド流出問題を乗り越えて、オブジェクト型に対する Branded Types を使い倒す",
+      "ogpTitle": "スプレッド構文による\nブランド流出問題を乗り越えて\nオブジェクト型に対するBranded Typesを使い倒す"
+    }
+  },
+  {
+    "speakerName": "佐藤 拓人",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": false,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "AIのために、AIを使った、Effect-TSからの脱却 〜テストを活用した安全なリファクタリングの進め方〜",
+      "ogpTitle": "AIのために、AIを使った、Effect-TSからの脱却\n〜テストを活用した安全なリファクタリング\nの進め方〜"
+    }
+  },
+  {
+    "speakerName": "kazupon",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "プラグインで拡張されるContextをtype-safeにする難しさと設計判断",
+      "ogpTitle": "プラグインで拡張されるContextを\ntype-safeにする難しさと設計判断"
+    }
+  },
+  {
+    "speakerName": "shotaro",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "TypeScriptの型はAIに届いているか？ ― AIコーディングツール検証で見えたIDEとの断絶",
+      "ogpTitle": ""
+    }
+  },
+  {
+    "speakerName": "nabeliwo",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "React の props は値の集合ではない — UI の状態を宣言するコンポーネント設計",
+      "ogpTitle": "React の props は値の集合ではない\n— UI の状態を宣言するコンポーネント設計"
+    }
+  },
+  {
+    "speakerName": "mitsui",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "TypeSpecで繋ぐ複数プロダクトの型安全 — スキーマ共有による「型契約」の実践",
+      "ogpTitle": "TypeSpecで繋ぐ複数プロダクトの型安全\n— スキーマ共有による「型契約」の実践"
+    }
+  },
+  {
+    "speakerName": "つねみ@tocomi",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "TypeScript Compiler はどのように未使用変数を検出しているのか？",
+      "ogpTitle": ""
+    }
+  },
+  {
+    "speakerName": "Yudai Shinnoki",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "Hono RPCとDrizzle ORMで実現する、AIにも優しいTypeScriptファーストな開発",
+      "ogpTitle": "Hono RPCとDrizzle ORMで実現する\nAIにも優しいTypeScriptファーストな開発"
+    }
+  },
+  {
+    "speakerName": "ayano",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "TypeScriptエンジニアのためのWASMランタイム入門：AssemblyScriptから理解するメモリの実態",
+      "ogpTitle": "TypeScriptエンジニアのためのWASMランタイム入門：AssemblyScriptで実装から理解するメモリの実態"
+    }
+  },
+  {
+    "speakerName": "asa1984",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "Real World Effect-TS: 堅牢なプロダクトを型で組み上げる",
+      "ogpTitle": "Real World Effect-TS：\n堅牢なプロダクトを型で組み上げる"
+    }
+  },
+  {
+    "speakerName": "yamanoku",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "Navigation APIがlib.dom.d.tsに採用されるまでの道のり",
+      "ogpTitle": "Navigation APIがlib.dom.d.tsに\n採用されるまでの道のり"
+    }
+  },
+  {
+    "speakerName": "おおいし (bicstone)",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "プロパティの順序で型推論が壊れる!? TS6.0 の修正から Context-Sensitivity の仕組みを追う",
+      "ogpTitle": "プロパティの順序で型推論が壊れる！？\nTS6.0の修正からContext-Sensitivityの\n仕組みを追う"
+    }
+  },
+  {
+    "speakerName": "えーたろー",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "決定論的な型チェックへ：Go 製コンパイラによる10倍速の裏側で --stableTypeOrdering から見える並列化への挑戦",
+      "ogpTitle": ""
+    }
+  },
+  {
+    "speakerName": "dowod",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": true
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": true,
+      "title": "型の深宇宙へ飛び込め ─ tscを遅くする記述パターンの全解剖 ─",
+      "ogpTitle": "型の深宇宙へ飛び込め\n─ tscを遅くする記述パターンの全解剖 ─"
+    }
+  },
+  {
+    "speakerName": "須永 高弘",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": false,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "ドメインを組織の資産にする — 少人数で複数プロダクトを支えるTypeScript運用の実践",
+      "ogpTitle": ""
+    }
+  },
+  {
+    "speakerName": "中津川篤司",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "AI活用の格差をなくす：チーム全体のAI開発生産性を底上げする方法",
+      "ogpTitle": ""
+    }
+  },
+  {
+    "speakerName": "土本祐介",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": false,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "Next.js × OpenAPIで型安全なデータ境界を設計するアーキテクチャ改善",
+      "ogpTitle": ""
+    }
+  },
+  {
+    "speakerName": "高橋悟生",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "AI Agent に“攻略本”を渡したら、150フォームの移行が回り始めた話",
+      "ogpTitle": ""
+    }
+  },
+  {
+    "speakerName": "ypresto",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "未定",
+      "ogpTitle": ""
+    }
+  },
+  {
+    "speakerName": "篠田 陽介",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "AIコーディングエージェントの活用で、コードは静かに肥大化した —— 型・Lint・Skillsで挽回する10分",
+      "ogpTitle": ""
+    }
+  },
+  {
+    "speakerName": "かねうちてつや",
+    "iconDataTsv": {
+      "hasServiceId": false
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "キャリア25年目にしてTypeScript に出会うまで",
+      "ogpTitle": ""
+    }
+  },
+  {
+    "speakerName": "鈴木翔大",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "TypeScriptで実現する既存APIを活用したリモートMCPサーバー構築",
+      "ogpTitle": ""
+    }
+  },
+  {
+    "speakerName": "小松 翔",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": true,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "10周年を迎えたZEN Study Webフロントエンドの次の10年へ向けた工夫",
+      "ogpTitle": ""
+    }
+  },
+  {
+    "speakerName": "横山 隼",
+    "iconDataTsv": {
+      "hasServiceId": true
+    },
+    "speaker": {
+      "hasXId": false,
+      "hasGithubId": true,
+      "hasUseIcon": true,
+      "hasBio": true
+    },
+    "session": {
+      "hasId": true,
+      "hasOgpTitle": false
+    },
+    "titleCheck": {
+      "titleMatchesOgpTitle": false,
+      "title": "TypeScriptフルリニューアルの裏でパフォーマンスと戦った1ヶ月",
+      "ogpTitle": ""
+    }
+  }
+]

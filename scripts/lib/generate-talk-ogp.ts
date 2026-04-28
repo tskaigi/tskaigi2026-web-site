@@ -5,9 +5,9 @@ import { TALK_TYPE } from "../../src/constants/timetable/talkList";
 import type { SessionKey, TrackKey } from "../../src/types/timetable-api";
 
 const TRACK_STYLE: Record<TrackKey, { bg: string; text: string }> = {
-  LEVERAGES: { bg: "#0cf8c0", text: "#000000" },
-  UPSIDER: { bg: "#005faa", text: "#ffffff" },
-  RIGHTTOUCH: { bg: "#000000", text: "#ffffff" },
+  LEVERAGES: { bg: "#26919f", text: "#ffffff" },
+  UPSIDER: { bg: "#000000", text: "#ffffff" },
+  RIGHTTOUCH: { bg: "#ff4a56", text: "#ffffff" },
 };
 
 export type TalkOgpInput = {

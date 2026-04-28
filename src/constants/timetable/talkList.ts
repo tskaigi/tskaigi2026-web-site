@@ -1,3 +1,4 @@
+import { getSessionMasterBySessionId } from "@/constants/sessionMaster";
 import type {
   EventDate,
   IndividualSlot,
@@ -51,10 +52,23 @@ export const TALK_TYPE: Record<
   HANDSON: { name: "ハンズオン", color: "#6B21A8" },
 };
 
-export const HANDSON_ID = "76";
+export const HANDSON_ID = "1";
 
 export function isHandsonId(id: string): boolean {
   return id === HANDSON_ID;
+}
+
+function resolveSession(id: string): SessionSummary {
+  const master = getSessionMasterBySessionId(id);
+  if (master) {
+    return {
+      id,
+      title: master.title,
+      overview: master.overview,
+      speaker: master.speaker,
+    };
+  }
+  return { id, title: "", speaker: { name: "" } };
 }
 
 export type Talk = SessionSummary & {
@@ -87,8 +101,8 @@ export const talkList: Talk[] = timetableList.flatMap((day) =>
         const time = span
           ? myTimetable.formatTimeRange(span.startTime, span.endTime)
           : myTimetable.formatTimeRange(slot.startTime, slot.endTime);
-        return content.sessions.map((session) => ({
-          ...session,
+        return content.sessions.map((ref) => ({
+          ...resolveSession(ref.id),
           eventDate: day.day,
           track: trackKey,
           time,
