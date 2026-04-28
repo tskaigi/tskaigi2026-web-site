@@ -98,7 +98,12 @@ export default async function TalkDetailPage({
 
         <div className="px-6 md:px-8 lg:px-10 flex flex-col gap-1">
           <div className="flex items-center gap-2">
-            <div className="text-lg">{typeLabel}</div>
+            <span
+              className="inline-block rounded px-2 py-0.5 text-sm font-bold text-white"
+              style={{ backgroundColor: TALK_TYPE[sessionType].color }}
+            >
+              {typeLabel}
+            </span>
             <TalkStatus talkId={session.id} />
           </div>
           <div className="text-2xl font-bold">{session.title}</div>
