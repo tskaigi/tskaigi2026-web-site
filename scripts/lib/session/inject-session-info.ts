@@ -1,11 +1,11 @@
 import fs from "node:fs";
 import type { MasterEntry } from "./types";
 
-const SESSIONS_JSON = "scripts/data/sessions-sample.json";
+const OGP_TITLE_OVERRIDES_JSON = "scripts/data/ogp-title-overrides.json";
 const SESSION_ID_SPEAKER_JSON = "scripts/data/session-id-speaker.json";
 const SESSION_MASTER_JSON = "scripts/data/session-master.json";
 
-type SessionEntry = {
+type OgpTitleOverride = {
   id: string;
   ogpTitle: string;
 };
@@ -15,10 +15,6 @@ function main() {
     console.error(
       `❌ セッションIDマップが見つかりません: ${SESSION_ID_SPEAKER_JSON}`,
     );
-    process.exit(1);
-  }
-  if (!fs.existsSync(SESSIONS_JSON)) {
-    console.error(`❌ セッションJSONが見つかりません: ${SESSIONS_JSON}`);
     process.exit(1);
   }
   if (!fs.existsSync(SESSION_MASTER_JSON)) {
@@ -35,10 +31,15 @@ function main() {
     Object.entries(idToName).map(([id, name]) => [name, id]),
   );
 
-  const sessions: SessionEntry[] = JSON.parse(
-    fs.readFileSync(SESSIONS_JSON, "utf-8"),
-  );
-  const ogpTitleById = new Map(sessions.map((s) => [s.id, s.ogpTitle]));
+  const ogpOverrides = new Map<string, string>();
+  if (fs.existsSync(OGP_TITLE_OVERRIDES_JSON)) {
+    const overrides: OgpTitleOverride[] = JSON.parse(
+      fs.readFileSync(OGP_TITLE_OVERRIDES_JSON, "utf-8"),
+    );
+    for (const o of overrides) {
+      ogpOverrides.set(o.id, o.ogpTitle);
+    }
+  }
 
   const master: MasterEntry[] = JSON.parse(
     fs.readFileSync(SESSION_MASTER_JSON, "utf-8"),
@@ -51,10 +52,8 @@ function main() {
     const id = nameToId.get(entry.speaker.name);
     if (id) {
       entry.id = id;
-      const ogpTitle = ogpTitleById.get(id);
-      if (ogpTitle) {
-        entry.ogpTitle = ogpTitle;
-      }
+      const ogpTitle = ogpOverrides.get(id);
+      entry.ogpTitle = ogpTitle ?? entry.title;
       updated++;
     } else {
       skipped++;
@@ -62,7 +61,21 @@ function main() {
     }
   }
 
-  fs.writeFileSync(SESSION_MASTER_JSON, JSON.stringify(master, null, 2) + "\n");
+  const ordered = master.map(
+    ({ id, speakerId, title, ogpTitle, overview, speaker, ...rest }) => ({
+      id,
+      speakerId,
+      title,
+      ogpTitle,
+      overview,
+      speaker,
+      ...rest,
+    }),
+  );
+  fs.writeFileSync(
+    SESSION_MASTER_JSON,
+    JSON.stringify(ordered, null, 2) + "\n",
+  );
   console.log(`✅ 完了 (更新: ${updated}件, スキップ: ${skipped}件)`);
 }
 

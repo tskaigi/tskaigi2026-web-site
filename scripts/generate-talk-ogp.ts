@@ -14,8 +14,10 @@ function resolveProfileImagePath(profileImageUrl: string): string {
   return DEFAULT_PROFILE_IMAGE;
 }
 
-async function main() {
-  const masterPath = process.argv[2] ?? SESSION_MASTER_JSON;
+async function main(force: boolean) {
+  const masterPath =
+    process.argv.find((a) => !a.startsWith("-") && a.endsWith(".json")) ??
+    SESSION_MASTER_JSON;
 
   if (!fs.existsSync(masterPath)) {
     console.error(`❌ セッションマスターJSONが見つかりません: ${masterPath}`);
@@ -33,6 +35,7 @@ async function main() {
 
   let generated = 0;
   let skipped = 0;
+  let unchanged = 0;
 
   for (const entry of entries) {
     const sessionId = entry.id ?? "";
@@ -45,11 +48,17 @@ async function main() {
       continue;
     }
 
+    const outputPath = path.join(OUTPUT_DIR, `${sessionId}.png`);
+
+    if (!force && fs.existsSync(outputPath)) {
+      unchanged++;
+      continue;
+    }
+
     const title = entry.ogpTitle ?? entry.title;
     const profileImagePath = resolveProfileImagePath(
       entry.speaker.profileImageUrl ?? "",
     );
-    const outputPath = path.join(OUTPUT_DIR, `${sessionId}.png`);
 
     await generateAndSaveTalkOgp({
       title,
@@ -67,11 +76,12 @@ async function main() {
   }
 
   console.log(
-    `✅ OGP画像生成が完了しました。(生成: ${generated}件, スキップ: ${skipped}件)`,
+    `✅ OGP画像生成が完了しました。(生成: ${generated}件, 変更なし: ${unchanged}件, スキップ: ${skipped}件)`,
   );
 }
 
-main().catch((err) => {
+const force = process.argv.includes("--force");
+main(force).catch((err) => {
   console.error("❌ エラーが発生しました:", err);
   process.exit(1);
 });

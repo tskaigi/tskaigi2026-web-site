@@ -1,13 +1,11 @@
 [
   {
+    "id": "25",
     "speakerName": "Yuki Terashima",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -21,14 +19,12 @@
     }
   },
   {
+    "id": "58",
     "speakerName": "infixer",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -42,14 +38,12 @@
     }
   },
   {
+    "id": "32",
     "speakerName": "Kanon",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -63,14 +57,12 @@
     }
   },
   {
+    "id": "38",
     "speakerName": "Yoshiaki Togami",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -78,20 +70,18 @@
       "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "制約と時代から読み解くTypeScriptコンパイラ設計史",
-      "ogpTitle": "TypeScriptコンパイラの設計考古学"
+      "ogpTitle": "制約と時代から読み解く\nTypeScriptコンパイラ設計史"
     }
   },
   {
+    "id": "44",
     "speakerName": "ssssota",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -105,14 +95,12 @@
     }
   },
   {
+    "id": "29",
     "speakerName": "藤田 翔雅",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -126,14 +114,12 @@
     }
   },
   {
+    "id": "67",
     "speakerName": "minako-ph",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": false,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -147,14 +133,12 @@
     }
   },
   {
+    "id": "19",
     "speakerName": "susisu",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -168,14 +152,12 @@
     }
   },
   {
+    "id": "13",
     "speakerName": "Hal",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -189,14 +171,12 @@
     }
   },
   {
+    "id": "18",
     "speakerName": "omote",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -210,14 +190,12 @@
     }
   },
   {
+    "id": "17",
     "speakerName": "Kazuya Serizawa",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": false,
-      "hasUseIcon": false,
+      "hasUserIcon": true,
       "hasBio": false
     },
     "session": {
@@ -231,14 +209,12 @@
     }
   },
   {
+    "id": "16",
     "speakerName": "kosui",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": false,
-      "hasUseIcon": false,
+      "hasUserIcon": true,
       "hasBio": false
     },
     "session": {
@@ -252,35 +228,31 @@
     }
   },
   {
+    "id": "77",
     "speakerName": "Shotaro Ozawa",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": false,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "型で頑張るプロダクト国際化",
-      "ogpTitle": ""
+      "ogpTitle": "型で頑張るプロダクト国際化"
     }
   },
   {
+    "id": "9",
     "speakerName": "北川 直昭",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -294,14 +266,12 @@
     }
   },
   {
+    "id": "8",
     "speakerName": "glassmonkey",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -315,14 +285,12 @@
     }
   },
   {
+    "id": "7",
     "speakerName": "higak9",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -336,14 +304,12 @@
     }
   },
   {
+    "id": "22",
     "speakerName": "kemuridama",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -357,14 +323,12 @@
     }
   },
   {
+    "id": "6",
     "speakerName": "pvcresin",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -378,14 +342,12 @@
     }
   },
   {
+    "id": "5",
     "speakerName": "Saji",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -399,14 +361,12 @@
     }
   },
   {
+    "id": "11",
     "speakerName": "IkedaNoritaka",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": false,
-      "hasUseIcon": false,
+      "hasUserIcon": true,
       "hasBio": false
     },
     "session": {
@@ -420,14 +380,12 @@
     }
   },
   {
+    "id": "4",
     "speakerName": "izumin5210",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -441,35 +399,31 @@
     }
   },
   {
+    "id": "78",
     "speakerName": "syumai",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "Oxlintはいかにしてtsgolintのlint ruleを呼び出しているのか",
-      "ogpTitle": ""
+      "ogpTitle": "Oxlintはいかにしてtsgolintのlint ruleを呼び出しているのか"
     }
   },
   {
+    "id": "3",
     "speakerName": "おーみー",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -483,14 +437,12 @@
     }
   },
   {
+    "id": "2",
     "speakerName": "maguro",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -504,14 +456,12 @@
     }
   },
   {
+    "id": "48",
     "speakerName": "Keisuke Ikeda",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -519,20 +469,18 @@
       "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "JavaScript実装の自作プログラミング言語をTypeScript実装に移行した話",
-      "ogpTitle": "JSで実装した自作プログラミング言語を\nTSに移行した話"
+      "ogpTitle": "JavaScript実装の自作プログラミング言語を\nTypeScript実装に移行した話"
     }
   },
   {
+    "id": "27",
     "speakerName": "IORI",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -546,14 +494,12 @@
     }
   },
   {
+    "id": "49",
     "speakerName": "つくだに",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -567,14 +513,12 @@
     }
   },
   {
+    "id": "46",
     "speakerName": "筧万里",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -588,14 +532,12 @@
     }
   },
   {
+    "id": "66",
     "speakerName": "工藤 颯斗",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": false,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -609,14 +551,12 @@
     }
   },
   {
+    "id": "65",
     "speakerName": "Yuta Takahashi",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -630,14 +570,12 @@
     }
   },
   {
+    "id": "75",
     "speakerName": "わんこ",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -651,14 +589,12 @@
     }
   },
   {
+    "id": "64",
     "speakerName": "山本大星",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -672,14 +608,12 @@
     }
   },
   {
+    "id": "56",
     "speakerName": "桐生直輝",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -693,14 +627,12 @@
     }
   },
   {
+    "id": "60",
     "speakerName": "Kanato",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": false,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -714,14 +646,12 @@
     }
   },
   {
+    "id": "42",
     "speakerName": "elecdeer",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -735,14 +665,12 @@
     }
   },
   {
+    "id": "63",
     "speakerName": "lacolaco",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -756,35 +684,31 @@
     }
   },
   {
+    "id": "79",
     "speakerName": "池奥裕太/@yuta-ike",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "AI時代に考える、Branded Typesで実現する堅牢な型付け",
-      "ogpTitle": ""
+      "ogpTitle": "AI時代に考える、Branded Typesで実現する堅牢な型付け"
     }
   },
   {
+    "id": "52",
     "speakerName": "樋口 彰",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -798,14 +722,12 @@
     }
   },
   {
+    "id": "31",
     "speakerName": "Ryutaro Yako",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -813,20 +735,18 @@
       "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "Zod v4 Codec でスキーマに型変換を埋め込む REST API 設計",
-      "ogpTitle": "Zod v4 codec でスキーマに型変換を埋め込む REST API 設計"
+      "ogpTitle": "Zod v4 Codec でスキーマに型変換を埋め込む REST API 設計"
     }
   },
   {
+    "id": "39",
     "speakerName": "泉雄介",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": false,
-      "hasUseIcon": false,
+      "hasUserIcon": true,
       "hasBio": false
     },
     "session": {
@@ -840,14 +760,12 @@
     }
   },
   {
+    "id": "70",
     "speakerName": "高田 理功",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": false,
-      "hasUseIcon": false,
+      "hasUserIcon": true,
       "hasBio": false
     },
     "session": {
@@ -861,14 +779,12 @@
     }
   },
   {
+    "id": "51",
     "speakerName": "中村遼大",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -882,14 +798,12 @@
     }
   },
   {
+    "id": "53",
     "speakerName": "msuto / Michimasa Suto",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -903,14 +817,12 @@
     }
   },
   {
+    "id": "74",
     "speakerName": "oiki",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -924,14 +836,12 @@
     }
   },
   {
+    "id": "45",
     "speakerName": "市川 賢",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": false,
-      "hasUseIcon": false,
+      "hasUserIcon": true,
       "hasBio": false
     },
     "session": {
@@ -945,14 +855,12 @@
     }
   },
   {
+    "id": "57",
     "speakerName": "takuma-ru",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -966,14 +874,12 @@
     }
   },
   {
+    "id": "34",
     "speakerName": "籏野 拓",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -987,14 +893,12 @@
     }
   },
   {
+    "id": "55",
     "speakerName": "ryo",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1008,14 +912,12 @@
     }
   },
   {
+    "id": "68",
     "speakerName": "Mahito",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1029,14 +931,12 @@
     }
   },
   {
+    "id": "43",
     "speakerName": "宇根昇汰",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": false,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1050,14 +950,12 @@
     }
   },
   {
+    "id": "10",
     "speakerName": "たつかわ",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": false,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1071,14 +969,12 @@
     }
   },
   {
+    "id": "76",
     "speakerName": "渡邊 耕平",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1092,14 +988,12 @@
     }
   },
   {
+    "id": "35",
     "speakerName": "yanaemon",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1113,14 +1007,12 @@
     }
   },
   {
+    "id": "47",
     "speakerName": "irie",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1134,14 +1026,12 @@
     }
   },
   {
+    "id": "54",
     "speakerName": "Tamasho Tomoya",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1155,14 +1045,12 @@
     }
   },
   {
+    "id": "71",
     "speakerName": "Ayu",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": false,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1170,20 +1058,18 @@
       "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "TypeScript7 - 非推奨設定から読む責務の変化",
-      "ogpTitle": "これから非推奨になる設定・コードと代替について"
+      "ogpTitle": "TypeScript7\n- 非推奨設定から読む責務の変化"
     }
   },
   {
+    "id": "26",
     "speakerName": "Shimmy",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1197,14 +1083,12 @@
     }
   },
   {
+    "id": "20",
     "speakerName": "福地開",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": false,
-      "hasUseIcon": false,
+      "hasUserIcon": true,
       "hasBio": false
     },
     "session": {
@@ -1218,14 +1102,12 @@
     }
   },
   {
+    "id": "36",
     "speakerName": "hedrall",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1239,14 +1121,12 @@
     }
   },
   {
+    "id": "59",
     "speakerName": "yoshikouki",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1260,14 +1140,12 @@
     }
   },
   {
+    "id": "69",
     "speakerName": "tony",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1281,14 +1159,12 @@
     }
   },
   {
+    "id": "40",
     "speakerName": "佐藤 拓人",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": false,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1302,14 +1178,12 @@
     }
   },
   {
+    "id": "21",
     "speakerName": "kazupon",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1323,35 +1197,31 @@
     }
   },
   {
+    "id": "80",
     "speakerName": "shotaro",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "TypeScriptの型はAIに届いているか？ ― AIコーディングツール検証で見えたIDEとの断絶",
-      "ogpTitle": ""
+      "ogpTitle": "TypeScriptの型はAIに届いているか？ ― AIコーディングツール検証で見えたIDEとの断絶"
     }
   },
   {
+    "id": "41",
     "speakerName": "nabeliwo",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1365,14 +1235,12 @@
     }
   },
   {
+    "id": "23",
     "speakerName": "mitsui",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1386,35 +1254,31 @@
     }
   },
   {
+    "id": "81",
     "speakerName": "つねみ@tocomi",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "TypeScript Compiler はどのように未使用変数を検出しているのか？",
-      "ogpTitle": ""
+      "ogpTitle": "TypeScript Compiler はどのように未使用変数を検出しているのか？"
     }
   },
   {
+    "id": "61",
     "speakerName": "Yudai Shinnoki",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1428,14 +1292,12 @@
     }
   },
   {
+    "id": "28",
     "speakerName": "ayano",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1443,20 +1305,18 @@
       "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "TypeScriptエンジニアのためのWASMランタイム入門：AssemblyScriptから理解するメモリの実態",
-      "ogpTitle": "TypeScriptエンジニアのためのWASMランタイム入門：AssemblyScriptで実装から理解するメモリの実態"
+      "ogpTitle": "TypeScriptエンジニアのためのWASMランタイム入門：AssemblyScriptから理解するメモリの実態"
     }
   },
   {
+    "id": "50",
     "speakerName": "asa1984",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1470,14 +1330,12 @@
     }
   },
   {
+    "id": "33",
     "speakerName": "yamanoku",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1491,14 +1349,12 @@
     }
   },
   {
+    "id": "73",
     "speakerName": "おおいし (bicstone)",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1512,35 +1368,31 @@
     }
   },
   {
+    "id": "82",
     "speakerName": "えーたろー",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "決定論的な型チェックへ：Go 製コンパイラによる10倍速の裏側で --stableTypeOrdering から見える並列化への挑戦",
-      "ogpTitle": ""
+      "ogpTitle": "決定論的な型チェックへ：Go 製コンパイラによる10倍速の裏側で --stableTypeOrdering から見える並列化への挑戦"
     }
   },
   {
+    "id": "14",
     "speakerName": "dowod",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
@@ -1554,213 +1406,193 @@
     }
   },
   {
+    "id": "83",
     "speakerName": "須永 高弘",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": false,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "ドメインを組織の資産にする — 少人数で複数プロダクトを支えるTypeScript運用の実践",
-      "ogpTitle": ""
+      "ogpTitle": "ドメインを組織の資産にする — 少人数で複数プロダクトを支えるTypeScript運用の実践"
     }
   },
   {
+    "id": "84",
     "speakerName": "中津川篤司",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "AI活用の格差をなくす：チーム全体のAI開発生産性を底上げする方法",
-      "ogpTitle": ""
+      "ogpTitle": "AI活用の格差をなくす：チーム全体のAI開発生産性を底上げする方法"
     }
   },
   {
+    "id": "85",
     "speakerName": "土本祐介",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": false,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "Next.js × OpenAPIで型安全なデータ境界を設計するアーキテクチャ改善",
-      "ogpTitle": ""
+      "ogpTitle": "Next.js × OpenAPIで型安全なデータ境界を設計するアーキテクチャ改善"
     }
   },
   {
+    "id": "86",
     "speakerName": "高橋悟生",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "AI Agent に“攻略本”を渡したら、150フォームの移行が回り始めた話",
-      "ogpTitle": ""
+      "ogpTitle": "AI Agent に“攻略本”を渡したら、150フォームの移行が回り始めた話"
     }
   },
   {
+    "id": "87",
     "speakerName": "ypresto",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "未定",
-      "ogpTitle": ""
+      "ogpTitle": "未定"
     }
   },
   {
+    "id": "88",
     "speakerName": "篠田 陽介",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "AIコーディングエージェントの活用で、コードは静かに肥大化した —— 型・Lint・Skillsで挽回する10分",
-      "ogpTitle": ""
+      "ogpTitle": "AIコーディングエージェントの活用で、コードは静かに肥大化した —— 型・Lint・Skillsで挽回する10分"
     }
   },
   {
+    "id": "89",
     "speakerName": "かねうちてつや",
-    "iconDataTsv": {
-      "hasServiceId": false
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "キャリア25年目にしてTypeScript に出会うまで",
-      "ogpTitle": ""
+      "ogpTitle": "キャリア25年目にしてTypeScript に出会うまで"
     }
   },
   {
+    "id": "90",
     "speakerName": "鈴木翔大",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "TypeScriptで実現する既存APIを活用したリモートMCPサーバー構築",
-      "ogpTitle": ""
+      "ogpTitle": "TypeScriptで実現する既存APIを活用したリモートMCPサーバー構築"
     }
   },
   {
+    "id": "91",
     "speakerName": "小松 翔",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": true,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "10周年を迎えたZEN Study Webフロントエンドの次の10年へ向けた工夫",
-      "ogpTitle": ""
+      "ogpTitle": "10周年を迎えたZEN Study Webフロントエンドの次の10年へ向けた工夫"
     }
   },
   {
+    "id": "92",
     "speakerName": "横山 隼",
-    "iconDataTsv": {
-      "hasServiceId": true
-    },
     "speaker": {
       "hasXId": false,
       "hasGithubId": true,
-      "hasUseIcon": true,
+      "hasUserIcon": true,
       "hasBio": true
     },
     "session": {
       "hasId": true,
-      "hasOgpTitle": false
+      "hasOgpTitle": true
     },
     "titleCheck": {
-      "titleMatchesOgpTitle": false,
+      "titleMatchesOgpTitle": true,
       "title": "TypeScriptフルリニューアルの裏でパフォーマンスと戦った1ヶ月",
-      "ogpTitle": ""
+      "ogpTitle": "TypeScriptフルリニューアルの裏でパフォーマンスと戦った1ヶ月"
     }
   }
 ]

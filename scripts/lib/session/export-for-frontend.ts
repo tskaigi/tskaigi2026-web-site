@@ -12,7 +12,14 @@ function main() {
   const byId: Record<string, MasterEntry> = {};
   for (const entry of master) {
     if (entry.id) {
-      byId[entry.id] = entry;
+      byId[entry.id] = {
+        id: entry.id,
+        speakerId: entry.speakerId,
+        title: entry.title,
+        ogpTitle: entry.ogpTitle,
+        overview: entry.overview,
+        speaker: entry.speaker,
+      };
     }
   }
 

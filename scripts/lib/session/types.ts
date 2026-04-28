@@ -12,7 +12,7 @@ export type Speaker = {
   additionalLink: string;
   affiliation: string;
   position: string;
-  useIcon?: UseIcon;
+  userIcon: UseIcon;
 };
 
 export type SpeakerSource = {
@@ -20,7 +20,7 @@ export type SpeakerSource = {
   title: string;
   overview: string;
   slidesLink: string;
-  speaker: Omit<Speaker, "useIcon"> & { profileImageUrl: string };
+  speaker: Speaker;
 };
 
 export type MasterEntry = {

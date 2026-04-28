@@ -6,6 +6,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Yuki Terashima",
+      "userIcon": "x",
       "profileImageUrl": "/yuki-terashima.jpg",
       "bio": "フリーランスのWebエンジニア。React / TypeScriptを用いたWebアプリケーション開発に従事。フロントエンドのアーキテクチャや型安全な設計に関心が深い。XやZennでWebフロントエンド技術の知見を発信している。",
       "xId": "y_temp4",
@@ -25,6 +26,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "infixer",
+      "userIcon": "x",
       "profileImageUrl": "/infixer.jpg",
       "bio": "マークアップおじさんです。HTML、CSSが大好きです。",
       "xId": "ryo__kts",
@@ -44,6 +46,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Kanon",
+      "userIcon": "x",
       "profileImageUrl": "/kanon.jpg",
       "bio": "合同会社DMM.comでJS/TS周りのテックリードをしています。またType Challengesのメンテナもしています。趣味はOSSコントリビュート、旅行、散歩、読書、ベースです。特技は、日本の47都道府県のどこでも即座に日帰り旅行プランを立てることです。推しは声優の水瀬いのりさんです。",
       "xId": "ysknsid25",
@@ -63,6 +66,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Yoshiaki Togami",
+      "userIcon": "github",
       "profileImageUrl": "/yoshiaki-togami.jpg",
       "bio": "2023年に株式会社メルペイにフロントエンドエンジニアとして新卒入社。現在はTSを中心とした何でも屋。\r\nかれこれ4年ほどTypeScript Compilerの亡霊に囚われている。",
       "xId": "togami2864",
@@ -82,6 +86,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "ssssota",
+      "userIcon": "github",
       "profileImageUrl": "/ssssota.jpg",
       "bio": "sは4つです。\r\n仕事はReact、趣味はSvelte、Preactです。\r\n趣味でOSS作ったりしてます。",
       "xId": "ssssotaro",
@@ -101,6 +106,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "藤田 翔雅",
+      "userIcon": "github",
       "profileImageUrl": "/shoma-fujita.jpg",
       "bio": "大学卒業後、株式会社うるるに入社。\r\nフロントエンド開発をメインに、バックエンド開発やプロジェクトの牽引にも携わっています。\r\n新機能開発から保守運用まで幅広く担当しており、Oxlintなどの次世代ツールや既存のエコシステムを積極的に活用した開発に取り組んでいます。\r\n本セッションでは、日々の業務における「ESLintのリント実行時間を短縮したい」という課題感をきっかけに着目したOxlintについてお話しします。",
       "xId": "",
@@ -120,6 +126,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "minako-ph",
+      "userIcon": "x",
       "profileImageUrl": "/minako-ph.jpg",
       "bio": "DMM.comグループ 株式会社終活ねっとに入社後 DMMのお葬式をはじめとする複数サービスほぼ全てのフルリニューアルを担当。同社にてフロントエンドの開発を牽引する。\r\nその後は複数のモバイルアプリケーション新規開発や PjMとしてプロジェクト立ち上げからリリースまでのマネジメント経験を積み メディカルフォースへ創業期のタイミングで１人目のメンバーとしてジョイン。\r\n同社にてリードエンジニアとして自費診療現場向けのVertical SaaS「medicalforce」の開発へ従事。2021年3月のサービス開始から1年9か月で導入院数200院を突破。\r\n2023年7月にLayerXに入社し、経費精算や法人カード、勤怠管理などバックオフィス向けAIエージェントサービスなどを提供する「バクラク」シリーズの開発に従事。",
       "xId": "minako__ph",
@@ -139,6 +146,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "susisu",
+      "userIcon": "github",
       "profileImageUrl": "/susisu.jpg",
       "bio": "たけのこ派です。普段は人間静的検査器として活動しています",
       "xId": "susisu2413",
@@ -158,6 +166,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Hal",
+      "userIcon": "x",
       "profileImageUrl": "/hal.jpg",
       "bio": "2025/3 株式会社LIXILにアプリケーションエキスパートとして入社。 \r\nフロントエンドからクラウドインフラまで含めたパフォーマンスチューニングを得意としています。\r\n\r\nVue Fes Japan2025,2026コアスタッフとして参加するなど、OSS活動にも精力的に取り組んでいます。",
       "xId": "hal_spidernight",
@@ -177,6 +186,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "omote",
+      "userIcon": "x",
       "profileImageUrl": "/omote.jpg",
       "bio": "株式会社estieにて、プロダクト開発とデザインシステムのアーキテクチャ設計を担当。\r\nNext.js/Nest.jsによるフロントエンド〜バックエンド、Figmaを起点としたデザイン業務を中心に行う。\r\nまた、プロダクト間のFrontend技術方針策定と設計判断をリード。\r\n\r\n現在は子会社で技術戦略室の室長として、B2Bメディアのプラットフォーム刷新を単独で推進中。\r\n認証基盤統合・コマース基盤刷新・記事アクセス制御などの設計と実装を行う。\r\n趣味がガンダム。",
       "xId": "HirokiOmote",
@@ -196,6 +206,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Kazuya Serizawa",
+      "userIcon": "x",
       "profileImageUrl": "/kazuya-serizawa.jpg",
       "bio": "",
       "xId": "",
@@ -215,6 +226,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "kosui",
+      "userIcon": "x",
       "profileImageUrl": "/kosui.jpg",
       "bio": "",
       "xId": "",
@@ -234,6 +246,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Shotaro Ozawa",
+      "userIcon": "x",
       "profileImageUrl": "/ozawa-shotaro.jpg",
       "bio": "2022年にテックタッチ株式会社に入社。フロントエンドエンジニアとして、デジタルアダプションプラットフォーム「テックタッチ株式会社」の開発に従事。",
       "xId": "shzawa",
@@ -253,6 +266,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "北川 直昭",
+      "userIcon": "github",
       "profileImageUrl": "/naoaki-kitagawa.jpg",
       "bio": "2024年に株式会社フライルへ入社。",
       "xId": "",
@@ -272,6 +286,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "glassmonkey",
+      "userIcon": "x",
       "profileImageUrl": "/glassmonkey.jpg",
       "bio": "WebAssemblyが好きなソフトウェアエンジニアです。\r\n最近はデータと戯れることが多いです。",
       "xId": "glassmonekey",
@@ -291,6 +306,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "higak9",
+      "userIcon": "x",
       "profileImageUrl": "/higak9.jpg",
       "bio": "沖縄県出身、WebアプリやChrome拡張機能などを中心にエンジニアしています。\r\nフロントエンド、バックエンド（ちょっとインフラ）と幅広めに開発を担当し、AngularやReact（Next.jsやRemix、Viteなど）、vanilla-tsなどのフレームワークを通してTypeScriptの開発に従事してきました。\r\nプライベートではDenoやAI関連のツールなど気になるOSSに気軽に触れながら楽しんでいます。",
       "xId": "higakazuaki9",
@@ -310,6 +326,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "kemuridama",
+      "userIcon": "github",
       "profileImageUrl": "/kemuridama.jpg",
       "bio": "2018年にフリー株式会社に新卒入社。入社以降ずっとfreee会計の開発に携わり、現在は機能開発の傍らフロントエンドの技術基盤を支えている。DevRelを兼務しており「freee 技術の日」や「freee Tech Night」の企画・運営にも関わる。TSKaigi コアスタッフ。",
       "xId": "_kemuridama",
@@ -329,6 +346,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "pvcresin",
+      "userIcon": "x",
       "profileImageUrl": "/pvcresin.jpg",
       "bio": "PVCレジンです。長いので単にレジンと呼んでもらえればと思います。\r\n大学・大学院ではHCI（Human-Computer Interaction）を専攻し、2019年よりSansanで名刺アプリ「Eight」の開発をしています。\r\nWebフロントエンドのビルド高速化やデザインシステム構築、Railsへの型導入など、開発者体験（DX）の向上を主導しています。",
       "xId": "pvcresin",
@@ -348,6 +366,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Saji",
+      "userIcon": "github",
       "profileImageUrl": "/saji.jpg",
       "bio": "サイボウズのフロントエンドエンジニア。\r\nTypeScriptはもちろん、JavaScript の言語仕様やParser/Linter と言ったらフロントエンドツールに興味がある。\r\nまたwebにおける国際化技術や標準も好き。",
       "xId": "sajikix",
@@ -367,6 +386,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "IkedaNoritaka",
+      "userIcon": "x",
       "profileImageUrl": "/ikedanoritaka.jpg",
       "bio": "",
       "xId": "",
@@ -386,6 +406,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "izumin5210",
+      "userIcon": "x",
       "profileImageUrl": "/izumin5210.jpg",
       "bio": "バクラク事業部 PlatformEngineering部 Enablingチーム。 プロダクト開発やバックエンド・Webフロントエンドの基盤開発などをしています。APIスキーマ関連技術とコードの静的解析・自動生成技術が好き。",
       "xId": "izumin5210",
@@ -405,6 +426,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "syumai",
+      "userIcon": "github",
       "profileImageUrl": "/syumai.jpg",
       "bio": "株式会社LayerXにて、バクラクヘルプデスク エージェントの開発を行っている。主な技術領域はGo、TypeScript、JavaScript。『Web開発者のための［入門］Cloudflare Workers』を執筆。",
       "xId": "__syumai",
@@ -424,6 +446,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "おーみー",
+      "userIcon": "x",
       "profileImageUrl": "/aumy.jpg",
       "bio": "2022年に公立工業高校を卒業後長期インターン期間を経て株式会社HERPに入社し、Webフロントエンドを中心にいろいろに従事しています。\r\n自分のことをわりと多趣味だと思っている。",
       "xId": "aumy_f",
@@ -443,6 +466,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "maguro",
+      "userIcon": "x",
       "profileImageUrl": "/maguro.jpg",
       "bio": "趣味の一環でDenoにコントリビュートしていたらいつの間にか入社することになった。主にDeno Deployの開発を担当。米ジョージア工科大学大学院コンピュータサイエンス専攻修了",
       "xId": "yusuktan",
@@ -462,6 +486,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Keisuke Ikeda",
+      "userIcon": "x",
       "profileImageUrl": "/keisuke-ikeda.jpg",
       "bio": "東京と関西(大阪＆京都)の二拠点生活をしているエンジニア。勉強会大好きマン。\r\n\r\n大学で情報系学部に入学し、コンピュータやプログラミングの面白さを知る。 卒業後、東京のSESの会社に新卒で入社。通常のエンジニア業務だけでなく、社内のエンジニア組織・イベントの運営、グループ会社のテックリード、案件内でのマネジメントなどにも携わる。 \r\n\r\nオファーを受け現会社に入社。現在もSESという業務形態でさまざまな開発に携わりながら、自身の知識と経験を活かしてクライアントの課題解決に取り組んでいます。",
       "xId": "ike_keichan",
@@ -481,6 +506,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "IORI",
+      "userIcon": "x",
       "profileImageUrl": "/iori.jpg",
       "bio": "フロントエンドでは React/Next.js を中心にプロダクト開発をしています。\r\n趣味はサッカー観戦で、プレミアリーグを中心に観ています。いつか現地で観戦したいです。",
       "xId": "Yz_Iori",
@@ -500,6 +526,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "つくだに",
+      "userIcon": "x",
       "profileImageUrl": "/tsukudani.jpg",
       "bio": "オプティムという会社でエンジニアをやっている、つくだにというものです。\r\nTypeScriptが好きですが、最近あまり書けていません・・・",
       "xId": "tukudanium",
@@ -519,6 +546,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "筧万里",
+      "userIcon": "x",
       "profileImageUrl": "/banri-kake.jpg",
       "bio": "2025年にパナソニック株式会社に新卒入社。IoT製品のSREをしつつ、Observability関連のプロダクトをTypeScriptで書いています。YamdaUIのメンテナ、クラウドネイティブ会議のコアスタッフなど。",
       "xId": "Melonps_",
@@ -538,6 +566,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "工藤 颯斗",
+      "userIcon": "x",
       "profileImageUrl": "/hayato-kudoh.jpg",
       "bio": "顧客分析A エージェント「Flyle」の開発をしています",
       "xId": "metalic_kudo_h",
@@ -557,6 +586,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Yuta Takahashi",
+      "userIcon": "github",
       "profileImageUrl": "/yuta-takahashi.jpg",
       "bio": "株式会社メドレーにて、クラウド診療支援システム「CLINICS」の開発に従事。直近では、AIを活用した業務効率化機能の開発に取り組むとともに、フロントエンド設計のベストプラクティスの整備や、Agent Skills化によるAI駆動の実装・コードレビューの推進を担当。また、大規模なレガシーフロントエンドのリライトプロジェクトをリードし、長期的な保守性と開発効率の向上に貢献している。",
       "xId": "Wakeupsloth",
@@ -576,6 +606,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "わんこ",
+      "userIcon": "x",
       "profileImageUrl": "/wanko.jpg",
       "bio": "2024年4月に株式会社レコチョクに新卒入社。toC向け楽曲配信サービスであるレコチョクの開発を担当。2026年5月に株式会社ユーザベースに入社。現在は、toB向け情報プラットフォームサービスである、Speeda(スピーダ)の開発に携わっている。",
       "xId": "Wanko_IT",
@@ -595,6 +626,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "山本大星",
+      "userIcon": "github",
       "profileImageUrl": "/taisei-yamamoto.jpg",
       "bio": "AIナレッジプラットフォーム「Qast」のエンジニアを務める。技術的負債の解消、運用オペレーションの改善、パフォーマンス、オブザーバビリティ、開発者体験の向上を軸に、プロダクトを継続的に良くしていく仕組みづくりに取り組んでいる。エンジニア歴9年目、TypeScript歴5年目。大手通信事業者でISP事業のB向けWebアプリ開発に従事したのち、バーチャルオフィスSaaSの開発を経て現職。約2年前に「Qast」へのDatadog導入プロジェクトを牽引し、以降「個に頼りすぎない運用・オブザーバビリティ戦略」に関心を寄せている。",
       "xId": "",
@@ -614,6 +646,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "桐生直輝",
+      "userIcon": "x",
       "profileImageUrl": "/naoki-kiryu.jpg",
       "bio": "スタートアップでtoB SaaSの開発に4年間従事した後、2023年にレバレジーズ株式会社に中途入社。HRテックSaaS「NALYSYS」のリードエンジニアとして、技術的な方針決定や基盤整備などを担当。キャリア開始当初よりNode.js+TypeScriptによるバックエンド開発を行っており、内部のレイヤーに入り込んでのデバッグやハックを得意とする。",
       "xId": "grain_sb",
@@ -633,6 +666,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Kanato",
+      "userIcon": "x",
       "profileImageUrl": "/kanato.jpg",
       "bio": "トグルホールディングス所属。エンジニア2年目。フロントエンドバックエンドどちらも触ります。",
       "xId": "kanayan_toggle",
@@ -652,6 +686,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "elecdeer",
+      "userIcon": "x",
       "profileImageUrl": "/elecdeer.jpg",
       "bio": "TypeScriptとReactのファン。手触りの良いアプリや便利なツールを作ることに関心があります。",
       "xId": "elecdeerdev",
@@ -671,6 +706,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "lacolaco",
+      "userIcon": "x",
       "profileImageUrl": "/lacolaco.jpg",
       "bio": "Google Developers Expert for Angular。Angularを中心にWeb周辺のオープンソースコミュニティでコントリビューションや翻訳、登壇、イベント主催などの活動をしています。『JavaScript Primer』共著者。ポッドキャスト「リファクタリングとともに生きるラジオ」でも活動中。",
       "xId": "laco2net",
@@ -690,6 +726,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "池奥裕太/@yuta-ike",
+      "userIcon": "x",
       "profileImageUrl": "/yuta-ike.jpg",
       "bio": "2024年にエムスリー株式会社に新卒入社。新規立ち上げサービスのバックエンド・インフラを担当し、昨年からはチームリーダーを務めています。\r\n\r\n2024年度 未踏採択。好きなエディタはFigmaです。",
       "xId": "Selria1",
@@ -709,6 +746,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "樋口 彰",
+      "userIcon": "x",
       "profileImageUrl": "/akira-higuchi.jpg",
       "bio": "テイラー株式会社で自社プラットフォームのSDKの開発をしています。",
       "xId": "toiroakr",
@@ -728,6 +766,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Ryutaro Yako",
+      "userIcon": "github",
       "profileImageUrl": "/ryutaro-yako.jpg",
       "bio": "ユニークビジョン株式会社でフルスタックエンジニア / テックリードをしています。普段は Vue.js でのフロントエンド開発が中心ですが、バックエンドも含めたフルスタック TypeScript やモノレポ構成にも関心があります。",
       "xId": "",
@@ -747,6 +786,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "泉雄介",
+      "userIcon": "x",
       "profileImageUrl": "/yusuke-izumi.jpg",
       "bio": "",
       "xId": "",
@@ -766,6 +806,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "高田 理功",
+      "userIcon": "x",
       "profileImageUrl": "/riku-takada.jpg",
       "bio": "",
       "xId": "",
@@ -785,6 +826,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "中村遼大",
+      "userIcon": "x",
       "profileImageUrl": "/nakamura.jpg",
       "bio": "Web標準やテキストエディタなどに関心があります。",
       "xId": "nowaki28",
@@ -804,6 +846,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "msuto / Michimasa Suto",
+      "userIcon": "x",
       "profileImageUrl": "/msuto-michimasa-suto.jpg",
       "bio": "2025年に株式会社PKSHA Technologyに新卒入社。コールセンター向けSaaSのプロダクト開発・運用を担当。ポーカー歴5年。社内ポーカー部の運営に従事しています。",
       "xId": "michimasa_suto",
@@ -823,6 +866,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "oiki",
+      "userIcon": "x",
       "profileImageUrl": "/oiki.jpg",
       "bio": "新卒でヤフー株式会社に入社し、画像検索のフルリニューアルにフロントエンドエンジニアとして携わった後、AI 系ベンチャーを経て 2022 年より現職。TypeScript × Next.js を中心としたフロントエンド開発から、SaaS プロダクトの0-1立ち上げなどをしてきました。\r\n最近はRightTouchでプロダクトエンジニアをしていたり、採用広報をやっていたりします。趣味はランニングです。",
       "xId": "kn_prg",
@@ -842,6 +886,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "市川 賢",
+      "userIcon": "x",
       "profileImageUrl": "/ken-ichikawa.jpg",
       "bio": "",
       "xId": "",
@@ -861,6 +906,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "takuma-ru",
+      "userIcon": "x",
       "profileImageUrl": "/takuma-ru.jpg",
       "bio": "チームラボ パッケージチーム 所属\r\n現在はフロントエンドスペシャリストとして、横断的な課題解決に従事",
       "xId": "takumaru_2222",
@@ -880,6 +926,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "籏野 拓",
+      "userIcon": "github",
       "profileImageUrl": "/taku-hatano.jpg",
       "bio": "2018年よりフォルシア株式会社に所属。\r\n最適な検索を実現するための技術基盤であるSpookを用いた開発・運用に携わったのち、商品販売プラットフォームwebコネクトの新規開発にジョイン。\r\nここ最近はAIを用いた開発フローの構築に取り組んでいる",
       "xId": "",
@@ -899,6 +946,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "ryo",
+      "userIcon": "github",
       "profileImageUrl": "/ryo.jpg",
       "bio": "株式会社Belong の Frontend Engineer / Software Engineer。中古スマートフォンの販売・買取サービス「にこスマ」の開発に、フロントエンド領域を中心に従事。TypeScript をはじめとしたフロントエンド関連領域に興味関心がある。最近は趣味で Three.js を触っている。",
       "xId": "ryohiy_",
@@ -918,6 +966,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Mahito",
+      "userIcon": "x",
       "profileImageUrl": "/mahito.jpg",
       "bio": "Sansan株式会社にて、Frontend Engineerとして個人向け転職サービス「Eight Career Design」のフロントエンド開発、およびプロダクト開発における主要業務を担当",
       "xId": "Mahito6",
@@ -937,6 +986,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "宇根昇汰",
+      "userIcon": "x",
       "profileImageUrl": "/shota-une.jpg",
       "bio": "チームラボ パッケージチーム 所属",
       "xId": "uneruby2664",
@@ -956,6 +1006,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "たつかわ",
+      "userIcon": "x",
       "profileImageUrl": "/tatsukawa.jpg",
       "bio": "大学院卒業後、受託開発を主とする会社でWebアプリケーションエンジニアとしてキャリアをスタート。2社目の音声認識サービスを提供する会社にて、Webアプリケーションエンジニア、ネイティブアプリケーションエンジニア、サーバー開発エンジニアとして経験を積む。その後コンサル仲介サービスを提供する会社にて一定期間エンジニアとして従事した後、チームリーダーとしてマネジメント業務を担当。\r\n2024年12月よりニーリーに入社。現在は、既存の技術的負債の解消、開発コストの削減、エンジニアの開発体験の向上をミッションとして開発・改善業務に取り組んでいる。",
       "xId": "Ryu04132",
@@ -975,6 +1026,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "渡邊 耕平",
+      "userIcon": "github",
       "profileImageUrl": "/kohei-watanabe.jpg",
       "bio": "自社 Web サービスのリニューアルやバックエンドシステムのモダナイゼーションを担当してきました。現在はCI/CDの整備やインフラ最適化、パフォーマンスチューニングなど、システムの「足回り」の改善に注力しています。現場の泥臭い課題を技術的なアプローチやアーキテクチャの工夫で解決していくプロセスが好きです。",
       "xId": "",
@@ -994,6 +1046,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "yanaemon",
+      "userIcon": "x",
       "profileImageUrl": "/yanaemon.jpg",
       "bio": "株式会社ミツモアでプロダクト本部長を務めています。\r\nミツモアではフロントエンドからバックエンドまで一貫して開発するフルスタック TypeScript を実践し、プロダクト開発のスピードと品質を両立するための設計・実装・運用を推進しています。\r\nTSKaigi 2024 では「TypeScript の抽象構文木を用いた、数百を超える API の大規模リファクタリング」で登壇。今回は「TypeScript の型で副作用の実行順序を制御する」をテーマに、型の力で “安全に動かす” ための実践的な考え方と手法を紹介します。",
       "xId": "yanaemon169",
@@ -1013,6 +1066,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "irie",
+      "userIcon": "x",
       "profileImageUrl": "/irie.jpg",
       "bio": "チームラボ パッケージチーム 所属",
       "xId": "purinpopo2",
@@ -1032,6 +1086,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Tamasho Tomoya",
+      "userIcon": "github",
       "profileImageUrl": "/tamasho-tomoya.jpg",
       "bio": "楽天の25卒エンジニアです",
       "xId": "t_tamasho",
@@ -1051,6 +1106,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Ayu",
+      "userIcon": "x",
       "profileImageUrl": "/ayu.jpg",
       "bio": "株式会社うるる / フロントエンドエンジニア\r\n\r\n株式会社うるるにて、「入札情報速報サービス NJSS」と「入札資格管理業務サービス NSP」のフロントエンド開発を担当しています。\r\n普段は TypeScript を中心に、プロダクト開発や開発体験の改善に取り組んでいます。\r\n\r\nこの度は貴重な登壇の機会をいただき、大変嬉しく思っています。\r\n当日はどうぞよろしくお願いいたします。",
       "xId": "0819_tateishi",
@@ -1070,6 +1126,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Shimmy",
+      "userIcon": "x",
       "profileImageUrl": "/shimmy.jpg",
       "bio": "カミナシでソフトウェアエンジニアをしています\r\n大阪在住です",
       "xId": "naoya7076",
@@ -1089,6 +1146,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "福地開",
+      "userIcon": "x",
       "profileImageUrl": "/haruki-fukuchi.jpg",
       "bio": "",
       "xId": "",
@@ -1108,6 +1166,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "hedrall",
+      "userIcon": "x",
       "profileImageUrl": "/hedrall.jpg",
       "bio": "2024年から株式会社RightTouchで新規プロダクトの立ち上げや、LLMを利用したプロダクトの開発を進めています。\r\n2016年に朝日新聞社に新卒入社して以来、10年ほど Full Typescript で、特に0, 1の立ち上げに多く取り組んできました。その経験から、中長期的に保守性を高める設計や技術に特に関心があります。　\r\n趣味で園芸や、毎週畑に行って野菜を育てています。",
       "xId": "_hedrall",
@@ -1127,6 +1186,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "yoshikouki",
+      "userIcon": "x",
       "profileImageUrl": "/yoshikouki.jpg",
       "bio": "GMOペパボ 事業開発部 エンジニアリングリード。TypeScriptやBunを用いた開発者向けツールづくりや、AIエージェントと協働するための開発体験づくりに取り組んでいます。元理学療法士。",
       "xId": "yoshikouki_",
@@ -1146,6 +1206,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "tony",
+      "userIcon": "x",
       "profileImageUrl": "/tony.jpg",
       "bio": "東京都でソフトウェアエンジニアをやっています。チャーチ＝チューリングのテーゼに懐疑的です。",
       "xId": "tony998244353",
@@ -1165,6 +1226,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "佐藤 拓人",
+      "userIcon": "x",
       "profileImageUrl": "/takuto-sato.jpg",
       "bio": "株式会社ビットキーで開発してます。2児の父で日々精進しています。 好きな言葉は「為せば成る」。 世の中に幸せなエンジニアが増えてほしい。好きなこと: 設計 / DDD / typescript。ベンチプレスMax 130kg",
       "xId": "takuuuuuuu777",
@@ -1184,6 +1246,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "kazupon",
+      "userIcon": "x",
       "profileImageUrl": "/kazupon.jpg",
       "bio": "Software engineer / Part-time open sourceror. Vue.js core team, Vite+ team, creator of Gunshi, Intlify, Vue.js Japan User Group & Vue Fes Japan organizer.",
       "xId": "kazu_pon",
@@ -1203,6 +1266,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "shotaro",
+      "userIcon": "x",
       "profileImageUrl": "/shotaro-nakata.jpg",
       "bio": "株式会社Nature Innovation Groupにてフルスタックエンジニアとしてシステム・アプリ開発に従事し、リードエンジニアとして開発を牽引。フリーランスとしての活動を経て、現在は株式会社UPSIDERにてカード基盤プラットフォームの開発に携わっている。",
       "xId": "sh0o0000",
@@ -1222,6 +1286,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "nabeliwo",
+      "userIcon": "x",
       "profileImageUrl": "/nabeliwo.jpg",
       "bio": "ウェブフロントエンドが好きなソフトウェアエンジニアです。普段は Next.js / React で開発しています。ユーザー体験やコンポーネントの設計、状態の扱いについて考えるのが好きです。",
       "xId": "nabeliwo",
@@ -1241,6 +1306,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "mitsui",
+      "userIcon": "github",
       "profileImageUrl": "/mitsui.jpg",
       "bio": "株式会社UPSIDER\r\nエンジニアリングマネージャー\r\n\r\n株式会社ワークスアプリケーションズにてフロントエンド共通ライブラリやERPパッケージの開発に携わった後、株式会社CureAppにてチームリーダーとして医療機関向けWebアプリ開発を主導。株式会社kubell（旧Chatwork）ではエンジニア兼スクラムマスターとして活動し、現在は株式会社UPSIDERのエンジニアリングマネージャーとして、法人カード基盤の外部提供プラットフォームの開発組織を牽引している。",
       "xId": "",
@@ -1260,6 +1326,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "つねみ@tocomi",
+      "userIcon": "x",
       "profileImageUrl": "/kenta-tsunemi.jpg",
       "bio": "野球とお笑いが好きです。\r\n笑いの取れるエンジニアを目指しています🗿\r\nM-1グランプリ2025 1回戦敗退",
       "xId": "tocomi0112",
@@ -1279,6 +1346,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "Yudai Shinnoki",
+      "userIcon": "x",
       "profileImageUrl": "/yudai-shinnoki.jpg",
       "bio": "スタートアップCTOとして3年ほど店舗接客SaaS「デジちゃいむ」の開発をリードした後、事業譲渡に伴い2023年にGENDAに入社。GENDAでは複数のプロダクト開発に関わりつつ、現在開発2部マネージャー。フルスタックTypeScript+サーバーレスな構成が好き。最近は遊びながら痩せるのを狙って某ダンスゲームを激しめにプレイしている。",
       "xId": "y_shinnoki",
@@ -1298,6 +1366,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "ayano",
+      "userIcon": "github",
       "profileImageUrl": "/ayano.jpg",
       "bio": "2025年に新卒入社のために上京。現在は新卒入社した企業で動画配信サービスの特殊デバイスのWEBフロントエンドを開発。主に保守・新規開発、パフォーマンス改善に従事。",
       "xId": "",
@@ -1317,6 +1386,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "asa1984",
+      "userIcon": "x",
       "profileImageUrl": "/asa1984.jpg",
       "bio": "株式会社HERPで『HERP AI Recruiter』の開発全般を担当。フルスタックで TypeScript を書いている。satisfies 演算子と React の Suspense が好き。",
       "xId": "asa_high_ost",
@@ -1336,6 +1406,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "yamanoku",
+      "userIcon": "github",
       "profileImageUrl": "/yamanoku.jpg",
       "bio": "一次の父",
       "xId": "yamanoku",
@@ -1355,6 +1426,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "おおいし (bicstone)",
+      "userIcon": "x",
       "profileImageUrl": "/bicstone.jpg",
       "bio": "建設業界で機械設計に従事していたが、テクノロジーの力で世の中の摩擦を解決したいと考えるようになり2019年にWebエンジニアに転向。5年以上一貫してVertical SaaSの開発に携わる。技術だけにこだわらずに広い視野を持ち、多角的なアプローチで迅速かつ効果的にプロダクトの価値を最大化し、社会やステークホルダーの課題解決に貢献。",
       "xId": "bicstone_me",
@@ -1374,6 +1446,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "えーたろー",
+      "userIcon": "x",
       "profileImageUrl": "/ei.jpg",
       "bio": "学生フリーランスのFlutterエンジニアを経て、ディップ株式会社に新卒入社。バックエンドエンジニアとして「バイトル」のリアーキに従事した後、SREに転向。\r\n現在は、負荷テストやオブザーバビリティを通じたパフォーマンス向上に興味を持ち，「技術領域を問わず、システム全体を横断して最適化できるエンジニア」を目指し、日々勉強中。",
       "xId": "komugi8448",
@@ -1393,6 +1466,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "dowod",
+      "userIcon": "x",
       "profileImageUrl": "/dowod.jpg",
       "bio": "WIP",
       "xId": "_dowod",
@@ -1412,6 +1486,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "須永 高弘",
+      "userIcon": "x",
       "profileImageUrl": "/assign.jpg",
       "bio": "大学卒業後、総合コンサルファームに入社。\r\n製造・メディア顧客に対し戦略・業務・ITプロジェクトを経験。\r\n若手転職支援アプリ「ASSIGN」の開発・運用、LLMの事業活用、エンジニア組織開発等に従事。",
       "xId": "taka_ganasu",
@@ -1431,6 +1506,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "中津川篤司",
+      "userIcon": "x",
       "profileImageUrl": "/coderabbit.jpg",
       "bio": "CodeRabbit デベロッパーアドボケイト、一般社団法人DevRel代表理事。プログラマ、エンジニアとしていくつかの企業で働き、28歳のときに独立。2004年、まだ情報が少なかったオープンソースソフトの技術ブログ『MOONGIFT』を開設し、毎日情報を発信（2021年に更新終了）。2013年に株式会社MOONGIFT設立、ビジネスとエンジニアを結ぶエバンジェリスト業「DevRel」活動をスタートした。ソーシャルIDはすべて goofmint",
       "xId": "goofmint",
@@ -1450,6 +1526,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "土本祐介",
+      "userIcon": "x",
       "profileImageUrl": "/wealthnavi.jpg",
       "bio": "ウェルスナビ株式会社  /  フロントエンドエンジニア\r\n\r\n2024年、ウェルスナビ株式会社に新卒入社。Next.js × TypeScriptを用いた新規サービスにおいて、フロントエンド業務に従事",
       "xId": "yusuke_issiki",
@@ -1469,6 +1546,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "高橋悟生",
+      "userIcon": "x",
       "profileImageUrl": "/hacobu.jpg",
       "bio": "24卒で株式会社BuySell Technologiesに入社し、複数のプロダクトにおける技術検証・設計・開発を経験。\r\n現在は株式会社Hacobuにてソフトウェアエンジニアとして、トラック予約受付サービス「MOVO Berth」の設計・開発に携わっている。",
       "xId": "go20001104",
@@ -1488,6 +1566,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "ypresto",
+      "userIcon": "x",
       "profileImageUrl": "/layerx.jpg",
       "bio": "2012年に新卒でMIXIに入社。2014年より「みてね」の立ち上げに関わり、Androidを中心に開発を担当。その後、教育・流通系のスタートアップ複数社に籍を移し、開発全般を担いつつ、フロントエンドやUIデザインをリードする役割を担う。2024年1月にLayerXに入社し、バクラク事業部にてフロントエンドを中心に開発に携わる。TypeScript自体のパフォーマンスについて調査し、改善のためのPull Requestがマージされた。型魔術師は憧れ。",
       "xId": "yuya_presto",
@@ -1507,6 +1586,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "篠田 陽介",
+      "userIcon": "github",
       "profileImageUrl": "/dresscode.jpg",
       "bio": "2025年6月にDress Code株式会社に入社後、プロダクトエンジニアとしてプロダクトの価値と向き合いながら日々フルスタックに開発をしています。",
       "xId": "",
@@ -1526,6 +1606,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "かねうちてつや",
+      "userIcon": "x",
       "profileImageUrl": "/bitkey.jpg",
       "bio": "1975年新潟県長岡市出身、大阪市在住。小学生で MSX BASIC に触れ、高校時代に出会った HyperCard で開発の楽しさを知る。大学で UNIX と Emacs のパワーに圧倒されて以来、Emacs と共にキャリアを歩み続ける。電機メーカーやフェンリルでのエンジニア、2016 年からのハート・オーガナイゼーション CTO を経て、2025年にビットキー参画。これまでの知見を携え、再び現場のエンジニアとして挑戦中。",
       "xId": "kaniza",
@@ -1545,6 +1626,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "鈴木翔大",
+      "userIcon": "x",
       "profileImageUrl": "/mosh.jpg",
       "bio": "IdaaSプラットフォーム、IoT農園サービスなど様々な組織で技術マネジメントを経験してきました。MOSHではVPoTとして技術戦略の立案・執行および技術部の管掌を行っています。個人ではorvalのmaintainerとしての開発やrailsなど複数のOSSへのコントリビュート活動を行なっています。",
       "xId": "SoartecL",
@@ -1564,6 +1646,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "小松 翔",
+      "userIcon": "github",
       "profileImageUrl": "/dwango.jpg",
       "bio": "高専卒業後、鉄道事業会社において列車の運転士、運転士養成の講師、業務システムを開発する情報システム部門などに従事。2024年3月にドワンゴへ入社し、ZEN Study Webフロントエンドを開発中。",
       "xId": "tris5572",
@@ -1583,6 +1666,7 @@
     "slidesLink": "",
     "speaker": {
       "name": "横山 隼",
+      "userIcon": "github",
       "profileImageUrl": "/dip.jpg",
       "bio": "ディップ株式会社アルバイト求人サービス「バイトル」の求職者向けサイト開発を担うエンジニア。\r\n\r\n2022年に新卒入社後、「バイトル」や「スポットバイトル」など社内の様々なプロダクトを経験し、現在は「バイトル」フルリニューアルプロジェクトの求職者向けサイトチームのテックリードを務める。",
       "xId": "",

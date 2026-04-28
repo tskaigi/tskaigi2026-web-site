@@ -14,7 +14,7 @@ export type SessionMasterSpeaker = {
   additionalLink: string;
   affiliation: string;
   position: string;
-  useIcon?: UseIcon;
+  userIcon: UseIcon;
 };
 
 export type SessionMasterEntry = {

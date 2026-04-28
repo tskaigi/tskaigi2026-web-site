@@ -14,14 +14,17 @@ function main() {
     fs.readFileSync(SPEAKERS_JSON, "utf-8"),
   );
 
-  const renamed = data.map(({ id, slidesLink: _, speaker, ...rest }) => ({
-    speakerId: id,
-    speaker: {
-      ...speaker,
-      profileImageUrl: `/speakers/${id}.png`,
-    },
-    ...rest,
-  }));
+  const renamed = data.map(
+    ({ id, slidesLink: _, speaker, title, overview }) => ({
+      speakerId: id,
+      title,
+      overview,
+      speaker: {
+        ...speaker,
+        profileImageUrl: `/speakers/${id}.png`,
+      },
+    }),
+  );
 
   fs.writeFileSync(
     SESSION_MASTER_JSON,

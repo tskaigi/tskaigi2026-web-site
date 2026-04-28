@@ -1,36 +1,17 @@
 import fs from "node:fs";
 import type { MasterEntry } from "./types";
 
-const ICON_DATA_TSV = "scripts/data/icon-data.tsv";
 const SESSION_MASTER_JSON = "scripts/data/session-master.json";
 const FRONTEND_JSON = "src/constants/session-master.json";
 const OUTPUT_JSON = "scripts/data/data-completeness.json";
 
-type IconEntry = {
-  speakerName: string;
-  serviceId: string;
-};
-
-function parseTsv(filePath: string): IconEntry[] {
-  const lines = fs.readFileSync(filePath, "utf-8").trim().split("\n");
-  return lines.slice(1).map((line) => {
-    const [speakerName, , serviceId] = line.split("\t");
-    return {
-      speakerName: speakerName.trim(),
-      serviceId: (serviceId ?? "").trim(),
-    };
-  });
-}
-
 type CheckResult = {
+  id: string;
   speakerName: string;
-  iconDataTsv: {
-    hasServiceId: boolean;
-  };
   speaker: {
     hasXId: boolean;
     hasGithubId: boolean;
-    hasUseIcon: boolean;
+    hasUserIcon: boolean;
     hasBio: boolean;
   };
   session: {
@@ -45,19 +26,12 @@ type CheckResult = {
 };
 
 function main() {
-  if (!fs.existsSync(ICON_DATA_TSV)) {
-    console.error(`❌ TSVファイルが見つかりません: ${ICON_DATA_TSV}`);
-    process.exit(1);
-  }
   if (!fs.existsSync(SESSION_MASTER_JSON)) {
     console.error(
       `❌ セッションマスターJSONが見つかりません: ${SESSION_MASTER_JSON}`,
     );
     process.exit(1);
   }
-
-  const iconEntries = parseTsv(ICON_DATA_TSV);
-  const tsvByName = new Map(iconEntries.map((e) => [e.speakerName, e]));
 
   const master: MasterEntry[] = JSON.parse(
     fs.readFileSync(SESSION_MASTER_JSON, "utf-8"),
@@ -66,19 +40,16 @@ function main() {
   const normalize = (s: string) => s.replace(/[\s\p{P}\p{S}]/gu, "");
 
   const results: CheckResult[] = master.map((entry) => {
-    const tsvEntry = tsvByName.get(entry.speaker.name);
     const title = entry.title ?? "";
     const ogpTitle = entry.ogpTitle ?? "";
 
     return {
+      id: entry.id ?? "",
       speakerName: entry.speaker.name,
-      iconDataTsv: {
-        hasServiceId: !!tsvEntry?.serviceId,
-      },
       speaker: {
         hasXId: !!entry.speaker.xId,
         hasGithubId: !!entry.speaker.githubId,
-        hasUseIcon: !!entry.speaker.useIcon,
+        hasUserIcon: !!entry.speaker.userIcon,
         hasBio: !!entry.speaker.bio,
       },
       session: {
@@ -98,9 +69,7 @@ function main() {
   const total = results.length;
   const noIcon = results.filter(
     (r) =>
-      !r.iconDataTsv.hasServiceId &&
-      !r.speaker.hasXId &&
-      !r.speaker.hasGithubId,
+      !r.speaker.hasUserIcon && !r.speaker.hasXId && !r.speaker.hasGithubId,
   ).length;
   const noSession = results.filter((r) => !r.session.hasId).length;
   const noOgpTitle = results.filter((r) => !r.session.hasOgpTitle).length;
@@ -110,7 +79,6 @@ function main() {
 
   const noBio = results.filter((r) => !r.speaker.hasBio).length;
 
-  // フロントエンド用JSONのキーとvalue.idの一致チェック
   let idMismatch = 0;
   if (fs.existsSync(FRONTEND_JSON)) {
     const frontend: Record<string, MasterEntry> = JSON.parse(
