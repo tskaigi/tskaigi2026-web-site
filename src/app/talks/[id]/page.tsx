@@ -238,6 +238,20 @@ export default async function TalkDetailPage({
                       />
                     </Link>
                   )}
+                  {sessionType === "KEYNOTE" && (
+                    <Link
+                      href="https://bsky.app/profile/jakebailey.dev"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src="/talks/sns/bluesky-logo.png"
+                        alt="Bluesky"
+                        width={36}
+                        height={36}
+                      />
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
