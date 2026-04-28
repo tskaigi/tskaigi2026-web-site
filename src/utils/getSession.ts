@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { getSessionMasterBySessionId } from "@/constants/sessionMaster";
 import {
   type SessionId,
   TRACK_KEYS,
@@ -22,6 +23,31 @@ export type SessionDetail = {
   endTime: number;
 };
 
+function resolveSession(id: string): SessionSummary {
+  const master = getSessionMasterBySessionId(id);
+  if (master) {
+    return {
+      id,
+      title: master.title,
+      overview: master.overview,
+      speaker: {
+        name: master.speaker.name,
+        profileImageUrl: master.speaker.profileImageUrl,
+        bio: master.speaker.bio,
+        xId: master.speaker.xId,
+        githubId: master.speaker.githubId,
+        additionalLink: master.speaker.additionalLink,
+        qiitaLink: master.speaker.qiitaLink,
+        zennLink: master.speaker.zennLink,
+        noteLink: master.speaker.noteLink,
+        affiliation: master.speaker.affiliation,
+        position: master.speaker.position,
+      },
+    };
+  }
+  return { id, title: "", speaker: { name: "" } };
+}
+
 export function getSession(id: SessionId): SessionDetail {
   for (const day of timetableList) {
     const trackNameMap: Record<string, string> = {};
@@ -34,10 +60,10 @@ export function getSession(id: SessionId): SessionDetail {
       for (const trackKey of TRACK_KEYS) {
         const content = slot.tracks[trackKey];
         if (content.type !== "session") continue;
-        for (const session of content.sessions) {
-          if (session.id === id) {
+        for (const ref of content.sessions) {
+          if (ref.id === id) {
             return {
-              session,
+              session: resolveSession(id),
               sessionType: content.sessionType,
               trackKey,
               trackName: trackNameMap[trackKey] ?? trackKey,

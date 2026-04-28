@@ -6,6 +6,10 @@ export type Track = {
   hashtag: string;
 };
 
+export type SessionRef = {
+  id: string;
+};
+
 export type SessionSummary = {
   id: string;
   title: string;
@@ -13,12 +17,15 @@ export type SessionSummary = {
   speaker: {
     name: string;
     profileImageUrl?: string;
-    bio?: string; // 自己紹介文
+    bio?: string;
     xId?: string;
     githubId?: string;
-    additionalLink?: string; // 追加リンク
-    affiliation?: string; // 所属企業・団体
-    position?: string; // ポジション・役職
+    additionalLink?: string;
+    qiitaLink?: string;
+    zennLink?: string;
+    noteLink?: string;
+    affiliation?: string;
+    position?: string;
   };
 };
 
@@ -41,7 +48,7 @@ export type SessionKey = "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR" | "HANDSON";
 export type SessionTrack = {
   type: "session";
   sessionType: SessionKey;
-  sessions: SessionSummary[];
+  sessions: SessionRef[];
 };
 
 export type TrackContent =

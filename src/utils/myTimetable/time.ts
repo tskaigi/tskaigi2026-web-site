@@ -292,8 +292,8 @@ function groupTalksByDate(
 
 function formatTime(timestamp: number): string {
   const d = new Date(timestamp * 1000);
-  const h = d.getHours().toString().padStart(2, "0");
-  const m = d.getMinutes().toString().padStart(2, "0");
+  const h = (d.getUTCHours() + 9).toString().padStart(2, "0");
+  const m = d.getUTCMinutes().toString().padStart(2, "0");
   return `${h}:${m}`;
 }
 
