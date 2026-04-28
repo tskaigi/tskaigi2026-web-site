@@ -45,5 +45,7 @@ next-env.d.ts
 
 src/constants/staff.generated.ts
 
-# icon fetch manifest (generated, machine-local)
+# generated data (pipeline outputs)
 scripts/data/.icon-fetch-manifest.json
+scripts/data/session-master.json
+scripts/data/data-completeness.json
