@@ -1,17 +1,42 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { SessionSummary } from "../src/types/timetable-api";
+import sessionIdMap from "./data/session-id-map.json" with { type: "json" };
 
-type IconService = "X" | "GitHub";
+const reverseSessionIdMap: Record<string, string> = Object.fromEntries(
+  Object.entries(sessionIdMap).map(([numId, slug]) => [slug, numId]),
+);
 
-type SessionWithIcon = Omit<SessionSummary, "speaker"> & {
-  speaker: SessionSummary["speaker"] & {
-    useIcon?: IconService;
+const OUTPUT_DIR = "public/talks";
+const ICON_DATA_TSV = "scripts/data/icon-data.tsv";
+const SPEAKERS_JSON = "scripts/data/speakers.json";
+
+type IconService = "x" | "github";
+
+type IconEntry = {
+  speakerName: string;
+  useIcon: IconService;
+  serviceId: string;
+};
+
+type SpeakerEntry = {
+  id: string;
+  speaker: {
+    name: string;
   };
 };
 
-const OUTPUT_DIR = "public/talks";
-const DEFAULT_JSON_PATH = "scripts/data/sessions-sample.json";
+function parseTsv(filePath: string): IconEntry[] {
+  const lines = fs.readFileSync(filePath, "utf-8").trim().split("\n");
+  // skip header
+  return lines.slice(1).map((line) => {
+    const [speakerName, useIcon, serviceId] = line.split("\t");
+    return {
+      speakerName: speakerName.trim(),
+      useIcon: useIcon.trim().toLowerCase() as IconService,
+      serviceId: (serviceId ?? "").trim(),
+    };
+  });
+}
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => {
@@ -19,41 +44,25 @@ function delay(ms: number): Promise<void> {
   });
 }
 
-async function resolveIconUrl(
-  session: SessionWithIcon,
-): Promise<string | null> {
-  const { speaker } = session;
+async function resolveIconUrl(entry: IconEntry): Promise<string | null> {
+  if (!entry.serviceId) return null;
 
-  if (speaker.name === "TSKaigi運営") {
-    return null;
+  if (entry.useIcon === "github") {
+    return `https://github.com/${entry.serviceId}.png`;
   }
 
-  if (speaker.useIcon === "GitHub") {
-    if (!speaker.githubId) {
-      console.error("githubId が未設定です。");
-      return null;
-    }
-    return `https://github.com/${speaker.githubId}.png`;
-  } else if (speaker.useIcon === "X") {
-    if (!speaker.xId) {
-      console.error("xId が未設定です。");
-      return null;
-    }
-
-    const html = await (await fetch(`https://x.com/${speaker.xId}`)).text();
-
+  if (entry.useIcon === "x") {
+    const html = await (await fetch(`https://x.com/${entry.serviceId}`)).text();
     const match = html.match(
-      /https:\/\/pbs\.twimg\.com\/profile_images[^"'\\s<]+/,
+      /https:\/\/pbs\.twimg\.com\/profile_images[^"'\s<]+/,
     );
     if (!match) {
-      console.error("Xプロフィール画像URLをHTMLから抽出できませんでした。");
+      console.error(
+        `  Xプロフィール画像URLをHTMLから抽出できませんでした (${entry.serviceId})`,
+      );
       return null;
     }
-
-    // 画像URLの末尾のサイズ指定を削除
-    const xIconUrl = match[0].replace(/(_normal)(\.\w+)$/, "$2");
-
-    return xIconUrl;
+    return match[0].replace(/(_normal)(\.\w+)$/, "$2");
   }
 
   return null;
@@ -66,43 +75,58 @@ async function saveImage(url: string, outputPath: string): Promise<void> {
 }
 
 async function main() {
-  const jsonPath = process.argv[2] ?? DEFAULT_JSON_PATH;
-
-  if (!fs.existsSync(jsonPath)) {
-    console.error(`❌ JSONファイルが見つかりません: ${jsonPath}`);
+  if (!fs.existsSync(ICON_DATA_TSV)) {
+    console.error(`❌ TSVファイルが見つかりません: ${ICON_DATA_TSV}`);
+    process.exit(1);
+  }
+  if (!fs.existsSync(SPEAKERS_JSON)) {
+    console.error(`❌ スピーカーJSONが見つかりません: ${SPEAKERS_JSON}`);
     process.exit(1);
   }
 
-  const sessions = JSON.parse(
-    fs.readFileSync(jsonPath, "utf-8"),
-  ) as SessionWithIcon[];
-  if (!Array.isArray(sessions)) {
-    console.error(
-      "❌ JSONファイルの形式が正しくありません。配列を指定してください。",
-    );
-    process.exit(1);
-  }
+  const iconEntries = parseTsv(ICON_DATA_TSV);
+  const speakers: SpeakerEntry[] = JSON.parse(
+    fs.readFileSync(SPEAKERS_JSON, "utf-8"),
+  );
+
+  const speakerByName = new Map(speakers.map((s) => [s.speaker.name, s]));
 
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
-  for (const [index, session] of sessions.entries()) {
+  for (const [index, entry] of iconEntries.entries()) {
     if (index > 0) {
-      await delay(200); // 念のためちょっと間隔を開ける
+      await delay(200);
     }
 
-    const outputPath = path.join(OUTPUT_DIR, `${session.id}.png`);
+    const speaker = speakerByName.get(entry.speakerName);
+    if (!speaker) {
+      console.log(
+        `⏭️  skip: "${entry.speakerName}" がspeakers.jsonに見つかりません`,
+      );
+      continue;
+    }
+
+    const numericId = reverseSessionIdMap[speaker.id];
+    if (!numericId) {
+      console.log(
+        `⏭️  skip: "${speaker.id}" の数字IDが対応表にありません`,
+      );
+      continue;
+    }
+
+    const outputPath = path.join(OUTPUT_DIR, `${numericId}.png`);
 
     try {
-      const iconUrl = await resolveIconUrl(session);
+      const iconUrl = await resolveIconUrl(entry);
       if (!iconUrl) {
-        console.log(`⏭️  skip (${session.id}): ${session.speaker.name}`);
+        console.log(`⏭️  skip (${numericId}): ${entry.speakerName} — IDなし`);
         continue;
       }
 
       await saveImage(iconUrl, outputPath);
-      console.log(`✅ saved (${session.id}): ${outputPath}`);
+      console.log(`✅ saved (${numericId}): ${outputPath}`);
     } catch (error) {
-      console.warn(`⚠️  failed (${session.id}):`, error);
+      console.warn(`⚠️  failed (${numericId}):`, error);
     }
   }
 
