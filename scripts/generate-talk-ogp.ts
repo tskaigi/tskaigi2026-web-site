@@ -8,10 +8,13 @@ const DEFAULT_PROFILE_IMAGE = "public/logo-2026.png";
 const OUTPUT_DIR = "public/talks";
 const SESSION_MASTER_JSON = "scripts/data/session-master.json";
 
-function resolveProfileImagePath(profileImageUrl: string): string {
+function resolveProfileImage(profileImageUrl: string): {
+  path: string;
+  isFallback: boolean;
+} {
   const filePath = path.join("public", profileImageUrl);
-  if (fs.existsSync(filePath)) return filePath;
-  return DEFAULT_PROFILE_IMAGE;
+  if (fs.existsSync(filePath)) return { path: filePath, isFallback: false };
+  return { path: DEFAULT_PROFILE_IMAGE, isFallback: true };
 }
 
 async function main(force: boolean) {
@@ -56,13 +59,14 @@ async function main(force: boolean) {
     }
 
     const title = entry.ogpTitle ?? entry.title;
-    const profileImagePath = resolveProfileImagePath(
+    const profileImage = resolveProfileImage(
       entry.speaker.profileImageUrl ?? "",
     );
 
     await generateAndSaveTalkOgp({
       title,
-      profileImagePath,
+      profileImagePath: profileImage.path,
+      profileImageFit: profileImage.isFallback ? "contain" : "cover",
       speakerName: entry.speaker.name,
       trackKey: meta.trackKey,
       trackName: meta.trackName,

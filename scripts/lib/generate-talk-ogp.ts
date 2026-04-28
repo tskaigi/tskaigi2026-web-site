@@ -13,6 +13,7 @@ const TRACK_STYLE: Record<TrackKey, { bg: string; text: string }> = {
 export type TalkOgpInput = {
   title: string;
   profileImagePath: string;
+  profileImageFit?: "cover" | "contain";
   speakerName: string;
   trackKey: TrackKey;
   trackName: string;
@@ -323,7 +324,10 @@ export async function generateTalkOgpImage(
     await Promise.all([
       loadImageAsBuffer(input.baseImagePath),
       sharp(await loadImageAsBuffer(input.profileImagePath))
-        .resize(200, 200, { fit: "cover" })
+        .resize(200, 200, {
+          fit: input.profileImageFit ?? "cover",
+          background: { r: 255, g: 255, b: 255, alpha: 1 },
+        })
         .png()
         .toBuffer(),
       measureRenderedTextWidth(input.speakerName, 29, "bold"),
