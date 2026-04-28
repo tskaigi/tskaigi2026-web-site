@@ -27,9 +27,15 @@ function main() {
   const idToName: Record<string, string> = JSON.parse(
     fs.readFileSync(SESSION_ID_SPEAKER_JSON, "utf-8"),
   );
-  const nameToId = new Map(
-    Object.entries(idToName).map(([id, name]) => [name, id]),
-  );
+  const nameToIds = new Map<string, string[]>();
+  for (const [id, name] of Object.entries(idToName)) {
+    const ids = nameToIds.get(name);
+    if (ids) {
+      ids.push(id);
+    } else {
+      nameToIds.set(name, [id]);
+    }
+  }
 
   const ogpOverrides = new Map<string, string>();
   if (fs.existsSync(OGP_TITLE_OVERRIDES_JSON)) {
@@ -49,8 +55,9 @@ function main() {
   let skipped = 0;
 
   for (const entry of master) {
-    const id = nameToId.get(entry.speaker.name);
-    if (id) {
+    const ids = nameToIds.get(entry.speaker.name);
+    if (ids && ids.length > 0) {
+      const id = ids.shift()!;
       entry.id = id;
       const ogpTitle = ogpOverrides.get(id);
       entry.ogpTitle = ogpTitle ?? entry.title;

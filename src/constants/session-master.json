@@ -209,6 +209,27 @@
       "position": ""
     }
   },
+  "12": {
+    "id": "12",
+    "speakerId": "ozawa-shotaro",
+    "title": "型で頑張るプロダクト国際化",
+    "ogpTitle": "型で頑張るプロダクト国際化",
+    "overview": "# トークの主題\r\n\r\nこのトークでは、Reactアプリケーションの多言語化ライブラリreact-i18nextの実践的なチーム運用と、型を活用した安全な開発サイクルの構築についてお話しします。\r\nヒューマンエラーを型の力で未然に防ぎ、チーム全員が安心して新機能開発に集中できるようになった実践的なアプローチをお伝えします。\r\n\r\n# トークの背景\r\n\r\n私は業務でプロダクトの国際化を担当し、react-i18nextを導入しました。\r\nチームにAPIの知見を共有しつつ運用を進めてみたところ、フレームワークが素の状態のままではtypoなどにより国際化関数のパラメータ設定ミスが頻発し、翻訳辞書データが正常に出力されない問題が相次ぎました。\r\n今回は実際にあったいくつかの失敗談に触れつつ、それらをTypeScriptの型を活かしてどう乗り越えたのかをご紹介します。\r\n\r\n# 想定聴衆\r\n\r\n* これからプロダクトの国際化を進められる方、特にreact-i18nextの採用を検討されている方\r\n* チーム開発における多言語化の運用課題に取り組んでいる方",
+    "speaker": {
+      "name": "Shotaro Ozawa",
+      "userIcon": "x",
+      "profileImageUrl": "/speakers/ozawa-shotaro.png",
+      "bio": "2022年にテックタッチ株式会社に入社。フロントエンドエンジニアとして、デジタルアダプションプラットフォーム「テックタッチ株式会社」の開発に従事。",
+      "xId": "shzawa",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "テックタッチ株式会社",
+      "position": "フロントエンドエンジニア"
+    }
+  },
   "13": {
     "id": "13",
     "speakerId": "hal",
@@ -249,6 +270,27 @@
       "additionalLink": "https://dowo.dev/",
       "affiliation": "KINTOテクノロジーズ株式会社",
       "position": ""
+    }
+  },
+  "15": {
+    "id": "15",
+    "speakerId": "ei",
+    "title": "決定論的な型チェックへ：Go 製コンパイラによる10倍速の裏側で --stableTypeOrdering から見える並列化への挑戦",
+    "ogpTitle": "決定論的な型チェックへ：\nGo製コンパイラによる10倍速の裏側で\n--stableTypeOrderingから見える並列化への挑戦",
+    "overview": "「ロジックとして独立した宣言が，関数の型定義の順序を変更してしまう」\r\nこの挙動は，TypeScript の ype IDs を使用した仕組みによるものです．\r\n\r\nTypeScript 6.0 で --stableTypeOrdering フラグが追加される．このオプションは，上記の問題の解決であるのと同時に，TypeScript 7.0 で実現される「Go言語によるネイティブコンパイラ」へ移行準備の意味合いを持ちます．\r\n\r\nGo言語によるコンパイル高速化のための「並列化」は，Type IDsの仕組みだと，型の処理順序に対する「非決定性」の課題が出てきます．\r\n\r\n本セッションでは，TypeScript 6.0 で導入された --stableTypeOrdering フラグに焦点を当て，以下の構成で話します．\r\n\r\n- なぜ離れた場所の const 宣言が，ユニオン型の並び順を変更してしまうのか\r\n\r\n- なぜ TypeScript 7.0 では Type IDs 順を捨て，「コンテンツに基づく決定論的ソート」を導入したのか\r\n\r\n- チェック速度を最大 25% 犠牲にしてまでも提供されるこのフラグの価値と，移行時に発生しうる推論エラー",
+    "speaker": {
+      "name": "えーたろー",
+      "userIcon": "x",
+      "profileImageUrl": "/speakers/ei.png",
+      "bio": "学生フリーランスのFlutterエンジニアを経て、ディップ株式会社に新卒入社。バックエンドエンジニアとして「バイトル」のリアーキに従事した後、SREに転向。\r\n現在は、負荷テストやオブザーバビリティを通じたパフォーマンス向上に興味を持ち，「技術領域を問わず、システム全体を横断して最適化できるエンジニア」を目指し、日々勉強中。",
+      "xId": "komugi8448",
+      "githubId": "komugi8",
+      "qiitaLink": "http://qiita.com/komugi8",
+      "zennLink": "https://zenn.dev/komugi8",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "ディップ株式会社",
+      "position": "バックエンド，SRE"
     }
   },
   "16": {
@@ -419,6 +461,27 @@
       "position": "エンジニアリングマネージャー"
     }
   },
+  "24": {
+    "id": "24",
+    "speakerId": "shotaro-nakata",
+    "title": "TypeScriptの型はAIに届いているか？ ― AIコーディングツール検証で見えたIDEとの断絶",
+    "ogpTitle": "TypeScriptの型はAIに届いているか？\n― AIコーディングツール検証で見えたIDEとの断絶",
+    "overview": "TypeScriptの型システムは型推論・定義元特定・参照追跡といったリッチな構造情報を持ち、IDEではLSP経由で日常的に活用されています。ではAIコーディングツールはどうか。Claude Code・Cursor・GitHub Copilot・Codex・Geminiを調査した結果、tsc実行による型エラーは取得できるものの、型の構造情報はほとんどAIに届いていませんでした。本発表では「何が届いていて何が届いていないか」を整理し、LSPに対する3つの設計思想（不要派・必要派・中間派）を比較します。",
+    "speaker": {
+      "name": "shotaro",
+      "userIcon": "x",
+      "profileImageUrl": "/speakers/shotaro-nakata.png",
+      "bio": "株式会社Nature Innovation Groupにてフルスタックエンジニアとしてシステム・アプリ開発に従事し、リードエンジニアとして開発を牽引。フリーランスとしての活動を経て、現在は株式会社UPSIDERにてカード基盤プラットフォームの開発に携わっている。",
+      "xId": "sh0o0000",
+      "githubId": "sh0o0",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/nakar0",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "株式会社UPSIDER",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
   "25": {
     "id": "25",
     "speakerId": "yuki-terashima",
@@ -521,6 +584,27 @@
       "noteLink": "",
       "additionalLink": "",
       "affiliation": "株式会社うるる",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
+  "30": {
+    "id": "30",
+    "speakerId": "syumai",
+    "title": "Oxlintはいかにしてtsgolintのlint ruleを呼び出しているのか",
+    "ogpTitle": "Oxlintはいかにしてtsgolintのlint ruleを\n呼び出しているのか",
+    "overview": "Oxlintは、VoidZeroによって開発されている、Rust製の高速なJavaScript / TypeScript Linterです。\r\n既に安定版のv1がリリース済みですが、実は、そこにはTypeScriptの型情報に依存するルールの実装が含まれていません。\r\nその役割を担うtype-aware lintingの実装は、typescript-goベースの別リポジトリである、oxc-project/tsgolintで行われています。\r\ntsgolintを通じてlintを行うことで、Oxlintは `no-floating-promises` などのlint ruleをサポートすることができます。\r\n\r\nつまり、Rust実装であるOxlintから、Go実装のtsgolintを呼び出していることになるのですが、一体これはどのように実装されているかご存知でしょうか？\r\n\r\n本発表では、発表者がOxlintおよびtsgolintの実装を読んで知った、プロセス間通信に基づくOxlintとtsgolintの通信方法についての概要と、tsgolint側にルールを追加する度に必要となるOxlint側での実装について解説を行います。\r\nまた、発表者が、tsgolintにカスタムルールを実装しようとした過程で得た知見についてもお話しします。",
+    "speaker": {
+      "name": "syumai",
+      "userIcon": "github",
+      "profileImageUrl": "/speakers/syumai.png",
+      "bio": "株式会社LayerXにて、バクラクヘルプデスク エージェントの開発を行っている。主な技術領域はGo、TypeScript、JavaScript。『Web開発者のための［入門］Cloudflare Workers』を執筆。",
+      "xId": "__syumai",
+      "githubId": "syumai",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/syumai",
+      "noteLink": "",
+      "additionalLink": "https://syum.ai",
+      "affiliation": "株式会社LayerX",
       "position": "ソフトウェアエンジニア"
     }
   },
@@ -1154,6 +1238,27 @@
       "position": "開発2部マネージャー"
     }
   },
+  "62": {
+    "id": "62",
+    "speakerId": "yuta-ike",
+    "title": "AI時代に考える、Branded Typesで実現する堅牢な型付け",
+    "ogpTitle": "AI時代に考えたい\nBranded Typesで実現する堅牢な型付け",
+    "overview": "AIがコードを生成する今、型の重要性は高まっています。しかし従来の構造的部分型を多用するアプローチでは、ドメインロジックの「意味」を十分に表現できません。そこで本セッションでは、ビジネス上の値の「意味」を型で表現し、ドメインモデルやビジネスロジックの堅牢性と可読性を高めるアプローチについてお話しします。\r\n\r\nBranded Typesというと「引数の渡し間違えを防げる」といったテクニック的な側面が注目されることが多いです。しかし私は、「値の意味（= その値がどんなDomainModelや状態を表しているのか）を型で表現できる」という点に非常に魅力を感じています。\r\n\r\n例えばバリデーション済みのEntityをバリデーション前と区別できたり、同じstringでも異なる概念を明示的に区別することができます。変数名やコードコメントとは異なり、型であるため代入や引数で渡してもその性質が維持されることも大きなメリットです。\r\n\r\n本セッションでは、Branded Typesを活用することでTypeScriptの型安全性を高めることができるアプローチについて説明し、ドメインモデリングに導入することのメリットや従来のアプローチとの違いなどを、実際の経験も交えながらお話しします。",
+    "speaker": {
+      "name": "池奥裕太/@yuta-ike",
+      "userIcon": "x",
+      "profileImageUrl": "/speakers/yuta-ike.png",
+      "bio": "2024年にエムスリー株式会社に新卒入社。新規立ち上げサービスのバックエンド・インフラを担当し、昨年からはチームリーダーを務めています。\r\n\r\n2024年度 未踏採択。好きなエディタはFigmaです。",
+      "xId": "Selria1",
+      "githubId": "yuta-ike",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "エムスリー株式会社",
+      "position": "ソフトウェアエンジニア"
+    }
+  },
   "63": {
     "id": "63",
     "speakerId": "lacolaco",
@@ -1343,6 +1448,27 @@
       "position": ""
     }
   },
+  "72": {
+    "id": "72",
+    "speakerId": "kenta-tsunemi",
+    "title": "TypeScript Compiler はどのように未使用変数を検出しているのか？",
+    "ogpTitle": "TypeScript Compiler は\nどのように未使用変数を検出しているのか？",
+    "overview": "TypeScript には `noUnusedLocals` / `noUnusedParameters` といった未使用変数に関するオプションが存在します。\r\n\r\nこれらはどのように変数が未使用であることを検出しているのでしょうか？\r\n\r\n本トークでは、調査過程で得られた知見をもとに、TypeScript Compiler の未使用変数の検出ロジックや、ロジックをどのように紐解いていったかを整理してお伝えしようと思います！\r\n\r\n## 背景\r\n\r\nReact コンポーネントの型付けに関する記事(https://engineering.gusto.com/the-journey-to-a-safer-frontend-why-we-removed-react-fc-095ff0b3e2e4)を読み、引数の型付けの仕方によって TypeScript の未使用変数の検出の挙動が変わるという内容に興味を持ちました。\r\n\r\nそこで、検出の内部的な挙動を理解するために、TypeScript Compiler の実装を実際に追跡して未使用判定がどのような仕組みで行われているのかを調査することにしました。",
+    "speaker": {
+      "name": "つねみ@tocomi",
+      "userIcon": "x",
+      "profileImageUrl": "/speakers/kenta-tsunemi.png",
+      "bio": "野球とお笑いが好きです。\r\n笑いの取れるエンジニアを目指しています🗿\r\nM-1グランプリ2025 1回戦敗退",
+      "xId": "tocomi0112",
+      "githubId": "tocomi",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "https://tocomi.net/",
+      "affiliation": "テックタッチ株式会社",
+      "position": "フロントエンドエンジニア"
+    }
+  },
   "73": {
     "id": "73",
     "speakerId": "bicstone",
@@ -1429,132 +1555,6 @@
   },
   "77": {
     "id": "77",
-    "speakerId": "ozawa-shotaro",
-    "title": "型で頑張るプロダクト国際化",
-    "ogpTitle": "型で頑張るプロダクト国際化",
-    "overview": "# トークの主題\r\n\r\nこのトークでは、Reactアプリケーションの多言語化ライブラリreact-i18nextの実践的なチーム運用と、型を活用した安全な開発サイクルの構築についてお話しします。\r\nヒューマンエラーを型の力で未然に防ぎ、チーム全員が安心して新機能開発に集中できるようになった実践的なアプローチをお伝えします。\r\n\r\n# トークの背景\r\n\r\n私は業務でプロダクトの国際化を担当し、react-i18nextを導入しました。\r\nチームにAPIの知見を共有しつつ運用を進めてみたところ、フレームワークが素の状態のままではtypoなどにより国際化関数のパラメータ設定ミスが頻発し、翻訳辞書データが正常に出力されない問題が相次ぎました。\r\n今回は実際にあったいくつかの失敗談に触れつつ、それらをTypeScriptの型を活かしてどう乗り越えたのかをご紹介します。\r\n\r\n# 想定聴衆\r\n\r\n* これからプロダクトの国際化を進められる方、特にreact-i18nextの採用を検討されている方\r\n* チーム開発における多言語化の運用課題に取り組んでいる方",
-    "speaker": {
-      "name": "Shotaro Ozawa",
-      "userIcon": "x",
-      "profileImageUrl": "/speakers/ozawa-shotaro.png",
-      "bio": "2022年にテックタッチ株式会社に入社。フロントエンドエンジニアとして、デジタルアダプションプラットフォーム「テックタッチ株式会社」の開発に従事。",
-      "xId": "shzawa",
-      "githubId": "",
-      "qiitaLink": "",
-      "zennLink": "",
-      "noteLink": "",
-      "additionalLink": "",
-      "affiliation": "テックタッチ株式会社",
-      "position": "フロントエンドエンジニア"
-    }
-  },
-  "78": {
-    "id": "78",
-    "speakerId": "syumai",
-    "title": "Oxlintはいかにしてtsgolintのlint ruleを呼び出しているのか",
-    "ogpTitle": "Oxlintはいかにしてtsgolintのlint ruleを呼び出しているのか",
-    "overview": "Oxlintは、VoidZeroによって開発されている、Rust製の高速なJavaScript / TypeScript Linterです。\r\n既に安定版のv1がリリース済みですが、実は、そこにはTypeScriptの型情報に依存するルールの実装が含まれていません。\r\nその役割を担うtype-aware lintingの実装は、typescript-goベースの別リポジトリである、oxc-project/tsgolintで行われています。\r\ntsgolintを通じてlintを行うことで、Oxlintは `no-floating-promises` などのlint ruleをサポートすることができます。\r\n\r\nつまり、Rust実装であるOxlintから、Go実装のtsgolintを呼び出していることになるのですが、一体これはどのように実装されているかご存知でしょうか？\r\n\r\n本発表では、発表者がOxlintおよびtsgolintの実装を読んで知った、プロセス間通信に基づくOxlintとtsgolintの通信方法についての概要と、tsgolint側にルールを追加する度に必要となるOxlint側での実装について解説を行います。\r\nまた、発表者が、tsgolintにカスタムルールを実装しようとした過程で得た知見についてもお話しします。",
-    "speaker": {
-      "name": "syumai",
-      "userIcon": "github",
-      "profileImageUrl": "/speakers/syumai.png",
-      "bio": "株式会社LayerXにて、バクラクヘルプデスク エージェントの開発を行っている。主な技術領域はGo、TypeScript、JavaScript。『Web開発者のための［入門］Cloudflare Workers』を執筆。",
-      "xId": "__syumai",
-      "githubId": "syumai",
-      "qiitaLink": "",
-      "zennLink": "https://zenn.dev/syumai",
-      "noteLink": "",
-      "additionalLink": "https://syum.ai",
-      "affiliation": "株式会社LayerX",
-      "position": "ソフトウェアエンジニア"
-    }
-  },
-  "79": {
-    "id": "79",
-    "speakerId": "yuta-ike",
-    "title": "AI時代に考える、Branded Typesで実現する堅牢な型付け",
-    "ogpTitle": "AI時代に考える、Branded Typesで実現する堅牢な型付け",
-    "overview": "AIがコードを生成する今、型の重要性は高まっています。しかし従来の構造的部分型を多用するアプローチでは、ドメインロジックの「意味」を十分に表現できません。そこで本セッションでは、ビジネス上の値の「意味」を型で表現し、ドメインモデルやビジネスロジックの堅牢性と可読性を高めるアプローチについてお話しします。\r\n\r\nBranded Typesというと「引数の渡し間違えを防げる」といったテクニック的な側面が注目されることが多いです。しかし私は、「値の意味（= その値がどんなDomainModelや状態を表しているのか）を型で表現できる」という点に非常に魅力を感じています。\r\n\r\n例えばバリデーション済みのEntityをバリデーション前と区別できたり、同じstringでも異なる概念を明示的に区別することができます。変数名やコードコメントとは異なり、型であるため代入や引数で渡してもその性質が維持されることも大きなメリットです。\r\n\r\n本セッションでは、Branded Typesを活用することでTypeScriptの型安全性を高めることができるアプローチについて説明し、ドメインモデリングに導入することのメリットや従来のアプローチとの違いなどを、実際の経験も交えながらお話しします。",
-    "speaker": {
-      "name": "池奥裕太/@yuta-ike",
-      "userIcon": "x",
-      "profileImageUrl": "/speakers/yuta-ike.png",
-      "bio": "2024年にエムスリー株式会社に新卒入社。新規立ち上げサービスのバックエンド・インフラを担当し、昨年からはチームリーダーを務めています。\r\n\r\n2024年度 未踏採択。好きなエディタはFigmaです。",
-      "xId": "Selria1",
-      "githubId": "yuta-ike",
-      "qiitaLink": "",
-      "zennLink": "",
-      "noteLink": "",
-      "additionalLink": "",
-      "affiliation": "エムスリー株式会社",
-      "position": "ソフトウェアエンジニア"
-    }
-  },
-  "80": {
-    "id": "80",
-    "speakerId": "shotaro-nakata",
-    "title": "TypeScriptの型はAIに届いているか？ ― AIコーディングツール検証で見えたIDEとの断絶",
-    "ogpTitle": "TypeScriptの型はAIに届いているか？ ― AIコーディングツール検証で見えたIDEとの断絶",
-    "overview": "TypeScriptの型システムは型推論・定義元特定・参照追跡といったリッチな構造情報を持ち、IDEではLSP経由で日常的に活用されています。ではAIコーディングツールはどうか。Claude Code・Cursor・GitHub Copilot・Codex・Geminiを調査した結果、tsc実行による型エラーは取得できるものの、型の構造情報はほとんどAIに届いていませんでした。本発表では「何が届いていて何が届いていないか」を整理し、LSPに対する3つの設計思想（不要派・必要派・中間派）を比較します。",
-    "speaker": {
-      "name": "shotaro",
-      "userIcon": "x",
-      "profileImageUrl": "/speakers/shotaro-nakata.png",
-      "bio": "株式会社Nature Innovation Groupにてフルスタックエンジニアとしてシステム・アプリ開発に従事し、リードエンジニアとして開発を牽引。フリーランスとしての活動を経て、現在は株式会社UPSIDERにてカード基盤プラットフォームの開発に携わっている。",
-      "xId": "sh0o0000",
-      "githubId": "sh0o0",
-      "qiitaLink": "",
-      "zennLink": "https://zenn.dev/nakar0",
-      "noteLink": "",
-      "additionalLink": "",
-      "affiliation": "株式会社UPSIDER",
-      "position": "ソフトウェアエンジニア"
-    }
-  },
-  "81": {
-    "id": "81",
-    "speakerId": "kenta-tsunemi",
-    "title": "TypeScript Compiler はどのように未使用変数を検出しているのか？",
-    "ogpTitle": "TypeScript Compiler はどのように未使用変数を検出しているのか？",
-    "overview": "TypeScript には `noUnusedLocals` / `noUnusedParameters` といった未使用変数に関するオプションが存在します。\r\n\r\nこれらはどのように変数が未使用であることを検出しているのでしょうか？\r\n\r\n本トークでは、調査過程で得られた知見をもとに、TypeScript Compiler の未使用変数の検出ロジックや、ロジックをどのように紐解いていったかを整理してお伝えしようと思います！\r\n\r\n## 背景\r\n\r\nReact コンポーネントの型付けに関する記事(https://engineering.gusto.com/the-journey-to-a-safer-frontend-why-we-removed-react-fc-095ff0b3e2e4)を読み、引数の型付けの仕方によって TypeScript の未使用変数の検出の挙動が変わるという内容に興味を持ちました。\r\n\r\nそこで、検出の内部的な挙動を理解するために、TypeScript Compiler の実装を実際に追跡して未使用判定がどのような仕組みで行われているのかを調査することにしました。",
-    "speaker": {
-      "name": "つねみ@tocomi",
-      "userIcon": "x",
-      "profileImageUrl": "/speakers/kenta-tsunemi.png",
-      "bio": "野球とお笑いが好きです。\r\n笑いの取れるエンジニアを目指しています🗿\r\nM-1グランプリ2025 1回戦敗退",
-      "xId": "tocomi0112",
-      "githubId": "tocomi",
-      "qiitaLink": "",
-      "zennLink": "",
-      "noteLink": "",
-      "additionalLink": "https://tocomi.net/",
-      "affiliation": "テックタッチ株式会社",
-      "position": "フロントエンドエンジニア"
-    }
-  },
-  "82": {
-    "id": "82",
-    "speakerId": "ei",
-    "title": "決定論的な型チェックへ：Go 製コンパイラによる10倍速の裏側で --stableTypeOrdering から見える並列化への挑戦",
-    "ogpTitle": "決定論的な型チェックへ：Go 製コンパイラによる10倍速の裏側で --stableTypeOrdering から見える並列化への挑戦",
-    "overview": "「ロジックとして独立した宣言が，関数の型定義の順序を変更してしまう」\r\nこの挙動は，TypeScript の ype IDs を使用した仕組みによるものです．\r\n\r\nTypeScript 6.0 で --stableTypeOrdering フラグが追加される．このオプションは，上記の問題の解決であるのと同時に，TypeScript 7.0 で実現される「Go言語によるネイティブコンパイラ」へ移行準備の意味合いを持ちます．\r\n\r\nGo言語によるコンパイル高速化のための「並列化」は，Type IDsの仕組みだと，型の処理順序に対する「非決定性」の課題が出てきます．\r\n\r\n本セッションでは，TypeScript 6.0 で導入された --stableTypeOrdering フラグに焦点を当て，以下の構成で話します．\r\n\r\n- なぜ離れた場所の const 宣言が，ユニオン型の並び順を変更してしまうのか\r\n\r\n- なぜ TypeScript 7.0 では Type IDs 順を捨て，「コンテンツに基づく決定論的ソート」を導入したのか\r\n\r\n- チェック速度を最大 25% 犠牲にしてまでも提供されるこのフラグの価値と，移行時に発生しうる推論エラー",
-    "speaker": {
-      "name": "えーたろー",
-      "userIcon": "x",
-      "profileImageUrl": "/speakers/ei.png",
-      "bio": "学生フリーランスのFlutterエンジニアを経て、ディップ株式会社に新卒入社。バックエンドエンジニアとして「バイトル」のリアーキに従事した後、SREに転向。\r\n現在は、負荷テストやオブザーバビリティを通じたパフォーマンス向上に興味を持ち，「技術領域を問わず、システム全体を横断して最適化できるエンジニア」を目指し、日々勉強中。",
-      "xId": "komugi8448",
-      "githubId": "komugi8",
-      "qiitaLink": "http://qiita.com/komugi8",
-      "zennLink": "https://zenn.dev/komugi8",
-      "noteLink": "",
-      "additionalLink": "",
-      "affiliation": "ディップ株式会社",
-      "position": "バックエンド，SRE"
-    }
-  },
-  "83": {
-    "id": "83",
     "speakerId": "assign",
     "title": "ドメインを組織の資産にする — 少人数で複数プロダクトを支えるTypeScript運用の実践",
     "ogpTitle": "ドメインを組織の資産にする — 少人数で複数プロダクトを支えるTypeScript運用の実践",
@@ -1574,8 +1574,8 @@
       "position": "執行役員 CTO"
     }
   },
-  "84": {
-    "id": "84",
+  "78": {
+    "id": "78",
     "speakerId": "coderabbit",
     "title": "AI活用の格差をなくす：チーム全体のAI開発生産性を底上げする方法",
     "ogpTitle": "AI活用の格差をなくす：チーム全体のAI開発生産性を底上げする方法",
@@ -1595,8 +1595,8 @@
       "position": "デベロッパーアドボケイト"
     }
   },
-  "85": {
-    "id": "85",
+  "79": {
+    "id": "79",
     "speakerId": "wealthnavi",
     "title": "Next.js × OpenAPIで型安全なデータ境界を設計するアーキテクチャ改善",
     "ogpTitle": "Next.js × OpenAPIで型安全なデータ境界を設計するアーキテクチャ改善",
@@ -1616,8 +1616,8 @@
       "position": ""
     }
   },
-  "86": {
-    "id": "86",
+  "80": {
+    "id": "80",
     "speakerId": "hacobu",
     "title": "AI Agent に“攻略本”を渡したら、150フォームの移行が回り始めた話",
     "ogpTitle": "AI Agent に“攻略本”を渡したら、150フォームの移行が回り始めた話",
@@ -1637,8 +1637,8 @@
       "position": "ソフトウェアエンジニア"
     }
   },
-  "87": {
-    "id": "87",
+  "81": {
+    "id": "81",
     "speakerId": "layerx",
     "title": "未定",
     "ogpTitle": "未定",
@@ -1658,8 +1658,8 @@
       "position": "バクラク事業部 Software Engineer"
     }
   },
-  "88": {
-    "id": "88",
+  "82": {
+    "id": "82",
     "speakerId": "dresscode",
     "title": "AIコーディングエージェントの活用で、コードは静かに肥大化した —— 型・Lint・Skillsで挽回する10分",
     "ogpTitle": "AIコーディングエージェントの活用で、コードは静かに肥大化した —— 型・Lint・Skillsで挽回する10分",
@@ -1679,8 +1679,8 @@
       "position": "Product & Technology プロダクトエンジニア"
     }
   },
-  "89": {
-    "id": "89",
+  "83": {
+    "id": "83",
     "speakerId": "bitkey",
     "title": "キャリア25年目にしてTypeScript に出会うまで",
     "ogpTitle": "キャリア25年目にしてTypeScript に出会うまで",
@@ -1700,8 +1700,8 @@
       "position": "エンジニア"
     }
   },
-  "90": {
-    "id": "90",
+  "84": {
+    "id": "84",
     "speakerId": "mosh",
     "title": "TypeScriptで実現する既存APIを活用したリモートMCPサーバー構築",
     "ogpTitle": "TypeScriptで実現する既存APIを活用したリモートMCPサーバー構築",
@@ -1721,8 +1721,8 @@
       "position": "VPoT"
     }
   },
-  "91": {
-    "id": "91",
+  "85": {
+    "id": "85",
     "speakerId": "dwango",
     "title": "10周年を迎えたZEN Study Webフロントエンドの次の10年へ向けた工夫",
     "ogpTitle": "10周年を迎えたZEN Study Webフロントエンドの次の10年へ向けた工夫",
@@ -1742,8 +1742,8 @@
       "position": ""
     }
   },
-  "92": {
-    "id": "92",
+  "86": {
+    "id": "86",
     "speakerId": "dip",
     "title": "TypeScriptフルリニューアルの裏でパフォーマンスと戦った1ヶ月",
     "ogpTitle": "TypeScriptフルリニューアルの裏でパフォーマンスと戦った1ヶ月",
