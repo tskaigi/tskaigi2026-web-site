@@ -67,6 +67,11 @@ const components: ComponentProps<typeof Markdown>["components"] = {
   ol: ({ node, ...props }) => (
     <ol className="text-gray-700 list-decimal list-inside pl-6" {...props} />
   ),
+  li: ({ node, children, ...props }) => (
+    <li className="text-gray-700 [&>p]:inline" {...props}>
+      {children}
+    </li>
+  ),
   pre: ({ node, ...props }) => (
     <pre className="bg-gray-100 p-4 rounded-lg text-wrap" {...props} />
   ),

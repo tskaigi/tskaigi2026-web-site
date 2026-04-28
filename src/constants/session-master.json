@@ -319,19 +319,19 @@
     "speakerId": "kazuya-serizawa",
     "title": "アンチパターンを避ける型駆動React最適化",
     "ogpTitle": "アンチパターンを避ける型駆動React最適化",
-    "overview": "React 19で導入され、2026年には標準となったReact Compilerは、私たちのコンポーネント設計を根本から変えました。これまでuseMemoやuseCallback、React.memoに費やしてきた膨大な時間は、今やコンパイラが自動で最適化する対象となっています。\n\n本セッションでは、React CompilerがどのようにTypeScriptの型情報を解析してメモ化の境界を決定しているのか、その内部メカニズムを解き明かします。また、コンパイラが最適化を断念してしまう「アンチパターン」をTypeScriptの静的解析でどのように検知し、防ぐべきかを論じます。\n\nさらに、手動メモ化が不要になったことで、コンポーネントの「責務」をどのように再定義すべきか、大規模プロジェクトにおける2026年最新のディレクトリ構造や型定義のベストプラクティスを提案します。",
+    "overview": "React 19の登場とともに広く普及したReact Compilerは、コンポーネント最適化のあり方を大きく変えました。これまでuseMemoやuseCallback、React.memoに依存していた手動メモ化は、多くのケースでコンパイラによって自動化されつつあります。\n\nただし、副作用やミュータブルな操作を含むコードでは最適化は適用されず、その仕組みの理解は依然として重要です。\n\n本セッションでは、React CompilerがASTとデータフロー解析によって依存関係と副作用を検出し、メモ化境界を決定する仕組みを解説します。また、最適化を阻害するアンチパターンを整理し、TypeScriptの型システムや Biome / Oxc といったツールを用いた検知・防止方法を紹介します。\n\nさらに、手動メモ化の負担軽減に伴い、設計の重心が「再レンダリング最適化」から「純粋性・副作用分離・責務の明確化」へ移行している点を踏まえ、大規模プロジェクトにおける最新の設計指針も提案します。",
     "speaker": {
       "name": "Kazuya Serizawa",
       "userIcon": "x",
       "profileImageUrl": "/speakers/kazuya-serizawa.png",
-      "bio": "",
+      "bio": "Goodpatchおよび複数のスタートアップ企業でモバイルアプリやSaaSプロダクトの開発に従事。2024年よりPeopleXでAIプロダクトのフロントエンドリードを務める。",
       "xId": "",
       "githubId": "",
       "qiitaLink": "",
-      "zennLink": "",
+      "zennLink": "https://zenn.dev/seriiiii",
       "noteLink": "",
       "additionalLink": "",
-      "affiliation": "",
+      "affiliation": "株式会社PeopleX",
       "position": ""
     }
   },
