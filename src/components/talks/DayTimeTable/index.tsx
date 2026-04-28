@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { Copy } from "lucide-react";
+import Link from "next/link";
 import React, { useMemo, useRef, useState } from "react";
 // import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
 import { ProfileImage } from "@/components/talks/FallbackImage";
