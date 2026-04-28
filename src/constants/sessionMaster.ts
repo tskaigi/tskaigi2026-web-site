@@ -1,6 +1,6 @@
 import sessionMasterData from "./session-master.json";
 
-type UseIcon = "x" | "github";
+type UserIcon = "x" | "github";
 
 export type SessionMasterSpeaker = {
   name: string;
@@ -14,7 +14,7 @@ export type SessionMasterSpeaker = {
   additionalLink: string;
   affiliation: string;
   position: string;
-  userIcon: UseIcon;
+  userIcon: UserIcon;
 };
 
 export type SessionMasterEntry = {

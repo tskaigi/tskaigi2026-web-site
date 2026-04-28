@@ -1,4 +1,4 @@
-export type UseIcon = "x" | "github";
+export type UserIcon = "x" | "github";
 
 export type Speaker = {
   name: string;
@@ -12,7 +12,7 @@ export type Speaker = {
   additionalLink: string;
   affiliation: string;
   position: string;
-  userIcon: UseIcon;
+  userIcon: UserIcon;
 };
 
 export type SpeakerSource = {

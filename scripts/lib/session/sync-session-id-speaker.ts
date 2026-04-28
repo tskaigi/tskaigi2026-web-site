@@ -50,7 +50,7 @@ function main() {
     JSON.stringify(data, null, 2) + "\n",
   );
   console.log(
-    `✅ 完了 (既存: ${existingNames.size}件, 追加: ${added}件, ハンズオン: ID ${nextId})`,
+    `✅ 完了 (合計: ${Object.keys(data).length}件, 追加: ${added}件, ハンズオン: ID 1 固定)`,
   );
 }
 
