@@ -3,7 +3,6 @@ import Link from "next/link";
 import type { ComponentProps } from "react";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
-// import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
 import { OgpImage, ProfileImage } from "@/components/talks/FallbackImage";
 import { TalkStatus } from "@/components/talks/TalkStatus";
 import { SESSION_IDS, TALK_TYPE } from "@/constants/timetable";
@@ -30,12 +29,12 @@ export async function generateMetadata({
     twitter: {
       title: session.title,
       description,
-      images: [{ url: `/ogp/talks/${id}.png` }],
+      images: [{ url: `/talks/${id}.png` }],
     },
     openGraph: {
       title: session.title,
       description,
-      images: [{ url: `/ogp/talks/${id}.png` }],
+      images: [{ url: `/talks/${id}.png` }],
     },
   };
 }
@@ -83,7 +82,7 @@ export default async function TalkDetailPage({
   const { session, sessionType, trackName, startTime, endTime } = detail;
   const timeRange = myTimetable.formatTimeRange(startTime, endTime);
   const typeLabel = TALK_TYPE[sessionType].name;
-  const overview = "（概要は後日公開予定です）";
+  const { speaker } = session;
 
   return (
     <main className="bg-blue-light-100 pt-16 pb-10 md:py-16 md:px-8 lg:px-10">
@@ -106,15 +105,12 @@ export default async function TalkDetailPage({
           <div className="text-lg font-bold">
             {detail.day} / {timeRange} （{trackName}）
           </div>
-          {/* <div className="mt-2">
-            <AddToMyTimetableButton talkId={session.id} />
-          </div> */}
         </div>
 
         {/* トーク説明文 */}
         <div className="px-6 md:px-8 lg:px-10 gap-6 flex flex-col md:text-lg">
           <Markdown components={components} remarkPlugins={[remarkBreaks]}>
-            {overview}
+            {session.overview ?? "（概要は後日公開予定です）"}
           </Markdown>
         </div>
 
@@ -125,14 +121,114 @@ export default async function TalkDetailPage({
               {/* アイコン */}
               <div className="relative w-[180px] md:w-[220px] aspect-square shrink-0 rounded-full overflow-hidden">
                 <ProfileImage
-                  speakerName={session.speaker.name}
-                  profileImageUrl={session.speaker.profileImageUrl}
+                  speakerName={speaker.name}
+                  profileImageUrl={speaker.profileImageUrl}
                 />
               </div>
 
               <div className="flex flex-col gap-4">
                 {/* 名前 */}
-                <p className="font-bold text-22">{session.speaker.name}</p>
+                <p className="font-bold text-22">{speaker.name}</p>
+
+                {/* 所属・自己紹介 */}
+                <div className="flex flex-col gap-2">
+                  {(speaker.affiliation || speaker.position) && (
+                    <p className="text-gray-700 text-16 md:text-18">
+                      {speaker.affiliation}
+                      {speaker.affiliation && speaker.position && " / "}
+                      {speaker.position}
+                    </p>
+                  )}
+                  {speaker.bio && (
+                    <p className="text-gray-700 text-16 md:text-18">
+                      {speaker.bio}
+                    </p>
+                  )}
+                  {speaker.additionalLink && (
+                    <Link
+                      href={speaker.additionalLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-700 text-16 md:text-18 underline break-all"
+                    >
+                      {speaker.additionalLink}
+                    </Link>
+                  )}
+                </div>
+
+                {/* SNSリンク */}
+                <div className="flex gap-2 mt-2">
+                  {speaker.xId && (
+                    <Link
+                      href={`https://x.com/${speaker.xId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src="/talks/sns/x-logo.png"
+                        alt="X"
+                        width={36}
+                        height={36}
+                      />
+                    </Link>
+                  )}
+                  {speaker.githubId && (
+                    <Link
+                      href={`https://github.com/${speaker.githubId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src="/talks/sns/github-logo.png"
+                        alt="GitHub"
+                        width={36}
+                        height={36}
+                      />
+                    </Link>
+                  )}
+                  {speaker.zennLink && (
+                    <Link
+                      href={speaker.zennLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src="/talks/sns/zenn-logo.svg"
+                        alt="Zenn"
+                        width={36}
+                        height={36}
+                      />
+                    </Link>
+                  )}
+                  {speaker.qiitaLink && (
+                    <Link
+                      href={speaker.qiitaLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src="/talks/sns/qiita-logo.png"
+                        alt="Qiita"
+                        width={36}
+                        height={36}
+                      />
+                    </Link>
+                  )}
+                  {speaker.noteLink && (
+                    <Link
+                      href={speaker.noteLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src="/talks/sns/note-logo.svg"
+                        alt="note"
+                        width={36}
+                        height={36}
+                      />
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
           </div>

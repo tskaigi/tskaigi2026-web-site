@@ -21,6 +21,9 @@ export type SessionSummary = {
     xId?: string;
     githubId?: string;
     additionalLink?: string;
+    qiitaLink?: string;
+    zennLink?: string;
+    noteLink?: string;
     affiliation?: string;
     position?: string;
   };

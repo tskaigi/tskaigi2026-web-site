@@ -1,12 +1,10 @@
 "use client";
 
-// TODO: トーク詳細画面が用意でき次第有効化
-// import Link from "next/link";
+import Link from "next/link";
 import { Copy } from "lucide-react";
 import React, { useMemo, useRef, useState } from "react";
 // import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
-// TODO: プロフィールアイコンが用意でき次第有効化
-// import { ProfileImage } from "@/components/talks/FallbackImage";
+import { ProfileImage } from "@/components/talks/FallbackImage";
 import { Button } from "@/components/ui/button";
 import { getSessionMasterBySessionId } from "@/constants/sessionMaster";
 import { TALK_TYPE, TRACK_KEYS, TRACK_STYLE } from "@/constants/timetable";
@@ -282,25 +280,20 @@ function SessionCell({
           const speakerName = master?.speaker.name ?? "";
           return (
             <div key={ref.id} className="flex flex-col gap-1">
-              {/* TODO: トーク詳細画面が用意でき次第有効化
               <Link
                 href={`/talks/${ref.id}`}
                 className="underline hover:text-blue-purple-500"
               >
                 <p className="text-16">{title}</p>
               </Link>
-              */}
-              <p className="text-16">{title}</p>
               <div className="flex items-center gap-2">
                 <span className="text-14">{speakerName}</span>
-                {/* TODO: プロフィールアイコンが用意でき次第有効化
                 <div className="relative h-6 w-6 rounded-full shrink-0 overflow-hidden">
                   <ProfileImage
                     speakerName={speakerName}
                     profileImageUrl={master?.speaker.profileImageUrl}
                   />
                 </div>
-                */}
               </div>
             </div>
           );
