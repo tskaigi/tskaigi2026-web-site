@@ -284,10 +284,10 @@ function SessionCell({
                 href={`/talks/${ref.id}`}
                 className="underline hover:text-blue-purple-500"
               >
-                <p className="text-16">{title}</p>
+                <p className="text-[16px]">{title}</p>
               </Link>
               <div className="flex items-center gap-2">
-                <span className="text-14">{speakerName}</span>
+                <span className="text-[14px]">{speakerName}</span>
                 <div className="relative h-6 w-6 rounded-full shrink-0 overflow-hidden">
                   <ProfileImage
                     speakerName={speakerName}
