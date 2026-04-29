@@ -18,9 +18,9 @@ const links: {
   label: string;
 }[] = [
   { href: "/talks", label: "タイムテーブル" },
+  { href: "/activities", label: "当日企画" },
   { href: "/sponsors", label: "スポンサー" },
   { href: "/side-events", label: "サイドイベント" },
-  { href: "/activities", label: "当日企画" },
   // { href: "/venue", label: "会場図" },
   { href: "/code-of-conduct", label: "行動規範" },
 ];

@@ -7,9 +7,9 @@ const links: {
 }[] = [
   { href: "/", label: "Home" },
   { href: "/talks", label: "タイムテーブル" },
+  { href: "/activities", label: "当日企画" },
   { href: "/sponsors", label: "スポンサー" },
   { href: "/side-events", label: "サイドイベント" },
-  { href: "/activities", label: "当日企画" },
   // { href: "/venue", label: "会場図" },
   { href: "/code-of-conduct", label: "行動規範" },
   { href: "/specific-commercial", label: "特定商取引法に基づく表記" },
