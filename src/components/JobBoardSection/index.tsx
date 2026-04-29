@@ -1,9 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { fetchSponsors } from "@/lib/fetch-sponsors";
+import type { GroupedSponsors } from "@/types/sponsor-api";
 
-export async function JobBoardSection() {
-  const sponsors = await fetchSponsors();
+export async function JobBoardSection({
+  sponsors,
+}: {
+  sponsors: GroupedSponsors;
+}) {
   const jobBoardSponsors = [
     ...sponsors.platinum.filter((v) => v.jobboard),
     ...sponsors.gold.filter((v) => v.jobboard),
