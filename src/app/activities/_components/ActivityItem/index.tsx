@@ -3,7 +3,12 @@ import type { Activity } from "@/constants/activityList";
 
 type ActivityItemProps = Activity;
 
-const ActivityItem = ({ name, description, location, image }: ActivityItemProps) => {
+const ActivityItem = ({
+  name,
+  description,
+  location,
+  image,
+}: ActivityItemProps) => {
   return (
     <div className="bg-white rounded-xl p-6 flex flex-col gap-4 md:p-8">
       <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between md:gap-4">
@@ -30,7 +35,9 @@ const ActivityItem = ({ name, description, location, image }: ActivityItemProps)
             />
           </div>
         )}
-        <p className="leading-7 md:text-base md:leading-8 whitespace-pre-wrap">{description}</p>
+        <p className="leading-7 md:text-base md:leading-8 whitespace-pre-wrap">
+          {description}
+        </p>
       </div>
     </div>
   );

@@ -22,7 +22,8 @@ const ActivitiesPage = () => {
       </h1>
       <div className="flex flex-col gap-4 max-w-4xl mx-auto md:gap-6">
         <p className="px-6 md:text-lg md:px-0">
-          TSKaigi 2026の当日企画をご紹介します。登壇・スポンサーブース以外にも、様々な企画をご用意しています！
+          TSKaigi
+          2026の当日企画をご紹介します。登壇・スポンサーブース以外にも、様々な企画をご用意しています！
         </p>
 
         {activityList.map((activity) => (
