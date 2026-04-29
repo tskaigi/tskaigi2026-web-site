@@ -1,6 +1,7 @@
 import { BuyTicketSection } from "@/components/BuyTicketSection";
 import { CoreStaffSection } from "@/components/CoreStaffSection";
 import { HeroSection } from "@/components/HeroSection";
+import { JobBoardSection } from "@/components/JobBoardSection";
 import { JudgesSection } from "@/components/JudgesSection";
 import { KeynoteSection } from "@/components/KeynoteSection";
 import { MissionSection } from "@/components/MissionSection";
@@ -17,6 +18,7 @@ export default async function Home() {
       <MissionSection />
       <KeynoteSection />
       <BuyTicketSection />
+      <JobBoardSection />
       <SponsorsBoardSection />
       <PersonalSponsorsSection />
       <JudgesSection />
