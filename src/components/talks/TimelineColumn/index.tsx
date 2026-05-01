@@ -144,12 +144,12 @@ export function TimelineColumn({
       ]
         .filter((y) => y > 0 && y < MY_TIMETABLE_CONST.TIMELINE_HEIGHT)
         .map((y) => (
-        <div
-          key={`${eventDate}-line-${y}`}
-          className="absolute left-0 right-0 z-10 border-t border-black-200"
-          style={{ top: `${y}px` }}
-        />
-      ))}
+          <div
+            key={`${eventDate}-line-${y}`}
+            className="absolute left-0 right-0 z-10 border-t border-black-200"
+            style={{ top: `${y}px` }}
+          />
+        ))}
 
       {groupedTalks.map(({ talks: group, columnIndex, columnCount }) => {
         const first = group[0];
@@ -212,7 +212,8 @@ export function TimelineColumn({
             <div className="relative z-10 flex flex-col gap-0.5">
               {group.map((talk) => {
                 const participated = participatedIdsSet.has(talk.id);
-                const clamp = group.length > 1 ? "line-clamp-1" : "line-clamp-3";
+                const clamp =
+                  group.length > 1 ? "line-clamp-1" : "line-clamp-3";
                 return onTalkClick ? (
                   <button
                     key={talk.id}
@@ -221,7 +222,12 @@ export function TimelineColumn({
                     onClick={() => onTalkClick(talk)}
                   >
                     <p className={`text-xs font-bold text-black-700 ${clamp}`}>
-                      {participated && <Check size={12} className="inline-block text-green-600 mr-0.5 align-[-2px]" />}
+                      {participated && (
+                        <Check
+                          size={12}
+                          className="inline-block text-green-600 mr-0.5 align-[-2px]"
+                        />
+                      )}
                       {talk.title}
                     </p>
                   </button>
@@ -232,7 +238,12 @@ export function TimelineColumn({
                     className={`hover:underline block ${editable ? "" : "pr-4"}`}
                   >
                     <p className={`text-xs font-bold text-black-700 ${clamp}`}>
-                      {participated && <Check size={12} className="inline-block text-green-600 mr-0.5 align-[-2px]" />}
+                      {participated && (
+                        <Check
+                          size={12}
+                          className="inline-block text-green-600 mr-0.5 align-[-2px]"
+                        />
+                      )}
                       {talk.title}
                     </p>
                   </Link>

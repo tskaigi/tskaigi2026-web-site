@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarCheck, Check, Square,SquareCheck } from "lucide-react";
+import { CalendarCheck, Check, Square, SquareCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useMarkAsParticipated } from "@/hooks/useMarkAsParticipated";
 import { myParticipatedIds, myTimetableIds } from "@/utils/myTimetable";
