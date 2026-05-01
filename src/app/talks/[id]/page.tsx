@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ComponentProps } from "react";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
+import remarkGfm from "remark-gfm";
 import { OgpImage, ProfileImage } from "@/components/talks/FallbackImage";
 import { TalkStatus } from "@/components/talks/TalkStatus";
 import { SESSION_IDS, TALK_TYPE } from "@/constants/timetable";
@@ -41,13 +42,22 @@ export async function generateMetadata({
 
 const components: ComponentProps<typeof Markdown>["components"] = {
   h1: ({ node, ...props }) => (
-    <h1 className="text-2xl font-bold text-blue-light-500" {...props} />
+    <h1
+      className="text-2xl font-bold text-blue-light-500 border-b border-blue-light-500 pb-0.5 w-fit pr-2"
+      {...props}
+    />
   ),
   h2: ({ node, ...props }) => (
-    <h2 className="text-xl font-bold text-blue-light-500" {...props} />
+    <h2
+      className="text-xl font-bold text-blue-light-500 border-b border-blue-light-500 pb-0.5 w-fit pr-2"
+      {...props}
+    />
   ),
   h3: ({ node, ...props }) => (
-    <h3 className="text-lg font-bold text-blue-light-500" {...props} />
+    <h3
+      className="text-lg font-bold text-blue-light-500 border-b border-blue-light-500 pb-0.5 w-fit pr-2"
+      {...props}
+    />
   ),
   a: ({ node, href, ...props }) => {
     if (!href) return null;
@@ -118,9 +128,15 @@ export default async function TalkDetailPage({
         </div>
 
         {/* トーク説明文 */}
-        <div className="px-6 md:px-8 lg:px-10 gap-6 flex flex-col md:text-lg">
-          <Markdown components={components} remarkPlugins={[remarkBreaks]}>
-            {session.overview || "（概要は後日公開予定です）"}
+        <div className="px-6 md:px-8 lg:px-10 flex flex-col md:text-lg [&>*+*]:mt-6 [&>h1+*]:mt-1 [&>h2+*]:mt-1 [&>h3+*]:mt-1">
+          <Markdown
+            components={components}
+            remarkPlugins={[remarkGfm, remarkBreaks]}
+          >
+            {(session.overview || "（概要は後日公開予定です）").replace(
+              /\((https?:\/\/[^\s)]+)\)/g,
+              "(<$1>)",
+            )}
           </Markdown>
         </div>
 
