@@ -440,7 +440,7 @@ const day2: TimetableResponse = {
       tracks: {
         LEVERAGES: {
           type: "session",
-          sessionType: "SHORT",
+          sessionType: "SPONSOR",
           sessions: [
             { id: "79" },
             { id: "77" },
@@ -451,7 +451,7 @@ const day2: TimetableResponse = {
         },
         UPSIDER: {
           type: "session",
-          sessionType: "SHORT",
+          sessionType: "SPONSOR",
           sessions: [
             { id: "82" },
             { id: "80" },
