@@ -3,7 +3,7 @@
 import { Copy } from "lucide-react";
 import Link from "next/link";
 import React, { useMemo, useRef, useState } from "react";
-import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
+// import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
 import { ProfileImage } from "@/components/talks/FallbackImage";
 import { Button } from "@/components/ui/button";
 import { getSessionMasterBySessionId } from "@/constants/sessionMaster";
@@ -266,11 +266,11 @@ function SessionCell({
       <TriangleBadge cssVar={style.cssVar} />
       <div className="flex items-center justify-between w-full">
         <SessionTypeLabel sessionType={content.sessionType} />
-        <AddToMyTimetableButton
+        {/* <AddToMyTimetableButton
           talkId={content.sessions[0].id}
           talkIds={content.sessions.map((s) => s.id)}
           withCheckbox
-        />
+        /> */}
       </div>
       <div className="flex flex-col gap-5">
         {content.sessions.map((ref) => {
@@ -464,12 +464,12 @@ function SpanGroupSection({
                     >
                       <TriangleBadge cssVar={TRACK_STYLE[key].cssVar} />
                       {span.label}
-                      {spanSessionId && (
+                      {/* {spanSessionId && (
                         <AddToMyTimetableButton
                           talkId={spanSessionId}
                           withCheckbox
                         />
-                      )}
+                      )} */}
                     </div>
                   );
                 }
