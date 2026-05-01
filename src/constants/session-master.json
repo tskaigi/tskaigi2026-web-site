@@ -1,4 +1,25 @@
 {
+  "1": {
+    "id": "1",
+    "speakerId": "handson",
+    "title": "ハンズオン",
+    "ogpTitle": "ハンズオン",
+    "overview": "",
+    "speaker": {
+      "name": "TSKaigi運営",
+      "userIcon": "x",
+      "profileImageUrl": "",
+      "bio": "",
+      "xId": "",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "",
+      "position": ""
+    }
+  },
   "2": {
     "id": "2",
     "speakerId": "maguro",
