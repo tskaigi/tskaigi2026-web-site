@@ -434,10 +434,34 @@ const day2: TimetableResponse = {
     },
     // 12:30–13:30 ランチ/スポンサーセッション
     {
-      slotType: "shared",
+      slotType: "individual",
       startTime: d2(12, 30),
       endTime: d2(13, 30),
-      label: "ランチ/スポンサーセッション",
+      tracks: {
+        LEVERAGES: {
+          type: "session",
+          sessionType: "SHORT",
+          sessions: [
+            { id: "79" },
+            { id: "77" },
+            { id: "83" },
+            { id: "81" },
+            { id: "85" },
+          ],
+        },
+        UPSIDER: {
+          type: "session",
+          sessionType: "SHORT",
+          sessions: [
+            { id: "82" },
+            { id: "80" },
+            { id: "78" },
+            { id: "86" },
+            { id: "84" },
+          ],
+        },
+        RIGHTTOUCH: { type: "other", label: "ランチ" },
+      },
     },
     // 13:30–13:40 休憩
     {
