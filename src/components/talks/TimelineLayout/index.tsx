@@ -12,8 +12,8 @@ export function DesktopTimelineLayout({
   day2Column: ReactNode;
 }) {
   return (
-    <section className="rounded-xl bg-white p-4 md:p-6">
-      <div className="grid grid-cols-[58px_1fr_1fr] gap-3 mb-3">
+    <section className="rounded-xl bg-white py-4 md:py-6">
+      <div className="grid grid-cols-[40px_1fr_1fr] gap-3 mb-3">
         <div />
         <h2 className="text-lg font-bold text-blue-light-600">
           Day1
@@ -28,7 +28,7 @@ export function DesktopTimelineLayout({
           </span>
         </h2>
       </div>
-      <div className="grid grid-cols-[58px_1fr_1fr] gap-3">
+      <div className="grid grid-cols-[40px_1fr_1fr] gap-3">
         <TimelineAxis />
         {day1Column}
         {day2Column}
@@ -47,15 +47,9 @@ export function MobileTimelineLayout({
   children: ReactNode;
 }) {
   return (
-    <section className="rounded-xl bg-white p-4 md:p-6">
+    <section className="rounded-xl bg-white py-4 md:py-6">
       <EventDateTab currentDate={currentEventDate} onTabChange={onTabChange} />
-      <h2 className="mt-4 text-lg font-bold text-blue-light-600">
-        {currentEventDate === "Day1"}
-        <span className="ml-2 text-xs font-normal text-black-500">
-          {EVENT_DATE[currentEventDate]}
-        </span>
-      </h2>
-      <div className="mt-3 grid grid-cols-[58px_1fr] gap-3">
+      <div className="mt-4 grid grid-cols-[40px_1fr] gap-3">
         <TimelineAxis />
         {children}
       </div>

@@ -241,7 +241,7 @@
   },
   {
     "id": "62",
-    "ogpTitle": "AI時代に考えたい\nBranded Typesで実現する堅牢な型付け"
+    "ogpTitle": "AI時代に考える\nBranded Typesで実現する堅牢な型付け"
   },
   {
     "id": "63",
@@ -298,5 +298,45 @@
   {
     "id": "76",
     "ogpTitle": "型のないDSLを安全に扱う:\nTypeScriptとメタプログラミングによる\nElasticsearch連携の実践"
+  },
+  {
+    "id": "77",
+    "ogpTitle": "ドメインを組織の資産にする\n— 少人数で複数プロダクトを支える\nTypeScript運用の実践"
+  },
+  {
+    "id": "78",
+    "ogpTitle": "AI活用の格差をなくす：\nチーム全体のAI開発生産性を底上げする方法"
+  },
+  {
+    "id": "79",
+    "ogpTitle": "Next.js×OpenAPIで型安全なデータ境界を設計する\nアーキテクチャ改善"
+  },
+  {
+    "id": "80",
+    "ogpTitle": "AI Agent に\"攻略本\"を渡したら\n150フォームの移行が回り始めた話"
+  },
+  {
+    "id": "81",
+    "ogpTitle": "未定"
+  },
+  {
+    "id": "82",
+    "ogpTitle": "AIコーディングエージェントの活用で\nコードは静かに肥大化した\n— 型・Lint・Skillsで挽回する10分"
+  },
+  {
+    "id": "83",
+    "ogpTitle": "キャリア25年目にしてTypeScriptに出会うまで"
+  },
+  {
+    "id": "84",
+    "ogpTitle": "TypeScriptで実現する既存APIを活用した\nリモートMCPサーバー構築"
+  },
+  {
+    "id": "85",
+    "ogpTitle": "10周年を迎えたZEN Study Webフロントエンドの\n次の10年へ向けた工夫"
+  },
+  {
+    "id": "86",
+    "ogpTitle": "TypeScriptフルリニューアルの裏で\nパフォーマンスと戦った1ヶ月"
   }
 ]

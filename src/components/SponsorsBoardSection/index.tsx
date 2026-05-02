@@ -1,11 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { fetchSponsors } from "@/lib/fetch-sponsors";
+import type { GroupedSponsors } from "@/types/sponsor-api";
 import { SponsorsBoardItem } from "./SponsorsBoardItem";
 import { SponsorsBoardTitle } from "./SponsorsBoardTitle";
 
-export async function SponsorsBoardSection() {
-  const sponsors = await fetchSponsors();
+export async function SponsorsBoardSection({
+  sponsors,
+}: {
+  sponsors: GroupedSponsors;
+}) {
   const studentSupports = [
     ...sponsors.platinum.filter((v) =>
       v.sponsorOptions.includes("student_support"),

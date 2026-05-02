@@ -202,15 +202,15 @@
   {
     "id": "kazuya-serizawa",
     "title": "アンチパターンを避ける型駆動React最適化",
-    "overview": "React 19の登場とともに広く普及したReact Compilerは、コンポーネント最適化のあり方を大きく変えました。これまでuseMemoやuseCallback、React.memoに依存していた手動メモ化は、多くのケースでコンパイラによって自動化されつつあります。\n\nただし、副作用やミュータブルな操作を含むコードでは最適化は適用されず、その仕組みの理解は依然として重要です。\n\n本セッションでは、React CompilerがASTとデータフロー解析によって依存関係と副作用を検出し、メモ化境界を決定する仕組みを解説します。また、最適化を阻害するアンチパターンを整理し、TypeScriptの型システムや Biome / Oxc といったツールを用いた検知・防止方法を紹介します。\n\nさらに、手動メモ化の負担軽減に伴い、設計の重心が「再レンダリング最適化」から「純粋性・副作用分離・責務の明確化」へ移行している点を踏まえ、大規模プロジェクトにおける最新の設計指針も提案します。",
+    "overview": "React 19で導入され、2026年には標準となったReact Compilerは、私たちのコンポーネント設計を根本から変えました。これまでuseMemoやuseCallback、React.memoに費やしてきた膨大な時間は、今やコンパイラが自動で最適化する対象となっています。\r\n\r\n本セッションでは、React CompilerがどのようにTypeScriptの型情報を解析してメモ化の境界を決定しているのか、その内部メカニズムを解き明かします。また、コンパイラが最適化を断念してしまう「アンチパターン」をTypeScriptの静的解析でどのように検知し、防ぐべきかを論じます。\r\n\r\nさらに、手動メモ化が不要になったことで、コンポーネントの「責務」をどのように再定義すべきか、大規模プロジェクトにおける2026年最新のディレクトリ構造や型定義のベストプラクティスを提案します。",
     "slidesLink": "",
     "speaker": {
       "name": "Kazuya Serizawa",
       "userIcon": "x",
       "profileImageUrl": "/kazuya-serizawa.jpg",
       "bio": "Goodpatchおよび複数のスタートアップ企業でモバイルアプリやSaaSプロダクトの開発に従事。2024年よりPeopleXでAIプロダクトのフロントエンドリードを務める。",
-      "xId": "",
-      "githubId": "",
+      "xId": "seriseri_55",
+      "githubId": "seriseri-55",
       "qiitaLink": "",
       "zennLink": "https://zenn.dev/seriiiii",
       "noteLink": "",
@@ -222,21 +222,21 @@
   {
     "id": "kosui",
     "title": "TypeScriptのclassはなぜこうなったのか — 歴史・落とし穴・そして使いどころを探る",
-    "overview": "JavaやC#、Goなどの他の静的型付け言語のユーザーの多くは、TypeScriptのclassの挙動を理解するまでに多くの時間を費やしてきたと思います。そんなTypeScriptのclassについて、その歴史と落とし穴に向き合い、その使いどころを提案します。\n\n2012年にTypeScriptが誕生したとき、classはまだECMAScriptの仕様に存在しませんでした。TypeScriptは独自のclass実装を先行して提供し、その後ES2015でclassが標準化されると、両者の仕様を統合する長い道のりが始まりました。クラスフィールドにおける[[Define]] vs [[Set]]論争、useDefineForClassFieldsの導入、そして長い年月を要したデコレーターの標準化など、TypeScriptのclassの複雑さの多くは、そうした歴史的必然から生まれています。\n\n本セッションでは、TypeScriptのclassが今の形になるまでの歴史を紐解いた上で、開発者が日常的に遭遇する落とし穴を「根本原因」から体系的に整理します。\n\n⚫︎ 構造的部分型とclass\nなぜ異なるクラスが同じ型として扱われるのか。Javaとの対比からBranded Typeによる対処まで。\n\n⚫︎ thisバインディング\nプロトタイプベースOOPの遺産がもたらす問題と、アロー関数フィールドのトレードオフについて。\n\n⚫︎ private修飾子と型消去\nTypeScriptのprivateが実行時に効かない理由と、ES #privateとの違いについて。\n\n⚫︎ instanceofと型消去\n型ガードとしてのinstanceofの限界と、Discriminated Unionによる代替。\n\nこれらの落とし穴は、構造的部分型と実行時型消去という2つの特性が、他言語ユーザーにとってはしばしば直感に反しうることが原因となります。この2つを理解することで、classを使うべき場面・避けるべき場面の判断軸が明確になります。\n\n最後に、classが適するケース（デコレーター、フレームワークの要請）と、classを避けるケース（ドメインモデリング、イミュータブルなデータ構造など）を簡潔に整理し、「classをやめよう」ではなく「理解して意識的に選択しよう」というメッセージで締めくくります。",
+    "overview": "Java、C#、Goなど他の静的型付け言語のユーザーがTypeScriptのclassに戸惑う理由を、歴史・落とし穴・使いどころの3点から整理します。\r\n\r\n2012年のTypeScript誕生時、classはECMAScriptに存在せず、独自実装が先行しました。ES2015で標準化されて以降、[[Define]] vs [[Set]]論争、useDefineForClassFields、デコレーター標準化など、両仕様統合の歴史的経緯が現在の複雑さを生んでいます。\r\n\r\n本セッションでは、開発者が遭遇する落とし穴を根本原因から体系化します。構造的部分型による異クラス同一視とBranded Typeでの対処、プロトタイプベースOOP由来のthisバインディング問題とアロー関数フィールドのトレードオフ、TypeScriptのprivateが実行時に効かない理由とES #privateとの差、型ガードとしてのinstanceofの限界とDiscriminated Unionによる代替。\r\n\r\nこれらは「構造的部分型」と「実行時型消去」という2特性が他言語の直感に反することに起因します。両者を理解すれば、classを使う場面と避ける場面の判断軸が明確になります。\r\n\r\n最後に、適するケースと避けるケースを整理し、「classをやめよう」ではなく「理解して意識的に選択しよう」と結びます。",
     "slidesLink": "",
     "speaker": {
       "name": "kosui",
       "userIcon": "x",
       "profileImageUrl": "/kosui.jpg",
-      "bio": "",
-      "xId": "",
-      "githubId": "",
+      "bio": "株式会社カケハシにてプラットフォームを担うチームのテックリードを担当。認証認可基盤・組織管理・テナント分離などのプラットフォーム領域を担当。TypeScriptと関数型プログラミングを軸に、堅牢で型安全なシステム設計を実践しています。TSKaigi、関数型まつり、SRE Kaigiなどのカンファレンスで登壇。",
+      "xId": "kosui_me",
+      "githubId": "iwasa-kosui",
       "qiitaLink": "",
       "zennLink": "",
       "noteLink": "",
-      "additionalLink": "",
-      "affiliation": "",
-      "position": ""
+      "additionalLink": "https://kosui.me/",
+      "affiliation": "株式会社カケハシ",
+      "position": "テックリード"
     }
   },
   {
@@ -545,7 +545,7 @@
     "overview": "コーディングエージェントが大きく発達し、コード生成後にLanguage Serverからのエラー診断の情報を読み取り、自動的に修正を試みるようになりました。これによって、AIにどう型エラーの情報を正しく伝えるかが関心事になったといえます。\r\n\r\nこの仕組み自体は言語を問わず動作しますが、TypeScriptの型情報がエージェントの修正精度に深く関わってきます。そのため、型設計の基礎がより重要になりそうです。\r\n\r\n本セッションでは、ClineなどOSSの実装から、エージェントが診断情報をどのように活用しているのかを考察します。あわせて、diagnosticsの情報が省略されたり、打ち切りされる仕組みを踏まえ、私たちが型設計で意識できることを考えます。",
     "slidesLink": "",
     "speaker": {
-      "name": "筧万里",
+      "name": "筧万里/@Melonps",
       "userIcon": "x",
       "profileImageUrl": "/banri-kake.jpg",
       "bio": "2025年にパナソニック株式会社に新卒入社。IoT製品のSREをしつつ、Observability関連のプロダクトをTypeScriptで書いています。YamdaUIのメンテナ、クラウドネイティブ会議のコアスタッフなど。",
@@ -1408,12 +1408,12 @@
       "name": "yamanoku",
       "userIcon": "github",
       "profileImageUrl": "/yamanoku.jpg",
-      "bio": "一次の父",
+      "bio": "一児の父",
       "xId": "yamanoku",
       "githubId": "yamanoku",
       "qiitaLink": "",
       "zennLink": "https://zenn.dev/yamanoku",
-      "noteLink": "",
+      "noteLink": "https://note.com/yamanoku",
       "additionalLink": "https://yamanoku.net",
       "affiliation": "",
       "position": "会社員"
