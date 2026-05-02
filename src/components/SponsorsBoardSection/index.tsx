@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { GroupedSponsors } from "@/types/sponsor-api";
+import type { GroupedSponsors } from "@/types/sponsor-api";
 import { SponsorsBoardItem } from "./SponsorsBoardItem";
 import { SponsorsBoardTitle } from "./SponsorsBoardTitle";
 
