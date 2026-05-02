@@ -3,7 +3,7 @@
 import { Check, X } from "lucide-react";
 import Link from "next/link";
 import { useMemo } from "react";
-import { TRACK, TRACK_STYLE } from "@/constants/timetable";
+import { TRACK, TRACK_KEYS, TRACK_STYLE } from "@/constants/timetable";
 import type { EventDate } from "@/types/timetable-api";
 import {
   MY_TIMETABLE_CONST,
@@ -35,6 +35,67 @@ export function TimelineColumn({
   );
   const positionedTalks = myTimetable.getPositionedTalks(talks);
 
+  const groupedTalks = useMemo(() => {
+    const trackGroups = new Map<string, (typeof positionedTalks)[number][]>();
+    for (const talk of positionedTalks) {
+      const key = `${talk.startMinutes}-${talk.endMinutes}-${talk.track}`;
+      const group = trackGroups.get(key);
+      if (group) {
+        group.push(talk);
+      } else {
+        trackGroups.set(key, [talk]);
+      }
+    }
+
+    const merged = [...trackGroups.values()].map((group) => ({
+      talks: group,
+      track: group[0].track,
+      startMinutes: group[0].startMinutes,
+      endMinutes: group[0].endMinutes,
+    }));
+
+    const parent = merged.map((_, i) => i);
+    const find = (x: number): number => {
+      if (parent[x] !== x) parent[x] = find(parent[x]);
+      return parent[x];
+    };
+    const union = (a: number, b: number) => {
+      parent[find(a)] = find(b);
+    };
+
+    for (let i = 0; i < merged.length; i++) {
+      for (let j = i + 1; j < merged.length; j++) {
+        if (
+          merged[i].startMinutes < merged[j].endMinutes &&
+          merged[j].startMinutes < merged[i].endMinutes
+        ) {
+          union(i, j);
+        }
+      }
+    }
+
+    const clusterTracks = new Map<number, Set<string>>();
+    for (let i = 0; i < merged.length; i++) {
+      const root = find(i);
+      let set = clusterTracks.get(root);
+      if (!set) {
+        set = new Set();
+        clusterTracks.set(root, set);
+      }
+      set.add(merged[i].track);
+    }
+
+    return merged.map((g, i) => {
+      const trackSet = clusterTracks.get(find(i))!;
+      const tracks = TRACK_KEYS.filter((k) => trackSet.has(k));
+      return {
+        talks: g.talks,
+        columnIndex: tracks.indexOf(g.track),
+        columnCount: tracks.length,
+      };
+    });
+  }, [positionedTalks]);
+
   return (
     <div
       id={id}
@@ -44,13 +105,18 @@ export function TimelineColumn({
       {/* 休憩帯の背景 */}
       {MY_TIMETABLE_CONST.TIMELINE_SEGMENTS.filter(
         (seg) => seg.type === "break",
-      ).map((seg) => (
-        <div
-          key={`${eventDate}-break-${seg.start}`}
-          className="absolute left-0 right-0 z-0 bg-black-100/50"
-          style={{ top: `${seg.top}px`, height: `${seg.height}px` }}
-        />
-      ))}
+      ).map((seg) => {
+        const isFirst = seg.top === 0;
+        const isLast =
+          seg.top + seg.height === MY_TIMETABLE_CONST.TIMELINE_HEIGHT;
+        return (
+          <div
+            key={`${eventDate}-break-${seg.start}`}
+            className={`absolute left-0 right-0 z-0 bg-black-100/50${isFirst ? " rounded-t-lg" : ""}${isLast ? " rounded-b-lg" : ""}`}
+            style={{ top: `${seg.top}px`, height: `${seg.height}px` }}
+          />
+        );
+      })}
 
       {/* セッション枠のクリック領域 */}
       {editable &&
@@ -67,7 +133,7 @@ export function TimelineColumn({
           />
         ))}
 
-      {/* セグメント境界線（各セグメントの上端＋下端、重複排除） */}
+      {/* セグメント境界線（各セグメントの上端＋下端、重複排除、最上端・最下端は除外） */}
       {[
         ...new Set(
           MY_TIMETABLE_CONST.TIMELINE_SEGMENTS.flatMap((seg) => [
@@ -75,31 +141,38 @@ export function TimelineColumn({
             seg.top + seg.height,
           ]),
         ),
-      ].map((y) => (
-        <div
-          key={`${eventDate}-line-${y}`}
-          className="absolute left-0 right-0 z-10 border-t border-black-200"
-          style={{ top: `${y}px` }}
-        />
-      ))}
+      ]
+        .filter((y) => y > 0 && y < MY_TIMETABLE_CONST.TIMELINE_HEIGHT)
+        .map((y) => (
+          <div
+            key={`${eventDate}-line-${y}`}
+            className="absolute left-0 right-0 z-10 border-t border-black-200"
+            style={{ top: `${y}px` }}
+          />
+        ))}
 
-      {positionedTalks.map((talk) => {
-        const top = myTimetable.minutesToTop(talk.startMinutes);
+      {groupedTalks.map(({ talks: group, columnIndex, columnCount }) => {
+        const first = group[0];
+        const top = myTimetable.minutesToTop(first.startMinutes);
         const height = myTimetable.minutesToHeight(
-          talk.startMinutes,
-          talk.endMinutes,
+          first.startMinutes,
+          first.endMinutes,
         );
 
-        const left = `calc(${(100 / talk.columnCount) * talk.columnIndex}% + 8px)`;
-        const width = `calc(${100 / talk.columnCount}% - 10px)`;
-        const isParticipated = participatedIdsSet.has(talk.id);
+        const left = `calc(${(100 / columnCount) * columnIndex}% + 8px)`;
+        const width = `calc(${100 / columnCount}% - 10px)`;
 
         return (
           <div
-            key={talk.id}
-            data-tour-session-id={talk.id}
-            className={`absolute left-2 right-2 z-20 overflow-hidden rounded-md border border-black-300 bg-white border-l-4 ${TRACK_STYLE[talk.track].border} ${editable ? "py-1 px-2 pr-5" : "p-2"}`}
-            title={`${talk.time} / ${TRACK[talk.track].name}\n${talk.title}\n${talk.speaker.name}`}
+            key={group.map((t) => t.id).join("-")}
+            data-tour-session-id={first.id}
+            className={`absolute left-2 right-2 z-20 overflow-hidden rounded-md border border-black-300 bg-white border-l-4 ${TRACK_STYLE[first.track].border} ${editable ? "py-1 px-2 pr-5" : "p-2"}`}
+            title={group
+              .map(
+                (t) =>
+                  `${t.time} / ${TRACK[t.track].name}\n${t.title}\n${t.speaker.name}`,
+              )
+              .join("\n\n")}
             style={{
               top: `${top}px`,
               height: `${height}px`,
@@ -108,7 +181,7 @@ export function TimelineColumn({
               right: "auto",
             }}
           >
-            {talk.isOverlapping && (
+            {first.isOverlapping && (
               <div
                 className="absolute inset-0 opacity-10 pointer-events-none"
                 style={{
@@ -121,51 +194,68 @@ export function TimelineColumn({
               <button
                 type="button"
                 className="absolute right-1 top-1 z-10 cursor-pointer text-black-500 hover:text-black-700"
-                onClick={() => onRemoveTalk(talk.id)}
+                onClick={() => {
+                  for (const t of group) onRemoveTalk(t.id);
+                }}
                 aria-label="削除"
               >
                 <X size={14} />
               </button>
             )}
-            {isParticipated && (
-              <span className="absolute right-1 bottom-1 z-10 inline-flex items-center gap-0.5 rounded-full bg-green-100 px-1.5 py-0.5 text-[9px] font-bold text-green-700">
-                <Check size={10} />
-                参加済
-              </span>
-            )}
             <p
               className={`relative z-10 text-[10px] text-black-500 ${editable ? "truncate whitespace-nowrap" : "pr-4"}`}
             >
               {editable
-                ? `${talk.time} / ${TRACK[talk.track].name}`
-                : talk.time}
+                ? `${first.time} / ${TRACK[first.track].name}`
+                : first.time}
             </p>
-            {onTalkClick ? (
-              <button
-                type="button"
-                className={`relative z-10 cursor-pointer hover:underline block text-left w-full ${editable ? "" : "pr-4"}`}
-                onClick={() => onTalkClick(talk)}
-              >
-                <p className="mt-0.5 text-xs font-bold text-black-700 line-clamp-2">
-                  {talk.title}
-                </p>
-              </button>
-            ) : (
-              <Link
-                href={`/talks/${talk.id}`}
-                className={`relative z-10 hover:underline block ${editable ? "" : "pr-4"}`}
-              >
-                <p className="mt-0.5 text-xs font-bold text-black-700 line-clamp-2">
-                  {talk.title}
-                </p>
-              </Link>
-            )}
+            <div className="relative z-10 flex flex-col gap-0.5">
+              {group.map((talk) => {
+                const participated = participatedIdsSet.has(talk.id);
+                const clamp =
+                  group.length > 1 ? "line-clamp-1" : "line-clamp-3";
+                return onTalkClick ? (
+                  <button
+                    key={talk.id}
+                    type="button"
+                    className={`cursor-pointer hover:underline block text-left w-full ${editable ? "" : "pr-4"}`}
+                    onClick={() => onTalkClick(talk)}
+                  >
+                    <p className={`text-xs font-bold text-black-700 ${clamp}`}>
+                      {participated && (
+                        <Check
+                          size={12}
+                          className="inline-block text-green-600 mr-0.5 align-[-2px]"
+                        />
+                      )}
+                      {talk.title}
+                    </p>
+                  </button>
+                ) : (
+                  <Link
+                    key={talk.id}
+                    href={`/talks/${talk.id}`}
+                    className={`hover:underline block ${editable ? "" : "pr-4"}`}
+                  >
+                    <p className={`text-xs font-bold text-black-700 ${clamp}`}>
+                      {participated && (
+                        <Check
+                          size={12}
+                          className="inline-block text-green-600 mr-0.5 align-[-2px]"
+                        />
+                      )}
+                      {talk.title}
+                    </p>
+                  </Link>
+                );
+              })}
+            </div>
             <p
               className={`relative z-10 mt-0.5 text-[10px] text-black-500 truncate ${editable ? "" : "pr-4"}`}
             >
               {editable
-                ? talk.speaker.name
-                : `${talk.speaker.name} / ${TRACK[talk.track].name}`}
+                ? group.map((t) => t.speaker.name).join(" / ")
+                : `${group.map((t) => t.speaker.name).join(" / ")} / ${TRACK[first.track].name}`}
             </p>
           </div>
         );

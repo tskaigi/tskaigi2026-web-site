@@ -1,17 +1,71 @@
 "use client";
 
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
-import { ExternalLink, Github, Twitter, X } from "lucide-react";
+import { ExternalLink, X } from "lucide-react";
 import Link from "next/link";
+import type { ComponentProps } from "react";
 import { useEffect } from "react";
+import Markdown from "react-markdown";
+import remarkBreaks from "remark-breaks";
+import remarkGfm from "remark-gfm";
 import { ProfileImage } from "@/components/talks/FallbackImage";
-import { TalkStatus } from "@/components/talks/TalkStatus";
+import {
+  TalkStatus,
+  ToggleParticipatedButton,
+} from "@/components/talks/TalkStatus";
 import { Button } from "@/components/ui/button";
 import { TALK_TYPE, TRACK, TRACK_STYLE } from "@/constants/timetable";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { cn } from "@/lib/utils";
 import { getSession } from "@/utils/getSession";
 import type { TalkWithMinutes } from "@/utils/myTimetable";
+
+const markdownComponents: ComponentProps<typeof Markdown>["components"] = {
+  h1: ({ node, ...props }) => (
+    <h1
+      className="text-lg font-bold text-blue-light-500 border-b border-blue-light-500 pb-0.5 w-fit pr-2"
+      {...props}
+    />
+  ),
+  h2: ({ node, ...props }) => (
+    <h2
+      className="text-base font-bold text-blue-light-500 border-b border-blue-light-500 pb-0.5 w-fit pr-2"
+      {...props}
+    />
+  ),
+  h3: ({ node, ...props }) => (
+    <h3
+      className="text-sm font-bold text-blue-light-500 border-b border-blue-light-500 pb-0.5 w-fit pr-2"
+      {...props}
+    />
+  ),
+  a: ({ node, href, ...props }) => {
+    if (!href) return null;
+    return (
+      <Link
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center text-link-light hover:underline"
+        href={href}
+        {...props}
+      />
+    );
+  },
+  ul: ({ node, ...props }) => (
+    <ul className="text-gray-700 list-disc list-inside pl-4" {...props} />
+  ),
+  ol: ({ node, ...props }) => (
+    <ol className="text-gray-700 list-decimal list-inside pl-4" {...props} />
+  ),
+  li: ({ node, children, ...props }) => (
+    <li className="text-gray-700 [&>p]:inline" {...props}>
+      {children}
+    </li>
+  ),
+  pre: ({ node, ...props }) => (
+    <pre className="bg-gray-100 p-3 rounded-lg text-wrap text-sm" {...props} />
+  ),
+};
 
 function SpeakerSection({ talk }: { talk: TalkWithMinutes }) {
   const { speaker } = talk;
@@ -33,16 +87,19 @@ function SpeakerSection({ talk }: { talk: TalkWithMinutes }) {
           {speaker.position && (
             <p className="text-xs text-black-500">{speaker.position}</p>
           )}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             {speaker.xId && (
               <Link
                 href={`https://x.com/${speaker.xId}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-black-400 hover:text-black-700"
-                aria-label={`${speaker.name} のXプロフィール`}
               >
-                <Twitter size={14} />
+                <img
+                  src="/talks/sns/x-logo.png"
+                  alt="X"
+                  width={20}
+                  height={20}
+                />
               </Link>
             )}
             {speaker.githubId && (
@@ -50,10 +107,55 @@ function SpeakerSection({ talk }: { talk: TalkWithMinutes }) {
                 href={`https://github.com/${speaker.githubId}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-black-400 hover:text-black-700"
-                aria-label={`${speaker.name} のGitHubプロフィール`}
               >
-                <Github size={14} />
+                <img
+                  src="/talks/sns/github-logo.png"
+                  alt="GitHub"
+                  width={20}
+                  height={20}
+                />
+              </Link>
+            )}
+            {speaker.zennLink && (
+              <Link
+                href={speaker.zennLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="/talks/sns/zenn-logo.svg"
+                  alt="Zenn"
+                  width={20}
+                  height={20}
+                />
+              </Link>
+            )}
+            {speaker.qiitaLink && (
+              <Link
+                href={speaker.qiitaLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="/talks/sns/qiita-logo.png"
+                  alt="Qiita"
+                  width={20}
+                  height={20}
+                />
+              </Link>
+            )}
+            {speaker.noteLink && (
+              <Link
+                href={speaker.noteLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="/talks/sns/note-logo.svg"
+                  alt="note"
+                  width={20}
+                  height={20}
+                />
               </Link>
             )}
             {speaker.additionalLink && (
@@ -62,9 +164,8 @@ function SpeakerSection({ talk }: { talk: TalkWithMinutes }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-black-400 hover:text-black-700"
-                aria-label={`${speaker.name} の追加リンク`}
               >
-                <ExternalLink size={14} />
+                <ExternalLink size={20} />
               </Link>
             )}
           </div>
@@ -81,17 +182,23 @@ function SpeakerSection({ talk }: { talk: TalkWithMinutes }) {
 
 function DrawerContent({ talk }: { talk: TalkWithMinutes }) {
   const sessionDetail = getSession(talk.id);
-  const typeLabel = sessionDetail
-    ? TALK_TYPE[sessionDetail.sessionType].name
+  const sessionType = sessionDetail
+    ? TALK_TYPE[sessionDetail.sessionType]
     : null;
 
   return (
     <div className="flex-1 overflow-y-auto px-6 py-4 flex flex-col gap-6">
       <div className="flex items-center gap-2 flex-wrap">
-        {typeLabel && (
-          <span className="text-sm text-black-500">{typeLabel}</span>
+        {sessionType && (
+          <span
+            className="inline-block rounded px-2 py-0.5 text-xs font-bold text-white"
+            style={{ backgroundColor: sessionType.color }}
+          >
+            {sessionType.name}
+          </span>
         )}
         <TalkStatus talkId={talk.id} />
+        <ToggleParticipatedButton talkId={talk.id} />
       </div>
 
       <div>
@@ -111,12 +218,21 @@ function DrawerContent({ talk }: { talk: TalkWithMinutes }) {
         </div>
       </div>
 
-      <SpeakerSection talk={talk} />
+      {talk.overview && (
+        <div>
+          <h3 className="text-sm font-bold text-black-700 mb-2">概要</h3>
+          <div className="text-sm text-black-600 [&>*+*]:mt-3 [&>h1+*]:mt-1 [&>h2+*]:mt-1 [&>h3+*]:mt-1">
+            <Markdown
+              components={markdownComponents}
+              remarkPlugins={[remarkGfm, remarkBreaks]}
+            >
+              {talk.overview.replace(/\((https?:\/\/[^\s)]+)\)/g, "(<$1>)")}
+            </Markdown>
+          </div>
+        </div>
+      )}
 
-      <div>
-        <h3 className="text-sm font-bold text-black-700 mb-2">概要</h3>
-        <p className="text-sm text-black-500">（概要は後日公開予定です）</p>
-      </div>
+      <SpeakerSection talk={talk} />
 
       <div className="mt-auto pt-4">
         <Button asChild variant="outline" className="w-full gap-2">

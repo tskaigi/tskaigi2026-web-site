@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Square, SquareCheck } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { showAppToast } from "@/components/ui/GlobalToast";
@@ -151,17 +151,16 @@ export function AddToMyTimetableButton({
   if (withCheckbox) {
     return (
       <>
-        <label className="flex items-center gap-1 cursor-pointer select-none">
-          <input
-            type="checkbox"
-            checked={isAdded}
-            onChange={handleClick}
-            className="accent-blue-purple-500 w-4 h-4"
-          />
-          <span className="text-xs text-black-600">
-            {isAdded ? "登録済み" : "参加登録"}
-          </span>
-        </label>
+        <button
+          type="button"
+          onClick={handleClick}
+          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold cursor-pointer bg-black-100 text-black-500${
+            isAdded ? "" : " hover:bg-black-200"
+          }`}
+        >
+          {isAdded ? <SquareCheck size={14} /> : <Square size={14} />}
+          {isAdded ? "登録済み" : "参加登録"}
+        </button>
         {overlapDialog}
       </>
     );

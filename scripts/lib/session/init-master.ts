@@ -3,6 +3,7 @@ import type { SpeakerSource } from "./types";
 
 const SPEAKERS_JSON = "scripts/data/speakers.json";
 const KEYNOTE_JSON = "scripts/data/keynote.json";
+const HANDSON_JSON = "scripts/data/handson.json";
 const SESSION_MASTER_JSON = "scripts/data/session-master.json";
 
 function main() {
@@ -27,19 +28,21 @@ function main() {
     }),
   );
 
-  if (fs.existsSync(KEYNOTE_JSON)) {
-    const keynote: SpeakerSource = JSON.parse(
-      fs.readFileSync(KEYNOTE_JSON, "utf-8"),
-    );
-    renamed.push({
-      speakerId: keynote.id,
-      title: keynote.title,
-      overview: keynote.overview,
-      speaker: {
-        ...keynote.speaker,
-        profileImageUrl: keynote.speaker.profileImageUrl,
-      },
-    });
+  for (const extraJson of [KEYNOTE_JSON, HANDSON_JSON]) {
+    if (fs.existsSync(extraJson)) {
+      const extra: SpeakerSource = JSON.parse(
+        fs.readFileSync(extraJson, "utf-8"),
+      );
+      renamed.push({
+        speakerId: extra.id,
+        title: extra.title,
+        overview: extra.overview,
+        speaker: {
+          ...extra.speaker,
+          profileImageUrl: extra.speaker.profileImageUrl,
+        },
+      });
+    }
   }
 
   fs.writeFileSync(
