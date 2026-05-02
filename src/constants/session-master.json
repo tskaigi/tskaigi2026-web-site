@@ -944,6 +944,27 @@
       "position": ""
     }
   },
+  "46": {
+    "id": "46",
+    "speakerId": "banri-kake",
+    "title": "コーディングエージェントはTypeScriptの型エラーをどう自己修正しているのか",
+    "ogpTitle": "コーディングエージェントはTypeScriptの\n型エラーをどう自己修正しているのか",
+    "overview": "コーディングエージェントが大きく発達し、コード生成後にLanguage Serverからのエラー診断の情報を読み取り、自動的に修正を試みるようになりました。これによって、AIにどう型エラーの情報を正しく伝えるかが関心事になったといえます。\r\n\r\nこの仕組み自体は言語を問わず動作しますが、TypeScriptの型情報がエージェントの修正精度に深く関わってきます。そのため、型設計の基礎がより重要になりそうです。\r\n\r\n本セッションでは、ClineなどOSSの実装から、エージェントが診断情報をどのように活用しているのかを考察します。あわせて、diagnosticsの情報が省略されたり、打ち切りされる仕組みを踏まえ、私たちが型設計で意識できることを考えます。",
+    "speaker": {
+      "name": "筧万里/@Melonps",
+      "userIcon": "x",
+      "profileImageUrl": "/speakers/banri-kake.png",
+      "bio": "2025年にパナソニック株式会社に新卒入社。IoT製品のSREをしつつ、Observability関連のプロダクトをTypeScriptで書いています。YamdaUIのメンテナ、クラウドネイティブ会議のコアスタッフなど。",
+      "xId": "Melonps_",
+      "githubId": "Melonps",
+      "qiitaLink": "",
+      "zennLink": "https://zenn.dev/melonps",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "パナソニック エレクトリックワークス株式会社",
+      "position": "一般社員"
+    }
+  },
   "47": {
     "id": "47",
     "speakerId": "irie",
