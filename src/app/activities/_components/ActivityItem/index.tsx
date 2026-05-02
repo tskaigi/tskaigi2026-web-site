@@ -7,6 +7,7 @@ const ActivityItem = ({
   name,
   description,
   location,
+  time,
   image,
 }: ActivityItemProps) => {
   return (
@@ -16,11 +17,18 @@ const ActivityItem = ({
           <span className="text-blue-light-500 text-xl leading-none">●</span>
           {name}
         </h2>
-        {location && (
-          <span className="self-start shrink-0 bg-blue-light-500 text-white text-xs font-bold px-3 py-1 rounded-md">
-            {location}
-          </span>
-        )}
+        <div className="flex items-center gap-2 self-start shrink-0">
+          {location && (
+            <span className="bg-blue-light-500 text-white text-xs font-bold px-3 py-1 rounded-md">
+              {location}
+            </span>
+          )}
+          {time && (
+            <span className="border border-blue-light-500 text-blue-light-500 text-xs font-bold px-3 py-1 rounded-full">
+              {time}
+            </span>
+          )}
+        </div>
       </div>
       <hr className="border-black-200" />
       <div className="flex flex-col gap-4 md:flex-row md:gap-8">

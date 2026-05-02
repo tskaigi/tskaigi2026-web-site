@@ -2,6 +2,7 @@ export type Activity = {
   name: string;
   description: string;
   location?: string;
+  time?: string;
   image?: string;
 };
 
@@ -13,6 +14,7 @@ export const activityList: Activity[] = [
     description:
       "長時間の移動や立ち仕事で疲れた体を、プロのマッサージでリフレッシュ！当日会場内でご利用いただけます。",
     location: "1F ホワイエ",
+    time: "10:00 - 18:00",
     image: DUMMY_IMAGE,
   },
   {
@@ -26,6 +28,7 @@ export const activityList: Activity[] = [
     name: "ネイル",
     description: "イベント限定デザインのネイルアートをお楽しみください。",
     location: "2F 受付前",
+    time: "11:00 - 16:00",
     image: DUMMY_IMAGE,
   },
   {
@@ -47,6 +50,7 @@ export const activityList: Activity[] = [
     description:
       "登壇者に直接質問・交流できる企画です。トークの深掘りや技術的な疑問をスピーカーに聞いてみましょう。",
     location: "1F ホワイエ",
+    time: "16:10 - 17:10",
     image: DUMMY_IMAGE,
   },
 ];
