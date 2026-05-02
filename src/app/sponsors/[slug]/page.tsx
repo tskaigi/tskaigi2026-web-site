@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import ExternalLink from "@/components/sponsors/ExternalLink";
 import RoleBadge from "@/components/sponsors/RoleBadge";
 import { fetchSponsor } from "@/lib/fetch-sponsors";
@@ -78,19 +79,19 @@ export default async function SponsorDetailPage({
             ))}
           </ul>
 
-          {/* {sponsor.jobBoard && (
+          {sponsor.jobboard && (
             <div>
               <p className="font-bold text-[20px] pb-3 border-b border-[#2A2A2D]">
                 JOB BOARD
               </p>
               <div className="w-full mt-4 flex justify-center">
                 <Link
-                  href={sponsor.jobBoard.link}
+                  href={sponsor.jobboard.externalLink}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Image
-                    src={sponsor.jobBoard.imagePath}
+                    src={sponsor.jobboard.imagePath}
                     alt={`${sponsor.name}のジョブボード`}
                     width={1200}
                     height={600}
@@ -99,7 +100,7 @@ export default async function SponsorDetailPage({
                 </Link>
               </div>
             </div>
-          )} */}
+          )}
         </div>
       )}
     </>

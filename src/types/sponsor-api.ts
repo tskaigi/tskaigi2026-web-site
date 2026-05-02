@@ -22,6 +22,10 @@ export type SponsorApiResponse = {
   overview: string | null;
   externalLinks: ExternalLinkProps[];
   ogpImage: string;
+  jobboard: {
+    imagePath: string;
+    externalLink: string;
+  } | null;
 };
 
 export type GroupedSponsors = {

@@ -264,15 +264,14 @@ function SessionCell({
         {trackName}
       </div>
       <TriangleBadge cssVar={style.cssVar} />
-      <SessionTypeLabel sessionType={content.sessionType} />
-      {/* <div className="flex items-center justify-between w-full">
+      <div className="flex items-center justify-between w-full">
         <SessionTypeLabel sessionType={content.sessionType} />
-        <AddToMyTimetableButton
+        {/* <AddToMyTimetableButton
           talkId={content.sessions[0].id}
           talkIds={content.sessions.map((s) => s.id)}
           withCheckbox
-        />
-      </div> */}
+        /> */}
+      </div>
       <div className="flex flex-col gap-5">
         {content.sessions.map((ref) => {
           const master = getSessionMasterBySessionId(ref.id);
@@ -450,11 +449,11 @@ function SpanGroupSection({
 
                 const span = spanCells.get(cellKey);
                 if (span) {
-                  // const spanContent = slot.tracks[key];
-                  // const spanSessionId =
-                  //   spanContent.type === "session"
-                  //     ? spanContent.sessions[0]?.id
-                  //     : undefined;
+                  const spanContent = slot.tracks[key];
+                  const spanSessionId =
+                    spanContent.type === "session"
+                      ? spanContent.sessions[0]?.id
+                      : undefined;
                   return (
                     <div
                       key={key}

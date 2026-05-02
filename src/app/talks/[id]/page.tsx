@@ -3,8 +3,11 @@ import Link from "next/link";
 import type { ComponentProps } from "react";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
+import remarkGfm from "remark-gfm";
 import { OgpImage, ProfileImage } from "@/components/talks/FallbackImage";
 import { TalkStatus } from "@/components/talks/TalkStatus";
+// import { ToggleParticipatedButton } from "@/components/talks/TalkStatus";
+// import { Button } from "@/components/ui/button";
 import { SESSION_IDS, TALK_TYPE } from "@/constants/timetable";
 import { getSession } from "@/utils/getSession";
 import { myTimetable } from "@/utils/myTimetable";
@@ -41,13 +44,22 @@ export async function generateMetadata({
 
 const components: ComponentProps<typeof Markdown>["components"] = {
   h1: ({ node, ...props }) => (
-    <h1 className="text-2xl font-bold text-blue-light-500" {...props} />
+    <h1
+      className="text-2xl font-bold text-blue-light-500 border-b border-blue-light-500 pb-0.5 w-fit pr-2"
+      {...props}
+    />
   ),
   h2: ({ node, ...props }) => (
-    <h2 className="text-xl font-bold text-blue-light-500" {...props} />
+    <h2
+      className="text-xl font-bold text-blue-light-500 border-b border-blue-light-500 pb-0.5 w-fit pr-2"
+      {...props}
+    />
   ),
   h3: ({ node, ...props }) => (
-    <h3 className="text-lg font-bold text-blue-light-500" {...props} />
+    <h3
+      className="text-lg font-bold text-blue-light-500 border-b border-blue-light-500 pb-0.5 w-fit pr-2"
+      {...props}
+    />
   ),
   a: ({ node, href, ...props }) => {
     if (!href) return null;
@@ -102,7 +114,7 @@ export default async function TalkDetailPage({
         </div>
 
         <div className="px-6 md:px-8 lg:px-10 flex flex-col gap-1">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span
               className="inline-block rounded px-2 py-0.5 text-sm font-bold text-white"
               style={{ backgroundColor: TALK_TYPE[sessionType].color }}
@@ -110,6 +122,7 @@ export default async function TalkDetailPage({
               {typeLabel}
             </span>
             <TalkStatus talkId={session.id} />
+            {/* <ToggleParticipatedButton talkId={session.id} /> */}
           </div>
           <div className="text-2xl font-bold">{session.title}</div>
           <div className="text-lg font-bold">
@@ -118,9 +131,15 @@ export default async function TalkDetailPage({
         </div>
 
         {/* トーク説明文 */}
-        <div className="px-6 md:px-8 lg:px-10 gap-6 flex flex-col md:text-lg">
-          <Markdown components={components} remarkPlugins={[remarkBreaks]}>
-            {session.overview || "（概要は後日公開予定です）"}
+        <div className="px-6 md:px-8 lg:px-10 flex flex-col md:text-lg [&>*+*]:mt-6 [&>h1+*]:mt-1 [&>h2+*]:mt-1 [&>h3+*]:mt-1">
+          <Markdown
+            components={components}
+            remarkPlugins={[remarkGfm, remarkBreaks]}
+          >
+            {(session.overview || "（概要は後日公開予定です）").replace(
+              /\((https?:\/\/[^\s)]+)\)/g,
+              "(<$1>)",
+            )}
           </Markdown>
         </div>
 
@@ -258,6 +277,14 @@ export default async function TalkDetailPage({
           </div>
         </div>
       </div>
+      {/* <div className="fixed bottom-6 right-6 z-50 flex gap-2">
+        <Button type="button" asChild className="rounded-full shadow-lg">
+          <Link href="/talks/me">マイタイムテーブルへ</Link>
+        </Button>
+        <Button type="button" asChild className="rounded-full shadow-lg">
+          <Link href="/talks">タイムテーブルへ</Link>
+        </Button>
+      </div> */}
     </main>
   );
 }
