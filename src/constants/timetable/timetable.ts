@@ -442,12 +442,24 @@ const day2: TimetableResponse = {
         LEVERAGES: {
           type: "session",
           sessionType: "SPONSOR",
-          sessions: [{ id: "79" }, { id: "77" }, { id: "83" }, { id: "81" }, { id: "85" }],
+          sessions: [
+            { id: "79" },
+            { id: "77" },
+            { id: "83" },
+            { id: "81" },
+            { id: "85" },
+          ],
         },
         UPSIDER: {
           type: "session",
           sessionType: "SPONSOR",
-          sessions: [{ id: "82" }, { id: "80" }, { id: "78" }, { id: "86" }, { id: "84" }],
+          sessions: [
+            { id: "82" },
+            { id: "80" },
+            { id: "78" },
+            { id: "86" },
+            { id: "84" },
+          ],
         },
         RIGHTTOUCH: { type: "other", label: "ランチ" },
       },

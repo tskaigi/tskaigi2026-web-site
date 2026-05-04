@@ -51,7 +51,11 @@ export type SessionTrack = {
   sessions: SessionRef[];
 };
 
-export type TrackContent = ClosedTrack | OtherTrack | OverrideTrack | SessionTrack;
+export type TrackContent =
+  | ClosedTrack
+  | OtherTrack
+  | OverrideTrack
+  | SessionTrack;
 
 export type SharedSlot = {
   slotType: "shared";
