@@ -51,11 +51,7 @@ export type SessionTrack = {
   sessions: SessionRef[];
 };
 
-export type TrackContent =
-  | ClosedTrack
-  | OtherTrack
-  | OverrideTrack
-  | SessionTrack;
+export type TrackContent = ClosedTrack | OtherTrack | OverrideTrack | SessionTrack;
 
 export type SharedSlot = {
   slotType: "shared";
@@ -78,6 +74,7 @@ export type SpanGroup = {
   label: string;
   startTime: number;
   endTime: number;
+  link?: string;
 };
 
 export type EventDate = "Day1" | "Day2";

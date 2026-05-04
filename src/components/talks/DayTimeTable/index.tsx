@@ -21,11 +21,7 @@ import type {
 } from "@/types/timetable-api";
 import { myTimetable } from "@/utils/myTimetable";
 
-function SlotTrackHeader({
-  track,
-}: {
-  track: TimetableResponse["tracks"][number];
-}) {
+function SlotTrackHeader({ track }: { track: TimetableResponse["tracks"][number] }) {
   const [copySuccess, setCopySuccess] = useState(false);
   const key = track.id as TrackKey;
   const style = TRACK_STYLE[key];
@@ -62,13 +58,7 @@ function SlotTrackHeader({
   );
 }
 
-function TimeSlot({
-  timeText,
-  isActive = false,
-}: {
-  timeText: string;
-  isActive?: boolean;
-}) {
+function TimeSlot({ timeText, isActive = false }: { timeText: string; isActive?: boolean }) {
   return (
     <div
       className={`relative flex flex-col gap-2 p-2 items-center justify-center text-center w-full h-full md:w-[99px] lg:w-[125px] ${
@@ -144,9 +134,7 @@ function TrackCell({
   const style = TRACK_STYLE[trackKey];
 
   if (content.type === "override") {
-    return (
-      <div className="bg-gray-50 px-5 h-16 flex items-center justify-center text-black-700" />
-    );
+    return <div className="bg-gray-50 px-5 h-16 flex items-center justify-center text-black-700" />;
   }
 
   if (content.type === "closed") {
@@ -192,14 +180,7 @@ function TrackCell({
     );
   }
 
-  return (
-    <SessionCell
-      content={content}
-      trackKey={trackKey}
-      trackName={trackName}
-      id={id}
-    />
-  );
+  return <SessionCell content={content} trackKey={trackKey} trackName={trackName} id={id} />;
 }
 
 function TriangleBadge({ cssVar }: { cssVar: string }) {
@@ -220,11 +201,7 @@ function TriangleBadge({ cssVar }: { cssVar: string }) {
   );
 }
 
-function SessionTypeLabel({
-  sessionType,
-}: {
-  sessionType: SessionTrack["sessionType"];
-}) {
+function SessionTypeLabel({ sessionType }: { sessionType: SessionTrack["sessionType"] }) {
   const { name, color } = TALK_TYPE[sessionType];
   return (
     <span
@@ -279,10 +256,7 @@ function SessionCell({
           const speakerName = master?.speaker.name ?? "";
           return (
             <div key={ref.id} className="flex flex-col gap-1">
-              <Link
-                href={`/talks/${ref.id}`}
-                className="underline hover:text-blue-purple-500"
-              >
+              <Link href={`/talks/${ref.id}`} className="underline hover:text-blue-purple-500">
                 <p className="text-[16px]">{title}</p>
               </Link>
               <div className="flex items-center gap-2">
@@ -307,6 +281,7 @@ type ResolvedSpanGroup = {
   label: string;
   slotIndexStart: number;
   slotIndexEnd: number;
+  link?: string;
 };
 
 function resolveSpanGroups(
@@ -325,6 +300,7 @@ function resolveSpanGroups(
       label: group.label,
       slotIndexStart: startIdx,
       slotIndexEnd: endIdx,
+      link: group.link,
     });
   }
   return resolved;
@@ -332,7 +308,7 @@ function resolveSpanGroups(
 
 function buildSpanMap(resolved: ResolvedSpanGroup[]) {
   const hiddenCells = new Set<string>();
-  const spanCells = new Map<string, { rowSpan: number; label: string }>();
+  const spanCells = new Map<string, { rowSpan: number; label: string; link?: string }>();
 
   for (const group of resolved) {
     const rowSpan = group.slotIndexEnd - group.slotIndexStart + 1;
@@ -340,6 +316,7 @@ function buildSpanMap(resolved: ResolvedSpanGroup[]) {
       spanCells.set(`${group.slotIndexStart}-${track}`, {
         rowSpan,
         label: group.label,
+        link: group.link,
       });
       for (let i = group.slotIndexStart + 1; i <= group.slotIndexEnd; i++) {
         hiddenCells.add(`${i}-${track}`);
@@ -365,7 +342,7 @@ function SpanGroupSection({
   startIndex: number;
   resolvedSpanGroups: ResolvedSpanGroup[];
   hiddenCells: Set<string>;
-  spanCells: Map<string, { rowSpan: number; label: string }>;
+  spanCells: Map<string, { rowSpan: number; label: string; link?: string }>;
   trackNames: Record<string, string>;
   isSessionActiveFn: (id: string) => boolean;
   sessionRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
@@ -374,10 +351,7 @@ function SpanGroupSection({
   const group = resolvedSpanGroups.find((g) => g.slotIndexStart === startIndex);
   if (!group) return null;
 
-  const slotsInGroup = slots.slice(
-    group.slotIndexStart,
-    group.slotIndexEnd + 1,
-  );
+  const slotsInGroup = slots.slice(group.slotIndexStart, group.slotIndexEnd + 1);
   const totalRows = slotsInGroup.length;
 
   return (
@@ -387,10 +361,7 @@ function SpanGroupSection({
         {slotsInGroup.map((slot) => {
           if (slot.slotType !== "individual") return null;
           const timeId = myTimetable.formatTime(slot.startTime);
-          const timeText = myTimetable.formatTimeRange(
-            slot.startTime,
-            slot.endTime,
-          );
+          const timeText = myTimetable.formatTimeRange(slot.startTime, slot.endTime);
           const active = isSessionActiveFn(timeId);
 
           const hasSession =
@@ -422,10 +393,7 @@ function SpanGroupSection({
           if (slot.slotType !== "individual") return null;
           const idx = group.slotIndexStart + i;
           const timeId = myTimetable.formatTime(slot.startTime);
-          const timeText = myTimetable.formatTimeRange(
-            slot.startTime,
-            slot.endTime,
-          );
+          const timeText = myTimetable.formatTimeRange(slot.startTime, slot.endTime);
           const active = isSessionActiveFn(timeId);
 
           const hasSession =
@@ -451,9 +419,7 @@ function SpanGroupSection({
                 if (span) {
                   const spanContent = slot.tracks[key];
                   const spanSessionId =
-                    spanContent.type === "session"
-                      ? spanContent.sessions[0]?.id
-                      : undefined;
+                    spanContent.type === "session" ? spanContent.sessions[0]?.id : undefined;
                   return (
                     <div
                       key={key}
@@ -463,7 +429,18 @@ function SpanGroupSection({
                       }}
                     >
                       <TriangleBadge cssVar={TRACK_STYLE[key].cssVar} />
-                      {span.label}
+                      {span.link ? (
+                        <Link
+                          href={span.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:text-blue-purple-500"
+                        >
+                          {span.label}
+                        </Link>
+                      ) : (
+                        span.label
+                      )}
                       {/* {spanSessionId && (
                         <AddToMyTimetableButton
                           talkId={spanSessionId}
@@ -505,11 +482,10 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
     [data.slots],
   );
 
-  const { showScrollButton, scrollToCurrentSession, isSessionActive } =
-    useTimetable({
-      sessionTimeTable,
-      sessionElements: sessionRefs.current,
-    });
+  const { showScrollButton, scrollToCurrentSession, isSessionActive } = useTimetable({
+    sessionTimeTable,
+    sessionElements: sessionRefs.current,
+  });
 
   const trackNames = useMemo(() => {
     const map: Record<string, string> = {};
@@ -607,7 +583,7 @@ function SlotList({
   spanCoveredIndices: Set<number>;
   spanStartIndices: Set<number>;
   hiddenCells: Set<string>;
-  spanCells: Map<string, { rowSpan: number; label: string }>;
+  spanCells: Map<string, { rowSpan: number; label: string; link?: string }>;
   trackNames: Record<string, string>;
   isSessionActive: (id: string) => boolean;
   sessionRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
@@ -617,10 +593,7 @@ function SlotList({
   return (
     <>
       {data.slots.map((slot, slotIndex) => {
-        if (
-          spanCoveredIndices.has(slotIndex) &&
-          !spanStartIndices.has(slotIndex)
-        ) {
+        if (spanCoveredIndices.has(slotIndex) && !spanStartIndices.has(slotIndex)) {
           return null;
         }
 
@@ -643,10 +616,7 @@ function SlotList({
         }
 
         const timeId = myTimetable.formatTime(slot.startTime);
-        const timeText = myTimetable.formatTimeRange(
-          slot.startTime,
-          slot.endTime,
-        );
+        const timeText = myTimetable.formatTimeRange(slot.startTime, slot.endTime);
         const active = isSessionActive(timeId);
 
         if (slot.slotType === "shared") {
@@ -707,8 +677,7 @@ function IndividualSlotRow({
       <TimeSlot timeText={timeText} isActive={isActive} />
       {TRACK_KEYS.map((key) => {
         const content = slot.tracks[key];
-        const shouldAssignTourId =
-          isFirstSession && !tourIdAssigned && content.type === "session";
+        const shouldAssignTourId = isFirstSession && !tourIdAssigned && content.type === "session";
         if (shouldAssignTourId) tourIdAssigned = true;
         return (
           <TrackCell
