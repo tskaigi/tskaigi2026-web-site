@@ -1,6 +1,6 @@
 "use client";
 
-import { Copy } from "lucide-react";
+import { Copy, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import React, { useMemo, useRef, useState } from "react";
 // import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
@@ -202,6 +202,52 @@ function TrackCell({
   );
 }
 
+function SpanCell({
+  label,
+  link,
+  trackKey,
+  trackName,
+  rowSpan,
+}: {
+  label: string;
+  link?: string;
+  trackKey: TrackKey;
+  trackName: string;
+  rowSpan?: number;
+}) {
+  const style = TRACK_STYLE[trackKey];
+  return (
+    <div
+      className="bg-white px-5 pt-10 pb-4 md:py-5 min-h-32 flex flex-col gap-2 items-center justify-center text-black-700 relative"
+      style={rowSpan ? { gridRow: `span ${rowSpan}` } : undefined}
+    >
+      <div
+        className={cn(
+          style.bg,
+          style.text,
+          "block md:hidden py-1 px-2 absolute top-0 left-0 text-xs font-bold",
+        )}
+      >
+        {trackName}
+      </div>
+      <TriangleBadge cssVar={style.cssVar} />
+      {link ? (
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-blue-purple-500 inline-flex items-center gap-1"
+        >
+          <span>{label}</span>
+          <ExternalLink className="h-4 w-4" aria-hidden="true" />
+        </a>
+      ) : (
+        label
+      )}
+    </div>
+  );
+}
+
 function TriangleBadge({ cssVar }: { cssVar: string }) {
   return (
     <div
@@ -307,6 +353,7 @@ type ResolvedSpanGroup = {
   label: string;
   slotIndexStart: number;
   slotIndexEnd: number;
+  link?: string;
 };
 
 function resolveSpanGroups(
@@ -325,6 +372,7 @@ function resolveSpanGroups(
       label: group.label,
       slotIndexStart: startIdx,
       slotIndexEnd: endIdx,
+      link: group.link,
     });
   }
   return resolved;
@@ -332,7 +380,10 @@ function resolveSpanGroups(
 
 function buildSpanMap(resolved: ResolvedSpanGroup[]) {
   const hiddenCells = new Set<string>();
-  const spanCells = new Map<string, { rowSpan: number; label: string }>();
+  const spanCells = new Map<
+    string,
+    { rowSpan: number; label: string; link?: string }
+  >();
 
   for (const group of resolved) {
     const rowSpan = group.slotIndexEnd - group.slotIndexStart + 1;
@@ -340,6 +391,7 @@ function buildSpanMap(resolved: ResolvedSpanGroup[]) {
       spanCells.set(`${group.slotIndexStart}-${track}`, {
         rowSpan,
         label: group.label,
+        link: group.link,
       });
       for (let i = group.slotIndexStart + 1; i <= group.slotIndexEnd; i++) {
         hiddenCells.add(`${i}-${track}`);
@@ -365,7 +417,7 @@ function SpanGroupSection({
   startIndex: number;
   resolvedSpanGroups: ResolvedSpanGroup[];
   hiddenCells: Set<string>;
-  spanCells: Map<string, { rowSpan: number; label: string }>;
+  spanCells: Map<string, { rowSpan: number; label: string; link?: string }>;
   trackNames: Record<string, string>;
   isSessionActiveFn: (id: string) => boolean;
   sessionRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
@@ -382,10 +434,11 @@ function SpanGroupSection({
 
   return (
     <>
-      {/* モバイル: 通常レイアウト */}
+      {/* モバイル: spanはhiddenCells/spanCellsを参照しつつ縦に積む */}
       <div className="md:hidden">
-        {slotsInGroup.map((slot) => {
+        {slotsInGroup.map((slot, i) => {
           if (slot.slotType !== "individual") return null;
+          const idx = group.slotIndexStart + i;
           const timeId = myTimetable.formatTime(slot.startTime);
           const timeText = myTimetable.formatTimeRange(
             slot.startTime,
@@ -398,18 +451,47 @@ function SpanGroupSection({
             TRACK_KEYS.some((k) => slot.tracks[k].type === "session");
           if (hasSession) firstSessionFoundRef.current = true;
 
+          let tourIdAssigned = false;
           return (
-            <IndividualSlotRow
+            <GridRow
               key={timeId}
-              slot={slot}
-              timeText={timeText}
-              isActive={active}
-              trackNames={trackNames}
-              isFirstSession={hasSession}
               refHandler={(el) => {
                 sessionRefs.current[timeId] = el;
               }}
-            />
+            >
+              <TimeSlot timeText={timeText} isActive={active} />
+              {TRACK_KEYS.map((key) => {
+                const cellKey = `${idx}-${key}`;
+                if (hiddenCells.has(cellKey)) return null;
+
+                const span = spanCells.get(cellKey);
+                if (span) {
+                  return (
+                    <SpanCell
+                      key={key}
+                      label={span.label}
+                      link={span.link}
+                      trackKey={key}
+                      trackName={trackNames[key] ?? key}
+                    />
+                  );
+                }
+
+                const content = slot.tracks[key];
+                const shouldAssignTourId =
+                  hasSession && !tourIdAssigned && content.type === "session";
+                if (shouldAssignTourId) tourIdAssigned = true;
+                return (
+                  <TrackCell
+                    key={key}
+                    content={content}
+                    trackKey={key}
+                    trackName={trackNames[key] ?? key}
+                    id={shouldAssignTourId ? "tour-add-button" : undefined}
+                  />
+                );
+              })}
+            </GridRow>
           );
         })}
       </div>
@@ -449,28 +531,15 @@ function SpanGroupSection({
 
                 const span = spanCells.get(cellKey);
                 if (span) {
-                  const spanContent = slot.tracks[key];
-                  const spanSessionId =
-                    spanContent.type === "session"
-                      ? spanContent.sessions[0]?.id
-                      : undefined;
                   return (
-                    <div
+                    <SpanCell
                       key={key}
-                      className="bg-white px-5 py-5 min-h-32 flex flex-col gap-2 items-center justify-center text-black-700 relative"
-                      style={{
-                        gridRow: `span ${span.rowSpan}`,
-                      }}
-                    >
-                      <TriangleBadge cssVar={TRACK_STYLE[key].cssVar} />
-                      {span.label}
-                      {/* {spanSessionId && (
-                        <AddToMyTimetableButton
-                          talkId={spanSessionId}
-                          withCheckbox
-                        />
-                      )} */}
-                    </div>
+                      label={span.label}
+                      link={span.link}
+                      trackKey={key}
+                      trackName={trackNames[key] ?? key}
+                      rowSpan={span.rowSpan}
+                    />
                   );
                 }
 
@@ -607,7 +676,7 @@ function SlotList({
   spanCoveredIndices: Set<number>;
   spanStartIndices: Set<number>;
   hiddenCells: Set<string>;
-  spanCells: Map<string, { rowSpan: number; label: string }>;
+  spanCells: Map<string, { rowSpan: number; label: string; link?: string }>;
   trackNames: Record<string, string>;
   isSessionActive: (id: string) => boolean;
   sessionRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
