@@ -1,9 +1,7 @@
 import { getSessionMasterBySessionId } from "@/constants/sessionMaster";
 import type {
   EventDate,
-  IndividualSlot,
   SessionSummary,
-  SessionTrack,
   TrackKey,
 } from "@/types/timetable-api";
 import { myTimetable } from "@/utils/myTimetable";
@@ -42,7 +40,7 @@ export const TRACK_STYLE: Record<
 };
 
 export const TALK_TYPE: Record<
-  SessionTrack["sessionType"],
+  "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR" | "HANDSON",
   { name: string; color: string }
 > = {
   KEYNOTE: { name: "基調講演", color: "#0CA90E" },
@@ -77,38 +75,21 @@ export type Talk = SessionSummary & {
   time: string;
 };
 
-function findSpanGroup(
-  day: (typeof timetableList)[number],
-  slot: IndividualSlot,
-  trackKey: TrackKey,
-) {
-  return day.spanGroups?.find(
-    (g) =>
-      g.tracks.includes(trackKey) &&
-      slot.startTime >= g.startTime &&
-      slot.endTime <= g.endTime,
-  );
-}
-
 export const talkList: Talk[] = timetableList.flatMap((day) =>
-  day.slots
-    .filter((slot): slot is IndividualSlot => slot.slotType === "individual")
-    .flatMap((slot) =>
-      TRACK_KEYS.flatMap((trackKey) => {
-        const content = slot.tracks[trackKey];
-        if (content.type !== "session") return [];
-        const span = findSpanGroup(day, slot, trackKey);
-        const time = span
-          ? myTimetable.formatTimeRange(span.startTime, span.endTime)
-          : myTimetable.formatTimeRange(slot.startTime, slot.endTime);
-        return content.sessions.map((ref) => ({
-          ...resolveSession(ref.id),
-          eventDate: day.day,
-          track: trackKey,
-          time,
-        }));
-      }),
-    ),
+  day.cells.flatMap((cell) => {
+    if (cell.content.type !== "session") return [];
+    const time = myTimetable.formatTimeRange(cell.startTime, cell.endTime);
+    return cell.tracks.flatMap((trackKey) =>
+      cell.content.type === "session"
+        ? cell.content.sessions.map((ref) => ({
+            ...resolveSession(ref.id),
+            eventDate: day.day,
+            track: trackKey,
+            time,
+          }))
+        : [],
+    );
+  }),
 );
 
 export const SESSION_IDS = talkList.map((talk) => talk.id);

@@ -29,56 +29,39 @@ export type SessionSummary = {
   };
 };
 
-export type ClosedTrack = {
-  type: "closed";
-};
-
-export type OtherTrack = {
-  type: "other";
-  label: string;
-  compact?: boolean;
-};
-
-export type OverrideTrack = {
-  type: "override";
-};
-
 export type SessionKey = "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR" | "HANDSON";
 
-export type SessionTrack = {
+export type SessionContent = {
   type: "session";
   sessionType: SessionKey;
   sessions: SessionRef[];
+  // Render hint: when set, the cell is drawn as a labeled span (with optional
+  // external link) instead of the per-session detail card. Used for cells that
+  // logically belong to a session but visually represent a span (e.g. ハンズオン).
+  displayLabel?: string;
+  link?: string;
 };
 
-export type TrackContent =
-  | ClosedTrack
-  | OtherTrack
-  | OverrideTrack
-  | SessionTrack;
-
-export type SharedSlot = {
-  slotType: "shared";
-  startTime: number; // timestamp
-  endTime: number; // timestamp
+export type LabeledContent = {
+  type: "labeled";
   label: string;
+  link?: string;
+  compact?: boolean;
 };
 
-export type IndividualSlot = {
-  slotType: "individual";
-  startTime: number; // timestamp
-  endTime: number; // timestamp
-  tracks: Record<TrackKey, TrackContent>;
+export type ClosedContent = {
+  type: "closed";
 };
 
-export type Slot = SharedSlot | IndividualSlot;
+export type CellContent = SessionContent | LabeledContent | ClosedContent;
 
-export type SpanGroup = {
-  tracks: TrackKey[];
-  label: string;
+export type Cell = {
   startTime: number;
   endTime: number;
-  link?: string;
+  // Tracks the cell occupies. Must be contiguous in TRACK_KEYS order.
+  // Length 1 = single track; length === TRACK_KEYS.length = full-width "shared" cell.
+  tracks: TrackKey[];
+  content: CellContent;
 };
 
 export type EventDate = "Day1" | "Day2";
@@ -87,8 +70,7 @@ export type TimetableResponse = {
   day: EventDate;
   date: string;
   tracks: Track[];
-  slots: Slot[];
-  spanGroups?: SpanGroup[];
+  cells: Cell[];
 };
 
 export type TimetableListResponse = TimetableResponse[];

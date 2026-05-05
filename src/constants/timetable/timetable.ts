@@ -1,4 +1,6 @@
 import type {
+  Cell,
+  CellContent,
   TimetableListResponse,
   TimetableResponse,
   Track,
@@ -23,6 +25,8 @@ export const TRACK: Record<TrackKey, Track> = {
   },
 };
 
+const ALL_TRACKS: TrackKey[] = ["LEVERAGES", "UPSIDER", "RIGHTTOUCH"];
+
 /** 2026-05-22T00:00:00+09:00 in unix seconds */
 const DAY1_BASE = 1779375600;
 /** 2026-05-23T00:00:00+09:00 in unix seconds */
@@ -32,314 +36,129 @@ const DAY2_BASE = 1779462000;
 const d1 = (h: number, m: number) => DAY1_BASE + h * 3600 + m * 60;
 const d2 = (h: number, m: number) => DAY2_BASE + h * 3600 + m * 60;
 
+/** 全トラック共通の1ラベルセル(旧 shared slot) */
+const shared = (start: number, end: number, label: string): Cell => ({
+  startTime: start,
+  endTime: end,
+  tracks: ALL_TRACKS,
+  content: { type: "labeled", label },
+});
+
+/** 同一行(start-end)で各トラックに別々の content を置く展開ヘルパ */
+const row = (
+  start: number,
+  end: number,
+  tracks: Partial<Record<TrackKey, CellContent>>,
+): Cell[] =>
+  ALL_TRACKS.flatMap((k) => {
+    const content = tracks[k];
+    if (!content) return [];
+    return [{ startTime: start, endTime: end, tracks: [k], content }];
+  });
+
+const session = (
+  sessionType: "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR" | "HANDSON",
+  ids: string[],
+): CellContent => ({
+  type: "session",
+  sessionType,
+  sessions: ids.map((id) => ({ id })),
+});
+
 const day1: TimetableResponse = {
   day: "Day1",
   date: "2026-05-22",
   tracks: Object.values(TRACK),
-  slots: [
-    // 10:00–10:40 一般開場
+  cells: [
+    shared(d1(10, 0), d1(10, 40), "一般開場"),
+    ...row(d1(10, 40), d1(11, 0), {
+      LEVERAGES: { type: "labeled", label: "オープニングトーク" },
+      UPSIDER: { type: "labeled", label: "サテライト" },
+      RIGHTTOUCH: { type: "closed" },
+    }),
+    shared(d1(11, 0), d1(11, 10), "休憩"),
+    ...row(d1(11, 10), d1(11, 40), {
+      LEVERAGES: session("LONG", ["2"]),
+      UPSIDER: session("LONG", ["3"]),
+      RIGHTTOUCH: session("LONG", ["4"]),
+    }),
+    shared(d1(11, 40), d1(11, 50), "休憩"),
+    ...row(d1(11, 50), d1(12, 20), {
+      LEVERAGES: session("LONG", ["5"]),
+      UPSIDER: session("LONG", ["6"]),
+      RIGHTTOUCH: session("LONG", ["7"]),
+    }),
+    shared(d1(12, 20), d1(12, 30), "ランチ配布"),
+    shared(d1(12, 30), d1(13, 30), "ランチ"),
+    shared(d1(13, 30), d1(13, 40), "休憩"),
+
+    // 13:40-15:40 RIGHTTOUCH ハンズオン (5スロット縦ぶち抜き)
     {
-      slotType: "shared",
-      startTime: d1(10, 0),
-      endTime: d1(10, 40),
-      label: "一般開場",
-    },
-    // 10:40–11:00 オープニングトーク / サテライト / クローズ
-    {
-      slotType: "individual",
-      startTime: d1(10, 40),
-      endTime: d1(11, 0),
-      tracks: {
-        LEVERAGES: { type: "other", label: "オープニングトーク" },
-        UPSIDER: { type: "other", label: "サテライト" },
-        RIGHTTOUCH: { type: "closed" },
-      },
-    },
-    // 11:00–11:10 休憩
-    {
-      slotType: "shared",
-      startTime: d1(11, 0),
-      endTime: d1(11, 10),
-      label: "休憩",
-    },
-    // 11:10–11:40 LONG x3
-    {
-      slotType: "individual",
-      startTime: d1(11, 10),
-      endTime: d1(11, 40),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "2" }],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "3" }],
-        },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "4" }],
-        },
-      },
-    },
-    // 11:40–11:50 休憩
-    {
-      slotType: "shared",
-      startTime: d1(11, 40),
-      endTime: d1(11, 50),
-      label: "休憩",
-    },
-    // 11:50–12:20 LONG x3
-    {
-      slotType: "individual",
-      startTime: d1(11, 50),
-      endTime: d1(12, 20),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "5" }],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "6" }],
-        },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "7" }],
-        },
-      },
-    },
-    // 12:20–12:30 ランチ配布
-    {
-      slotType: "shared",
-      startTime: d1(12, 20),
-      endTime: d1(12, 30),
-      label: "ランチ配布",
-    },
-    // 12:30–13:30 ランチ
-    {
-      slotType: "shared",
-      startTime: d1(12, 30),
-      endTime: d1(13, 30),
-      label: "ランチ",
-    },
-    // 13:30–13:40 休憩
-    {
-      slotType: "shared",
-      startTime: d1(13, 30),
-      endTime: d1(13, 40),
-      label: "休憩",
-    },
-    // 13:40–14:10 LONG x2 + ハンズオン
-    {
-      slotType: "individual",
       startTime: d1(13, 40),
-      endTime: d1(14, 10),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "8" }],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "9" }],
-        },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "HANDSON",
-          sessions: [{ id: "1" }],
-        },
+      endTime: d1(15, 40),
+      tracks: ["RIGHTTOUCH"],
+      content: {
+        type: "session",
+        sessionType: "HANDSON",
+        sessions: [{ id: "1" }],
+        displayLabel: "ハンズオン",
+        link: "https://typescript-jpc.connpass.com/event/392953/",
       },
     },
-    // 14:10–14:20 休憩 + ハンズオン
+    // 13:40-14:10 LONG x2 (RIGHTTOUCHはハンズオンに覆われる)
+    ...row(d1(13, 40), d1(14, 10), {
+      LEVERAGES: session("LONG", ["8"]),
+      UPSIDER: session("LONG", ["9"]),
+    }),
+    // 14:10-14:20 休憩 (L+U横ぶち抜き)
     {
-      slotType: "individual",
       startTime: d1(14, 10),
       endTime: d1(14, 20),
-      tracks: {
-        LEVERAGES: { type: "other", label: "休憩", compact: true },
-        UPSIDER: { type: "other", label: "休憩", compact: true },
-        RIGHTTOUCH: { type: "override" },
-      },
+      tracks: ["LEVERAGES", "UPSIDER"],
+      content: { type: "labeled", label: "休憩", compact: true },
     },
-    // 14:20–14:50 SHORT x3 (Track1/Track2) + ハンズオン
+    // 14:20-14:50 SHORT x3 (L) + SHORT x3 (U)
+    ...row(d1(14, 20), d1(14, 50), {
+      LEVERAGES: session("SHORT", ["10", "11", "12"]),
+      UPSIDER: session("SHORT", ["13", "14", "15"]),
+    }),
+    // 14:50-15:10 休憩 (L+U横ぶち抜き)
     {
-      slotType: "individual",
-      startTime: d1(14, 20),
-      endTime: d1(14, 50),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "10" }, { id: "11" }, { id: "12" }],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "13" }, { id: "14" }, { id: "15" }],
-        },
-        RIGHTTOUCH: { type: "override" },
-      },
-    },
-    // 14:50–15:10 休憩 + ハンズオン
-    {
-      slotType: "individual",
       startTime: d1(14, 50),
       endTime: d1(15, 10),
-      tracks: {
-        LEVERAGES: { type: "other", label: "休憩", compact: true },
-        UPSIDER: { type: "other", label: "休憩", compact: true },
-        RIGHTTOUCH: { type: "override" },
-      },
+      tracks: ["LEVERAGES", "UPSIDER"],
+      content: { type: "labeled", label: "休憩", compact: true },
     },
-    // 15:10–15:40 LONG x2 + ハンズオン
-    {
-      slotType: "individual",
-      startTime: d1(15, 10),
-      endTime: d1(15, 40),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "16" }],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "17" }],
-        },
-        RIGHTTOUCH: { type: "override" },
-      },
-    },
-    // 15:40–15:50 休憩
-    {
-      slotType: "shared",
-      startTime: d1(15, 40),
-      endTime: d1(15, 50),
-      label: "休憩",
-    },
-    // 15:50–16:20 LONG x3
-    {
-      slotType: "individual",
-      startTime: d1(15, 50),
-      endTime: d1(16, 20),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "18" }],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "19" }],
-        },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "20" }],
-        },
-      },
-    },
-    // 16:20–16:40 休憩
-    {
-      slotType: "shared",
-      startTime: d1(16, 20),
-      endTime: d1(16, 40),
-      label: "休憩",
-    },
-    // 16:40–17:10 LONG (Track1) + SHORT x3 (Track2/Track3)
-    {
-      slotType: "individual",
-      startTime: d1(16, 40),
-      endTime: d1(17, 10),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "21" }],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "22" }, { id: "23" }, { id: "24" }],
-        },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "25" }, { id: "26" }, { id: "27" }],
-        },
-      },
-    },
-    // 17:10–17:20 休憩
-    {
-      slotType: "shared",
-      startTime: d1(17, 10),
-      endTime: d1(17, 20),
-      label: "休憩",
-    },
-    // 17:20–17:50 SHORT x3 x3
-    {
-      slotType: "individual",
-      startTime: d1(17, 20),
-      endTime: d1(17, 50),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "28" }, { id: "29" }, { id: "30" }],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "31" }, { id: "32" }, { id: "33" }],
-        },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "34" }, { id: "35" }, { id: "36" }],
-        },
-      },
-    },
-    // 17:50–18:10 休憩
-    {
-      slotType: "shared",
-      startTime: d1(17, 50),
-      endTime: d1(18, 10),
-      label: "休憩",
-    },
-    // 18:10–18:50 KEYNOTE / サテライト / クローズ
-    {
-      slotType: "individual",
-      startTime: d1(18, 10),
-      endTime: d1(18, 50),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "KEYNOTE",
-          sessions: [{ id: "37" }],
-        },
-        UPSIDER: { type: "other", label: "サテライト" },
-        RIGHTTOUCH: { type: "closed" },
-      },
-    },
-  ],
-  spanGroups: [
-    {
-      tracks: ["RIGHTTOUCH"],
-      label: "ハンズオン",
-      startTime: d1(13, 40),
-      endTime: d1(15, 40),
-      link: "https://typescript-jpc.connpass.com/event/392953/",
-    },
+    // 15:10-15:40 LONG x2
+    ...row(d1(15, 10), d1(15, 40), {
+      LEVERAGES: session("LONG", ["16"]),
+      UPSIDER: session("LONG", ["17"]),
+    }),
+
+    shared(d1(15, 40), d1(15, 50), "休憩"),
+    ...row(d1(15, 50), d1(16, 20), {
+      LEVERAGES: session("LONG", ["18"]),
+      UPSIDER: session("LONG", ["19"]),
+      RIGHTTOUCH: session("LONG", ["20"]),
+    }),
+    shared(d1(16, 20), d1(16, 40), "休憩"),
+    ...row(d1(16, 40), d1(17, 10), {
+      LEVERAGES: session("LONG", ["21"]),
+      UPSIDER: session("SHORT", ["22", "23", "24"]),
+      RIGHTTOUCH: session("SHORT", ["25", "26", "27"]),
+    }),
+    shared(d1(17, 10), d1(17, 20), "休憩"),
+    ...row(d1(17, 20), d1(17, 50), {
+      LEVERAGES: session("SHORT", ["28", "29", "30"]),
+      UPSIDER: session("SHORT", ["31", "32", "33"]),
+      RIGHTTOUCH: session("SHORT", ["34", "35", "36"]),
+    }),
+    shared(d1(17, 50), d1(18, 10), "休憩"),
+    ...row(d1(18, 10), d1(18, 50), {
+      LEVERAGES: session("KEYNOTE", ["37"]),
+      UPSIDER: { type: "labeled", label: "サテライト" },
+      RIGHTTOUCH: { type: "closed" },
+    }),
   ],
 };
 
@@ -347,320 +166,97 @@ const day2: TimetableResponse = {
   day: "Day2",
   date: "2026-05-23",
   tracks: Object.values(TRACK),
-  slots: [
-    // 10:00–10:40 一般開場
+  cells: [
+    shared(d2(10, 0), d2(10, 40), "一般開場"),
+    ...row(d2(10, 40), d2(10, 50), {
+      LEVERAGES: { type: "labeled", label: "オープニングトーク" },
+      UPSIDER: { type: "labeled", label: "サテライト" },
+      RIGHTTOUCH: { type: "closed" },
+    }),
+    shared(d2(10, 50), d2(11, 10), "休憩"),
+    ...row(d2(11, 10), d2(11, 40), {
+      LEVERAGES: session("LONG", ["38"]),
+      UPSIDER: session("LONG", ["39"]),
+      RIGHTTOUCH: session("LONG", ["40"]),
+    }),
+    shared(d2(11, 40), d2(11, 50), "休憩"),
+    ...row(d2(11, 50), d2(12, 20), {
+      LEVERAGES: session("SHORT", ["41", "42", "43"]),
+      UPSIDER: session("SHORT", ["44", "45", "46"]),
+      RIGHTTOUCH: session("SHORT", ["47", "48", "49"]),
+    }),
+    shared(d2(12, 20), d2(12, 30), "ランチ配布"),
+    ...row(d2(12, 30), d2(13, 30), {
+      LEVERAGES: session("SPONSOR", ["79", "77", "83", "81", "85"]),
+      UPSIDER: session("SPONSOR", ["82", "80", "78", "86", "84"]),
+      RIGHTTOUCH: { type: "labeled", label: "ランチ" },
+    }),
+    shared(d2(13, 30), d2(13, 40), "休憩"),
+    ...row(d2(13, 40), d2(14, 10), {
+      LEVERAGES: session("LONG", ["50"]),
+      UPSIDER: session("LONG", ["51"]),
+      RIGHTTOUCH: session("LONG", ["52"]),
+    }),
+    shared(d2(14, 10), d2(14, 20), "休憩"),
+    ...row(d2(14, 20), d2(14, 50), {
+      LEVERAGES: session("SHORT", ["53", "54", "55"]),
+      UPSIDER: session("SHORT", ["56", "57", "58"]),
+      RIGHTTOUCH: session("SHORT", ["59", "60", "61"]),
+    }),
+    shared(d2(14, 50), d2(15, 10), "休憩"),
+    ...row(d2(15, 10), d2(15, 40), {
+      LEVERAGES: session("LONG", ["62"]),
+      UPSIDER: session("LONG", ["63"]),
+      RIGHTTOUCH: session("LONG", ["64"]),
+    }),
+    shared(d2(15, 40), d2(15, 50), "休憩"),
+    ...row(d2(15, 50), d2(16, 20), {
+      LEVERAGES: session("LONG", ["65"]),
+      UPSIDER: session("LONG", ["66"]),
+      RIGHTTOUCH: session("LONG", ["67"]),
+    }),
+    shared(d2(16, 20), d2(16, 40), "休憩"),
+    ...row(d2(16, 40), d2(17, 10), {
+      LEVERAGES: session("SHORT", ["68", "69", "70"]),
+      UPSIDER: session("SHORT", ["71", "72", "73"]),
+      RIGHTTOUCH: session("SHORT", ["74", "75", "76"]),
+    }),
+    shared(d2(17, 10), d2(17, 20), "休憩"),
+
+    // 17:20-18:40 L+U 懇親会準備 (横+縦のぶち抜き)
     {
-      slotType: "shared",
-      startTime: d2(10, 0),
-      endTime: d2(10, 40),
-      label: "一般開場",
+      startTime: d2(17, 20),
+      endTime: d2(18, 40),
+      tracks: ["LEVERAGES", "UPSIDER"],
+      content: { type: "labeled", label: "懇親会準備" },
     },
-    // 10:40–10:50 オープニングトーク / サテライト / クローズ
+    // 17:20-18:30 RIGHTTOUCH 参加者体験企画
     {
-      slotType: "individual",
-      startTime: d2(10, 40),
-      endTime: d2(10, 50),
-      tracks: {
-        LEVERAGES: { type: "other", label: "オープニングトーク" },
-        UPSIDER: { type: "other", label: "サテライト" },
-        RIGHTTOUCH: { type: "closed" },
-      },
-    },
-    // 10:50–11:10 休憩
-    {
-      slotType: "shared",
-      startTime: d2(10, 50),
-      endTime: d2(11, 10),
-      label: "休憩",
-    },
-    // 11:10–11:40 LONG x3
-    {
-      slotType: "individual",
-      startTime: d2(11, 10),
-      endTime: d2(11, 40),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "38" }],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "39" }],
-        },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "40" }],
-        },
-      },
-    },
-    // 11:40–11:50 休憩
-    {
-      slotType: "shared",
-      startTime: d2(11, 40),
-      endTime: d2(11, 50),
-      label: "休憩",
-    },
-    // 11:50–12:20 SHORT x3 x3
-    {
-      slotType: "individual",
-      startTime: d2(11, 50),
-      endTime: d2(12, 20),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "41" }, { id: "42" }, { id: "43" }],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "44" }, { id: "45" }, { id: "46" }],
-        },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "47" }, { id: "48" }, { id: "49" }],
-        },
-      },
-    },
-    // 12:20–12:30 ランチ配布
-    {
-      slotType: "shared",
-      startTime: d2(12, 20),
-      endTime: d2(12, 30),
-      label: "ランチ配布",
-    },
-    // 12:30–13:30 ランチ/スポンサーセッション
-    {
-      slotType: "individual",
-      startTime: d2(12, 30),
-      endTime: d2(13, 30),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "SPONSOR",
-          sessions: [
-            { id: "79" },
-            { id: "77" },
-            { id: "83" },
-            { id: "81" },
-            { id: "85" },
-          ],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "SPONSOR",
-          sessions: [
-            { id: "82" },
-            { id: "80" },
-            { id: "78" },
-            { id: "86" },
-            { id: "84" },
-          ],
-        },
-        RIGHTTOUCH: { type: "other", label: "ランチ" },
-      },
-    },
-    // 13:30–13:40 休憩
-    {
-      slotType: "shared",
-      startTime: d2(13, 30),
-      endTime: d2(13, 40),
-      label: "休憩",
-    },
-    // 13:40–14:10 LONG x3
-    {
-      slotType: "individual",
-      startTime: d2(13, 40),
-      endTime: d2(14, 10),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "50" }],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "51" }],
-        },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "52" }],
-        },
-      },
-    },
-    // 14:10–14:20 休憩
-    {
-      slotType: "shared",
-      startTime: d2(14, 10),
-      endTime: d2(14, 20),
-      label: "休憩",
-    },
-    // 14:20–14:50 SHORT x3 x3
-    {
-      slotType: "individual",
-      startTime: d2(14, 20),
-      endTime: d2(14, 50),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "53" }, { id: "54" }, { id: "55" }],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "56" }, { id: "57" }, { id: "58" }],
-        },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "59" }, { id: "60" }, { id: "61" }],
-        },
-      },
-    },
-    // 14:50–15:10 休憩
-    {
-      slotType: "shared",
-      startTime: d2(14, 50),
-      endTime: d2(15, 10),
-      label: "休憩",
-    },
-    // 15:10–15:40 LONG x3
-    {
-      slotType: "individual",
-      startTime: d2(15, 10),
-      endTime: d2(15, 40),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "62" }],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "63" }],
-        },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "64" }],
-        },
-      },
-    },
-    // 15:40–15:50 休憩
-    {
-      slotType: "shared",
-      startTime: d2(15, 40),
-      endTime: d2(15, 50),
-      label: "休憩",
-    },
-    // 15:50–16:20 LONG x3
-    {
-      slotType: "individual",
-      startTime: d2(15, 50),
-      endTime: d2(16, 20),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "65" }],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "66" }],
-        },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "LONG",
-          sessions: [{ id: "67" }],
-        },
-      },
-    },
-    // 16:20–16:40 休憩
-    {
-      slotType: "shared",
-      startTime: d2(16, 20),
-      endTime: d2(16, 40),
-      label: "休憩",
-    },
-    // 16:40–17:10 SHORT x3 x3
-    {
-      slotType: "individual",
-      startTime: d2(16, 40),
-      endTime: d2(17, 10),
-      tracks: {
-        LEVERAGES: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "68" }, { id: "69" }, { id: "70" }],
-        },
-        UPSIDER: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "71" }, { id: "72" }, { id: "73" }],
-        },
-        RIGHTTOUCH: {
-          type: "session",
-          sessionType: "SHORT",
-          sessions: [{ id: "74" }, { id: "75" }, { id: "76" }],
-        },
-      },
-    },
-    // 17:10–17:20 休憩
-    {
-      slotType: "shared",
-      startTime: d2(17, 10),
-      endTime: d2(17, 20),
-      label: "休憩",
-    },
-    // 17:20–18:30 懇親会準備 / 参加者体験企画
-    {
-      slotType: "individual",
       startTime: d2(17, 20),
       endTime: d2(18, 30),
-      tracks: {
-        LEVERAGES: { type: "other", label: "懇親会準備" },
-        UPSIDER: { type: "other", label: "懇親会準備" },
-        RIGHTTOUCH: { type: "other", label: "参加者体験企画" },
-      },
+      tracks: ["RIGHTTOUCH"],
+      content: { type: "labeled", label: "参加者体験企画" },
     },
-    // 18:30–18:40 休憩 (Track3)
+    // 18:30-18:40 RIGHTTOUCH closed
     {
-      slotType: "individual",
       startTime: d2(18, 30),
       endTime: d2(18, 40),
-      tracks: {
-        LEVERAGES: { type: "override" },
-        UPSIDER: { type: "override" },
-        RIGHTTOUCH: { type: "closed" },
-      },
+      tracks: ["RIGHTTOUCH"],
+      content: { type: "closed" },
     },
-    // 18:40–20:40 懇親会
+    // 18:40-20:40 L+U 懇親会
     {
-      slotType: "individual",
       startTime: d2(18, 40),
       endTime: d2(20, 40),
-      tracks: {
-        LEVERAGES: { type: "other", label: "懇親会" },
-        UPSIDER: { type: "other", label: "懇親会" },
-        RIGHTTOUCH: { type: "closed" },
-      },
-    },
-  ],
-  spanGroups: [
-    {
       tracks: ["LEVERAGES", "UPSIDER"],
-      label: "懇親会準備",
-      startTime: d2(17, 20),
-      endTime: d2(18, 40),
+      content: { type: "labeled", label: "懇親会" },
+    },
+    // 18:40-20:40 RIGHTTOUCH closed
+    {
+      startTime: d2(18, 40),
+      endTime: d2(20, 40),
+      tracks: ["RIGHTTOUCH"],
+      content: { type: "closed" },
     },
   ],
 };
