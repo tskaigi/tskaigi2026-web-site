@@ -1,7 +1,6 @@
 import { ExternalLink } from "lucide-react";
-import { TRACK_STYLE } from "@/constants/timetable";
-import { cn } from "@/lib/utils";
 import type { Cell, Track, TrackKey } from "@/types/timetable-api";
+import { CardShell } from "./CardShell";
 import { SessionCard } from "./SessionCard";
 
 function LabelText({ label, link }: { label: string; link?: string }) {
@@ -19,71 +18,24 @@ function LabelText({ label, link }: { label: string; link?: string }) {
   );
 }
 
-function BadgedShell({
-  variant,
-  isSingleTrack,
-  trackKey,
-  trackName,
-  children,
-}: {
-  variant: "closed" | "card";
-  isSingleTrack: boolean;
-  trackKey: TrackKey;
-  trackName: string;
-  children: React.ReactNode;
-}) {
-  const style = TRACK_STYLE[trackKey];
-  const sizeCls =
-    variant === "closed"
-      ? "bg-gray-50 min-h-16"
-      : "bg-white pt-10 pb-4 md:py-5 min-h-32";
-  return (
-    <div
-      className={cn(
-        sizeCls,
-        "px-5 h-full flex flex-col gap-2 items-center justify-center text-black-700 relative",
-      )}
-    >
-      {isSingleTrack && (
-        <div
-          className={cn(
-            style.bg,
-            style.text,
-            "block md:hidden py-1 px-2 absolute top-0 left-0 text-xs font-bold",
-          )}
-        >
-          {trackName}
-        </div>
-      )}
-      {children}
-    </div>
-  );
-}
-
 export function CellRenderer({
   cell,
-  trackNames,
+  trackRecord,
   id,
 }: {
   cell: Cell;
-  trackNames: Record<TrackKey, Track>;
+  trackRecord: Record<TrackKey, Track>;
   id?: string;
 }) {
   const isSingleTrack = cell.trackKeys.length === 1;
-  const headTrack = cell.trackKeys[0];
-  const trackName = trackNames[headTrack].name;
+  const track = trackRecord[cell.trackKeys[0]];
   const c = cell.content;
 
   if (c.type === "closed") {
     return (
-      <BadgedShell
-        variant="closed"
-        isSingleTrack={isSingleTrack}
-        trackKey={headTrack}
-        trackName={trackName}
-      >
+      <CardShell variant="closed" track={track} isSingleTrack={isSingleTrack}>
         クローズ
-      </BadgedShell>
+      </CardShell>
     );
   }
 
@@ -99,23 +51,11 @@ export function CellRenderer({
   if (c.type === "labeled" || c.displayLabel !== undefined) {
     const label = c.type === "labeled" ? c.label : c.displayLabel;
     return (
-      <BadgedShell
-        variant="card"
-        isSingleTrack={isSingleTrack}
-        trackKey={headTrack}
-        trackName={trackName}
-      >
+      <CardShell variant="card" track={track} isSingleTrack={isSingleTrack}>
         <LabelText label={label ?? ""} link={c.link} />
-      </BadgedShell>
+      </CardShell>
     );
   }
 
-  return (
-    <SessionCard
-      content={c}
-      trackKey={headTrack}
-      trackName={trackName}
-      id={id}
-    />
-  );
+  return <SessionCard content={c} track={track} id={id} />;
 }

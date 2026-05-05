@@ -56,7 +56,7 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
       sessionElements: sessionRefs.current,
     });
 
-  const trackNames = data.trackRecord;
+  const trackRecord = data.trackRecord;
 
   // tour-add-button: 一番早い start で、その中で一番左のトラックの通常セッションセル。
   const tourAddButtonCellKey = useMemo(() => {
@@ -144,7 +144,7 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
             >
               <CellRenderer
                 cell={cell}
-                trackNames={trackNames}
+                trackRecord={trackRecord}
                 id={
                   cellKey === tourAddButtonCellKey
                     ? "tour-add-button"
@@ -181,7 +181,7 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
                   <CellRenderer
                     key={cellKey}
                     cell={cell}
-                    trackNames={trackNames}
+                    trackRecord={trackRecord}
                     id={
                       cellKey === tourAddButtonCellKey
                         ? "tour-add-button"
