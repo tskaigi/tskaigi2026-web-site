@@ -203,7 +203,6 @@ function CellRenderer({
   trackNames: Record<string, string>;
   id?: string;
 }) {
-  const isFullWidth = cell.tracks.length === TRACK_KEYS.length;
   const isSingleTrack = cell.tracks.length === 1;
   const headTrack = cell.tracks[0];
   const style = TRACK_STYLE[headTrack];
@@ -211,13 +210,6 @@ function CellRenderer({
   const c = cell.content;
 
   if (c.type === "closed") {
-    if (isFullWidth) {
-      return (
-        <div className="bg-gray-50 px-5 h-full min-h-16 flex items-center justify-center text-black-700">
-          クローズ
-        </div>
-      );
-    }
     return (
       <div className="bg-gray-50 px-5 h-full min-h-16 flex flex-col gap-2 items-center justify-center text-black-700 relative">
         {isSingleTrack && (
@@ -238,16 +230,9 @@ function CellRenderer({
   }
 
   if (c.type === "labeled") {
-    if (c.compact) {
+    if (c.muted) {
       return (
         <div className="bg-gray-50 px-5 h-full min-h-16 flex items-center justify-center text-black-700">
-          <LabelText label={c.label} link={c.link} />
-        </div>
-      );
-    }
-    if (isFullWidth) {
-      return (
-        <div className="bg-gray-50 p-5 h-full min-h-16 flex items-center justify-center text-black-700">
           <LabelText label={c.label} link={c.link} />
         </div>
       );

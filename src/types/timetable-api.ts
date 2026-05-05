@@ -46,7 +46,9 @@ export type LabeledContent = {
   type: "labeled";
   label: string;
   link?: string;
-  compact?: boolean;
+  // Render as a muted gray simple row (e.g. 休憩 / ランチ / 一般開場).
+  // When false / unset, render as a white card with TriangleBadge.
+  muted?: boolean;
 };
 
 export type ClosedContent = {

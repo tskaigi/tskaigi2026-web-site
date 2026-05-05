@@ -36,12 +36,12 @@ const DAY2_BASE = 1779462000;
 const d1 = (h: number, m: number) => DAY1_BASE + h * 3600 + m * 60;
 const d2 = (h: number, m: number) => DAY2_BASE + h * 3600 + m * 60;
 
-/** 全トラック共通の1ラベルセル(旧 shared slot) */
+/** 全トラック共通の1ラベルセル(旧 shared slot)。常に muted (グレー) で描画。 */
 const shared = (start: number, end: number, label: string): Cell => ({
   startTime: start,
   endTime: end,
   tracks: ALL_TRACKS,
-  content: { type: "labeled", label },
+  content: { type: "labeled", label, muted: true },
 });
 
 /** 同一行(start-end)で各トラックに別々の content を置く展開ヘルパ */
@@ -115,7 +115,7 @@ const day1: TimetableResponse = {
       startTime: d1(14, 10),
       endTime: d1(14, 20),
       tracks: ["LEVERAGES", "UPSIDER"],
-      content: { type: "labeled", label: "休憩", compact: true },
+      content: { type: "labeled", label: "休憩", muted: true },
     },
     // 14:20-14:50 SHORT x3 (L) + SHORT x3 (U)
     ...row(d1(14, 20), d1(14, 50), {
@@ -127,7 +127,7 @@ const day1: TimetableResponse = {
       startTime: d1(14, 50),
       endTime: d1(15, 10),
       tracks: ["LEVERAGES", "UPSIDER"],
-      content: { type: "labeled", label: "休憩", compact: true },
+      content: { type: "labeled", label: "休憩", muted: true },
     },
     // 15:10-15:40 LONG x2
     ...row(d1(15, 10), d1(15, 40), {
