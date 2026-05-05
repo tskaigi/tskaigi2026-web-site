@@ -227,7 +227,6 @@ function BadgedShell({
           {trackName}
         </div>
       )}
-      <TriangleBadge cssVar={style.cssVar} />
       {children}
     </div>
   );
