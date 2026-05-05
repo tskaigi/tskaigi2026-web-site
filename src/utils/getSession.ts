@@ -2,22 +2,20 @@ import { notFound } from "next/navigation";
 import { getSessionMasterBySessionId } from "@/constants/sessionMaster";
 import { type SessionId, timetableList } from "@/constants/timetable";
 import type {
-  EventDate,
   SessionKey,
   SessionSummary,
+  TimeSlot,
+  TimetableResponse,
+  Track,
   TrackKey,
 } from "@/types/timetable-api";
 
-export type SessionDetail = {
-  session: SessionSummary;
-  sessionType: SessionKey;
-  trackKey: TrackKey;
-  trackName: string;
-  day: EventDate;
-  date: string;
-  startTime: number;
-  endTime: number;
-};
+export type SessionDetail = TimeSlot &
+  Pick<Track, "id" | "name"> &
+  Pick<TimetableResponse, "day" | "date"> & {
+    session: SessionSummary;
+    sessionType: SessionKey;
+  };
 
 function resolveSession(id: string): SessionSummary {
   const master = getSessionMasterBySessionId(id);
@@ -44,7 +42,7 @@ function resolveSession(id: string): SessionSummary {
   return { id, title: "", speaker: { name: "" } };
 }
 
-export function getSession(id: SessionId): SessionDetail {
+export function getSession(sessionId: SessionId): SessionDetail {
   for (const day of timetableList) {
     const trackNameMap: Record<string, string> = {};
     for (const t of day.tracks) {
@@ -54,14 +52,14 @@ export function getSession(id: SessionId): SessionDetail {
     for (const cell of day.cells) {
       if (cell.content.type !== "session") continue;
       for (const ref of cell.content.sessions) {
-        if (ref.id !== id) continue;
+        if (ref.id !== sessionId) continue;
         // Cell may span multiple tracks; pick the first as the canonical track.
-        const trackKey = cell.tracks[0];
+        const id = cell.tracks[0];
         return {
-          session: resolveSession(id),
+          session: resolveSession(sessionId),
           sessionType: cell.content.sessionType,
-          trackKey,
-          trackName: trackNameMap[trackKey] ?? trackKey,
+          id,
+          name: trackNameMap[id] ?? id,
           day: day.day,
           date: day.date,
           startTime: cell.startTime,

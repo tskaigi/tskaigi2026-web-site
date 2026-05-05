@@ -57,9 +57,12 @@ export type ClosedContent = {
 
 export type CellContent = SessionContent | LabeledContent | ClosedContent;
 
-export type Cell = {
+export type TimeSlot = {
   startTime: number;
   endTime: number;
+};
+
+export type Cell = TimeSlot & {
   // Tracks the cell occupies. Must be contiguous in TRACK_KEYS order.
   // Length 1 = single track; length === TRACK_KEYS.length = full-width "shared" cell.
   tracks: TrackKey[];

@@ -12,18 +12,16 @@ import { cn } from "@/lib/utils";
 import type {
   Cell,
   SessionContent,
+  TimeSlot,
   TimetableResponse,
+  Track,
   TrackKey,
 } from "@/types/timetable-api";
 import { myTimetable } from "@/utils/myTimetable";
 
-function SlotTrackHeader({
-  track,
-}: {
-  track: TimetableResponse["tracks"][number];
-}) {
+function SlotTrackHeader({ track }: { track: Track }) {
   const [copySuccess, setCopySuccess] = useState(false);
-  const key = track.id as TrackKey;
+  const key = track.id;
   const style = TRACK_STYLE[key];
 
   const copyToClipboard = async (text: string) => {
@@ -286,8 +284,6 @@ function CellRenderer({
     />
   );
 }
-
-type TimeSlot = { startTime: number; endTime: number };
 
 function buildTimeSlots(cells: Cell[]): TimeSlot[] {
   const boundaries = new Set<number>();

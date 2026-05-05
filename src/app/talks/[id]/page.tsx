@@ -96,7 +96,7 @@ export default async function TalkDetailPage({
 }) {
   const { id } = await params;
   const detail = getSession(id);
-  const { session, sessionType, trackName, startTime, endTime } = detail;
+  const { session, sessionType, name, startTime, endTime } = detail;
   const timeRange = myTimetable.formatTimeRange(startTime, endTime);
   const typeLabel = TALK_TYPE[sessionType].name;
   const { speaker } = session;
@@ -126,7 +126,7 @@ export default async function TalkDetailPage({
           </div>
           <div className="text-2xl font-bold">{session.title}</div>
           <div className="text-lg font-bold">
-            {detail.day} / {timeRange} （{trackName}）
+            {detail.day} / {timeRange} （{name}）
           </div>
         </div>
 

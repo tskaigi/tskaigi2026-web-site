@@ -1,6 +1,7 @@
 import type {
   Cell,
   CellContent,
+  SessionKey,
   TimetableListResponse,
   TimetableResponse,
   Track,
@@ -56,10 +57,7 @@ const row = (
     return [{ startTime: start, endTime: end, tracks: [k], content }];
   });
 
-const session = (
-  sessionType: "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR" | "HANDSON",
-  ids: string[],
-): CellContent => ({
+const session = (sessionType: SessionKey, ids: string[]): CellContent => ({
   type: "session",
   sessionType,
   sessions: ids.map((id) => ({ id })),
@@ -189,7 +187,7 @@ const day2: TimetableResponse = {
     ...row(d2(12, 30), d2(13, 30), {
       LEVERAGES: session("SPONSOR", ["79", "77", "83", "81", "85"]),
       UPSIDER: session("SPONSOR", ["82", "80", "78", "86", "84"]),
-      RIGHTTOUCH: { type: "labeled", label: "ランチ" },
+      RIGHTTOUCH: { type: "labeled", label: "ランチ", muted: true },
     }),
     shared(d2(13, 30), d2(13, 40), "休憩"),
     ...row(d2(13, 40), d2(14, 10), {
@@ -237,13 +235,6 @@ const day2: TimetableResponse = {
       tracks: ["RIGHTTOUCH"],
       content: { type: "labeled", label: "参加者体験企画" },
     },
-    // 18:30-18:40 RIGHTTOUCH closed
-    {
-      startTime: d2(18, 30),
-      endTime: d2(18, 40),
-      tracks: ["RIGHTTOUCH"],
-      content: { type: "closed" },
-    },
     // 18:40-20:40 L+U 懇親会
     {
       startTime: d2(18, 40),
@@ -251,9 +242,9 @@ const day2: TimetableResponse = {
       tracks: ["LEVERAGES", "UPSIDER"],
       content: { type: "labeled", label: "懇親会" },
     },
-    // 18:40-20:40 RIGHTTOUCH closed
+    // 18:30-20:40 RIGHTTOUCH closed
     {
-      startTime: d2(18, 40),
+      startTime: d2(18, 30),
       endTime: d2(20, 40),
       tracks: ["RIGHTTOUCH"],
       content: { type: "closed" },

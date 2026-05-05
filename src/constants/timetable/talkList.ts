@@ -1,6 +1,7 @@
 import { getSessionMasterBySessionId } from "@/constants/sessionMaster";
 import type {
   EventDate,
+  SessionKey,
   SessionSummary,
   TrackKey,
 } from "@/types/timetable-api";
@@ -39,10 +40,7 @@ export const TRACK_STYLE: Record<
   },
 };
 
-export const TALK_TYPE: Record<
-  "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR" | "HANDSON",
-  { name: string; color: string }
-> = {
+export const TALK_TYPE: Record<SessionKey, { name: string; color: string }> = {
   KEYNOTE: { name: "基調講演", color: "#0CA90E" },
   LONG: { name: "30分セッション", color: "#0C7EDC" },
   SHORT: { name: "10分セッション", color: "#c3620f" },
