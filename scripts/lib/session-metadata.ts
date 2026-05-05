@@ -39,14 +39,13 @@ function buildMetaMap(): Map<string, SessionMeta> {
       if (!isValidSessionKey(cell.content.sessionType)) continue;
       const timeRange = `${toHHMM(cell.startTime)} ~ ${toHHMM(cell.endTime)}`;
 
-      for (const trackKey of cell.tracks) {
-        const trackInfo = day.tracks.find((t) => t.id === trackKey);
-        const trackName = trackInfo?.name ?? trackKey;
+      for (const trackKey of cell.trackKeys) {
+        const trackInfo = day.trackRecord[trackKey];
 
         for (const session of cell.content.sessions) {
           map.set(session.id, {
             trackKey,
-            trackName,
+            trackName: trackInfo.name,
             sessionTypeKey: cell.content.sessionType,
             dayNumber,
             timeRange,

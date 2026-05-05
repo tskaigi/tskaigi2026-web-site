@@ -41,7 +41,7 @@ const d2 = (h: number, m: number) => DAY2_BASE + h * 3600 + m * 60;
 const shared = (start: number, end: number, label: string): Cell => ({
   startTime: start,
   endTime: end,
-  tracks: ALL_TRACKS,
+  trackKeys: ALL_TRACKS,
   content: { type: "labeled", label, muted: true },
 });
 
@@ -49,12 +49,12 @@ const shared = (start: number, end: number, label: string): Cell => ({
 const row = (
   start: number,
   end: number,
-  tracks: Partial<Record<TrackKey, CellContent>>,
+  trackKeys: Partial<Record<TrackKey, CellContent>>,
 ): Cell[] =>
   ALL_TRACKS.flatMap((k) => {
-    const content = tracks[k];
+    const content = trackKeys[k];
     if (!content) return [];
-    return [{ startTime: start, endTime: end, tracks: [k], content }];
+    return [{ startTime: start, endTime: end, trackKeys: [k], content }];
   });
 
 const session = (sessionType: SessionKey, ids: string[]): CellContent => ({
@@ -66,7 +66,7 @@ const session = (sessionType: SessionKey, ids: string[]): CellContent => ({
 const day1: TimetableResponse = {
   day: "Day1",
   date: "2026-05-22",
-  tracks: Object.values(TRACK),
+  trackRecord: TRACK,
   cells: [
     shared(d1(10, 0), d1(10, 40), "一般開場"),
     ...row(d1(10, 40), d1(11, 0), {
@@ -94,7 +94,7 @@ const day1: TimetableResponse = {
     {
       startTime: d1(13, 40),
       endTime: d1(15, 40),
-      tracks: ["RIGHTTOUCH"],
+      trackKeys: ["RIGHTTOUCH"],
       content: {
         type: "session",
         sessionType: "HANDSON",
@@ -112,7 +112,7 @@ const day1: TimetableResponse = {
     {
       startTime: d1(14, 10),
       endTime: d1(14, 20),
-      tracks: ["LEVERAGES", "UPSIDER"],
+      trackKeys: ["LEVERAGES", "UPSIDER"],
       content: { type: "labeled", label: "休憩", muted: true },
     },
     // 14:20-14:50 SHORT x3 (L) + SHORT x3 (U)
@@ -124,7 +124,7 @@ const day1: TimetableResponse = {
     {
       startTime: d1(14, 50),
       endTime: d1(15, 10),
-      tracks: ["LEVERAGES", "UPSIDER"],
+      trackKeys: ["LEVERAGES", "UPSIDER"],
       content: { type: "labeled", label: "休憩", muted: true },
     },
     // 15:10-15:40 LONG x2
@@ -163,7 +163,7 @@ const day1: TimetableResponse = {
 const day2: TimetableResponse = {
   day: "Day2",
   date: "2026-05-23",
-  tracks: Object.values(TRACK),
+  trackRecord: TRACK,
   cells: [
     shared(d2(10, 0), d2(10, 40), "一般開場"),
     ...row(d2(10, 40), d2(10, 50), {
@@ -225,28 +225,28 @@ const day2: TimetableResponse = {
     {
       startTime: d2(17, 20),
       endTime: d2(18, 40),
-      tracks: ["LEVERAGES", "UPSIDER"],
+      trackKeys: ["LEVERAGES", "UPSIDER"],
       content: { type: "labeled", label: "懇親会準備" },
     },
     // 17:20-18:30 RIGHTTOUCH 参加者体験企画
     {
       startTime: d2(17, 20),
       endTime: d2(18, 30),
-      tracks: ["RIGHTTOUCH"],
+      trackKeys: ["RIGHTTOUCH"],
       content: { type: "labeled", label: "参加者体験企画" },
     },
     // 18:40-20:40 L+U 懇親会
     {
       startTime: d2(18, 40),
       endTime: d2(20, 40),
-      tracks: ["LEVERAGES", "UPSIDER"],
+      trackKeys: ["LEVERAGES", "UPSIDER"],
       content: { type: "labeled", label: "懇親会" },
     },
     // 18:30-20:40 RIGHTTOUCH closed
     {
       startTime: d2(18, 30),
       endTime: d2(20, 40),
-      tracks: ["RIGHTTOUCH"],
+      trackKeys: ["RIGHTTOUCH"],
       content: { type: "closed" },
     },
   ],

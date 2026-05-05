@@ -19,50 +19,35 @@ export type SessionDetail = TimeSlot &
 function resolveSession(id: string): SessionSummary {
   const master = getSessionMasterBySessionId(id);
   if (master) {
-    return {
-      id,
-      title: master.title,
-      overview: master.overview,
-      speaker: {
-        name: master.speaker.name,
-        profileImageUrl: master.speaker.profileImageUrl,
-        bio: master.speaker.bio,
-        xId: master.speaker.xId,
-        githubId: master.speaker.githubId,
-        additionalLink: master.speaker.additionalLink,
-        qiitaLink: master.speaker.qiitaLink,
-        zennLink: master.speaker.zennLink,
-        noteLink: master.speaker.noteLink,
-        affiliation: master.speaker.affiliation,
-        position: master.speaker.position,
-      },
-    };
+    const { title, overview, speaker } = master;
+    const { userIcon: _, ...rest } = speaker;
+    return { id, title, overview, speaker: rest };
   }
   return { id, title: "", speaker: { name: "" } };
 }
 
 export function getSession(sessionId: SessionId): SessionDetail {
-  for (const day of timetableList) {
-    const trackNameMap: Record<string, string> = {};
-    for (const t of day.tracks) {
-      trackNameMap[t.id] = t.name;
-    }
-
-    for (const cell of day.cells) {
+  for (const timetable of timetableList) {
+    const { day, date, trackRecord, cells } = timetable;
+    for (const cell of cells) {
       if (cell.content.type !== "session") continue;
-      for (const ref of cell.content.sessions) {
+      const { content, trackKeys, startTime, endTime } = cell;
+      const { sessions, sessionType } = content;
+      for (const ref of sessions) {
         if (ref.id !== sessionId) continue;
         // Cell may span multiple tracks; pick the first as the canonical track.
-        const trackId = cell.tracks[0];
+        const id = trackKeys[0];
+        const { name } = trackRecord[id];
+        const session = resolveSession(sessionId);
         return {
-          session: resolveSession(sessionId),
-          sessionType: cell.content.sessionType,
-          id: trackId,
-          name: trackNameMap[trackId] ?? trackId,
-          day: day.day,
-          date: day.date,
-          startTime: cell.startTime,
-          endTime: cell.endTime,
+          day,
+          date,
+          startTime,
+          endTime,
+          sessionType,
+          id,
+          name,
+          session,
         };
       }
     }

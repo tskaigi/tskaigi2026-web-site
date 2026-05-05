@@ -11,7 +11,7 @@ import { CellRenderer } from "./CellRenderer";
 import { SlotTrackHeader } from "./SlotTrackHeader";
 import { TimeLabel } from "./TimeLabel";
 
-const cellKeyOf = (cell: Cell) => `${cell.startTime}-${cell.tracks[0]}`;
+const cellKeyOf = (cell: Cell) => `${cell.startTime}-${cell.trackKeys[0]}`;
 
 export function DayTimeTable({ data }: { data: TimetableResponse }) {
   const sessionRefs = useRef<Record<string, HTMLDivElement | null>>({});
@@ -56,13 +56,7 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
       sessionElements: sessionRefs.current,
     });
 
-  const trackNames = useMemo(() => {
-    const map: Record<string, string> = {};
-    for (const t of data.tracks) {
-      map[t.id] = t.name;
-    }
-    return map;
-  }, [data.tracks]);
+  const trackNames = data.trackRecord;
 
   // tour-add-button: 一番早い start で、その中で一番左のトラックの通常セッションセル。
   const tourAddButtonCellKey = useMemo(() => {
@@ -74,7 +68,8 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
       .sort(
         (a, b) =>
           a.startTime - b.startTime ||
-          TRACK_KEYS.indexOf(a.tracks[0]) - TRACK_KEYS.indexOf(b.tracks[0]),
+          TRACK_KEYS.indexOf(a.trackKeys[0]) -
+            TRACK_KEYS.indexOf(b.trackKeys[0]),
       );
     return candidates[0] ? cellKeyOf(candidates[0]) : null;
   }, [data.cells]);
@@ -90,7 +85,8 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
     for (const arr of m.values()) {
       arr.sort(
         (a, b) =>
-          TRACK_KEYS.indexOf(a.tracks[0]) - TRACK_KEYS.indexOf(b.tracks[0]),
+          TRACK_KEYS.indexOf(a.trackKeys[0]) -
+          TRACK_KEYS.indexOf(b.trackKeys[0]),
       );
     }
     return m;
@@ -101,7 +97,7 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
       <div className="hidden md:block">
         <div className="grid gap-1 mt-4 md:mt-2 grid-cols-[1fr] md:grid-cols-[auto_minmax(210px,1fr)_minmax(210px,1fr)_minmax(210px,1fr)]">
           <div className="w-[70px] md:w-[99px] lg:w-[125px]" />
-          {data.tracks.map((track) => (
+          {Object.values(data.trackRecord).map((track) => (
             <SlotTrackHeader key={track.id} track={track} />
           ))}
         </div>
@@ -134,9 +130,9 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
         {data.cells.map((cell) => {
           const rowStart = (boundaryIndex.get(cell.startTime) ?? 0) + 1;
           const rowEnd = (boundaryIndex.get(cell.endTime) ?? 0) + 1;
-          const colStart = TRACK_KEYS.indexOf(cell.tracks[0]) + 2;
+          const colStart = TRACK_KEYS.indexOf(cell.trackKeys[0]) + 2;
           const colEnd =
-            TRACK_KEYS.indexOf(cell.tracks[cell.tracks.length - 1]) + 3;
+            TRACK_KEYS.indexOf(cell.trackKeys[cell.trackKeys.length - 1]) + 3;
           const cellKey = cellKeyOf(cell);
           return (
             <div

@@ -1,7 +1,7 @@
 import { ExternalLink } from "lucide-react";
 import { TRACK_STYLE } from "@/constants/timetable";
 import { cn } from "@/lib/utils";
-import type { Cell, TrackKey } from "@/types/timetable-api";
+import type { Cell, Track, TrackKey } from "@/types/timetable-api";
 import { SessionCard } from "./SessionCard";
 
 function LabelText({ label, link }: { label: string; link?: string }) {
@@ -66,12 +66,12 @@ export function CellRenderer({
   id,
 }: {
   cell: Cell;
-  trackNames: Record<string, string>;
+  trackNames: Record<TrackKey, Track>;
   id?: string;
 }) {
-  const isSingleTrack = cell.tracks.length === 1;
-  const headTrack = cell.tracks[0];
-  const trackName = trackNames[headTrack] ?? headTrack;
+  const isSingleTrack = cell.trackKeys.length === 1;
+  const headTrack = cell.trackKeys[0];
+  const trackName = trackNames[headTrack].name;
   const c = cell.content;
 
   if (c.type === "closed") {

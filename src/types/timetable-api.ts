@@ -65,7 +65,7 @@ export type TimeSlot = {
 export type Cell = TimeSlot & {
   // Tracks the cell occupies. Must be contiguous in TRACK_KEYS order.
   // Length 1 = single track; length === TRACK_KEYS.length = full-width "shared" cell.
-  tracks: TrackKey[];
+  trackKeys: TrackKey[];
   content: CellContent;
 };
 
@@ -74,7 +74,7 @@ export type EventDate = "Day1" | "Day2";
 export type TimetableResponse = {
   day: EventDate;
   date: string;
-  tracks: Track[];
+  trackRecord: Record<TrackKey, Track>;
   cells: Cell[];
 };
 

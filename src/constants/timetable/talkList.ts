@@ -78,7 +78,7 @@ export const talkList: Talk[] = timetableList.flatMap((day) =>
     if (cell.content.type !== "session") return [];
     const { sessions } = cell.content;
     const time = myTimetable.formatTimeRange(cell.startTime, cell.endTime);
-    return cell.tracks.flatMap((trackKey) =>
+    return cell.trackKeys.flatMap((trackKey) =>
       sessions.map((ref) => ({
         ...resolveSession(ref.id),
         eventDate: day.day,
