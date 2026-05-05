@@ -480,27 +480,13 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
           );
           const active = isSessionActive(timeId);
           const cellsHere = cellsByStartTime.get(slot.startTime) ?? [];
-          // If only a single full-width labeled cell starts here, render the
-          // legacy "shared" two-column layout (time | label side-by-side feel
-          // collapses to stacked on mobile anyway).
-          const isSharedOnly =
-            cellsHere.length === 1 &&
-            cellsHere[0].tracks.length === TRACK_KEYS.length &&
-            (cellsHere[0].content.type === "labeled" ||
-              cellsHere[0].content.type === "closed");
           return (
             <div
               key={`m-${timeId}`}
               ref={(el) => {
-                // Only set if not already set by desktop (refs are shared).
-                // Since desktop uses md:grid (hidden on mobile), assigning here
-                // is fine — the desktop ref won't exist at runtime on mobile.
                 sessionRefs.current[timeId] = el;
               }}
-              className={cn(
-                "grid gap-1 mt-4",
-                isSharedOnly ? "grid-cols-[auto_1fr]" : "grid-cols-[1fr]",
-              )}
+              className="grid gap-1 mt-4 grid-cols-[1fr]"
             >
               <TimeLabel timeText={timeText} isActive={active} />
               {cellsHere.map((cell) => {
