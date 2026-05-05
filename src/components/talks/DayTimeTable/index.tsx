@@ -21,8 +21,7 @@ import { myTimetable } from "@/utils/myTimetable";
 
 function SlotTrackHeader({ track }: { track: Track }) {
   const [copySuccess, setCopySuccess] = useState(false);
-  const key = track.id;
-  const style = TRACK_STYLE[key];
+  const style = TRACK_STYLE[track.id];
 
   const copyToClipboard = async (text: string) => {
     try {
@@ -192,6 +191,48 @@ function SessionCard({
   );
 }
 
+function BadgedShell({
+  variant,
+  isSingleTrack,
+  trackKey,
+  trackName,
+  children,
+}: {
+  variant: "closed" | "card";
+  isSingleTrack: boolean;
+  trackKey: TrackKey;
+  trackName: string;
+  children: React.ReactNode;
+}) {
+  const style = TRACK_STYLE[trackKey];
+  const sizeCls =
+    variant === "closed"
+      ? "bg-gray-50 min-h-16"
+      : "bg-white pt-10 pb-4 md:py-5 min-h-32";
+  return (
+    <div
+      className={cn(
+        sizeCls,
+        "px-5 h-full flex flex-col gap-2 items-center justify-center text-black-700 relative",
+      )}
+    >
+      {isSingleTrack && (
+        <div
+          className={cn(
+            style.bg,
+            style.text,
+            "block md:hidden py-1 px-2 absolute top-0 left-0 text-xs font-bold",
+          )}
+        >
+          {trackName}
+        </div>
+      )}
+      <TriangleBadge cssVar={style.cssVar} />
+      {children}
+    </div>
+  );
+}
+
 function CellRenderer({
   cell,
   trackNames,
@@ -203,75 +244,42 @@ function CellRenderer({
 }) {
   const isSingleTrack = cell.tracks.length === 1;
   const headTrack = cell.tracks[0];
-  const style = TRACK_STYLE[headTrack];
   const trackName = trackNames[headTrack] ?? headTrack;
   const c = cell.content;
 
   if (c.type === "closed") {
     return (
-      <div className="bg-gray-50 px-5 h-full min-h-16 flex flex-col gap-2 items-center justify-center text-black-700 relative">
-        {isSingleTrack && (
-          <div
-            className={cn(
-              style.bg,
-              style.text,
-              "block md:hidden py-1 px-2 absolute top-0 left-0 text-xs font-bold",
-            )}
-          >
-            {trackName}
-          </div>
-        )}
-        <TriangleBadge cssVar={style.cssVar} />
+      <BadgedShell
+        variant="closed"
+        isSingleTrack={isSingleTrack}
+        trackKey={headTrack}
+        trackName={trackName}
+      >
         クローズ
-      </div>
+      </BadgedShell>
     );
   }
 
-  if (c.type === "labeled") {
-    if (c.muted) {
-      return (
-        <div className="bg-gray-50 px-5 h-full min-h-16 flex items-center justify-center text-black-700">
-          <LabelText label={c.label} link={c.link} />
-        </div>
-      );
-    }
+  if (c.type === "labeled" && c.muted) {
     return (
-      <div className="bg-white px-5 pt-10 pb-4 md:py-5 min-h-32 h-full flex flex-col gap-2 items-center justify-center text-black-700 relative">
-        {isSingleTrack && (
-          <div
-            className={cn(
-              style.bg,
-              style.text,
-              "block md:hidden py-1 px-2 absolute top-0 left-0 text-xs font-bold",
-            )}
-          >
-            {trackName}
-          </div>
-        )}
-        <TriangleBadge cssVar={style.cssVar} />
+      <div className="bg-gray-50 px-5 h-full min-h-16 flex items-center justify-center text-black-700">
         <LabelText label={c.label} link={c.link} />
       </div>
     );
   }
 
-  // SessionContent with displayLabel: render as labeled span (link optional)
-  if (c.displayLabel !== undefined) {
+  // labeled (non-muted) と displayLabel 付き session は同じ「白カード」シェル
+  if (c.type === "labeled" || c.displayLabel !== undefined) {
+    const label = c.type === "labeled" ? c.label : c.displayLabel;
     return (
-      <div className="bg-white px-5 pt-10 pb-4 md:py-5 min-h-32 h-full flex flex-col gap-2 items-center justify-center text-black-700 relative">
-        {isSingleTrack && (
-          <div
-            className={cn(
-              style.bg,
-              style.text,
-              "block md:hidden py-1 px-2 absolute top-0 left-0 text-xs font-bold",
-            )}
-          >
-            {trackName}
-          </div>
-        )}
-        <TriangleBadge cssVar={style.cssVar} />
-        <LabelText label={c.displayLabel} link={c.link} />
-      </div>
+      <BadgedShell
+        variant="card"
+        isSingleTrack={isSingleTrack}
+        trackKey={headTrack}
+        trackName={trackName}
+      >
+        <LabelText label={label ?? ""} link={c.link} />
+      </BadgedShell>
     );
   }
 
@@ -285,24 +293,34 @@ function CellRenderer({
   );
 }
 
-function buildTimeSlots(cells: Cell[]): TimeSlot[] {
-  const boundaries = new Set<number>();
-  for (const c of cells) {
-    boundaries.add(c.startTime);
-    boundaries.add(c.endTime);
-  }
-  const sorted = Array.from(boundaries).sort((a, b) => a - b);
-  const slots: TimeSlot[] = [];
-  for (let i = 0; i < sorted.length - 1; i++) {
-    slots.push({ startTime: sorted[i], endTime: sorted[i + 1] });
-  }
-  return slots;
-}
+const cellKeyOf = (cell: Cell) => `${cell.startTime}-${cell.tracks[0]}`;
 
 export function DayTimeTable({ data }: { data: TimetableResponse }) {
   const sessionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  const timeSlots = useMemo(() => buildTimeSlots(data.cells), [data.cells]);
+  // 全セルの startTime/endTime をユニークソートしたものが境界。
+  // boundaryIndex は時刻 → 境界番号(grid line - 1)を引くためのMap。
+  const { boundaries, boundaryIndex } = useMemo(() => {
+    const set = new Set<number>();
+    for (const c of data.cells) {
+      set.add(c.startTime);
+      set.add(c.endTime);
+    }
+    const sorted = [...set].sort((a, b) => a - b);
+    const idx = new Map<number, number>();
+    sorted.forEach((t, i) => {
+      idx.set(t, i);
+    });
+    return { boundaries: sorted, boundaryIndex: idx };
+  }, [data.cells]);
+
+  const timeSlots = useMemo<TimeSlot[]>(
+    () =>
+      boundaries
+        .slice(0, -1)
+        .map((t, i) => ({ startTime: t, endTime: boundaries[i + 1] })),
+    [boundaries],
+  );
 
   const sessionTimeTable = useMemo(
     () =>
@@ -328,47 +346,19 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
     return map;
   }, [data.tracks]);
 
-  // Index lookups for grid placement.
-  const slotIndexByStart = useMemo(() => {
-    const m = new Map<number, number>();
-    timeSlots.forEach((s, i) => {
-      m.set(s.startTime, i);
-    });
-    return m;
-  }, [timeSlots]);
-  const slotIndexByEnd = useMemo(() => {
-    const m = new Map<number, number>();
-    timeSlots.forEach((s, i) => {
-      m.set(s.endTime, i);
-    });
-    return m;
-  }, [timeSlots]);
-
-  // Identify the cell that should carry the tour-add-button id:
-  // the session-typed cell (without displayLabel) at the smallest track index
-  // among cells starting at the first time slot containing any session.
+  // tour-add-button: 一番早い start で、その中で一番左のトラックの通常セッションセル。
   const tourAddButtonCellKey = useMemo(() => {
-    let firstSessionStart = Infinity;
-    for (const c of data.cells) {
-      if (c.content.type !== "session" || c.content.displayLabel !== undefined)
-        continue;
-      if (c.startTime < firstSessionStart) firstSessionStart = c.startTime;
-    }
-    if (!Number.isFinite(firstSessionStart)) return null;
-
-    let bestTrackIdx = Infinity;
-    let bestKey: string | null = null;
-    for (const c of data.cells) {
-      if (c.startTime !== firstSessionStart) continue;
-      if (c.content.type !== "session" || c.content.displayLabel !== undefined)
-        continue;
-      const trackIdx = TRACK_KEYS.indexOf(c.tracks[0]);
-      if (trackIdx < bestTrackIdx) {
-        bestTrackIdx = trackIdx;
-        bestKey = `${c.startTime}-${c.tracks[0]}`;
-      }
-    }
-    return bestKey;
+    const candidates = data.cells
+      .filter(
+        (c) =>
+          c.content.type === "session" && c.content.displayLabel === undefined,
+      )
+      .sort(
+        (a, b) =>
+          a.startTime - b.startTime ||
+          TRACK_KEYS.indexOf(a.tracks[0]) - TRACK_KEYS.indexOf(b.tracks[0]),
+      );
+    return candidates[0] ? cellKeyOf(candidates[0]) : null;
   }, [data.cells]);
 
   // Mobile uses single-column flow per timeSlot.
@@ -420,20 +410,18 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
                 sessionRefs.current[timeId] = el;
               }}
               style={{ gridRow: i + 1, gridColumn: 1 }}
-              className="h-full"
             >
               <TimeLabel timeText={timeText} isActive={active} />
             </div>
           );
         })}
         {data.cells.map((cell) => {
-          const rowStart = (slotIndexByStart.get(cell.startTime) ?? 0) + 1;
-          const rowEndIdx = slotIndexByEnd.get(cell.endTime);
-          const rowEnd = rowEndIdx !== undefined ? rowEndIdx + 2 : rowStart + 1;
+          const rowStart = (boundaryIndex.get(cell.startTime) ?? 0) + 1;
+          const rowEnd = (boundaryIndex.get(cell.endTime) ?? 0) + 1;
           const colStart = TRACK_KEYS.indexOf(cell.tracks[0]) + 2;
           const colEnd =
             TRACK_KEYS.indexOf(cell.tracks[cell.tracks.length - 1]) + 3;
-          const cellKey = `${cell.startTime}-${cell.tracks[0]}`;
+          const cellKey = cellKeyOf(cell);
           return (
             <div
               key={`cell-${cellKey}`}
@@ -476,7 +464,7 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
             >
               <TimeLabel timeText={timeText} isActive={active} />
               {cellsHere.map((cell) => {
-                const cellKey = `${cell.startTime}-${cell.tracks[0]}`;
+                const cellKey = cellKeyOf(cell);
                 return (
                   <CellRenderer
                     key={cellKey}

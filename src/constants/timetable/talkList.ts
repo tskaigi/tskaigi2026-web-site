@@ -76,16 +76,15 @@ export type Talk = SessionSummary & {
 export const talkList: Talk[] = timetableList.flatMap((day) =>
   day.cells.flatMap((cell) => {
     if (cell.content.type !== "session") return [];
+    const { sessions } = cell.content;
     const time = myTimetable.formatTimeRange(cell.startTime, cell.endTime);
     return cell.tracks.flatMap((trackKey) =>
-      cell.content.type === "session"
-        ? cell.content.sessions.map((ref) => ({
-            ...resolveSession(ref.id),
-            eventDate: day.day,
-            track: trackKey,
-            time,
-          }))
-        : [],
+      sessions.map((ref) => ({
+        ...resolveSession(ref.id),
+        eventDate: day.day,
+        track: trackKey,
+        time,
+      })),
     );
   }),
 );

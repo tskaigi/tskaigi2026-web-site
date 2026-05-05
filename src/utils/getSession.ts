@@ -7,7 +7,6 @@ import type {
   TimeSlot,
   TimetableResponse,
   Track,
-  TrackKey,
 } from "@/types/timetable-api";
 
 export type SessionDetail = TimeSlot &
@@ -54,12 +53,12 @@ export function getSession(sessionId: SessionId): SessionDetail {
       for (const ref of cell.content.sessions) {
         if (ref.id !== sessionId) continue;
         // Cell may span multiple tracks; pick the first as the canonical track.
-        const id = cell.tracks[0];
+        const trackId = cell.tracks[0];
         return {
           session: resolveSession(sessionId),
           sessionType: cell.content.sessionType,
-          id,
-          name: trackNameMap[id] ?? id,
+          id: trackId,
+          name: trackNameMap[trackId] ?? trackId,
           day: day.day,
           date: day.date,
           startTime: cell.startTime,
