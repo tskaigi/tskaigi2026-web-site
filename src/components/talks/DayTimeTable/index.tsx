@@ -203,14 +203,15 @@ function CellRenderer({
   trackNames: Record<string, string>;
   id?: string;
 }) {
-  const isMultiTrack = cell.tracks.length > 1;
+  const isFullWidth = cell.tracks.length === TRACK_KEYS.length;
+  const isSingleTrack = cell.tracks.length === 1;
   const headTrack = cell.tracks[0];
   const style = TRACK_STYLE[headTrack];
   const trackName = trackNames[headTrack] ?? headTrack;
   const c = cell.content;
 
   if (c.type === "closed") {
-    if (isMultiTrack) {
+    if (isFullWidth) {
       return (
         <div className="bg-gray-50 px-5 h-full min-h-16 flex items-center justify-center text-black-700">
           クローズ
@@ -219,15 +220,17 @@ function CellRenderer({
     }
     return (
       <div className="bg-gray-50 px-5 h-full min-h-16 flex flex-col gap-2 items-center justify-center text-black-700 relative">
-        <div
-          className={cn(
-            style.bg,
-            style.text,
-            "block md:hidden py-1 px-2 absolute top-0 left-0 text-xs font-bold",
-          )}
-        >
-          {trackName}
-        </div>
+        {isSingleTrack && (
+          <div
+            className={cn(
+              style.bg,
+              style.text,
+              "block md:hidden py-1 px-2 absolute top-0 left-0 text-xs font-bold",
+            )}
+          >
+            {trackName}
+          </div>
+        )}
         <TriangleBadge cssVar={style.cssVar} />
         クローズ
       </div>
@@ -242,7 +245,7 @@ function CellRenderer({
         </div>
       );
     }
-    if (isMultiTrack) {
+    if (isFullWidth) {
       return (
         <div className="bg-gray-50 p-5 h-full min-h-16 flex items-center justify-center text-black-700">
           <LabelText label={c.label} link={c.link} />
@@ -251,26 +254,7 @@ function CellRenderer({
     }
     return (
       <div className="bg-white px-5 pt-10 pb-4 md:py-5 min-h-32 h-full flex flex-col gap-2 items-center justify-center text-black-700 relative">
-        <div
-          className={cn(
-            style.bg,
-            style.text,
-            "block md:hidden py-1 px-2 absolute top-0 left-0 text-xs font-bold",
-          )}
-        >
-          {trackName}
-        </div>
-        <TriangleBadge cssVar={style.cssVar} />
-        <LabelText label={c.label} link={c.link} />
-      </div>
-    );
-  }
-
-  // SessionContent with displayLabel: render as labeled span (link optional)
-  if (c.displayLabel !== undefined) {
-    return (
-      <div className="bg-white px-5 pt-10 pb-4 md:py-5 min-h-32 h-full flex flex-col gap-2 items-center justify-center text-black-700 relative">
-        {!isMultiTrack && (
+        {isSingleTrack && (
           <div
             className={cn(
               style.bg,
@@ -281,7 +265,28 @@ function CellRenderer({
             {trackName}
           </div>
         )}
-        {!isMultiTrack && <TriangleBadge cssVar={style.cssVar} />}
+        <TriangleBadge cssVar={style.cssVar} />
+        <LabelText label={c.label} link={c.link} />
+      </div>
+    );
+  }
+
+  // SessionContent with displayLabel: render as labeled span (link optional)
+  if (c.displayLabel !== undefined) {
+    return (
+      <div className="bg-white px-5 pt-10 pb-4 md:py-5 min-h-32 h-full flex flex-col gap-2 items-center justify-center text-black-700 relative">
+        {isSingleTrack && (
+          <div
+            className={cn(
+              style.bg,
+              style.text,
+              "block md:hidden py-1 px-2 absolute top-0 left-0 text-xs font-bold",
+            )}
+          >
+            {trackName}
+          </div>
+        )}
+        <TriangleBadge cssVar={style.cssVar} />
         <LabelText label={c.displayLabel} link={c.link} />
       </div>
     );
