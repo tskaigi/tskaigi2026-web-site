@@ -338,6 +338,7 @@ const day1: TimetableResponse = {
       label: "ハンズオン",
       startTime: d1(13, 40),
       endTime: d1(15, 40),
+      link: "https://typescript-jpc.connpass.com/event/392953/",
     },
   ],
 };

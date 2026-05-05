@@ -78,6 +78,7 @@ export type SpanGroup = {
   label: string;
   startTime: number;
   endTime: number;
+  link?: string;
 };
 
 export type EventDate = "Day1" | "Day2";
