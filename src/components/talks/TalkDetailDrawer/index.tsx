@@ -198,7 +198,9 @@ function DrawerContent({ talk }: { talk: TalkWithMinutes }) {
           </span>
         )}
         <TalkStatus talkId={talk.id} />
-        <ToggleParticipatedButton talkId={talk.id} />
+        <span id="tour-drawer-participate">
+          <ToggleParticipatedButton talkId={talk.id} />
+        </span>
       </div>
 
       <div>
@@ -320,7 +322,7 @@ export function TalkDetailDrawer({
               role="dialog"
               aria-modal="true"
               aria-label="トーク詳細"
-              className="fixed inset-x-0 bottom-0 z-50 h-[60vh] bg-white rounded-t-2xl shadow-xl flex flex-col"
+              className="fixed inset-x-0 bottom-0 z-50 h-[calc(90vh-64px)] bg-white rounded-t-2xl shadow-xl flex flex-col"
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}

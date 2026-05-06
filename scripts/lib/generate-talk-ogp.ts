@@ -10,6 +10,11 @@ const TRACK_STYLE: Record<TrackKey, { bg: string; text: string }> = {
   RIGHTTOUCH: { bg: "#ff4a56", text: "#ffffff" },
 };
 
+const DAY_STYLE: Record<1 | 2, { bg: string; text: string }> = {
+  1: { bg: "#0c7edc", text: "#ffffff" },
+  2: { bg: "#e53d84", text: "#ffffff" },
+};
+
 export type TalkOgpInput = {
   title: string;
   profileImagePath: string;
@@ -265,7 +270,8 @@ function generateOgpSvg(input: SvgInput): string {
 
   // DAYバッジ
   const dayX = sessionX + sessionBadge.width + badgeGap;
-  const dayBadge = badge(dayX, badgeY, dayLabel, "#3D7EFF", "#ffffff");
+  const dayStyle = DAY_STYLE[input.dayNumber];
+  const dayBadge = badge(dayX, badgeY, dayLabel, dayStyle.bg, dayStyle.text);
   const timeX = dayX + dayBadge.width + badgeGap + 4;
 
   // タイトル折り返し（\n があれば手動改行、なければ自動折り返し）

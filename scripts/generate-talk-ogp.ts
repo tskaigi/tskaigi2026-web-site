@@ -15,7 +15,8 @@ function resolveProfileImage(profileImageUrl: string): {
   if (!profileImageUrl)
     return { path: DEFAULT_PROFILE_IMAGE, isFallback: true };
   const filePath = path.join("public", profileImageUrl);
-  if (fs.existsSync(filePath)) return { path: filePath, isFallback: false };
+  if (fs.existsSync(filePath))
+    return { path: filePath, isFallback: filePath === DEFAULT_PROFILE_IMAGE };
   return { path: DEFAULT_PROFILE_IMAGE, isFallback: true };
 }
 

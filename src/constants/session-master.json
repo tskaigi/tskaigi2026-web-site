@@ -267,7 +267,7 @@
       "qiitaLink": "https://qiita.com/hal_spider",
       "zennLink": "",
       "noteLink": "",
-      "additionalLink": "",
+      "additionalLink": "https://hal-spidernight.void.app/",
       "affiliation": "株式会社LIXIL",
       "position": "DevOps. アプリケーションエキスパート"
     }
@@ -282,7 +282,7 @@
       "name": "dowod",
       "userIcon": "x",
       "profileImageUrl": "/speakers/dowod.png",
-      "bio": "WIP",
+      "bio": "KINTOテクノロジーズ株式会社にてフロントエンドエンジニアとして従事。主に新車サブスクKINTOのシミュレーションやマイページ部分の開発を担当。\r\n\r\n普段は生成AIの出力したコードの検品係が主な業務。",
       "xId": "_dowod",
       "githubId": "dOwOd",
       "qiitaLink": "https://qiita.com/l_dOwOd_l",
@@ -290,7 +290,7 @@
       "noteLink": "",
       "additionalLink": "https://dowo.dev/",
       "affiliation": "KINTOテクノロジーズ株式会社",
-      "position": ""
+      "position": "フロントエンドエンジニア"
     }
   },
   "15": {
@@ -298,7 +298,7 @@
     "speakerId": "ei",
     "title": "決定論的な型チェックへ：Go 製コンパイラによる10倍速の裏側で --stableTypeOrdering から見える並列化への挑戦",
     "ogpTitle": "決定論的な型チェックへ：\nGo製コンパイラによる10倍速の裏側で\n--stableTypeOrderingから見える並列化への挑戦",
-    "overview": "「ロジックとして独立した宣言が，関数の型定義の順序を変更してしまう」\r\nこの挙動は，TypeScript の ype IDs を使用した仕組みによるものです．\r\n\r\nTypeScript 6.0 で --stableTypeOrdering フラグが追加される．このオプションは，上記の問題の解決であるのと同時に，TypeScript 7.0 で実現される「Go言語によるネイティブコンパイラ」へ移行準備の意味合いを持ちます．\r\n\r\nGo言語によるコンパイル高速化のための「並列化」は，Type IDsの仕組みだと，型の処理順序に対する「非決定性」の課題が出てきます．\r\n\r\n本セッションでは，TypeScript 6.0 で導入された --stableTypeOrdering フラグに焦点を当て，以下の構成で話します．\r\n\r\n- なぜ離れた場所の const 宣言が，ユニオン型の並び順を変更してしまうのか\r\n\r\n- なぜ TypeScript 7.0 では Type IDs 順を捨て，「コンテンツに基づく決定論的ソート」を導入したのか\r\n\r\n- チェック速度を最大 25% 犠牲にしてまでも提供されるこのフラグの価値と，移行時に発生しうる推論エラー",
+    "overview": "「ロジックとして独立した宣言が，関数の型定義の順序を変更してしまう」\r\nこの挙動は，TypeScript の Type IDs を使用した仕組みによるものです．\r\n\r\nTypeScript 6.0 で --stableTypeOrdering フラグが追加される．このオプションは，上記の問題の解決であるのと同時に，TypeScript 7.0 で実現される「Go言語によるネイティブコンパイラ」へ移行準備の意味合いを持ちます．\r\n\r\nGo言語によるコンパイル高速化のための「並列化」は，Type IDsの仕組みだと，型の処理順序に対する「非決定性」の課題が出てきます．\r\n\r\n本セッションでは，TypeScript 6.0 で導入された --stableTypeOrdering フラグに焦点を当て，以下の構成で話します．\r\n\r\n- なぜ離れた場所の const 宣言が，ユニオン型の並び順を変更してしまうのか\r\n\r\n- なぜ TypeScript 7.0 では Type IDs 順を捨て，「コンテンツに基づく決定論的ソート」を導入したのか\r\n\r\n- チェック速度を最大 25% 犠牲にしてまでも提供されるこのフラグの価値と，移行時に発生しうる推論エラー",
     "speaker": {
       "name": "えーたろー",
       "userIcon": "x",
@@ -430,7 +430,7 @@
       "userIcon": "x",
       "profileImageUrl": "/speakers/kazupon.png",
       "bio": "Software engineer / Part-time open sourceror. Vue.js core team, Vite+ team, creator of Gunshi, Intlify, Vue.js Japan User Group & Vue Fes Japan organizer.",
-      "xId": "kazu_pon",
+      "xId": "kazupon",
       "githubId": "kazupon",
       "qiitaLink": "",
       "zennLink": "",
@@ -1453,20 +1453,20 @@
     "speakerId": "riku-takada",
     "title": "string地獄を脱出する — ValueObject + Zod 実践パターン",
     "ogpTitle": "string地獄を脱出する\n— ValueObject + Zod 実践パターン",
-    "overview": "「string同士の取り違えが本番でしか分からない」「Zodと型定義を二重に書いている」——この2つの悩みを、ValueObject + Zodで解消するパターンを実コードで紹介します。\n\n数十行の基底クラス ValueObject<T> のコンストラクタでZodを叩き、コンパイル時の型安全とランタイム検証を1箇所に集約する設計です。プリミティブ型VO（z.number().positive().int()で不正値を弾くSystemId）とEnum型VO（z.enumからz.inferで型を導出し二重定義をなくすTaskStatus）の2パターンを実例で解説します。\n\nまた、プロダクションで113個のValueObjectを運用する中で得た知見として、Plopによる2層構造（Generated層+手動実装層）での効率的な管理手法と、Object型VOのequals問題という実務の落とし穴にも触れます。\n\n聞くと、型とランタイム検証を一本化する設計パターンと、大量のVOを破綻なく運用する仕組みが持ち帰れます。",
+    "overview": "「string同士の取り違えが本番でしか分からない」「Zodと型定義を二重に書いている」——この2つの悩みを、ValueObject + Zodで解消するパターンを実コードで紹介します。\r\n\r\n数十行の基底クラス ValueObject<T> のコンストラクタでZodを叩き、コンパイル時の型安全とランタイム検証を1箇所に集約する設計です。プリミティブ型VO（z.number().positive().int()で不正値を弾くSystemId）とEnum型VO（z.enumからz.inferで型を導出し二重定義をなくすTaskStatus）の2パターンを実例で解説します。\r\n\r\nまた、プロダクションで113個のValueObjectを運用する中で得た知見として、Plopによる2層構造（Generated層+手動実装層）での効率的な管理手法と、Object型VOのequals問題という実務の落とし穴にも触れます。\r\n\r\n聞くと、型とランタイム検証を一本化する設計パターンと、大量のVOを破綻なく運用する仕組みが持ち帰れます。",
     "speaker": {
       "name": "高田 理功",
       "userIcon": "x",
       "profileImageUrl": "/speakers/riku-takada.png",
-      "bio": "",
-      "xId": "",
-      "githubId": "",
+      "bio": "Sansan株式会社にてデータ化システムの開発をしています。\r\nエンジニア歴8年目で、受託企業→ベンチャー→Sansanの3社目です。\r\n好きな本は「Clean Architecture 達人に学ぶソフトウェアの構造と設計」と「達人プログラマー(第2版): 熟達に向けたあなたの旅」です。",
+      "xId": "tkdalic",
+      "githubId": "tkdalic",
       "qiitaLink": "",
       "zennLink": "",
       "noteLink": "",
       "additionalLink": "",
-      "affiliation": "",
-      "position": ""
+      "affiliation": "Sansan株式会社",
+      "position": "ソフトウェアエンジニア"
     }
   },
   "71": {
@@ -1682,9 +1682,9 @@
   "81": {
     "id": "81",
     "speakerId": "layerx",
-    "title": "未定",
-    "ogpTitle": "未定",
-    "overview": "-",
+    "title": "TypeScriptはどのようにどこまで推論できるのか ─ とにかく as は禁止で",
+    "ogpTitle": "TypeScriptはどのようにどこまで推論できるのか\n─ とにかく as は禁止で",
+    "overview": "TypeScript の型チェックは、型推論、Control Flow 解析、そして各種ガードレールという強力な3つの仕組みに支えられています。そしてInferred Type Predicates (filter()の型推論) のように、以前は手でケアしていた場面でも自動で正しい型が付くようになるなど、これらの機構は年々強化されてきました。\r\n\r\n一方これらの機構でカバーできるにも関わらず as (as constを除く) を使用してしまうことは、AI 時代に必要な安全性を自ら緩めることになり、それは \"敗北\" です。\r\n\r\n本セッションは、Contextual Type をはじめとして、TypeScript の推論機構やガードレールの仕組みと制限を紹介し、その安全性を活かすことにより、「as全部禁止」に対して「主張が強い」と返されないように試みるものです。",
     "speaker": {
       "name": "ypresto",
       "userIcon": "x",

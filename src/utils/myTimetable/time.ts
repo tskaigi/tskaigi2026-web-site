@@ -39,6 +39,7 @@ export function parseTalkTimeToMinutes(timeText: string) {
 const SESSION_SLOTS = [
   { start: 670, end: 700 }, // 11:10〜11:40
   { start: 710, end: 740 }, // 11:50〜12:20
+  { start: 750, end: 810 }, // 12:30〜13:30
   { start: 820, end: 850 }, // 13:40〜14:10
   { start: 860, end: 890 }, // 14:20〜14:50
   { start: 910, end: 940 }, // 15:10〜15:40
@@ -48,7 +49,8 @@ const SESSION_SLOTS = [
   { start: 1090, end: 1130 }, // 18:10〜18:50
 ] as const;
 
-const SESSION_SLOT_HEIGHT = 100;
+const BASE_SLOT_MINUTES = 30;
+const BASE_SLOT_HEIGHT = 100;
 const BREAK_HEIGHT = 16;
 
 /**
@@ -96,14 +98,16 @@ function buildTimelineSegments(): TimelineSegment[] {
       }
     }
 
+    const slotMinutes = slot.end - slot.start;
+    const slotHeight = BASE_SLOT_HEIGHT * (slotMinutes / BASE_SLOT_MINUTES);
     segments.push({
       type: "session",
       start: slot.start,
       end: slot.end,
       top,
-      height: SESSION_SLOT_HEIGHT,
+      height: slotHeight,
     });
-    top += SESSION_SLOT_HEIGHT;
+    top += slotHeight;
   }
 
   // 最後のセッション後の休憩
@@ -155,7 +159,7 @@ function minutesToHeight(startMinutes: number, endMinutes: number): number {
   return minutesToTop(endMinutes) - minutesToTop(startMinutes);
 }
 
-export type PositionedTalk = TalkWithMinutes & {
+type PositionedTalk = TalkWithMinutes & {
   columnIndex: number;
   columnCount: number;
   isOverlapping: boolean;
@@ -301,6 +305,19 @@ function formatTimeRange(start: number, end: number): string {
   return `${formatTime(start)} ~ ${formatTime(end)}`;
 }
 
+function hasSessionInSlot(
+  eventDate: EventDate,
+  slotStart: number,
+  slotEnd: number,
+): boolean {
+  return talkList.some((talk) => {
+    if (talk.eventDate !== eventDate) return false;
+    const parsed = parseTalkTimeToMinutes(talk.time);
+    if (!parsed) return false;
+    return parsed.startMinutes < slotEnd && parsed.endMinutes > slotStart;
+  });
+}
+
 export const MY_TIMETABLE_CONST = {
   TIMELINE_HEIGHT,
   TIMELINE_SEGMENTS,
@@ -315,6 +332,7 @@ export const myTimetable = {
   getPositionedTalks,
   getAllTalksWithMinutes,
   groupTalksByDate,
+  hasSessionInSlot,
   formatTime,
   formatTimeRange,
 };

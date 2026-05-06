@@ -9,7 +9,9 @@ export type TourStepBehavior =
   | { type: "default" }
   | { type: "passthrough-add" }
   | { type: "passthrough-click" }
-  | { type: "passthrough-delete" };
+  | { type: "passthrough-delete" }
+  | { type: "passthrough-drawer-open" }
+  | { type: "passthrough-participate" };
 
 export type TourStepMeta = {
   behavior: TourStepBehavior;
@@ -27,11 +29,19 @@ export const stepMeta: Partial<Record<number, TourStepMeta>> = {
   0: { behavior: { type: "passthrough-add" } },
   1: { behavior: { type: "passthrough-click" } },
   4: {
+    behavior: { type: "passthrough-drawer-open" },
+    dynamicSelector: (addedTalkId) =>
+      addedTalkId
+        ? `[data-tour-session-id="${addedTalkId}"]`
+        : "[data-tour-session-id]",
+  },
+  5: { behavior: { type: "passthrough-participate" } },
+  6: {
     behavior: { type: "passthrough-delete" },
     dynamicSelector: (addedTalkId) =>
       addedTalkId
         ? `[data-tour-session-id="${addedTalkId}"]`
-        : "#tour-timeline-day1",
+        : "[data-tour-session-id]",
   },
 };
 
@@ -41,7 +51,7 @@ const steps: Step[] = [
     icon: "1️⃣",
     title: "セッションを追加してみよう",
     content:
-      "セッションの「追加」ボタンを押して、マイタイムテーブルに追加してみましょう。",
+      "セッションの「参加登録」ボタンを押して、マイタイムテーブルに追加してみましょう。",
     selector: "#tour-add-button",
     side: "bottom",
     showControls: true,
@@ -90,23 +100,50 @@ const steps: Step[] = [
     nextRoute: "/talks/me",
     prevRoute: "/talks/me",
   },
-  // Step 5: /talks/me — Remove talk（追加したセッションを削除）
+  // Step 5: /talks/me — セッションタイトルをクリックしてドロワーを開く
   {
     icon: "5️⃣",
-    title: "セッションを削除",
-    content:
-      "追加したセッションの右上の × をタップして削除してみましょう。検索パネルからも削除可能です。",
-    selector: "#tour-timeline-day1",
+    title: "セッション詳細を見てみよう",
+    content: "追加したセッションのタイトルをタップすると、詳細を確認できます。",
+    selector: "[data-tour-session-id]",
     side: "top",
     showControls: true,
     pointerPadding: 4,
-    pointerRadius: 12,
+    pointerRadius: 8,
     nextRoute: "/talks/me",
     prevRoute: "/talks/me",
   },
-  // Step 6: /talks/me — Share button
+  // Step 6: /talks/me — ドロワー内で参加記録を付ける
   {
     icon: "6️⃣",
+    title: "参加記録を付けよう",
+    content:
+      "「参加記録を付ける」ボタンを押して、セッションへの参加を記録しましょう。",
+    selector: "#tour-drawer-participate",
+    side: "bottom",
+    showControls: true,
+    pointerPadding: 4,
+    pointerRadius: 8,
+    nextRoute: "/talks/me",
+    prevRoute: "/talks/me",
+  },
+  // Step 7: /talks/me — Remove talk（追加したセッションを削除）
+  {
+    icon: "7️⃣",
+    title: "セッションを削除",
+    content:
+      "追加したセッションの右上の × をタップして削除してみましょう。検索パネルからも削除可能です。",
+    selector: "[data-tour-session-id]",
+    side: "top",
+    showControls: true,
+    pointerPadding: 4,
+    pointerRadius: 8,
+    nextRoute: "/talks/me",
+    prevRoute: "/talks/me",
+  },
+  // Step 8: /talks/me — Share button
+  {
+    icon: "8️⃣",
     title: "Xでシェア",
     content:
       "マイタイムテーブルをXでシェアできます。タイムテーブルのURLが共有されるので、友人と予定を共有しましょう。",
@@ -118,9 +155,9 @@ const steps: Step[] = [
     nextRoute: "/talks/me",
     prevRoute: "/talks/me",
   },
-  // Step 7: /talks/me — QR code button
+  // Step 9: /talks/me — QR code button
   {
-    icon: "7️⃣",
+    icon: "9️⃣",
     title: "QRコード",
     content:
       "QRコードを表示して、他のデバイスでマイタイムテーブルを開けます。スマホとPCで同期しましょう。",
@@ -132,9 +169,9 @@ const steps: Step[] = [
     nextRoute: "/talks/me",
     prevRoute: "/talks/me",
   },
-  // Step 8: /talks/me — Info button
+  // Step 10: /talks/me — Info button
   {
-    icon: "8️⃣",
+    icon: "🔟",
     title: "マイタイムテーブルについて",
     content: "マイタイムテーブルの使い方や機能の説明を確認できます。",
     selector: "#tour-sidebar-info",
@@ -145,9 +182,9 @@ const steps: Step[] = [
     nextRoute: "/talks/me",
     prevRoute: "/talks/me",
   },
-  // Step 9: /talks/me — Reset button
+  // Step 11: /talks/me — Reset button
   {
-    icon: "9️⃣",
+    icon: "🔢",
     title: "リセット",
     content: "追加したセッションをすべてクリアして、最初からやり直せます。",
     selector: "#tour-reset-button",
@@ -158,12 +195,12 @@ const steps: Step[] = [
     nextRoute: "/talks/me",
     prevRoute: "/talks/me",
   },
-  // Step 10: Final message (dialog mode — no highlight target)
+  // Step 12: Final message (dialog mode — no highlight target)
   {
     icon: "🎉",
-    title: "全時間参加を目指そう！",
+    title: "TSKaigi 2026を楽しもう！",
     content:
-      "会場では各セッションの参加記録QRコードが掲出されます。読み取ると参加記録がつきます。全時間帯のセッションに参加して、コンプリートを目指しましょう！",
+      "各セッションの詳細画面から参加記録を付けることができます。目指せ、行きたい全セッション踏破！",
     selector: "#tour-dialog",
     side: "bottom",
     showControls: true,

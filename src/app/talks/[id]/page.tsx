@@ -6,11 +6,13 @@ import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import { OgpImage, ProfileImage } from "@/components/talks/FallbackImage";
 import { TalkStatus } from "@/components/talks/TalkStatus";
-// import { ToggleParticipatedButton } from "@/components/talks/TalkStatus";
-// import { Button } from "@/components/ui/button";
 import { SESSION_IDS, TALK_TYPE } from "@/constants/timetable";
 import { getSession } from "@/utils/getSession";
 import { myTimetable } from "@/utils/myTimetable";
+import {
+  DevelopModeFloatingButtons,
+  DevelopModeToggleButton,
+} from "./DevelopModeSection";
 
 export async function generateStaticParams() {
   return SESSION_IDS.map((id) => ({ id }));
@@ -96,7 +98,7 @@ export default async function TalkDetailPage({
 }) {
   const { id } = await params;
   const detail = getSession(id);
-  const { session, sessionType, trackName, startTime, endTime } = detail;
+  const { session, sessionType, name, startTime, endTime } = detail;
   const timeRange = myTimetable.formatTimeRange(startTime, endTime);
   const typeLabel = TALK_TYPE[sessionType].name;
   const { speaker } = session;
@@ -122,11 +124,11 @@ export default async function TalkDetailPage({
               {typeLabel}
             </span>
             <TalkStatus talkId={session.id} />
-            {/* <ToggleParticipatedButton talkId={session.id} /> */}
+            <DevelopModeToggleButton talkId={session.id} />
           </div>
           <div className="text-2xl font-bold">{session.title}</div>
           <div className="text-lg font-bold">
-            {detail.day} / {timeRange} （{trackName}）
+            {detail.day} / {timeRange} （{name}）
           </div>
         </div>
 
@@ -277,14 +279,7 @@ export default async function TalkDetailPage({
           </div>
         </div>
       </div>
-      {/* <div className="fixed bottom-6 right-6 z-50 flex gap-2">
-        <Button type="button" asChild className="rounded-full shadow-lg">
-          <Link href="/talks/me">マイタイムテーブルへ</Link>
-        </Button>
-        <Button type="button" asChild className="rounded-full shadow-lg">
-          <Link href="/talks">タイムテーブルへ</Link>
-        </Button>
-      </div> */}
+      <DevelopModeFloatingButtons />
     </main>
   );
 }
