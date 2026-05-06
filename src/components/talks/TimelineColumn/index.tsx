@@ -121,7 +121,9 @@ export function TimelineColumn({
       {/* セッション枠のクリック領域 */}
       {editable &&
         MY_TIMETABLE_CONST.TIMELINE_SEGMENTS.filter(
-          (seg) => seg.type === "session",
+          (seg) =>
+            seg.type === "session" &&
+            myTimetable.hasSessionInSlot(eventDate, seg.start, seg.end),
         ).map((seg) => (
           <button
             type="button"

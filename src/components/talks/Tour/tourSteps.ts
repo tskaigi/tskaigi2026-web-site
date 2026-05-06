@@ -41,7 +41,7 @@ const steps: Step[] = [
     icon: "1️⃣",
     title: "セッションを追加してみよう",
     content:
-      "セッションの「追加」ボタンを押して、マイタイムテーブルに追加してみましょう。",
+      "セッションの「参加登録」ボタンを押して、マイタイムテーブルに追加してみましょう。",
     selector: "#tour-add-button",
     side: "bottom",
     showControls: true,
@@ -161,9 +161,9 @@ const steps: Step[] = [
   // Step 10: Final message (dialog mode — no highlight target)
   {
     icon: "🎉",
-    title: "全時間参加を目指そう！",
+    title: "TSKaigi 2026を楽しもう！",
     content:
-      "会場では各セッションの参加記録QRコードが掲出されます。読み取ると参加記録がつきます。全時間帯のセッションに参加して、コンプリートを目指しましょう！",
+      "各セッションの詳細画面から参加記録を付けることができます。目指せ、行きたい全セッション踏破！",
     selector: "#tour-dialog",
     side: "bottom",
     showControls: true,

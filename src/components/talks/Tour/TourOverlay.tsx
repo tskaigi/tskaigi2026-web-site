@@ -353,10 +353,22 @@ export function TourOverlay() {
     return () => observerRef.current?.disconnect();
   }, []);
 
-  // ツアー開始時に addedTalkId をリセット
+  // ツアー開始時に addedTalkId をリセット（既に追加済みならそのIDをセット）
   const prevVisible = useRef(false);
   useEffect(() => {
     if (isOnbordaVisible && !prevVisible.current) {
+      const el = findVisibleElement("#tour-add-button");
+      if (el) {
+        const btn = el.querySelector("[data-talk-id]");
+        if (btn instanceof HTMLElement) {
+          const talkId = btn.dataset.talkId;
+          if (talkId && myTimetableIds.read().includes(talkId)) {
+            setAddedTalkId(talkId);
+            prevVisible.current = isOnbordaVisible;
+            return;
+          }
+        }
+      }
       setAddedTalkId(null);
     }
     prevVisible.current = isOnbordaVisible;
