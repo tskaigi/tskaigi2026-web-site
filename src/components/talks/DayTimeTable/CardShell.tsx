@@ -14,17 +14,20 @@ function TriangleBadge({ track }: { track: Track }) {
   );
 }
 
-function MobileTrackBadge({ track }: { track: Track }) {
-  const style = TRACK_STYLE[track.id];
+function MobileTrackBadges({ tracks }: { tracks: Track[] }) {
   return (
-    <div
-      className={cn(
-        style.bg,
-        style.text,
-        "block md:hidden py-1 px-2 absolute top-0 left-0 text-xs font-bold",
-      )}
-    >
-      {track.name}
+    <div className="block md:hidden absolute top-0 left-0 flex gap-1">
+      {tracks.map((t) => {
+        const style = TRACK_STYLE[t.id];
+        return (
+          <div
+            key={t.id}
+            className={cn(style.bg, style.text, "py-1 px-2 text-xs font-bold")}
+          >
+            {t.name}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -34,21 +37,19 @@ function MobileTrackBadge({ track }: { track: Track }) {
  * - variant: "closed" → グレー小箱 / "card" → 白カード
  * - align: 子要素の揃え (start: SessionCard, center: ラベル系)
  * - withTriangle: 右上の三角(SessionCard 専用)
- * - isSingleTrack のときだけモバイル用のトラック名バッジを表示
+ * - tracks: モバイル時に左上に並べるトラック名バッジの元データ
  */
 export function CardShell({
   variant,
   align = "center",
-  track,
-  isSingleTrack,
+  tracks,
   withTriangle = false,
   id,
   children,
 }: {
   variant: "closed" | "card";
   align?: "start" | "center";
-  track: Track;
-  isSingleTrack: boolean;
+  tracks: Track[];
   withTriangle?: boolean;
   id?: string;
   children: React.ReactNode;
@@ -70,8 +71,8 @@ export function CardShell({
         "px-5 h-full flex flex-col gap-2 text-black-700 relative",
       )}
     >
-      {isSingleTrack && <MobileTrackBadge track={track} />}
-      {withTriangle && <TriangleBadge track={track} />}
+      <MobileTrackBadges tracks={tracks} />
+      {withTriangle && <TriangleBadge track={tracks[0]} />}
       {children}
     </div>
   );

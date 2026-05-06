@@ -35,8 +35,7 @@ export function SessionCard({
     <CardShell
       variant="card"
       align="start"
-      track={track}
-      isSingleTrack
+      tracks={[track]}
       withTriangle
       id={id}
     >

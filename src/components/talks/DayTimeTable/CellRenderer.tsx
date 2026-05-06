@@ -27,13 +27,12 @@ export function CellRenderer({
   trackRecord: Record<TrackKey, Track>;
   id?: string;
 }) {
-  const isSingleTrack = cell.trackKeys.length === 1;
-  const track = trackRecord[cell.trackKeys[0]];
+  const tracks = cell.trackKeys.map((k) => trackRecord[k]);
   const c = cell.content;
 
   if (c.type === "closed") {
     return (
-      <CardShell variant="closed" track={track} isSingleTrack={isSingleTrack}>
+      <CardShell variant="closed" tracks={tracks}>
         クローズ
       </CardShell>
     );
@@ -51,11 +50,11 @@ export function CellRenderer({
   if (c.type === "labeled" || c.displayLabel !== undefined) {
     const label = c.type === "labeled" ? c.label : c.displayLabel;
     return (
-      <CardShell variant="card" track={track} isSingleTrack={isSingleTrack}>
+      <CardShell variant="card" tracks={tracks}>
         <LabelText label={label ?? ""} link={c.link} />
       </CardShell>
     );
   }
 
-  return <SessionCard content={c} track={track} id={id} />;
+  return <SessionCard content={c} track={tracks[0]} id={id} />;
 }
