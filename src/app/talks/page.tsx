@@ -5,14 +5,16 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { DayTimeTable } from "@/components/talks/DayTimeTable";
 import { EventDateTab } from "@/components/talks/EventDateTab";
-// import { StartTourButton } from "@/components/talks/Tour";
-// import { Button } from "@/components/ui/button";
+import { StartTourButton } from "@/components/talks/Tour";
+import { Button } from "@/components/ui/button";
 import { timetableList } from "@/constants/timetable";
+import { useDevelopMode } from "@/hooks/useDevelopMode";
 import type { EventDate } from "@/types/timetable-api";
 
 const TalksPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const isDevelop = useDevelopMode();
 
   const eventDayParam = searchParams.get("day");
 
@@ -54,7 +56,7 @@ const TalksPage = () => {
           currentDate={currentEventDate}
           onTabChange={handleTabChange}
         />
-        {/* <StartTourButton /> */}
+        {isDevelop && <StartTourButton />}
       </div>
 
       <div className="overflow-x-auto mt-10">
@@ -62,14 +64,16 @@ const TalksPage = () => {
           <DayTimeTable data={dayData} />
         </div>
       </div>
-      {/* <Button
-        id="tour-floating-button"
-        type="button"
-        asChild
-        className="fixed bottom-6 right-6 z-50 rounded-full shadow-lg"
-      >
-        <Link href="/talks/me">マイタイムテーブルへ</Link>
-      </Button> */}
+      {isDevelop && (
+        <Button
+          id="tour-floating-button"
+          type="button"
+          asChild
+          className="fixed bottom-6 right-6 z-50 rounded-full shadow-lg"
+        >
+          <Link href="/talks/me">マイタイムテーブルへ</Link>
+        </Button>
+      )}
     </main>
   );
 };
