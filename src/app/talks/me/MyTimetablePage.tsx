@@ -298,7 +298,7 @@ function InfoDialog({ onClose }: { onClose: () => void }) {
         <div>
           <h4 className="font-bold text-black-700">参加記録を残そう</h4>
           <p className="mt-1">
-            会場では各セッションの参加記録QRコードが掲出されます。読み取ると、マイタイムテーブルに参加記録が付きます。目指せ全時間帯参加！
+            各セッションの詳細画面から参加記録を付けることができます。目指せ、行きたい全セッション踏破！
           </p>
         </div>
 

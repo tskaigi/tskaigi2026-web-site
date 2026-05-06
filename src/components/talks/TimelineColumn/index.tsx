@@ -86,7 +86,7 @@ export function TimelineColumn({
     }
 
     return merged.map((g, i) => {
-      const trackSet = clusterTracks.get(find(i))!;
+      const trackSet = clusterTracks.get(find(i)) ?? new Set();
       const tracks = TRACK_KEYS.filter((k) => trackSet.has(k));
       return {
         talks: g.talks,
@@ -121,7 +121,9 @@ export function TimelineColumn({
       {/* セッション枠のクリック領域 */}
       {editable &&
         MY_TIMETABLE_CONST.TIMELINE_SEGMENTS.filter(
-          (seg) => seg.type === "session",
+          (seg) =>
+            seg.type === "session" &&
+            myTimetable.hasSessionInSlot(eventDate, seg.start, seg.end),
         ).map((seg) => (
           <button
             type="button"
