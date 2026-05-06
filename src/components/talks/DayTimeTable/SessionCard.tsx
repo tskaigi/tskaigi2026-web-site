@@ -1,8 +1,9 @@
-// import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
 import Link from "next/link";
+import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
 import { ProfileImage } from "@/components/talks/FallbackImage";
 import { getSessionMasterBySessionId } from "@/constants/sessionMaster";
 import { TALK_TYPE } from "@/constants/timetable";
+import { useDevelopMode } from "@/hooks/useDevelopMode";
 import type { SessionContent, Track } from "@/types/timetable-api";
 import { CardShell } from "./CardShell";
 
@@ -31,6 +32,8 @@ export function SessionCard({
   track: Track;
   id?: string;
 }) {
+  const isDevelop = useDevelopMode();
+
   return (
     <CardShell
       variant="card"
@@ -41,11 +44,13 @@ export function SessionCard({
     >
       <div className="flex items-center justify-between w-full">
         <SessionTypeLabel sessionType={content.sessionType} />
-        {/* <AddToMyTimetableButton
-          talkId={content.sessions[0].id}
-          talkIds={content.sessions.map((s) => s.id)}
-          withCheckbox
-        /> */}
+        {isDevelop && (
+          <AddToMyTimetableButton
+            talkId={content.sessions[0].id}
+            talkIds={content.sessions.map((s) => s.id)}
+            withCheckbox
+          />
+        )}
       </div>
       <div className="flex flex-col gap-5">
         {content.sessions.map((ref) => {
