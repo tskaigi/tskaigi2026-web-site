@@ -31,22 +31,25 @@ function isValidSessionKey(key: string): key is SessionKey {
 function buildMetaMap(): Map<string, SessionMeta> {
   const map = new Map<string, SessionMeta>();
 
-  for (const day of timetableList) {
-    const dayNumber: 1 | 2 = day.day === "Day1" ? 1 : 2;
+  for (const timetable of timetableList) {
+    const { day, cells, trackRecord } = timetable;
+    const dayNumber: 1 | 2 = day === "Day1" ? 1 : 2;
 
-    for (const cell of day.cells) {
-      if (cell.content.type !== "session") continue;
-      if (!isValidSessionKey(cell.content.sessionType)) continue;
-      const timeRange = `${toHHMM(cell.startTime)} ~ ${toHHMM(cell.endTime)}`;
+    for (const cell of cells) {
+      const { content, trackKeys, startTime, endTime } = cell;
+      if (content.type !== "session") continue;
+      const { sessionType, sessions } = content;
+      if (!isValidSessionKey(sessionType)) continue;
+      const timeRange = `${toHHMM(startTime)} ~ ${toHHMM(endTime)}`;
 
-      for (const trackKey of cell.trackKeys) {
-        const trackInfo = day.trackRecord[trackKey];
+      for (const trackKey of trackKeys) {
+        const trackName = trackRecord[trackKey].name;
 
-        for (const session of cell.content.sessions) {
+        for (const session of sessions) {
           map.set(session.id, {
             trackKey,
-            trackName: trackInfo.name,
-            sessionTypeKey: cell.content.sessionType,
+            trackName,
+            sessionTypeKey: sessionType,
             dayNumber,
             timeRange,
           });
