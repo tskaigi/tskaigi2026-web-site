@@ -78,4 +78,9 @@ export const personalSponsorList: {
     link: "https://x.com/kaito071831",
     imgSrc: "/personalSponsors/kaito071831.jpg",
   },
+  {
+    name: "たなかひかる",
+    link: "https://x.com/htanaka0828",
+    imgSrc: "/personalSponsors/htanaka0828.jpg",
+  },
 ];
