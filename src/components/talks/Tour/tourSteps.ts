@@ -104,8 +104,7 @@ const steps: Step[] = [
   {
     icon: "5️⃣",
     title: "セッション詳細を見てみよう",
-    content:
-      "追加したセッションのタイトルをタップすると、詳細を確認できます。",
+    content: "追加したセッションのタイトルをタップすると、詳細を確認できます。",
     selector: "[data-tour-session-id]",
     side: "top",
     showControls: true,

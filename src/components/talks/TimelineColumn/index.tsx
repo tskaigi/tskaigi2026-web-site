@@ -86,7 +86,7 @@ export function TimelineColumn({
     }
 
     return merged.map((g, i) => {
-      const trackSet = clusterTracks.get(find(i))!;
+      const trackSet = clusterTracks.get(find(i)) ?? new Set();
       const tracks = TRACK_KEYS.filter((k) => trackSet.has(k));
       return {
         talks: g.talks,
