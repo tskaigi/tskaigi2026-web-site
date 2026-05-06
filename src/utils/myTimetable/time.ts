@@ -155,7 +155,7 @@ function minutesToHeight(startMinutes: number, endMinutes: number): number {
   return minutesToTop(endMinutes) - minutesToTop(startMinutes);
 }
 
-export type PositionedTalk = TalkWithMinutes & {
+type PositionedTalk = TalkWithMinutes & {
   columnIndex: number;
   columnCount: number;
   isOverlapping: boolean;

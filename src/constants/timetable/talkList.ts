@@ -1,9 +1,8 @@
 import { getSessionMasterBySessionId } from "@/constants/sessionMaster";
 import type {
   EventDate,
-  IndividualSlot,
+  SessionKey,
   SessionSummary,
-  SessionTrack,
   TrackKey,
 } from "@/types/timetable-api";
 import { myTimetable } from "@/utils/myTimetable";
@@ -19,32 +18,26 @@ export const EVENT_DATE: Record<EventDate, string> = {
 
 export const TRACK_STYLE: Record<
   TrackKey,
-  { bg: string; text: string; border: string; cssVar: string }
+  { bg: string; text: string; border: string }
 > = {
   LEVERAGES: {
     bg: "bg-track-leverages",
     text: "text-white",
     border: "border-track-leverages",
-    cssVar: "var(--track-leverages)",
   },
   UPSIDER: {
     bg: "bg-track-upsider",
     text: "text-white",
     border: "border-track-upsider",
-    cssVar: "var(--track-upsider)",
   },
   RIGHTTOUCH: {
     bg: "bg-track-righttouch",
     text: "text-white",
     border: "border-track-righttouch",
-    cssVar: "var(--track-righttouch)",
   },
 };
 
-export const TALK_TYPE: Record<
-  SessionTrack["sessionType"],
-  { name: string; color: string }
-> = {
+export const TALK_TYPE: Record<SessionKey, { name: string; color: string }> = {
   KEYNOTE: { name: "基調講演", color: "#0CA90E" },
   LONG: { name: "30分セッション", color: "#0C7EDC" },
   SHORT: { name: "10分セッション", color: "#c3620f" },
@@ -77,38 +70,20 @@ export type Talk = SessionSummary & {
   time: string;
 };
 
-function findSpanGroup(
-  day: (typeof timetableList)[number],
-  slot: IndividualSlot,
-  trackKey: TrackKey,
-) {
-  return day.spanGroups?.find(
-    (g) =>
-      g.tracks.includes(trackKey) &&
-      slot.startTime >= g.startTime &&
-      slot.endTime <= g.endTime,
-  );
-}
-
 export const talkList: Talk[] = timetableList.flatMap((day) =>
-  day.slots
-    .filter((slot): slot is IndividualSlot => slot.slotType === "individual")
-    .flatMap((slot) =>
-      TRACK_KEYS.flatMap((trackKey) => {
-        const content = slot.tracks[trackKey];
-        if (content.type !== "session") return [];
-        const span = findSpanGroup(day, slot, trackKey);
-        const time = span
-          ? myTimetable.formatTimeRange(span.startTime, span.endTime)
-          : myTimetable.formatTimeRange(slot.startTime, slot.endTime);
-        return content.sessions.map((ref) => ({
-          ...resolveSession(ref.id),
-          eventDate: day.day,
-          track: trackKey,
-          time,
-        }));
-      }),
-    ),
+  day.cells.flatMap((cell) => {
+    if (cell.content.type !== "session") return [];
+    const { sessions } = cell.content;
+    const time = myTimetable.formatTimeRange(cell.startTime, cell.endTime);
+    return cell.trackKeys.flatMap((trackKey) =>
+      sessions.map((ref) => ({
+        ...resolveSession(ref.id),
+        eventDate: day.day,
+        track: trackKey,
+        time,
+      })),
+    );
+  }),
 );
 
 export const SESSION_IDS = talkList.map((talk) => talk.id);
