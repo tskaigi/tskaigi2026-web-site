@@ -18,25 +18,22 @@ export const EVENT_DATE: Record<EventDate, string> = {
 
 export const TRACK_STYLE: Record<
   TrackKey,
-  { bg: string; text: string; border: string; cssVar: string }
+  { bg: string; text: string; border: string }
 > = {
   LEVERAGES: {
     bg: "bg-track-leverages",
     text: "text-white",
     border: "border-track-leverages",
-    cssVar: "var(--track-leverages)",
   },
   UPSIDER: {
     bg: "bg-track-upsider",
     text: "text-white",
     border: "border-track-upsider",
-    cssVar: "var(--track-upsider)",
   },
   RIGHTTOUCH: {
     bg: "bg-track-righttouch",
     text: "text-white",
     border: "border-track-righttouch",
-    cssVar: "var(--track-righttouch)",
   },
 };
 

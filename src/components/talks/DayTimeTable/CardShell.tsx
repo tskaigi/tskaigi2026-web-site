@@ -2,20 +2,14 @@ import { TRACK_STYLE } from "@/constants/timetable";
 import { cn } from "@/lib/utils";
 import type { Track } from "@/types/timetable-api";
 
-function TriangleBadge({ cssVar }: { cssVar: string }) {
+function TriangleBadge({ track }: { track: Track }) {
+  const style = TRACK_STYLE[track.id];
   return (
     <div
-      className="hidden md:block"
-      style={{
-        width: 0,
-        height: 0,
-        borderStyle: "solid",
-        borderWidth: "0 24px 24px 0",
-        borderColor: `transparent ${cssVar} transparent transparent`,
-        position: "absolute",
-        top: 0,
-        right: 0,
-      }}
+      className={cn(
+        "hidden md:block absolute top-0 right-0 w-6 h-6 [clip-path:polygon(0_0,100%_0,100%_100%)]",
+        style.bg,
+      )}
     />
   );
 }
@@ -59,7 +53,6 @@ export function CardShell({
   id?: string;
   children: React.ReactNode;
 }) {
-  const style = TRACK_STYLE[track.id];
   const sizeCls =
     variant === "closed"
       ? "bg-gray-50 min-h-16"
@@ -78,7 +71,7 @@ export function CardShell({
       )}
     >
       {isSingleTrack && <MobileTrackBadge track={track} />}
-      {withTriangle && <TriangleBadge cssVar={style.cssVar} />}
+      {withTriangle && <TriangleBadge track={track} />}
       {children}
     </div>
   );

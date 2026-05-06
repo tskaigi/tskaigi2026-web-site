@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 export function TimeLabel({
   timeText,
   isActive = false,
@@ -7,16 +9,18 @@ export function TimeLabel({
 }) {
   return (
     <div
-      className={`relative flex flex-col gap-2 p-2 items-center justify-center text-center w-full h-full md:w-[99px] lg:w-[125px] ${
+      className={cn(
+        "relative flex flex-col gap-2 p-2 items-center justify-center text-center w-full h-full md:w-[99px] lg:w-[125px]",
         isActive
           ? "bg-orange-200 after:content-[''] after:absolute after:top-0 after:right-0 after:w-[5px] after:h-full after:bg-orange-500 after:opacity-50"
-          : "bg-yellow-200"
-      }`}
+          : "bg-yellow-200",
+      )}
     >
       <p
-        className={`text-sm lg:text-base font-bold ${
-          isActive ? "text-orange-500" : "text-yellow-700"
-        }`}
+        className={cn(
+          "text-sm lg:text-base font-bold",
+          isActive ? "text-orange-500" : "text-yellow-700",
+        )}
       >
         {timeText}
       </p>
