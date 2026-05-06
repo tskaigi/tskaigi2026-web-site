@@ -198,7 +198,9 @@ function DrawerContent({ talk }: { talk: TalkWithMinutes }) {
           </span>
         )}
         <TalkStatus talkId={talk.id} />
-        <ToggleParticipatedButton talkId={talk.id} />
+        <span id="tour-drawer-participate">
+          <ToggleParticipatedButton talkId={talk.id} />
+        </span>
       </div>
 
       <div>

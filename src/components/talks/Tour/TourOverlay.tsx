@@ -189,6 +189,13 @@ export function TourOverlay() {
         }
       }
       setAlreadyAdded(false);
+    } else if (rawBehaviorType === "passthrough-drawer-open") {
+      if (!addedTalkId) {
+        const ids = myTimetableIds.read();
+        if (ids.length > 0) {
+          setAddedTalkId(ids[0]);
+        }
+      }
     } else if (rawBehaviorType === "passthrough-delete") {
       if (!addedTalkId || !myTimetableIds.read().includes(addedTalkId)) {
         setDeleteTargetMissing(true);
@@ -434,6 +441,74 @@ export function TourOverlay() {
     navigateAndWait,
   ]);
 
+  // passthrough-drawer-open: ドロワーが開いたら（#tour-drawer-participate が出現したら）自動進行
+  useEffect(() => {
+    if (!isOnbordaVisible || !steps) return;
+    if (behaviorType !== "passthrough-drawer-open") return;
+
+    const nextIdx = currentStep + 1;
+    if (nextIdx >= steps.length) return;
+
+    const check = () => {
+      const el = findVisibleElement("#tour-drawer-participate");
+      if (el) {
+        setCurrentStep(nextIdx);
+        return true;
+      }
+      return false;
+    };
+
+    if (check()) return;
+
+    const observer = new MutationObserver(() => {
+      if (check()) observer.disconnect();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, [isOnbordaVisible, steps, currentStep, behaviorType, setCurrentStep]);
+
+  // passthrough-participate: 参加記録イベントで自動進行＆ドロワーを閉じる
+  useEffect(() => {
+    if (!isOnbordaVisible || !steps) return;
+    if (behaviorType !== "passthrough-participate") return;
+
+    const handler = () => {
+      const nextIdx = currentStep + 1;
+      if (nextIdx >= steps.length) return;
+
+      // ドロワーを閉じるためにEscapeキーをディスパッチ
+      document.dispatchEvent(
+        new KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
+      );
+
+      const nextSelector = resolveSelector(nextIdx, steps[nextIdx].selector);
+      const nextEl = findVisibleElement(nextSelector);
+      if (nextEl) {
+        setCurrentStep(nextIdx);
+      } else {
+        const observer = new MutationObserver(() => {
+          const el = findVisibleElement(nextSelector);
+          if (el) {
+            observer.disconnect();
+            setCurrentStep(nextIdx);
+          }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+        observerRef.current = observer;
+      }
+    };
+
+    window.addEventListener("my-timetable-updated", handler);
+    return () => window.removeEventListener("my-timetable-updated", handler);
+  }, [
+    isOnbordaVisible,
+    steps,
+    currentStep,
+    behaviorType,
+    resolveSelector,
+    setCurrentStep,
+  ]);
+
   // passthrough-click: ルート遷移で自動進行
   useEffect(() => {
     if (!isOnbordaVisible || !steps) return;
@@ -493,7 +568,9 @@ export function TourOverlay() {
   const isPassthrough =
     behaviorType === "passthrough-add" ||
     behaviorType === "passthrough-click" ||
-    behaviorType === "passthrough-delete";
+    behaviorType === "passthrough-delete" ||
+    behaviorType === "passthrough-drawer-open" ||
+    behaviorType === "passthrough-participate";
 
   // passthrough 系のインストラクションテキスト
   const instructionText = isPassthrough ? "操作してみましょう" : undefined;
