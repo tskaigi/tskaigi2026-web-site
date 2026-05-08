@@ -152,7 +152,7 @@ const day1: TimetableResponse = {
       RIGHTTOUCH: session("SHORT", ["34", "35", "36"]),
     }),
     shared(d1(17, 50), d1(18, 10), "休憩"),
-    ...row(d1(18, 10), d1(18, 50), {
+    ...row(d1(18, 10), d1(19, 0), {
       LEVERAGES: session("KEYNOTE", ["37"]),
       UPSIDER: { type: "labeled", label: "サテライト" },
       RIGHTTOUCH: { type: "closed" },
