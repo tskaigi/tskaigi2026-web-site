@@ -41,7 +41,8 @@ const OstPage = () => {
 
           <section className="flex flex-col gap-2">
             <p>
-              OST（Open Space Technology）は、参加者全員が主役となり、自由にテーマを提案しながら議論を進める形式のイベントです。
+              OST（Open Space
+              Technology）は、参加者全員が主役となり、自由にテーマを提案しながら議論を進める形式のイベントです。
               TypeScriptユーザー同士で自由に議論し、学び合える貴重な機会ですので、ぜひご参加ください。
             </p>
           </section>
@@ -66,7 +67,9 @@ const OstPage = () => {
             <h2 className="text-xl font-bold">注意事項</h2>
             <ul className="list-disc pl-6 py-2 flex flex-col gap-1">
               <li>本企画は現地参加者のみを対象としています。</li>
-              <li>テーマの提案はどなたでも歓迎します。お気軽にご参加ください。</li>
+              <li>
+                テーマの提案はどなたでも歓迎します。お気軽にご参加ください。
+              </li>
             </ul>
           </section>
         </div>
