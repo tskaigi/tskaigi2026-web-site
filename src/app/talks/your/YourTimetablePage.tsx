@@ -1,9 +1,10 @@
 "use client";
 
-import { List, Pencil } from "lucide-react";
+import { List, Pencil, Plane } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
+import { FlightBoardTimetable } from "@/components/talks/FlightBoardTimetable";
 import { TalkDetailDrawer } from "@/components/talks/TalkDetailDrawer";
 import { TimelineColumn } from "@/components/talks/TimelineColumn";
 import {
@@ -11,6 +12,7 @@ import {
   MobileTimelineLayout,
 } from "@/components/talks/TimelineLayout";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import type { EventDate } from "@/types/timetable-api";
 import {
   getTalksByDateFromIds,
@@ -18,10 +20,34 @@ import {
   type TalkWithMinutes,
 } from "@/utils/myTimetable";
 
+function FlightBoardDialog({
+  day1Talks,
+  day2Talks,
+  onClose,
+}: {
+  day1Talks: TalkWithMinutes[];
+  day2Talks: TalkWithMinutes[];
+  onClose: () => void;
+}) {
+  return (
+    <Dialog open onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="max-h-[86vh] max-w-6xl overflow-y-auto pt-12 md:pt-14">
+        <DialogTitle className="sr-only">フライトボード</DialogTitle>
+        <FlightBoardTimetable
+          day1Talks={day1Talks}
+          day2Talks={day2Talks}
+          className="mt-0"
+        />
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default function YourTimetablePage() {
   const searchParams = useSearchParams();
   const [currentEventDate, setCurrentEventDate] = useState<EventDate>("Day1");
   const [drawerTalk, setDrawerTalk] = useState<TalkWithMinutes | null>(null);
+  const [isFlightBoardOpen, setIsFlightBoardOpen] = useState(false);
 
   const { ids, participatedIds } = useMemo(
     () => myTimetableQuery.parse(searchParams),
@@ -55,6 +81,16 @@ export default function YourTimetablePage() {
             >
               <Pencil size={18} />
             </Link>
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            onClick={() => setIsFlightBoardOpen(true)}
+            aria-label="フライトボードを表示"
+            title="フライトボードを表示"
+          >
+            <Plane size={18} />
           </Button>
         </aside>
         <div>
@@ -96,6 +132,14 @@ export default function YourTimetablePage() {
       </div>
 
       <TalkDetailDrawer talk={drawerTalk} onClose={() => setDrawerTalk(null)} />
+
+      {isFlightBoardOpen && (
+        <FlightBoardDialog
+          day1Talks={talksByDate.Day1}
+          day2Talks={talksByDate.Day2}
+          onClose={() => setIsFlightBoardOpen(false)}
+        />
+      )}
     </main>
   );
 }

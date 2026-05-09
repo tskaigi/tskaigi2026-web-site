@@ -4,6 +4,7 @@ import {
   AlertTriangle,
   Check,
   Info,
+  Plane,
   QrCode,
   RotateCcw,
   Search,
@@ -13,6 +14,7 @@ import {
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { FlightBoardTimetable } from "@/components/talks/FlightBoardTimetable";
 import { TalkDetailDrawer } from "@/components/talks/TalkDetailDrawer";
 import { TimelineColumn } from "@/components/talks/TimelineColumn";
 import {
@@ -21,6 +23,7 @@ import {
 } from "@/components/talks/TimelineLayout";
 import { StartTourButton } from "@/components/talks/Tour";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { showAppToast } from "@/components/ui/GlobalToast";
 import { TRACK, TRACK_STYLE } from "@/constants/timetable";
 import type { EventDate } from "@/types/timetable-api";
@@ -409,9 +412,11 @@ function QrDialog({
 
 function SideToolbar({
   xShareHref,
+  onOpenFlightBoard,
   onOpenQr,
 }: {
   xShareHref: string;
+  onOpenFlightBoard: () => void;
   onOpenQr: () => void;
 }) {
   const [isInfoOpen, setIsInfoOpen] = useState(false);
@@ -462,8 +467,42 @@ function SideToolbar({
 
       <StartTourButton iconOnly />
 
+      <Button
+        type="button"
+        variant="outline"
+        size="icon"
+        onClick={onOpenFlightBoard}
+        aria-label="時刻表を表示"
+        title="時刻表を表示"
+      >
+        <Plane size={18} />
+      </Button>
+
       {isInfoOpen && <InfoDialog onClose={() => setIsInfoOpen(false)} />}
     </aside>
+  );
+}
+
+function FlightBoardDialog({
+  day1Talks,
+  day2Talks,
+  onClose,
+}: {
+  day1Talks: TalkWithMinutes[];
+  day2Talks: TalkWithMinutes[];
+  onClose: () => void;
+}) {
+  return (
+    <Dialog open onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="max-h-[86vh] max-w-6xl overflow-y-auto pt-12 md:pt-14">
+        <DialogTitle className="sr-only">フライトボード</DialogTitle>
+        <FlightBoardTimetable
+          day1Talks={day1Talks}
+          day2Talks={day2Talks}
+          className="mt-0"
+        />
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -593,6 +632,7 @@ export default function MyTimetablePage() {
   const [isClearConfirmOpen, setIsClearConfirmOpen] = useState(false);
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [drawerTalk, setDrawerTalk] = useState<TalkWithMinutes | null>(null);
+  const [isFlightBoardOpen, setIsFlightBoardOpen] = useState(false);
   const allTalksWithMinutes = useMemo(
     () => myTimetable.getAllTalksWithMinutes(),
     [],
@@ -728,6 +768,7 @@ export default function MyTimetablePage() {
       <div className="mt-8 mx-auto max-w-6xl grid lg:grid-cols-[min-content_1fr] gap-4">
         <SideToolbar
           xShareHref={xShareHref}
+          onOpenFlightBoard={() => setIsFlightBoardOpen(true)}
           onOpenQr={() => setIsQrOpen(true)}
         />
 
@@ -819,6 +860,14 @@ export default function MyTimetablePage() {
           currentShareUrl={currentShareUrl}
           yourShareUrl={yourShareUrl}
           onClose={() => setIsQrOpen(false)}
+        />
+      )}
+
+      {isFlightBoardOpen && (
+        <FlightBoardDialog
+          day1Talks={talksByDate.Day1}
+          day2Talks={talksByDate.Day2}
+          onClose={() => setIsFlightBoardOpen(false)}
         />
       )}
 
