@@ -73,7 +73,7 @@ function FlightBoardRow({
       href={`/talks/${talk.id}`}
       target="_blank"
       rel="noreferrer"
-      className="group block border-b border-white/10 px-3 py-3 font-mono text-yellow-50 transition-colors hover:bg-white/10 sm:px-4 lg:grid lg:grid-cols-[110px_120px_minmax(340px,1fr)_120px_92px] lg:gap-3"
+      className="group block border-b border-white/10 px-3 py-3 font-mono text-yellow-50 transition-colors hover:bg-white/10 sm:px-4 lg:grid lg:grid-cols-[110px_120px_minmax(340px,1fr)_120px_92px] lg:items-center lg:gap-3"
     >
       <div className="flex items-start justify-between gap-3 lg:contents">
         <span className="text-xs font-bold text-white sm:text-sm lg:order-1">
@@ -132,7 +132,7 @@ function FlightBoardDay({
 
       <div>
         <div>
-          <div className="hidden grid-cols-[110px_120px_minmax(340px,1fr)_120px_92px] gap-3 border-b border-white/10 px-3 py-2 font-mono text-[10px] font-bold text-cyan-200 sm:px-4 lg:grid">
+          <div className="hidden grid-cols-[110px_120px_minmax(340px,1fr)_120px_92px] items-center gap-3 border-b border-white/10 px-3 py-2 font-mono text-[10px] font-bold text-cyan-200 sm:px-4 lg:grid">
             <span>TIME</span>
             <span>TRACK</span>
             <span>TITLE</span>
