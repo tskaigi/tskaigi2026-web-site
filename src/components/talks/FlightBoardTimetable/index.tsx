@@ -3,7 +3,7 @@
 import { Plane } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { EVENT_DATE, TRACK } from "@/constants/timetable";
+import { EVENT_DATE, TRACK, TRACK_STYLE } from "@/constants/timetable";
 import type { EventDate } from "@/types/timetable-api";
 import type { TalkWithMinutes } from "@/utils/myTimetable";
 
@@ -86,8 +86,12 @@ function FlightBoardRow({
         </span>
       </div>
 
-      <div className="mt-2 text-xs text-yellow-300 lg:order-2 lg:mt-0 lg:text-sm">
-        {trackName}
+      <div className="mt-2 flex items-center gap-2 text-xs text-yellow-300 lg:order-2 lg:mt-0 lg:text-sm">
+        <span
+          className={`h-2 w-2 shrink-0 rounded-full ring-1 ring-white/30 ${TRACK_STYLE[talk.track].bg}`}
+          aria-hidden="true"
+        />
+        <span className="truncate">{trackName}</span>
       </div>
 
       <span
