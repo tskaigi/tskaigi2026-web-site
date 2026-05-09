@@ -161,8 +161,8 @@
   },
   {
     "id": "hal",
-    "title": "checker.tsにチキンレース仕掛けてみた：型エラー(TS2589)が発生する境界線を求めて",
-    "overview": "Type instantiation is excessively deep and possibly infinite.: ts-plugin(2589)’\r\n\r\n型が複雑すぎたり再帰呼び出しが無限ループしている際によく起きると言われているこの型エラー。\r\nネット上では「anyで回避しよう！」や「型を注釈で解消できます」など、多くのワークアラウンドが提示されていました。\r\n\r\nしかし、私はふと疑問に思いました。\r\n「コンパイラが『無限』と呼ぶ境界線はどこにあるのだろう」と…。\r\n\r\nそこで私はchecker.tsにチキンレースを仕掛けることにしました。\r\n\r\n本セッションではTS2589を発生させる「3つの門番（instantiationDepth / instantiationCount / tailCount）」の正体と、コンパイラによる「型の複雑さ」の定義を紐解きます。\r\n\r\nそして『無限』の境界線の向こう側で私たちを待つ衝撃のラストとは…\r\n\r\nTS2589を正しく理解し、『無限』を味方につけるための10分間をお届けします。",
+    "title": "checker.tsにチキンレースを仕掛けてみた：型エラー(TS2589)が発生する境界線を求めて",
+    "overview": "Type instantiation is excessively deep and possibly infinite.: ts-plugin(2589)’\r\n\r\n型が複雑すぎたり再帰呼び出しが無限ループしている際によく起きると言われているこの型エラー。\r\nネット上では「anyで回避しよう！」や「型の注釈で解消できます」など、多くのワークアラウンドが提示されていました。\r\n\r\nしかし、私はふと疑問に思いました。\r\n「コンパイラが『無限』と呼ぶ境界線はどこにあるのだろう」と…。\r\n\r\nそこで私はchecker.tsにチキンレースを仕掛けることにしました。\r\n\r\n本セッションではTS2589を発生させる「3つの門番（instantiationDepth / instantiationCount / tailCount）」の正体と、コンパイラによる「型の複雑さ」の定義を紐解きます。\r\n\r\nそして『無限』の境界線の向こう側で私たちを待つ衝撃のラストとは…\r\n\r\nTS2589を正しく理解し、『無限』を味方につけるための10分間をお届けします。",
     "slidesLink": "",
     "speaker": {
       "name": "Hal",
@@ -382,21 +382,21 @@
   {
     "id": "ikedanoritaka",
     "title": "OSSのコードベースにneverthrowを漸進的に導入して、AIにも人間にも優しいエラーハンドリングを実現する",
-    "overview": "OSSプロダクト「Liam」で実際にtry/catchからneverthrowへ移行した過程を、コードベースを公開しながら共有します。\n\nまず、なぜneverthrowを導入したのかについて。Liamでは開発にAIコード生成を積極的に活用しています。しかしAIが生成するコードはtry/catchの配置が不安定で、エラーハンドリングの設計の整備にコストが発生していました。関数シグネチャにエラー型が表れるneverthrowを導入し、さらに throw new Error を禁止するカスタムESLintルールを設けることで、AIが生成するコードにもエラー処理を強制できるようになりました。\n\n漸進的な移行戦略について、過程で得られた実践的なtipsも紹介します。\n\n- エラー型をErrorに統一した薄いラッパーパッケージの設計\n- .andThen() チェーンと isErr() による early returnの実務的な制約の中での使い分け\n\nLiamはOSSのため、実際に使用されているコードを公開しながら説明させていただきます。本トークが、既存プロジェクトへの導入を検討する方の判断材料になれば幸いです。",
+    "overview": "OSSプロダクト「Liam」で実際にtry/catchからneverthrowへ移行した過程を、コードベースを公開しながら共有します。\r\n\r\nまず、なぜneverthrowを導入したのかについて。Liamでは開発にAIコード生成を積極的に活用しています。しかしAIが生成するコードはtry/catchの配置が不安定で、エラーハンドリングの設計の整備にコストが発生していました。関数シグネチャにエラー型が表れるneverthrowを導入し、さらに throw new Error を禁止するカスタムESLintルールを設けることで、AIが生成するコードにもエラー処理を強制できるようになりました。\r\n\r\n漸進的な移行戦略について、過程で得られた実践的なtipsも紹介します。\r\n\r\n- エラー型をErrorに統一した薄いラッパーパッケージの設計\r\n- .andThen() チェーンと isErr() による early returnの実務的な制約の中での使い分け\r\n\r\nLiamはOSSのため、実際に使用されているコードを公開しながら説明させていただきます。本トークが、既存プロジェクトへの導入を検討する方の判断材料になれば幸いです。",
     "slidesLink": "",
     "speaker": {
       "name": "IkedaNoritaka",
       "userIcon": "x",
       "profileImageUrl": "/ikedanoritaka.jpg",
-      "bio": "",
-      "xId": "",
-      "githubId": "",
+      "bio": "フロントエンドを中心に、Webアプリケーションを開発しています。OSSや業務システムの開発に携わっています。",
+      "xId": "omotidaisukijp",
+      "githubId": "NoritakaIkeda",
       "qiitaLink": "",
-      "zennLink": "",
+      "zennLink": "https://zenn.dev/omotidaisukijp",
       "noteLink": "",
-      "additionalLink": "",
-      "affiliation": "",
-      "position": ""
+      "additionalLink": "https://speakerdeck.com/noritakaikeda",
+      "affiliation": "株式会社ROUTE06",
+      "position": "ソフトウェアエンジニア"
     }
   },
   {
@@ -868,7 +868,7 @@
       "name": "oiki",
       "userIcon": "x",
       "profileImageUrl": "/oiki.jpg",
-      "bio": "新卒でヤフー株式会社に入社し、画像検索のフルリニューアルにフロントエンドエンジニアとして携わった後、AI 系ベンチャーを経て 2022 年より現職。TypeScript × Next.js を中心としたフロントエンド開発から、SaaS プロダクトの0-1立ち上げなどをしてきました。\r\n最近はRightTouchでプロダクトエンジニアをしていたり、採用広報をやっていたりします。趣味はランニングです。",
+      "bio": "新卒でヤフー株式会社に入社し、画像検索のフルリニューアルにフロントエンドエンジニアとして携わった後、AI 系ベンチャーを経て 2022 年より現職。TypeScriptを中心にフロントエンド開発から、SaaS プロダクトの0-1立ち上げなどをしてきました。\r\n最近はRightTouchでプロダクトエンジニアをしていたり、採用広報をやっていたりします。趣味はランニング。",
       "xId": "kn_prg",
       "githubId": "t0iki",
       "qiitaLink": "",
@@ -882,21 +882,21 @@
   {
     "id": "ken-ichikawa",
     "title": "LLM時代のリファクタリング戦略：AIエージェントによる段階的・安全なTS移行方法",
-    "overview": "「既存の巨大なJavaScriptプロジェクトをTypeScriptへ移行する」——これは多くの開発者が直面する課題です。しかし、LLMと自律型AIエージェントの登場により、この課題のハードルは下がりつつあります。\n本セッションでは、Reactで構築された大規模なフロントエンドプロジェクトを、AIエージェントを活用して「段階的」かつ「安全」にTypeScript化した実録とその知見を共有します。\n単に型を当てるだけでなく、OpenAPIから生成されたクライアントSDKとAIエージェントをいかに連携させ、コンポーネントやロジックに「意味のある型」を浸透させたのか。\nその具体的なプロセスを紹介します。",
+    "overview": "「既存の巨大なJavaScriptプロジェクトをTypeScriptへ移行する」——これは多くの開発者が直面する課題です。しかし、LLMと自律型AIエージェントの登場により、この課題のハードルは下がりつつあります。\r\n本セッションでは、Reactで構築された大規模なフロントエンドプロジェクトを、AIエージェントを活用して「段階的」かつ「安全」にTypeScript化した実録とその知見を共有します。\r\n単に型を当てるだけでなく、OpenAPIから生成されたクライアントSDKとAIエージェントをいかに連携させ、コンポーネントやロジックに「意味のある型」を浸透させたのか。\r\nその具体的なプロセスを紹介します。",
     "slidesLink": "",
     "speaker": {
       "name": "市川 賢",
       "userIcon": "x",
       "profileImageUrl": "/ken-ichikawa.jpg",
-      "bio": "",
-      "xId": "",
+      "bio": "2020年、株式会社PLAYにエンジニアとして入社。\r\n動画配信プラットフォーム「STREAKS」の視聴分析基盤や、動画CMS「GALLERY」の開発リードを歴任。\r\n2022年からは、映像制作・配信を包括的に支援する「PLAY CLOUD」における複数プロダクトのマネージャーに就任し、開発とマネジメントの両面から事業を牽引。\r\n2025年よりテックリードとして、プロダクト横断での技術課題の解決やアーキテクチャ刷新、オブザーバビリティの向上に従事。\r\n大規模な動画配信を支えるための、持続可能なシステム構築に注力している。",
+      "xId": "なし",
       "githubId": "",
       "qiitaLink": "",
       "zennLink": "",
       "noteLink": "",
-      "additionalLink": "",
-      "affiliation": "",
-      "position": ""
+      "additionalLink": "https://developers.play.jp/",
+      "affiliation": "株式会社PLAY",
+      "position": "テックリード"
     }
   },
   {
@@ -1142,21 +1142,21 @@
   {
     "id": "haruki-fukuchi",
     "title": "TypeScriptだけでAIエージェントを作る ― フロント・エージェント・インフラのフルスタック実践",
-    "overview": "2026年、AIエージェント開発はもはや一部の専門家だけのものではなくなりました。しかし、いざ開発を始めようとすると「Pythonじゃないとダメ？」「どのフレームワークを選べばいい？」「作ったエージェントをどうやってデプロイする？」と壁にぶつかる方も多いのではないでしょうか。\n\n本トークでは、普段使い慣れたTypeScriptだけで、フロントエンド・エージェント・サーバー・インフラのすべてを構築する実践手法を紹介します。Claude Agent SDKによるエージェント構築をメインに、AgentCore SDKによるサーバー層、React（Vite）によるフロントエンド、AWS CDKによるインフラ定義までを一気通貫で解説します。\n\n実際に動くアプリケーションのデモを交えながら、TypeScriptで統一することで得られる型安全性や開発体験の向上、そして開発中に得たTipsもお伝えします。さらに、Strands Agents SDKやMastraといった他のエージェントフレームワークとの比較にも触れ、技術選定の判断材料を提供します。\n\nAIエージェント開発の世界はPython中心に見えがちですが、TypeScriptエコシステムも急速に充実してきています。「自分たちの武器で戦える」という感覚を持ち帰っていただけるセッションを目指します。",
+    "overview": "2026年、AIエージェント開発はもはや一部の専門家だけのものではなくなりました。しかし、いざ開発を始めようとすると「Pythonじゃないとダメ？」「どのフレームワークを選べばいい？」「作ったエージェントをどうやってデプロイする？」と壁にぶつかる方も多いのではないでしょうか。\r\n\r\n本トークでは、普段使い慣れたTypeScriptだけで、フロントエンド・エージェント・サーバー・インフラのすべてを構築する実践手法を紹介します。Claude Agent SDKによるエージェント構築をメインに、AgentCore SDKによるサーバー層、React（Vite）によるフロントエンド、AWS CDKによるインフラ定義までを一気通貫で解説します。\r\n\r\n実際に動くアプリケーションのデモを交えながら、TypeScriptで統一することで得られる型安全性や開発体験の向上、そして開発中に得たTipsもお伝えします。さらに、Strands Agents SDKやMastraといった他のエージェントフレームワークとの比較にも触れ、技術選定の判断材料を提供します。\r\n\r\nAIエージェント開発の世界はPython中心に見えがちですが、TypeScriptエコシステムも急速に充実してきています。「自分たちの武器で戦える」という感覚を持ち帰っていただけるセッションを目指します。",
     "slidesLink": "",
     "speaker": {
       "name": "福地開",
       "userIcon": "x",
       "profileImageUrl": "/haruki-fukuchi.jpg",
-      "bio": "",
-      "xId": "",
-      "githubId": "",
-      "qiitaLink": "",
+      "bio": "AWSを用いたインフラ構築・AIエージェント構築などをやっています。\r\nAWS Community Builder(AI Engineering) / 2025 Japan AWS Jr. Champion / 2025 Japan All AWS Certifications Engineer",
+      "xId": "har1101mony",
+      "githubId": "har1101",
+      "qiitaLink": "https://qiita.com/har1101",
       "zennLink": "",
       "noteLink": "",
       "additionalLink": "",
-      "affiliation": "",
-      "position": ""
+      "affiliation": "NECソリューションイノベータ株式会社",
+      "position": "インフラエンジニア / エージェントビルダー"
     }
   },
   {
