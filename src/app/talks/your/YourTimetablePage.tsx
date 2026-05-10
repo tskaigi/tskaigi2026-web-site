@@ -4,7 +4,7 @@ import { List, Pencil, Plane } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
-import { FlightBoardTimetable } from "@/components/talks/FlightBoardTimetable";
+import { FlightBoardDialog } from "@/components/talks/FlightBoardDialog";
 import { TalkDetailDrawer } from "@/components/talks/TalkDetailDrawer";
 import { TimelineColumn } from "@/components/talks/TimelineColumn";
 import {
@@ -12,36 +12,12 @@ import {
   MobileTimelineLayout,
 } from "@/components/talks/TimelineLayout";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import type { EventDate } from "@/types/timetable-api";
 import {
   getTalksByDateFromIds,
   myTimetableQuery,
   type TalkWithMinutes,
 } from "@/utils/myTimetable";
-
-function FlightBoardDialog({
-  day1Talks,
-  day2Talks,
-  onClose,
-}: {
-  day1Talks: TalkWithMinutes[];
-  day2Talks: TalkWithMinutes[];
-  onClose: () => void;
-}) {
-  return (
-    <Dialog open onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-h-[86vh] max-w-6xl overflow-y-auto pt-12 md:pt-14">
-        <DialogTitle className="sr-only">フライトボード</DialogTitle>
-        <FlightBoardTimetable
-          day1Talks={day1Talks}
-          day2Talks={day2Talks}
-          className="mt-0"
-        />
-      </DialogContent>
-    </Dialog>
-  );
-}
 
 export default function YourTimetablePage() {
   const searchParams = useSearchParams();

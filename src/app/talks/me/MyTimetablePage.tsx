@@ -14,7 +14,7 @@ import {
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { FlightBoardTimetable } from "@/components/talks/FlightBoardTimetable";
+import { FlightBoardDialog } from "@/components/talks/FlightBoardDialog";
 import { TalkDetailDrawer } from "@/components/talks/TalkDetailDrawer";
 import { TimelineColumn } from "@/components/talks/TimelineColumn";
 import {
@@ -23,7 +23,6 @@ import {
 } from "@/components/talks/TimelineLayout";
 import { StartTourButton } from "@/components/talks/Tour";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { showAppToast } from "@/components/ui/GlobalToast";
 import { TRACK, TRACK_STYLE } from "@/constants/timetable";
 import type { EventDate } from "@/types/timetable-api";
@@ -480,29 +479,6 @@ function SideToolbar({
 
       {isInfoOpen && <InfoDialog onClose={() => setIsInfoOpen(false)} />}
     </aside>
-  );
-}
-
-function FlightBoardDialog({
-  day1Talks,
-  day2Talks,
-  onClose,
-}: {
-  day1Talks: TalkWithMinutes[];
-  day2Talks: TalkWithMinutes[];
-  onClose: () => void;
-}) {
-  return (
-    <Dialog open onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-h-[86vh] max-w-6xl overflow-y-auto pt-12 md:pt-14">
-        <DialogTitle className="sr-only">フライトボード</DialogTitle>
-        <FlightBoardTimetable
-          day1Talks={day1Talks}
-          day2Talks={day2Talks}
-          className="mt-0"
-        />
-      </DialogContent>
-    </Dialog>
   );
 }
 
