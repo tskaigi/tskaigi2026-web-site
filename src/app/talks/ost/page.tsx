@@ -32,11 +32,19 @@ const OstPage = () => {
         </div>
 
         <div className="px-6 md:px-8 lg:px-10 flex flex-col gap-6 text-lg">
-          <section className="flex flex-col gap-2">
-            <p className="font-bold">
+          <section className="flex flex-col gap-1">
+            <div>
+              <span
+                className="inline-block rounded px-2 py-0.5 text-sm font-bold text-white"
+                style={{ backgroundColor: "#6B21A8" }}
+              >
+                参加者体験企画
+              </span>
+            </div>
+            <div className="text-2xl font-bold">現地参加者向け企画</div>
+            <div className="text-lg font-bold">
               DAY2 / 17:20 〜 18:20（RightTouchトラック）
-            </p>
-            <p className="text-sm">現地参加者向け企画</p>
+            </div>
           </section>
 
           <section className="flex flex-col gap-2">
