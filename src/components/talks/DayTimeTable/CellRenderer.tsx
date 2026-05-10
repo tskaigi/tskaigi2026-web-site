@@ -1,10 +1,18 @@
 import { ExternalLink } from "lucide-react";
+import Link from "next/link";
 import type { Cell, Track, TrackKey } from "@/types/timetable-api";
 import { CardShell } from "./CardShell";
 import { SessionCard } from "./SessionCard";
 
 function LabelText({ label, link }: { label: string; link?: string }) {
   if (!link) return <>{label}</>;
+  if (link === "/talks/ost") {
+    return (
+      <Link href={link} className="underline hover:text-blue-purple-500">
+        {label}
+      </Link>
+    );
+  }
   return (
     <a
       href={link}
