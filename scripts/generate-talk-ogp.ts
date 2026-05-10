@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { TALK_TYPE } from "../src/constants/timetable/talkList";
 import { generateAndSaveTalkOgp } from "./lib/generate-talk-ogp";
 import type { MasterEntry } from "./lib/session/types";
 import { getSessionMeta } from "./lib/session-metadata";
@@ -73,7 +74,8 @@ async function main(force: boolean) {
       speakerName: entry.speaker.name,
       trackKey: meta.trackKey,
       trackName: meta.trackName,
-      sessionTypeKey: meta.sessionTypeKey,
+      sessionTypeName: TALK_TYPE[meta.sessionTypeKey].name,
+      sessionTypeColor: TALK_TYPE[meta.sessionTypeKey].color,
       dayNumber: meta.dayNumber,
       timeRange: meta.timeRange,
       baseImagePath: "public/OGP-talk.png",

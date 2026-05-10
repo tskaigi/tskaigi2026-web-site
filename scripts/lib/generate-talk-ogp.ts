@@ -1,8 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
-import { TALK_TYPE } from "../../src/constants/timetable/talkList";
-import type { SessionKey, TrackKey } from "../../src/types/timetable-api";
+import type { TrackKey } from "../../src/types/timetable-api";
 
 const TRACK_STYLE: Record<TrackKey, { bg: string; text: string }> = {
   LEVERAGES: { bg: "#26919f", text: "#ffffff" },
@@ -22,7 +21,8 @@ export type TalkOgpInput = {
   speakerName: string;
   trackKey: TrackKey;
   trackName: string;
-  sessionTypeKey: SessionKey;
+  sessionTypeName: string;
+  sessionTypeColor: string;
   dayNumber: 1 | 2;
   timeRange: string;
   baseImagePath: string;
@@ -255,17 +255,15 @@ function generateOgpSvg(input: SvgInput): string {
     trackStyle.text,
   );
 
-  // セッションタイプ（定数から参照）
-  const sessionStyle = TALK_TYPE[input.sessionTypeKey];
+  // セッションタイプバッジ
   const sessionX = paddingLeft + trackBadge.width + badgeGap;
-  // セッションタイプ：白背景、文字と枠線が定数の色
   const sessionBadge = badge(
     sessionX,
     badgeY,
-    sessionStyle.name,
+    input.sessionTypeName,
     "#ffffff",
-    sessionStyle.color,
-    sessionStyle.color,
+    input.sessionTypeColor,
+    input.sessionTypeColor,
   );
 
   // DAYバッジ
