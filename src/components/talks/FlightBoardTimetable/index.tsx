@@ -150,7 +150,7 @@ function FlightBoardDay({
             })
           ) : (
             <div className="px-3 py-6 text-center font-mono text-sm text-white/50 sm:px-4">
-              NO SELECTED FLIGHTS
+              NO SELECTED SESSIONS
             </div>
           )}
         </div>
