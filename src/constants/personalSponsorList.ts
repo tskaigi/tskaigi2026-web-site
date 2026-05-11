@@ -83,4 +83,9 @@ export const personalSponsorList: {
     link: "https://x.com/htanaka0828",
     imgSrc: "/personalSponsors/htanaka0828.jpg",
   },
+  {
+    name: "Riochin",
+    link: "https://x.com/riochin555",
+    imgSrc: "/personalSponsors/riochin555.jpg",
+  },
 ];
