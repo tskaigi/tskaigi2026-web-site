@@ -41,7 +41,7 @@
   },
   {
     "id": "kanon",
-    "title": "Road to contibuter of Valibot - ValibotにISBN validationを追加するまで -",
+    "title": "Road to contributor of Valibot - ValibotにISBN validationを追加するまで -",
     "overview": "みなさん、Valibot 使っていますか？\r\n\r\nValibotとはTypeScript 用のスキーマライブラリです。データ構造を定義してデータをバリデーションすることができます。\r\n同様のライブラリにはZodやArkTypeなどがあります。\r\n\r\nそんななかでも私はValibotにISBNをバリデーションする機能のPRを送り、見事マージされました。\r\nhttps://github.com/open-circle/valibot/pull/1097\r\n\r\nこのセッションでは以上の経験をもとに、以下の内容を10分に詰め込んでお話ししたいと思います。\r\n\r\n- 簡単にValibotの使い方などの紹介\r\n- Valibotの内部実装はどうなっているのか？\r\n- ISBNの仕様について\r\n- (Valibotに限らず)スキーマライブラリにどういったFeature Requestを送るとマージされやすいか",
     "slidesLink": "",
     "speaker": {
@@ -528,7 +528,7 @@
       "name": "つくだに",
       "userIcon": "x",
       "profileImageUrl": "/tsukudani.jpg",
-      "bio": "オプティムという会社でエンジニアをやっている、つくだにというものです。\r\nTypeScriptが好きですが、最近あまり書けていません・・・",
+      "bio": "オプティムという会社でエンジニアをやっている、つくだにというものです。\r\n医療系DXのプロダクトに参画しています。",
       "xId": "tukudanium",
       "githubId": "tukudanium",
       "qiitaLink": "",
@@ -886,11 +886,11 @@
     "slidesLink": "",
     "speaker": {
       "name": "市川 賢",
-      "userIcon": "x",
+      "userIcon": "github",
       "profileImageUrl": "/ken-ichikawa.jpg",
       "bio": "2020年、株式会社PLAYにエンジニアとして入社。\r\n動画配信プラットフォーム「STREAKS」の視聴分析基盤や、動画CMS「GALLERY」の開発リードを歴任。\r\n2022年からは、映像制作・配信を包括的に支援する「PLAY CLOUD」における複数プロダクトのマネージャーに就任し、開発とマネジメントの両面から事業を牽引。\r\n2025年よりテックリードとして、プロダクト横断での技術課題の解決やアーキテクチャ刷新、オブザーバビリティの向上に従事。\r\n大規模な動画配信を支えるための、持続可能なシステム構築に注力している。",
-      "xId": "なし",
-      "githubId": "",
+      "xId": "",
+      "githubId": "1keeen",
       "qiitaLink": "",
       "zennLink": "",
       "noteLink": "",
