@@ -171,19 +171,19 @@ const day2: TimetableResponse = {
       UPSIDER: { type: "labeled", label: "サテライト" },
       RIGHTTOUCH: { type: "closed" },
     }),
-    shared(d2(10, 50), d2(11, 10), "休憩"),
-    ...row(d2(11, 10), d2(11, 40), {
+    shared(d2(10, 50), d2(11, 0), "休憩"),
+    ...row(d2(11, 0), d2(11, 30), {
       LEVERAGES: session("LONG", ["38"]),
       UPSIDER: session("LONG", ["39"]),
       RIGHTTOUCH: session("LONG", ["40"]),
     }),
-    shared(d2(11, 40), d2(11, 50), "休憩"),
-    ...row(d2(11, 50), d2(12, 20), {
+    shared(d2(11, 30), d2(11, 40), "休憩"),
+    ...row(d2(11, 40), d2(12, 10), {
       LEVERAGES: session("SHORT", ["41", "42", "43"]),
       UPSIDER: session("SHORT", ["44", "45", "46"]),
       RIGHTTOUCH: session("SHORT", ["47", "48", "49"]),
     }),
-    shared(d2(12, 20), d2(12, 30), "ランチ配布"),
+    shared(d2(12, 10), d2(12, 30), "ランチ配布"),
     ...row(d2(12, 30), d2(13, 30), {
       LEVERAGES: session("SPONSOR", ["79", "77", "83", "81", "85"]),
       UPSIDER: session("SPONSOR", ["82", "80", "78", "86", "84"]),
