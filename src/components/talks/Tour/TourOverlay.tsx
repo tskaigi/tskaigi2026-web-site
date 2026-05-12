@@ -2,7 +2,14 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useOnborda } from "onborda";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import { myTimetableIds } from "@/utils/myTimetable/ids";
 import { TourCard } from "./TourCard";
@@ -15,6 +22,36 @@ type PointerPosition = {
   width: number;
   height: number;
 };
+
+type CardSize = {
+  width: number;
+  height: number;
+};
+
+type PlacementSide = "top" | "bottom" | "left" | "right";
+
+type CardPlacement = {
+  left: number;
+  top: number;
+  side: PlacementSide;
+  arrowOffset: number;
+};
+
+const CARD_GAP = 25;
+const VIEWPORT_MARGIN = 16;
+const FALLBACK_CARD_SIZE: CardSize = { width: 300, height: 220 };
+
+function clamp(value: number, min: number, max: number) {
+  if (max < min) return min;
+  return Math.min(Math.max(value, min), max);
+}
+
+function getPrimarySide(side: string | undefined): PlacementSide {
+  if (side?.startsWith("top")) return "top";
+  if (side?.startsWith("left")) return "left";
+  if (side?.startsWith("right")) return "right";
+  return "bottom";
+}
 
 function getElementPosition(element: Element): PointerPosition {
   const { top, left, width, height } = element.getBoundingClientRect();
@@ -35,110 +72,145 @@ function findVisibleElement(selector: string): Element | null {
   return elements[0] ?? null;
 }
 
-function getCardStyle(side: string | undefined) {
-  switch (side) {
-    case "top":
-      return {
-        transform: "translate(-50%, 0)",
-        left: "50%",
-        bottom: "100%",
-        marginBottom: "25px",
-      };
-    case "bottom":
-      return {
-        transform: "translate(-50%, 0)",
-        left: "50%",
-        top: "100%",
-        marginTop: "25px",
-      };
-    case "left":
-      return {
-        transform: "translate(0, -50%)",
-        right: "100%",
-        top: "50%",
-        marginRight: "25px",
-      };
-    case "right":
-      return {
-        transform: "translate(0, -50%)",
-        left: "100%",
-        top: "50%",
-        marginLeft: "25px",
-      };
-    case "top-left":
-      return { bottom: "100%", marginBottom: "25px" };
-    case "top-right":
-      return { right: "0", bottom: "100%", marginBottom: "25px" };
-    case "bottom-left":
-      return { top: "100%", marginTop: "25px" };
-    case "bottom-right":
-      return { right: "0", top: "100%", marginTop: "25px" };
-    case "right-bottom":
-      return { left: "100%", bottom: "0", marginLeft: "25px" };
-    case "right-top":
-      return { left: "100%", top: "0", marginLeft: "25px" };
-    case "left-bottom":
-      return { right: "100%", bottom: "0", marginRight: "25px" };
-    case "left-top":
-      return { right: "100%", top: "0", marginRight: "25px" };
-    default:
-      return {};
+function getCardPlacement(
+  position: PointerPosition,
+  side: string | undefined,
+  cardSize: CardSize,
+): CardPlacement {
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+  const target = {
+    left: position.x - scrollLeft,
+    top: position.y - scrollTop,
+    right: position.x - scrollLeft + position.width,
+    bottom: position.y - scrollTop + position.height,
+  };
+  const targetCenterX = target.left + position.width / 2;
+  const targetCenterY = target.top + position.height / 2;
+
+  const space = {
+    top: target.top - VIEWPORT_MARGIN,
+    bottom: viewportHeight - target.bottom - VIEWPORT_MARGIN,
+    left: target.left - VIEWPORT_MARGIN,
+    right: viewportWidth - target.right - VIEWPORT_MARGIN,
+  };
+
+  let placementSide = getPrimarySide(side);
+  const needsHorizontalFallback =
+    (placementSide === "left" || placementSide === "right") &&
+    space[placementSide] < cardSize.width + CARD_GAP;
+
+  if (needsHorizontalFallback) {
+    placementSide = space.bottom >= space.top ? "bottom" : "top";
+  } else if (
+    placementSide === "top" &&
+    space.top < cardSize.height + CARD_GAP &&
+    space.bottom > space.top
+  ) {
+    placementSide = "bottom";
+  } else if (
+    placementSide === "bottom" &&
+    space.bottom < cardSize.height + CARD_GAP &&
+    space.top > space.bottom
+  ) {
+    placementSide = "top";
+  } else if (
+    placementSide === "left" &&
+    space.left < cardSize.width + CARD_GAP &&
+    space.right > space.left
+  ) {
+    placementSide = "right";
+  } else if (
+    placementSide === "right" &&
+    space.right < cardSize.width + CARD_GAP &&
+    space.left > space.right
+  ) {
+    placementSide = "left";
   }
+
+  const maxLeft = viewportWidth - cardSize.width - VIEWPORT_MARGIN;
+  const maxTop = viewportHeight - cardSize.height - VIEWPORT_MARGIN;
+  let left = targetCenterX - cardSize.width / 2;
+  let top = target.bottom + CARD_GAP;
+
+  if (placementSide === "top") {
+    top = target.top - cardSize.height - CARD_GAP;
+  } else if (placementSide === "left") {
+    left = target.left - cardSize.width - CARD_GAP;
+    top = targetCenterY - cardSize.height / 2;
+  } else if (placementSide === "right") {
+    left = target.right + CARD_GAP;
+    top = targetCenterY - cardSize.height / 2;
+  }
+
+  const clampedLeft = clamp(left, VIEWPORT_MARGIN, maxLeft);
+  const clampedTop = clamp(top, VIEWPORT_MARGIN, maxTop);
+  const rawArrowOffset =
+    placementSide === "top" || placementSide === "bottom"
+      ? targetCenterX - clampedLeft
+      : targetCenterY - clampedTop;
+  const arrowOffset = clamp(
+    rawArrowOffset,
+    18,
+    (placementSide === "top" || placementSide === "bottom"
+      ? cardSize.width
+      : cardSize.height) - 18,
+  );
+
+  return {
+    left: clampedLeft + scrollLeft,
+    top: clampedTop + scrollTop,
+    side: placementSide,
+    arrowOffset,
+  };
 }
 
-function getArrowStyle(side: string | undefined): React.CSSProperties {
+function getArrowStyle(
+  side: PlacementSide,
+  arrowOffset: number,
+): React.CSSProperties {
   switch (side) {
     case "bottom":
       return {
         transform: "translate(-50%, 0) rotate(270deg)",
-        left: "50%",
+        left: `${arrowOffset}px`,
         top: "-23px",
       };
     case "top":
       return {
         transform: "translate(-50%, 0) rotate(90deg)",
-        left: "50%",
+        left: `${arrowOffset}px`,
         bottom: "-23px",
       };
     case "right":
       return {
         transform: "translate(0, -50%) rotate(180deg)",
-        top: "50%",
+        top: `${arrowOffset}px`,
         left: "-23px",
       };
     case "left":
       return {
         transform: "translate(0, -50%) rotate(0deg)",
-        top: "50%",
+        top: `${arrowOffset}px`,
         right: "-23px",
       };
-    case "top-left":
-      return { transform: "rotate(90deg)", left: "10px", bottom: "-23px" };
-    case "top-right":
-      return { transform: "rotate(90deg)", right: "10px", bottom: "-23px" };
-    case "bottom-left":
-      return { transform: "rotate(270deg)", left: "10px", top: "-23px" };
-    case "bottom-right":
-      return { transform: "rotate(270deg)", right: "10px", top: "-23px" };
-    case "right-bottom":
-      return { transform: "rotate(180deg)", left: "-23px", bottom: "10px" };
-    case "right-top":
-      return { transform: "rotate(180deg)", left: "-23px", top: "10px" };
-    case "left-bottom":
-      return { transform: "rotate(0deg)", right: "-23px", bottom: "10px" };
-    case "left-top":
-      return { transform: "rotate(0deg)", right: "-23px", top: "10px" };
-    default:
-      return {};
   }
 }
 
-function CardArrow({ side }: { side: string | undefined }) {
+function CardArrow({
+  side,
+  arrowOffset,
+}: {
+  side: PlacementSide;
+  arrowOffset: number;
+}) {
   return (
     <svg
       viewBox="0 0 54 54"
       className="absolute w-6 h-6 origin-center text-white"
-      style={getArrowStyle(side)}
+      style={getArrowStyle(side, arrowOffset)}
       role="img"
       aria-label="arrow"
     >
@@ -239,6 +311,8 @@ export function TourOverlay() {
   );
 
   const [position, setPosition] = useState<PointerPosition | null>(null);
+  const [cardSize, setCardSize] = useState<CardSize>(FALLBACK_CARD_SIZE);
+  const cardRef = useRef<HTMLDivElement | null>(null);
   const observerRef = useRef<MutationObserver | null>(null);
 
   const currentSelector = steps?.[currentStep]
@@ -261,30 +335,32 @@ export function TourOverlay() {
     if (!step) return;
     const el = findVisibleElement(currentSelector);
     if (el) {
-      setPosition(getElementPosition(el));
+      const nextPosition = getElementPosition(el);
+      setPosition(nextPosition);
       const rect = el.getBoundingClientRect();
-      const side = step.side ?? "bottom";
-      const cardHeight = 250;
-      const margin = 30;
+      const side = getPrimarySide(step.side);
+      const estimatedCardHeight = cardSize.height || FALLBACK_CARD_SIZE.height;
+      const margin = VIEWPORT_MARGIN + CARD_GAP;
+      const shouldPreferAbove =
+        side === "top" ||
+        (side !== "bottom" && rect.top > window.innerHeight - rect.bottom);
 
-      const isCardAbove =
-        side.startsWith("top") || side === "left-top" || side === "right-top";
-
-      if (isCardAbove) {
-        const cardTop = rect.top - cardHeight;
+      if (shouldPreferAbove) {
+        const cardTop = rect.top - estimatedCardHeight - CARD_GAP;
         if (cardTop < 0 || rect.top > window.innerHeight) {
-          const target = window.scrollY + rect.top - cardHeight - margin;
+          const target =
+            window.scrollY + rect.top - estimatedCardHeight - margin;
           window.scrollTo({ top: Math.max(0, target), behavior: "smooth" });
         }
       } else {
-        const needed = rect.top + cardHeight;
-        if (rect.top < 0 || needed > window.innerHeight) {
+        const cardBottom = rect.bottom + CARD_GAP + estimatedCardHeight;
+        if (rect.top < 0 || cardBottom > window.innerHeight) {
           const target = window.scrollY + rect.top - margin;
           window.scrollTo({ top: Math.max(0, target), behavior: "smooth" });
         }
       }
     }
-  }, [currentSelector, steps, currentStep]);
+  }, [currentSelector, steps, currentStep, cardSize.height]);
 
   // 要素が見つからない場合に MutationObserver で待機
   const waitForElementRef = useRef<MutationObserver | null>(null);
@@ -550,12 +626,40 @@ export function TourOverlay() {
     setCurrentStep,
   ]);
 
+  const renderedStep = steps?.[currentStep];
+  const renderedIsDialogMode = renderedStep?.selector === "#tour-dialog";
+
+  useLayoutEffect(() => {
+    if (!isOnbordaVisible || renderedIsDialogMode) return;
+    const card = cardRef.current;
+    if (!card) return;
+
+    const updateCardSize = () => {
+      const { width, height } = card.getBoundingClientRect();
+      if (width === 0 || height === 0) return;
+      setCardSize((current) => {
+        if (
+          Math.abs(current.width - width) < 1 &&
+          Math.abs(current.height - height) < 1
+        ) {
+          return current;
+        }
+        return { width, height };
+      });
+    };
+
+    updateCardSize();
+    const observer = new ResizeObserver(updateCardSize);
+    observer.observe(card);
+    return () => observer.disconnect();
+  }, [isOnbordaVisible, renderedIsDialogMode]);
+
   if (!isOnbordaVisible || !steps) return null;
 
-  const step = steps[currentStep];
+  const step = renderedStep;
   if (!step) return null;
 
-  const isDialogMode = step.selector === "#tour-dialog";
+  const isDialogMode = renderedIsDialogMode;
 
   // position が必要なステップで null なら待機中
   if (!isDialogMode && !position) return null;
@@ -621,6 +725,11 @@ export function TourOverlay() {
     }
   };
 
+  const placement =
+    !isDialogMode && position
+      ? getCardPlacement(position, step.side, cardSize)
+      : null;
+
   const cardProps = {
     step,
     currentStep,
@@ -629,11 +738,12 @@ export function TourOverlay() {
     prevStep,
     instructionText,
     contentOverride,
-    arrow: isDialogMode ? (
-      <span className="hidden" />
-    ) : (
-      <CardArrow side={step.side} />
-    ),
+    arrow:
+      isDialogMode || !placement ? (
+        <span className="hidden" />
+      ) : (
+        <CardArrow side={placement.side} arrowOffset={placement.arrowOffset} />
+      ),
   };
 
   // ダイアログモード: ポインターなし、中央表示
@@ -659,6 +769,7 @@ export function TourOverlay() {
   // position は isDialogMode でない && null チェック済み
   if (!position) return null;
   const pos = position;
+  if (!placement) return null;
 
   return createPortal(
     <>
@@ -686,17 +797,21 @@ export function TourOverlay() {
           borderRadius: `${radius}px`,
           pointerEvents: isPassthrough ? "none" : "auto",
         }}
+      ></div>
+
+      {/* Card */}
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: stop propagation */}
+      {/* biome-ignore lint/a11y/useKeyWithClickEvents: stop propagation */}
+      <div
+        ref={cardRef}
+        onClick={(e) => e.stopPropagation()}
+        className="absolute z-[950] flex flex-col pointer-events-auto transition-[left,top] duration-500 ease-out"
+        style={{
+          left: `${placement.left}px`,
+          top: `${placement.top}px`,
+        }}
       >
-        {/* Card */}
-        {/* biome-ignore lint/a11y/noStaticElementInteractions: stop propagation */}
-        {/* biome-ignore lint/a11y/useKeyWithClickEvents: stop propagation */}
-        <div
-          onClick={(e) => e.stopPropagation()}
-          className="absolute flex flex-col max-w-full min-w-min pointer-events-auto z-[950]"
-          style={getCardStyle(step.side)}
-        >
-          <TourCard {...cardProps} />
-        </div>
+        <TourCard {...cardProps} />
       </div>
     </>,
     document.body,
