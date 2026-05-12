@@ -4,6 +4,7 @@ import type { ComponentProps } from "react";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
+import { CopyTalkButton } from "@/components/talks/CopyTalkButton";
 import { OgpImage, ProfileImage } from "@/components/talks/FallbackImage";
 import { TalkStatus } from "@/components/talks/TalkStatus";
 import { SESSION_IDS, TALK_TYPE } from "@/constants/timetable";
@@ -129,6 +130,13 @@ export default async function TalkDetailPage({
           <div className="text-2xl font-bold">{session.title}</div>
           <div className="text-lg font-bold">
             {detail.day} / {timeRange} （{name}）
+          </div>
+          <div className="mt-2">
+            <CopyTalkButton
+              talkId={session.id}
+              title={session.title}
+              speakerName={speaker.name}
+            />
           </div>
         </div>
 

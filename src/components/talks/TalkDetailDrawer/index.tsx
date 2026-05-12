@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
+import { CopyTalkButton } from "@/components/talks/CopyTalkButton";
 import { ProfileImage } from "@/components/talks/FallbackImage";
 import {
   TalkStatus,
@@ -236,7 +237,12 @@ function DrawerContent({ talk }: { talk: TalkWithMinutes }) {
 
       <SpeakerSection talk={talk} />
 
-      <div className="mt-auto pt-4">
+      <div className="mt-auto pt-4 flex flex-col gap-2">
+        <CopyTalkButton
+          talkId={talk.id}
+          title={talk.title}
+          speakerName={talk.speaker.name}
+        />
         <Button asChild variant="outline" className="w-full gap-2">
           <Link href={`/talks/${talk.id}`} target="_blank">
             詳細ページで見る
