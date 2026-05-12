@@ -41,12 +41,21 @@ export function FlightBoardDialog({
     try {
       await document.fonts?.ready;
 
-      const blob = await domToBlob(timetableRef.current, {
-        backgroundColor: "#0a0a0b",
-        height: timetableRef.current.scrollHeight,
-        scale: Math.min(window.devicePixelRatio || 1, 2),
-        width: timetableRef.current.scrollWidth,
-      });
+      const timetableElement = timetableRef.current;
+      const originalPadding = timetableElement.style.padding;
+      let blob: Blob | null;
+
+      try {
+        timetableElement.style.padding = "12px";
+        blob = await domToBlob(timetableElement, {
+          backgroundColor: "#ffffff",
+          height: timetableElement.scrollHeight,
+          scale: Math.min(window.devicePixelRatio || 1, 2),
+          width: timetableElement.scrollWidth,
+        });
+      } finally {
+        timetableElement.style.padding = originalPadding;
+      }
 
       if (!blob) throw new Error("時刻表画像の生成に失敗しました");
 
@@ -64,26 +73,28 @@ export function FlightBoardDialog({
 
   return (
     <Dialog open onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-h-[86vh] max-w-6xl overflow-y-auto pt-12 md:pt-14">
+      <DialogContent className="max-h-[78vh] max-w-6xl overflow-hidden pt-12 sm:max-h-[86vh] md:pt-14">
         <DialogTitle className="sr-only">フライトボード</DialogTitle>
-        <div ref={timetableRef}>
-          <FlightBoardTimetable
-            day1Talks={day1Talks}
-            day2Talks={day2Talks}
-            className="mt-0"
-          />
-        </div>
-        <div className="mt-4 flex justify-end">
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={handleDownload}
-            disabled={isDownloading}
-          >
-            <Download size={16} />
-            {isDownloading ? "保存中..." : "画像として保存"}
-          </Button>
+        <div className="max-h-[calc(78vh-4rem)] overflow-y-auto pr-1 sm:max-h-[calc(86vh-4rem)]">
+          <div ref={timetableRef} className="rounded-xl bg-white p-1 sm:p-2">
+            <FlightBoardTimetable
+              day1Talks={day1Talks}
+              day2Talks={day2Talks}
+              className="mt-0 shadow-none"
+            />
+          </div>
+          <div className="mt-3 flex justify-end px-1 pb-1 sm:px-2 sm:pb-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={handleDownload}
+              disabled={isDownloading}
+            >
+              <Download size={16} />
+              {isDownloading ? "保存中..." : "画像として保存"}
+            </Button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
