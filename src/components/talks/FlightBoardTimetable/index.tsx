@@ -88,7 +88,7 @@ function FlightBoardRow({
 
       <div className="mt-2 flex items-center gap-2 text-xs text-yellow-300 lg:order-2 lg:mt-0 lg:text-sm">
         <span
-          className={`h-2 w-2 shrink-0 rounded-full ring-1 ring-white/30 ${TRACK_STYLE[talk.track].bg}`}
+          className={`h-2 w-2 shrink-0 rounded-full border border-white/30 ${TRACK_STYLE[talk.track].bg}`}
           aria-hidden="true"
         />
         <span className="truncate">{trackName}</span>
