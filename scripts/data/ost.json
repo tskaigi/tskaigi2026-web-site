@@ -1,10 +1,20 @@
 {
   "id": "ost",
   "title": "OST (Open Space Technology)",
-  "sessionTypeName": "参加者体験企画",
-  "sessionTypeColor": "#6B21A8",
-  "trackKey": "RIGHTTOUCH",
-  "trackName": "RightTouchトラック",
-  "dayNumber": 2,
-  "timeRange": "17:20 ~ 18:30"
+  "overview": "TypeScriptユーザー同士で自由に議論し、学び合える現地参加者向け企画です。",
+  "slidesLink": "",
+  "speaker": {
+    "name": "TSKaigi運営",
+    "userIcon": "x",
+    "profileImageUrl": "/logo-2026.png",
+    "bio": "",
+    "xId": "",
+    "githubId": "",
+    "qiitaLink": "",
+    "zennLink": "",
+    "noteLink": "",
+    "additionalLink": "",
+    "affiliation": "",
+    "position": ""
+  }
 }

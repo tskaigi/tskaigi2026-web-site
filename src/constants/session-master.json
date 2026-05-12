@@ -1804,5 +1804,26 @@
       "affiliation": "ディップ株式会社",
       "position": "フロントエンドエンジニア"
     }
+  },
+  "87": {
+    "id": "87",
+    "speakerId": "ost",
+    "title": "OST (Open Space Technology)",
+    "ogpTitle": "OST (Open Space Technology)",
+    "overview": "TypeScriptユーザー同士で自由に議論し、学び合える現地参加者向け企画です。",
+    "speaker": {
+      "name": "TSKaigi運営",
+      "userIcon": "x",
+      "profileImageUrl": "/logo-2026.png",
+      "bio": "",
+      "xId": "",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "",
+      "position": ""
+    }
   }
 }
