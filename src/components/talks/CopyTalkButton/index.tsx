@@ -40,7 +40,7 @@ export function CopyTalkButton({ talkId, title, speakerName }: Props) {
       onClick={handleCopy}
     >
       <Copy size={16} />
-      {copied ? "コピーしました！" : "コピー"}
+      {copied ? "コピーしました！" : "タイトルをコピー"}
     </Button>
   );
 }
