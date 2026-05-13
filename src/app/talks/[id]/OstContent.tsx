@@ -1,3 +1,4 @@
+import { CopyableTitle } from "@/components/talks/CopyableTitle";
 import { OgpImage } from "@/components/talks/FallbackImage";
 import { TALK_TYPE } from "@/constants/timetable";
 import type { SessionDetail } from "@/utils/getSession";
@@ -34,7 +35,11 @@ export function OstContent({
                 {TALK_TYPE[sessionType].name}
               </span>
             </div>
-            <div className="text-2xl font-bold">現地参加者向け企画</div>
+            <CopyableTitle
+              talkId={session.id}
+              title="現地参加者向け企画"
+              speakerName={session.speaker.name}
+            />
             <div className="text-lg font-bold">
               {detail.day} / {timeRange}（{name}）
             </div>
