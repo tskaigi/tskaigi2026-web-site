@@ -29,7 +29,13 @@ export type SessionSummary = {
   };
 };
 
-export type SessionKey = "KEYNOTE" | "LONG" | "SHORT" | "SPONSOR" | "HANDSON";
+export type SessionKey =
+  | "KEYNOTE"
+  | "LONG"
+  | "SHORT"
+  | "SPONSOR"
+  | "HANDSON"
+  | "OST";
 
 export type SessionContent = {
   type: "session";

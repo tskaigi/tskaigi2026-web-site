@@ -234,9 +234,11 @@ const day2: TimetableResponse = {
       endTime: d2(18, 30),
       trackKeys: ["RIGHTTOUCH"],
       content: {
-        type: "labeled",
-        label: "OST(Open Space Technology)",
-        link: "/talks/ost",
+        type: "session",
+        sessionType: "OST",
+        sessions: [{ id: "87" }],
+        displayLabel: "OST(Open Space Technology)",
+        link: "/talks/87",
       },
     },
     // 18:40-20:40 L+U 懇親会
