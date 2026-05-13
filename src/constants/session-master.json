@@ -1804,5 +1804,26 @@
       "affiliation": "ディップ株式会社",
       "position": "フロントエンドエンジニア"
     }
+  },
+  "87": {
+    "id": "87",
+    "speakerId": "ost",
+    "title": "OST (Open Space Technology)",
+    "ogpTitle": "OST (Open Space Technology)",
+    "overview": "OST（Open Space Technology）は、参加者全員が主役となり、自由にテーマを提案しながら議論を進める形式のイベントです。TypeScriptユーザー同士で自由に議論し、学び合える貴重な機会ですので、ぜひご参加ください。\r\n\r\n## 参加方法\r\n事前申し込みは不要です。当日、会場（RightTouchトラック）へお越しください。\r\n\r\n## テーマ募集\r\n会場に掲載しているGoogleフォームのQRコードにてOSTのテーマを募集します。TypeScriptについて「話したい」「聞きたい」テーマをぜひお寄せください。集まったテーマは運営チームが確認し、議題決定の参考にします。\r\n\r\n## 注意事項\r\n- 本企画は現地参加者のみを対象としています。\r\n- テーマの提案はどなたでも歓迎します。お気軽にご参加ください。",
+    "speaker": {
+      "name": "TSKaigi運営",
+      "userIcon": "x",
+      "profileImageUrl": "/logo-2026.png",
+      "bio": "",
+      "xId": "",
+      "githubId": "",
+      "qiitaLink": "",
+      "zennLink": "",
+      "noteLink": "",
+      "additionalLink": "",
+      "affiliation": "",
+      "position": ""
+    }
   }
 }
