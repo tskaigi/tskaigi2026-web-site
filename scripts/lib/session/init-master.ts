@@ -4,6 +4,7 @@ import type { SpeakerSource } from "./types";
 const SPEAKERS_JSON = "scripts/data/speakers.json";
 const KEYNOTE_JSON = "scripts/data/keynote.json";
 const HANDSON_JSON = "scripts/data/handson.json";
+const OST_JSON = "scripts/data/ost.json";
 const SESSION_MASTER_JSON = "scripts/data/session-master.json";
 
 function main() {
@@ -28,7 +29,7 @@ function main() {
     }),
   );
 
-  for (const extraJson of [KEYNOTE_JSON, HANDSON_JSON]) {
+  for (const extraJson of [KEYNOTE_JSON, HANDSON_JSON, OST_JSON]) {
     if (fs.existsSync(extraJson)) {
       const extra: SpeakerSource = JSON.parse(
         fs.readFileSync(extraJson, "utf-8"),

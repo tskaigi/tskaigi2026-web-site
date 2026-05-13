@@ -6,7 +6,7 @@ import { SessionCard } from "./SessionCard";
 
 function LabelText({ label, link }: { label: string; link?: string }) {
   if (!link) return <>{label}</>;
-  if (link === "/talks/ost") {
+  if (link.startsWith("/")) {
     return (
       <Link href={link} className="underline hover:text-blue-purple-500">
         {label}

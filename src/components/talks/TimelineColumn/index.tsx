@@ -96,55 +96,56 @@ export function TimelineColumn({
     });
   }, [positionedTalks]);
 
+  const { segments: timelineSegments, height: timelineHeight } =
+    MY_TIMETABLE_CONST.TIMELINE_BY_DAY[eventDate];
+
   return (
     <div
       id={id}
       className="relative rounded-lg border border-black-300 bg-blue-purple-100/30"
-      style={{ height: `${MY_TIMETABLE_CONST.TIMELINE_HEIGHT}px` }}
+      style={{ height: `${timelineHeight}px` }}
     >
       {/* 休憩帯の背景 */}
-      {MY_TIMETABLE_CONST.TIMELINE_SEGMENTS.filter(
-        (seg) => seg.type === "break",
-      ).map((seg) => {
-        const isFirst = seg.top === 0;
-        const isLast =
-          seg.top + seg.height === MY_TIMETABLE_CONST.TIMELINE_HEIGHT;
-        return (
-          <div
-            key={`${eventDate}-break-${seg.start}`}
-            className={`absolute left-0 right-0 z-0 bg-black-100/50${isFirst ? " rounded-t-lg" : ""}${isLast ? " rounded-b-lg" : ""}`}
-            style={{ top: `${seg.top}px`, height: `${seg.height}px` }}
-          />
-        );
-      })}
+      {timelineSegments
+        .filter((seg) => seg.type === "break")
+        .map((seg) => {
+          const isFirst = seg.top === 0;
+          const isLast = seg.top + seg.height === timelineHeight;
+          return (
+            <div
+              key={`${eventDate}-break-${seg.start}`}
+              className={`absolute left-0 right-0 z-0 bg-black-100/50${isFirst ? " rounded-t-lg" : ""}${isLast ? " rounded-b-lg" : ""}`}
+              style={{ top: `${seg.top}px`, height: `${seg.height}px` }}
+            />
+          );
+        })}
 
       {/* セッション枠のクリック領域 */}
       {editable &&
-        MY_TIMETABLE_CONST.TIMELINE_SEGMENTS.filter(
-          (seg) =>
-            seg.type === "session" &&
-            myTimetable.hasSessionInSlot(eventDate, seg.start, seg.end),
-        ).map((seg) => (
-          <button
-            type="button"
-            key={`${eventDate}-${seg.start}`}
-            className="absolute left-0 right-0 z-0 cursor-pointer hover:bg-blue-purple-200/40"
-            style={{ top: `${seg.top}px`, height: `${seg.height}px` }}
-            onClick={() => onClickTimeSlot(eventDate, seg.start)}
-            aria-label={`${eventDate} ${myTimetable.formatMinutes(seg.start)} の時間帯で追加`}
-          />
-        ))}
+        timelineSegments
+          .filter(
+            (seg) =>
+              seg.type === "session" &&
+              myTimetable.hasSessionInSlot(eventDate, seg.start, seg.end),
+          )
+          .map((seg) => (
+            <button
+              type="button"
+              key={`${eventDate}-${seg.start}`}
+              className="absolute left-0 right-0 z-0 cursor-pointer hover:bg-blue-purple-200/40"
+              style={{ top: `${seg.top}px`, height: `${seg.height}px` }}
+              onClick={() => onClickTimeSlot(eventDate, seg.start)}
+              aria-label={`${eventDate} ${myTimetable.formatMinutes(seg.start)} の時間帯で追加`}
+            />
+          ))}
 
       {/* セグメント境界線（各セグメントの上端＋下端、重複排除、最上端・最下端は除外） */}
       {[
         ...new Set(
-          MY_TIMETABLE_CONST.TIMELINE_SEGMENTS.flatMap((seg) => [
-            seg.top,
-            seg.top + seg.height,
-          ]),
+          timelineSegments.flatMap((seg) => [seg.top, seg.top + seg.height]),
         ),
       ]
-        .filter((y) => y > 0 && y < MY_TIMETABLE_CONST.TIMELINE_HEIGHT)
+        .filter((y) => y > 0 && y < timelineHeight)
         .map((y) => (
           <div
             key={`${eventDate}-line-${y}`}
@@ -155,8 +156,9 @@ export function TimelineColumn({
 
       {groupedTalks.map(({ talks: group, columnIndex, columnCount }) => {
         const first = group[0];
-        const top = myTimetable.minutesToTop(first.startMinutes);
+        const top = myTimetable.minutesToTop(eventDate, first.startMinutes);
         const height = myTimetable.minutesToHeight(
+          eventDate,
           first.startMinutes,
           first.endMinutes,
         );
