@@ -1,20 +1,21 @@
 "use client";
 
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
-import { ExternalLink, X } from "lucide-react";
+import { Copy, ExternalLink, X } from "lucide-react";
 import Link from "next/link";
 import type { ComponentProps } from "react";
 import { useEffect } from "react";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
-import { CopyTalkButton } from "@/components/talks/CopyTalkButton";
+import { CopyableTitle } from "@/components/talks/CopyableTitle";
 import { ProfileImage } from "@/components/talks/FallbackImage";
 import {
   TalkStatus,
   ToggleParticipatedButton,
 } from "@/components/talks/TalkStatus";
 import { Button } from "@/components/ui/button";
+import { showAppToast } from "@/components/ui/GlobalToast";
 import { TALK_TYPE, TRACK, TRACK_STYLE } from "@/constants/timetable";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { cn } from "@/lib/utils";
@@ -70,6 +71,10 @@ const markdownComponents: ComponentProps<typeof Markdown>["components"] = {
 
 function SpeakerSection({ talk }: { talk: TalkWithMinutes }) {
   const { speaker } = talk;
+  const handleCopySpeakerName = async () => {
+    await navigator.clipboard.writeText(speaker.name);
+    showAppToast("スピーカー名をコピーしました");
+  };
   return (
     <div className="flex flex-col gap-3">
       <h3 className="text-sm font-bold text-black-700">スピーカー</h3>
@@ -81,7 +86,14 @@ function SpeakerSection({ talk }: { talk: TalkWithMinutes }) {
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <p className="font-bold text-black-700">{speaker.name}</p>
+          <button
+            type="button"
+            onClick={handleCopySpeakerName}
+            className="inline-flex w-fit items-center gap-1.5 cursor-pointer rounded-md px-1 -mx-1 py-0.5 border border-transparent backdrop-blur-sm transition-all hover:bg-white/40 hover:border-black-200/60 hover:shadow-sm active:bg-white/60 active:border-black-300/70 active:shadow-inner"
+          >
+            <span className="font-bold text-black-700">{speaker.name}</span>
+            <Copy size={14} className="shrink-0 text-black-400" />
+          </button>
           {speaker.affiliation && (
             <p className="text-xs text-black-500">{speaker.affiliation}</p>
           )}
@@ -205,9 +217,12 @@ function DrawerContent({ talk }: { talk: TalkWithMinutes }) {
       </div>
 
       <div>
-        <h3 className="text-xl font-bold text-black-700 leading-snug">
-          {talk.title}
-        </h3>
+        <CopyableTitle
+          talkId={talk.id}
+          title={talk.title}
+          speakerName={talk.speaker.name}
+          className="text-xl text-black-700 leading-snug"
+        />
         <div className="mt-2 flex items-center gap-2 flex-wrap text-sm text-black-500">
           <span
             className={cn(
@@ -238,11 +253,6 @@ function DrawerContent({ talk }: { talk: TalkWithMinutes }) {
       <SpeakerSection talk={talk} />
 
       <div className="mt-auto pt-4 flex flex-col gap-2">
-        <CopyTalkButton
-          talkId={talk.id}
-          title={talk.title}
-          speakerName={talk.speaker.name}
-        />
         <Button asChild variant="outline" className="w-full gap-2">
           <Link href={`/talks/${talk.id}`} target="_blank">
             詳細ページで見る

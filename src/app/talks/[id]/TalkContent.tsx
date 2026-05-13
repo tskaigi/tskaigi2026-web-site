@@ -3,6 +3,7 @@ import type { ComponentProps } from "react";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
+import { CopyableTitle } from "@/components/talks/CopyableTitle";
 import { OgpImage, ProfileImage } from "@/components/talks/FallbackImage";
 import { TalkStatus } from "@/components/talks/TalkStatus";
 import { TALK_TYPE } from "@/constants/timetable";
@@ -94,7 +95,11 @@ export function TalkContent({
             <TalkStatus talkId={session.id} />
             <DevelopModeToggleButton talkId={session.id} />
           </div>
-          <div className="text-2xl font-bold">{session.title}</div>
+          <CopyableTitle
+            talkId={session.id}
+            title={session.title}
+            speakerName={speaker.name}
+          />
           <div className="text-lg font-bold">
             {detail.day} / {timeRange} （{name}）
           </div>
