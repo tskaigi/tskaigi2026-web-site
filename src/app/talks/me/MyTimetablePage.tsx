@@ -180,7 +180,7 @@ function TimePickerDialog({
         </button>
       </div>
 
-      <div className="mt-3 max-h-72 overflow-y-auto flex flex-col gap-2">
+      <div className="mt-3 max-h-80 overflow-y-auto flex flex-col gap-2">
         {pickableByTime.length === 0 ? (
           <p className="text-sm text-black-500">該当するトークがありません。</p>
         ) : (
