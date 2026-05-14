@@ -141,35 +141,33 @@ export function TimelineColumn({
 
       {/* セッション時間枠だが、この日には選択できるトークがない領域 */}
       {editable &&
-        MY_TIMETABLE_CONST.TIMELINE_SEGMENTS.filter(
-          (seg) =>
-            seg.type === "session" &&
-            !myTimetable.hasSessionInSlot(eventDate, seg.start, seg.end),
-        ).map((seg) => {
-          const label =
-            eventDate === "Day2" && seg.start >= 1040
-              ? "OST / 懇親会"
-              : "セッションなし";
-          return (
-            <div
-              key={`${eventDate}-empty-session-${seg.start}`}
-              aria-hidden="true"
-              className="absolute left-0 right-0 z-0 flex items-center justify-center overflow-hidden bg-black-100/65 text-xs font-bold text-black-500"
-              style={{ top: `${seg.top}px`, height: `${seg.height}px` }}
-            >
+        MY_TIMETABLE_CONST.TIMELINE_BY_DAY[eventDate].segments
+          .filter(
+            (seg) =>
+              seg.type === "session" &&
+              !myTimetable.hasSessionInSlot(eventDate, seg.start, seg.end),
+          )
+          .map((seg) => {
+            return (
               <div
-                className="absolute inset-0 opacity-70"
-                style={{
-                  backgroundImage:
-                    "repeating-linear-gradient(-45deg, rgba(91, 100, 124, 0.16) 0 8px, transparent 8px 16px)",
-                }}
-              />
-              <span className="relative z-10 rounded-full border border-black-300 bg-white/85 px-3 py-1 shadow-sm">
-                {label}
-              </span>
-            </div>
-          );
-        })}
+                key={`${eventDate}-empty-session-${seg.start}`}
+                aria-hidden="true"
+                className="absolute left-0 right-0 z-0 flex items-center justify-center overflow-hidden bg-black-100/65 text-xs font-bold text-black-500"
+                style={{ top: `${seg.top}px`, height: `${seg.height}px` }}
+              >
+                <div
+                  className="absolute inset-0 opacity-70"
+                  style={{
+                    backgroundImage:
+                      "repeating-linear-gradient(-45deg, rgba(91, 100, 124, 0.16) 0 8px, transparent 8px 16px)",
+                  }}
+                />
+                <span className="relative z-10 rounded-full border border-black-300 bg-white/85 px-3 py-1 shadow-sm">
+                  セッションなし
+                </span>
+              </div>
+            );
+          })}
 
       {/* セグメント境界線（各セグメントの上端＋下端、重複排除、最上端・最下端は除外） */}
       {[
