@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   title: "当日企画",
   twitter: {
     title: "当日企画",
-    images: ["/ogp.png"],
+    images: ["/activities-ogp.png"],
   },
   openGraph: {
     title: "当日企画",
-    images: ["/ogp.png"],
+    images: ["/activities-ogp.png"],
   },
 };
 
