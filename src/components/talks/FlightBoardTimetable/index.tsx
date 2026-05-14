@@ -172,9 +172,9 @@ export function FlightBoardTimetable({
 
   return (
     <section
-      className={`${className} overflow-hidden rounded-lg border border-black-700 bg-black-700 shadow-[0_18px_40px_rgba(10,10,11,0.22)]`}
+      className={`${className} overflow-hidden rounded-lg border border-[#202126] bg-[#202126] shadow-[0_18px_40px_rgba(10,10,11,0.18)]`}
     >
-      <div className="border-b border-yellow-300/25 bg-black-600 px-4 py-4 text-white">
+      <div className="border-b border-yellow-300/25 bg-[#282a30] px-4 py-4 text-white">
         <div>
           <div className="flex items-center gap-2 font-mono text-[11px] font-bold text-yellow-300">
             <Plane size={16} />

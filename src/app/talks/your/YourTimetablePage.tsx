@@ -1,36 +1,39 @@
 "use client";
 
-import { List, Pencil, Plane } from "lucide-react";
+import { List, Pencil, QrCode } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
-import { FlightBoardDialog } from "@/components/talks/FlightBoardDialog";
-import { TalkDetailDrawer } from "@/components/talks/TalkDetailDrawer";
-import { TimelineColumn } from "@/components/talks/TimelineColumn";
-import {
-  DesktopTimelineLayout,
-  MobileTimelineLayout,
-} from "@/components/talks/TimelineLayout";
+import { useEffect, useMemo, useState } from "react";
+import { FlightBoardPanel } from "@/components/talks/FlightBoardPanel";
+import { MyTimetableQrDialog } from "@/components/talks/MyTimetableQrDialog";
 import { Button } from "@/components/ui/button";
-import type { EventDate } from "@/types/timetable-api";
-import {
-  getTalksByDateFromIds,
-  myTimetableQuery,
-  type TalkWithMinutes,
-} from "@/utils/myTimetable";
+import { getTalksByDateFromIds, myTimetableQuery } from "@/utils/myTimetable";
 
 export default function YourTimetablePage() {
   const searchParams = useSearchParams();
-  const [currentEventDate, setCurrentEventDate] = useState<EventDate>("Day1");
-  const [drawerTalk, setDrawerTalk] = useState<TalkWithMinutes | null>(null);
-  const [isFlightBoardOpen, setIsFlightBoardOpen] = useState(false);
+  const [isQrOpen, setIsQrOpen] = useState(false);
+  const [baseUrl, setBaseUrl] = useState("");
 
-  const { ids, participatedIds } = useMemo(
+  const { ids } = useMemo(
     () => myTimetableQuery.parse(searchParams),
     [searchParams],
   );
 
   const talksByDate = useMemo(() => getTalksByDateFromIds(ids), [ids]);
+  const queryString = searchParams.toString();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") setBaseUrl(window.location.origin);
+  }, []);
+
+  const currentShareUrl =
+    baseUrl.length > 0
+      ? `${baseUrl}/talks/me${queryString.length > 0 ? `?${queryString}` : ""}`
+      : "";
+  const yourShareUrl =
+    baseUrl.length > 0
+      ? `${baseUrl}/talks/your${queryString.length > 0 ? `?${queryString}` : ""}`
+      : "";
 
   return (
     <main className="bg-blue-light-100 mt-16 py-10 px-2 md:py-16 md:px-6 lg:px-10">
@@ -49,6 +52,16 @@ export default function YourTimetablePage() {
               <List size={18} />
             </Link>
           </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            onClick={() => setIsQrOpen(true)}
+            aria-label="QRコードを表示"
+            title="QRコードを表示"
+          >
+            <QrCode size={18} />
+          </Button>
           <Button type="button" variant="outline" size="icon" asChild>
             <Link
               href={`/talks/me${searchParams.toString() ? `?${searchParams.toString()}` : ""}`}
@@ -58,62 +71,20 @@ export default function YourTimetablePage() {
               <Pencil size={18} />
             </Link>
           </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="icon"
-            onClick={() => setIsFlightBoardOpen(true)}
-            aria-label="フライトボードを表示"
-            title="フライトボードを表示"
-          >
-            <Plane size={18} />
-          </Button>
         </aside>
-        <div>
-          <div className="block lg:hidden">
-            <MobileTimelineLayout
-              currentEventDate={currentEventDate}
-              onTabChange={setCurrentEventDate}
-            >
-              <TimelineColumn
-                eventDate={currentEventDate}
-                talks={talksByDate[currentEventDate]}
-                participatedIds={participatedIds}
-                onTalkClick={setDrawerTalk}
-              />
-            </MobileTimelineLayout>
-          </div>
-
-          <div className="hidden lg:block">
-            <DesktopTimelineLayout
-              day1Column={
-                <TimelineColumn
-                  eventDate="Day1"
-                  talks={talksByDate.Day1}
-                  participatedIds={participatedIds}
-                  onTalkClick={setDrawerTalk}
-                />
-              }
-              day2Column={
-                <TimelineColumn
-                  eventDate="Day2"
-                  talks={talksByDate.Day2}
-                  participatedIds={participatedIds}
-                  onTalkClick={setDrawerTalk}
-                />
-              }
-            />
-          </div>
+        <div className="min-w-0">
+          <FlightBoardPanel
+            day1Talks={talksByDate.Day1}
+            day2Talks={talksByDate.Day2}
+          />
         </div>
       </div>
 
-      <TalkDetailDrawer talk={drawerTalk} onClose={() => setDrawerTalk(null)} />
-
-      {isFlightBoardOpen && (
-        <FlightBoardDialog
-          day1Talks={talksByDate.Day1}
-          day2Talks={talksByDate.Day2}
-          onClose={() => setIsFlightBoardOpen(false)}
+      {isQrOpen && (
+        <MyTimetableQrDialog
+          currentShareUrl={currentShareUrl}
+          yourShareUrl={yourShareUrl}
+          onClose={() => setIsQrOpen(false)}
         />
       )}
     </main>
