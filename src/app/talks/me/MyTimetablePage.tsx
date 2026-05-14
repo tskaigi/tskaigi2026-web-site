@@ -577,7 +577,7 @@ function TalkSearchPanel({
       <div
         id="tour-search-panel"
         ref={popupRef}
-        className="relative w-[220px] max-w-full sm:w-full sm:max-w-md"
+        className="relative w-[208px] max-w-full sm:w-full sm:max-w-md"
       >
         <div className="relative">
           <Search
