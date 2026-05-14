@@ -49,7 +49,7 @@ export default function YourTimetablePage() {
           </Button>
           <Button type="button" variant="outline" size="icon" asChild>
             <Link
-              href={`/talks/me${searchParams.toString() ? `?${searchParams.toString()}` : ""}`}
+              href="/talks/me"
               aria-label="編集モードへ"
               title="編集モードへ"
             >
