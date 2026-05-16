@@ -61,7 +61,9 @@ jobs:
           pnpm biome check --write src/constants/staff/* || true
 
       - name: TypeScript check
-        run: pnpm typecheck
+        run: |
+          pnpm -s generate:staff-list  
+          pnpm typecheck
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
