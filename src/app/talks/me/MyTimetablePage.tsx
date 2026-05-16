@@ -22,7 +22,12 @@ import {
 import { StartTourButton } from "@/components/talks/Tour";
 import { Button } from "@/components/ui/button";
 import { showAppToast } from "@/components/ui/GlobalToast";
-import { TRACK, TRACK_STYLE } from "@/constants/timetable";
+import {
+  TALK_TYPE,
+  TRACK,
+  TRACK_KEYS,
+  TRACK_STYLE,
+} from "@/constants/timetable";
 import type { EventDate } from "@/types/timetable-api";
 import { Input } from "@/ui/input";
 import {
@@ -67,11 +72,13 @@ function TalkSelectItem({
   talk,
   isAdded,
   metaClassName,
+  showSessionType = false,
   onClick,
 }: {
   talk: TalkWithMinutes;
   isAdded: boolean;
   metaClassName?: string;
+  showSessionType?: boolean;
   onClick: () => void;
 }) {
   return (
@@ -95,7 +102,17 @@ function TalkSelectItem({
         )}
       </div>
       <p className="py-1 text-sm font-bold">{talk.title}</p>
-      <p className="text-xs">{talk.speaker.name}</p>
+      <div className="flex flex-wrap items-center gap-1.5">
+        <p className="text-xs">{talk.speaker.name}</p>
+        {showSessionType && (
+          <span
+            className="rounded-full px-1.5 py-0.5 text-[10px] font-bold text-white"
+            style={{ backgroundColor: TALK_TYPE[talk.sessionType].color }}
+          >
+            {TALK_TYPE[talk.sessionType].name}
+          </span>
+        )}
+      </div>
     </button>
   );
 }
@@ -136,6 +153,15 @@ function TimePickerDialog({
     [allTalks, timePickerState],
   );
 
+  const groupedTalks = useMemo(
+    () =>
+      TRACK_KEYS.map((track) => ({
+        track,
+        talks: pickableByTime.filter((talk) => talk.track === track),
+      })).filter((group) => group.talks.length > 0),
+    [pickableByTime],
+  );
+
   return (
     <DialogOverlay onClose={onClose}>
       <div className="flex items-center justify-between gap-2">
@@ -154,21 +180,43 @@ function TimePickerDialog({
         </button>
       </div>
 
-      <div className="mt-3 max-h-72 overflow-y-auto flex flex-col gap-2">
+      <div className="mt-3 max-h-80 overflow-y-auto flex flex-col gap-2">
         {pickableByTime.length === 0 ? (
           <p className="text-sm text-black-500">該当するトークがありません。</p>
         ) : (
-          pickableByTime.map((talk) => {
-            const isAdded = selectedIds.includes(talk.id);
-            return (
-              <TalkSelectItem
-                key={`pick-time-${talk.id}`}
-                talk={talk}
-                isAdded={isAdded}
-                onClick={() => (isAdded ? onRemove(talk.id) : onAdd(talk.id))}
-              />
-            );
-          })
+          groupedTalks.map((group) => (
+            <section
+              key={`pick-track-${group.track}`}
+              className="rounded-lg border border-black-200 bg-black-50/50 p-2"
+            >
+              <div className="mb-2 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`h-2.5 w-2.5 rounded-full ${TRACK_STYLE[group.track].bg}`}
+                  />
+                  <h4 className="text-sm font-bold text-black-700">
+                    {TRACK[group.track].name}
+                  </h4>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                {group.talks.map((talk) => {
+                  const isAdded = selectedIds.includes(talk.id);
+                  return (
+                    <TalkSelectItem
+                      key={`pick-time-${talk.id}`}
+                      talk={talk}
+                      isAdded={isAdded}
+                      showSessionType
+                      onClick={() =>
+                        isAdded ? onRemove(talk.id) : onAdd(talk.id)
+                      }
+                    />
+                  );
+                })}
+              </div>
+            </section>
+          ))
         )}
       </div>
     </DialogOverlay>
@@ -529,7 +577,7 @@ function TalkSearchPanel({
       <div
         id="tour-search-panel"
         ref={popupRef}
-        className="relative w-[220px] max-w-full sm:w-full sm:max-w-md"
+        className="relative w-[208px] max-w-full sm:w-full sm:max-w-md"
       >
         <div className="relative">
           <Search
