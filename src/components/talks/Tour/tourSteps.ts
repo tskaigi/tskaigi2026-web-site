@@ -51,7 +51,7 @@ const steps: Step[] = [
     icon: "1️⃣",
     title: "セッションを追加してみよう",
     content:
-      "セッションの「参加登録」ボタンを押して、マイタイムテーブルに追加してみましょう。",
+      "セッションの「参加予定」ボタンを押して、マイタイムテーブルに追加してみましょう。",
     selector: "#tour-add-button",
     side: "bottom",
     showControls: true,
