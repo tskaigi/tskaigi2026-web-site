@@ -67,6 +67,7 @@ function resolveSession(id: string): SessionSummary {
 
 export type Talk = SessionSummary & {
   eventDate: EventDate;
+  sessionType: SessionKey;
   track: TrackKey;
   time: string;
 };
@@ -74,12 +75,13 @@ export type Talk = SessionSummary & {
 export const talkList: Talk[] = timetableList.flatMap((day) =>
   day.cells.flatMap((cell) => {
     if (cell.content.type !== "session") return [];
-    const { sessions } = cell.content;
+    const { sessions, sessionType } = cell.content;
     const time = myTimetable.formatTimeRange(cell.startTime, cell.endTime);
     return cell.trackKeys.flatMap((trackKey) =>
       sessions.map((ref) => ({
         ...resolveSession(ref.id),
         eventDate: day.day,
+        sessionType,
         track: trackKey,
         time,
       })),
