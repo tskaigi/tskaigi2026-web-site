@@ -568,7 +568,7 @@
       "name": "工藤 颯斗",
       "userIcon": "x",
       "profileImageUrl": "/hayato-kudoh.jpg",
-      "bio": "顧客分析A エージェント「Flyle」の開発をしています",
+      "bio": "顧客分析AIエージェント「Flyle」の開発をしています",
       "xId": "metalic_kudo_h",
       "githubId": "",
       "qiitaLink": "",
@@ -782,28 +782,28 @@
   {
     "id": "yusuke-izumi",
     "title": "400超のデータポイントを型で制す —— UPSIDERの与信審査エンジンを支えるTypeScriptの「柔軟性」と「結合力」",
-    "overview": "スタートアップの成長を支えるUPSIDERのカード与信審査。その心臓部はNext.js/TypeScriptで構築されています。400を超える膨大なデータポイントを扱い、複雑な計算ロジックが絡み合うこの領域で、なぜ私たちはTypeScriptを選んだのか。\n\n本セッションでは、フロントエンドとバックエンドを1 Interfaceで統合し、型安全を維持しながら開発スピードを最大化する戦略を公開します。特に、実行時（Runtime）のデータインジェクションや、複雑なグローバル設定へのマージ、テスト時におけるデータのオーバーライドなど、動的な性質と堅牢性が求められるロジックにおいて、TypeScriptが他の言語以上に「ビジネスの武器」となる理由を深掘りします。",
+    "overview": "スタートアップの成長を支えるUPSIDERのカード与信審査。その心臓部はNext.js/TypeScriptで構築されています。400を超える膨大なデータポイントを扱い、複雑な計算ロジックが絡み合うこの領域で、なぜ私たちはTypeScriptを選んだのか。\r\n\r\n本セッションでは、フロントエンドとバックエンドを1 Interfaceで統合し、型安全を維持しながら開発スピードを最大化する方法についてご紹介します。特に、実行時（Runtime）のデータインジェクションや、複雑なグローバル設定へのマージ、テスト時におけるデータのオーバーライドなど、動的な性質と堅牢性が求められるロジックにおいて、TypeScriptが他の言語以上に「ビジネスの武器」となる理由を深掘りします。",
     "slidesLink": "",
     "speaker": {
       "name": "泉雄介",
       "userIcon": "x",
       "profileImageUrl": "/yusuke-izumi.jpg",
-      "bio": "",
-      "xId": "",
-      "githubId": "",
+      "bio": "アメリカの音楽大学を卒業後、メディア制作会社で作曲家として勤務したのち、システム開発で起業。\r\nモルガン・スタンレー証券会社での債券取引のシステム開発や、ディー・エヌ・エーにおけるゲームプラットフォーム事業やヘルスケアサービス開発のリードエンジニア、ラクスル取締役CTOを経て、株式会社UPSIDERに入社しVP of Engineeringを務める。\r\n\r\nCFA協会認定証券アナリスト (2011~)\r\n日本CTO協会理事 (2024~)\r\nマザーズ企業社外取締役（2025~）",
+      "xId": "yizumi",
+      "githubId": "yizumi",
       "qiitaLink": "",
       "zennLink": "",
       "noteLink": "",
-      "additionalLink": "",
-      "affiliation": "",
-      "position": ""
+      "additionalLink": "https://www.linkedin.com/in/y-izumi/",
+      "affiliation": "株式会社UPSIDER",
+      "position": "VPoE"
     }
   },
   {
     "id": "riku-takada",
     "title": "string地獄を脱出する — ValueObject + Zod 実践パターン",
     "overview": "「string同士の取り違えが本番でしか分からない」「Zodと型定義を二重に書いている」——この2つの悩みを、ValueObject + Zodで解消するパターンを実コードで紹介します。\r\n\r\n数十行の基底クラス ValueObject<T> のコンストラクタでZodを叩き、コンパイル時の型安全とランタイム検証を1箇所に集約する設計です。プリミティブ型VO（z.number().positive().int()で不正値を弾くSystemId）とEnum型VO（z.enumからz.inferで型を導出し二重定義をなくすTaskStatus）の2パターンを実例で解説します。\r\n\r\nまた、プロダクションで113個のValueObjectを運用する中で得た知見として、Plopによる2層構造（Generated層+手動実装層）での効率的な管理手法と、Object型VOのequals問題という実務の落とし穴にも触れます。\r\n\r\n聞くと、型とランタイム検証を一本化する設計パターンと、大量のVOを破綻なく運用する仕組みが持ち帰れます。",
-    "slidesLink": "",
+    "slidesLink": "https://sansan.box.com/s/j4xkoqhxvrcskder3r08t02madbaxcdn",
     "speaker": {
       "name": "高田 理功",
       "userIcon": "x",
@@ -1261,8 +1261,8 @@
   },
   {
     "id": "shotaro-nakata",
-    "title": "TypeScriptの型はAIに届いているか？ ― AIコーディングツール検証で見えたIDEとの断絶",
-    "overview": "TypeScriptの型システムは型推論・定義元特定・参照追跡といったリッチな構造情報を持ち、IDEではLSP経由で日常的に活用されています。ではAIコーディングツールはどうか。Claude Code・Cursor・GitHub Copilot・Codex・Geminiを調査した結果、tsc実行による型エラーは取得できるものの、型の構造情報はほとんどAIに届いていませんでした。本発表では「何が届いていて何が届いていないか」を整理し、LSPに対する3つの設計思想（不要派・必要派・中間派）を比較します。",
+    "title": "TypeScriptの型はAIに届いているか？ ― AIコーディングツール検証で見えた届き方の差",
+    "overview": "TypeScriptの型システムは型推論・定義元特定・参照追跡といったリッチな構造情報を持ち、IDEではLSP経由で日常的に活用されています。ではAIコーディングツールはどうか。Claude Code・Cursor・GitHub Copilot・Codex・Geminiを調査した結果、型情報の届き方はツールごとに大きく異なり、「届く／届かない」の二択では捉えきれないことが見えてきました。本発表では型情報の「届き方」を整理し、各ツールがどこまで何を見ているのか、LSPなどの手段にどう向き合っているかを比較します。さらに「機能がある」「モデルが使う」「実務で効く」はそれぞれ別、という観点から、型をAIに届かせるための実務的な指針も提示します。",
     "slidesLink": "",
     "speaker": {
       "name": "shotaro",
