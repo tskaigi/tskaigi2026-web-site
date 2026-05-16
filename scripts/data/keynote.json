@@ -1,6 +1,6 @@
 {
   "id": "jake-bailey",
-  "title": "『TS 7: How We Got There』",
+  "title": "TS 7: How We Got There",
   "overview": "TypeScript 7 ships soon, powered by a full port of the compiler to Go, bringing 10x faster builds and real concurrency to every TypeScript user. This talk is the story of how we got there: why we couldn't keep going with JavaScript, how we picked Go, and what a year of porting, testing, and shipping previews actually looked like. You'll hear about the strategies that saved us, from snapshot testing and differential fuzzing to testing against thousands of real-world projects, and what we had to give up along the way.",
   "slidesLink": "",
   "speaker": {
