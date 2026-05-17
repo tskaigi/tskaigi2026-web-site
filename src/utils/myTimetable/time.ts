@@ -48,7 +48,7 @@ const SESSION_SLOTS_DAY1: readonly SessionSlot[] = [
   { start: 950, end: 980 }, // 15:50〜16:20
   { start: 1000, end: 1030 }, // 16:40〜17:10
   { start: 1040, end: 1070 }, // 17:20〜17:50
-  { start: 1090, end: 1130 }, // 18:10〜18:50
+  { start: 1090, end: 1140 }, // 18:10〜19:00
 ] as const;
 
 const SESSION_SLOTS_DAY2: readonly SessionSlot[] = [

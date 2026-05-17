@@ -1,5 +1,9 @@
+"use client";
+
 import { ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
+import { useDevelopMode } from "@/hooks/useDevelopMode";
 import type { Cell, Track, TrackKey } from "@/types/timetable-api";
 import { CardShell } from "./CardShell";
 import { SessionCard } from "./SessionCard";
@@ -23,6 +27,36 @@ function LabelText({ label, link }: { label: string; link?: string }) {
       <span>{label}</span>
       <ExternalLink className="h-4 w-4" aria-hidden="true" />
     </a>
+  );
+}
+
+function DisplayLabelSessionCard({
+  label,
+  link,
+  talkId,
+  talkIds,
+  tracks,
+}: {
+  label: string;
+  link?: string;
+  talkId: string;
+  talkIds: string[];
+  tracks: Track[];
+}) {
+  const isDevelop = useDevelopMode();
+  return (
+    <CardShell variant="card" tracks={tracks} withTriangle>
+      {isDevelop && (
+        <div className="absolute top-2 right-2 md:top-3 md:right-3">
+          <AddToMyTimetableButton
+            talkId={talkId}
+            talkIds={talkIds}
+            withCheckbox
+          />
+        </div>
+      )}
+      <LabelText label={label} link={link} />
+    </CardShell>
   );
 }
 
@@ -54,13 +88,25 @@ export function CellRenderer({
     );
   }
 
-  // labeled (non-muted) と displayLabel 付き session は同じ「白カード」シェル
-  if (c.type === "labeled" || c.displayLabel !== undefined) {
-    const label = c.type === "labeled" ? c.label : c.displayLabel;
+  // labeled (non-muted) は白カードシェル
+  if (c.type === "labeled") {
     return (
       <CardShell variant="card" tracks={tracks}>
-        <LabelText label={label ?? ""} link={c.link} />
+        <LabelText label={c.label} link={c.link} />
       </CardShell>
+    );
+  }
+
+  // displayLabel 付き session (ハンズオン・OST) はラベル+参加予定チェック
+  if (c.displayLabel !== undefined) {
+    return (
+      <DisplayLabelSessionCard
+        label={c.displayLabel}
+        link={c.link}
+        talkId={c.sessions[0].id}
+        talkIds={c.sessions.map((s) => s.id)}
+        tracks={tracks}
+      />
     );
   }
 

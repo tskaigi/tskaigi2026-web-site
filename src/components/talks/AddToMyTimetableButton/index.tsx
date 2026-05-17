@@ -160,7 +160,7 @@ export function AddToMyTimetableButton({
           }`}
         >
           {isAdded ? <SquareCheck size={14} /> : <Square size={14} />}
-          参加予定
+          <span className="md:max-[819px]:hidden">参加予定</span>
         </button>
         {overlapDialog}
       </>
