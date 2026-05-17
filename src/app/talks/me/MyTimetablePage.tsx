@@ -134,14 +134,18 @@ function TimePickerDialog({
   allTalks,
   selectedIds,
   onAdd,
+  onAddBatch,
   onRemove,
+  onRemoveBatch,
   onClose,
 }: {
   timePickerState: NonNullable<TimePickerState>;
   allTalks: TalkWithMinutes[];
   selectedIds: string[];
   onAdd: (id: string) => void;
+  onAddBatch: (ids: string[]) => void;
   onRemove: (id: string) => void;
+  onRemoveBatch: (ids: string[]) => void;
   onClose: () => void;
 }) {
   const pickableByTime = useMemo(
@@ -186,39 +190,68 @@ function TimePickerDialog({
         {pickableByTime.length === 0 ? (
           <p className="text-sm text-black-500">該当するトークがありません。</p>
         ) : (
-          groupedTalks.map((group) => (
-            <section
-              key={`pick-track-${group.track}`}
-              className="rounded-lg border border-black-200 bg-black-50/50 p-2"
-            >
-              <div className="mb-2 flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`h-2.5 w-2.5 rounded-full ${TRACK_STYLE[group.track].bg}`}
-                  />
-                  <h4 className="text-sm font-bold text-black-700">
-                    {TRACK[group.track].name}
-                  </h4>
-                </div>
-              </div>
-              <div className="flex flex-col gap-2">
-                {group.talks.map((talk) => {
-                  const isAdded = selectedIds.includes(talk.id);
-                  return (
-                    <TalkSelectItem
-                      key={`pick-time-${talk.id}`}
-                      talk={talk}
-                      isAdded={isAdded}
-                      showSessionType
-                      onClick={() =>
-                        isAdded ? onRemove(talk.id) : onAdd(talk.id)
-                      }
+          groupedTalks.map((group) => {
+            const allAdded = group.talks.every((t) =>
+              selectedIds.includes(t.id),
+            );
+            const unadded = group.talks.filter(
+              (t) => !selectedIds.includes(t.id),
+            );
+            return (
+              <section
+                key={`pick-track-${group.track}`}
+                className="rounded-lg border border-black-200 bg-black-50/50 p-2"
+              >
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`h-2.5 w-2.5 rounded-full ${TRACK_STYLE[group.track].bg}`}
                     />
-                  );
-                })}
-              </div>
-            </section>
-          ))
+                    <h4 className="text-sm font-bold text-black-700">
+                      {TRACK[group.track].name}
+                    </h4>
+                  </div>
+                  {allAdded ? (
+                    <button
+                      type="button"
+                      className="text-xs font-bold text-red-500 hover:text-red-700 cursor-pointer"
+                      onClick={() =>
+                        onRemoveBatch(group.talks.map((t) => t.id))
+                      }
+                    >
+                      まとめて削除
+                    </button>
+                  ) : (
+                    unadded.length > 1 && (
+                      <button
+                        type="button"
+                        className="text-xs font-bold text-blue-purple-500 hover:text-blue-purple-700 cursor-pointer"
+                        onClick={() => onAddBatch(unadded.map((t) => t.id))}
+                      >
+                        まとめて追加
+                      </button>
+                    )
+                  )}
+                </div>
+                <div className="flex flex-col gap-2">
+                  {group.talks.map((talk) => {
+                    const isAdded = selectedIds.includes(talk.id);
+                    return (
+                      <TalkSelectItem
+                        key={`pick-time-${talk.id}`}
+                        talk={talk}
+                        isAdded={isAdded}
+                        showSessionType
+                        onClick={() =>
+                          isAdded ? onRemove(talk.id) : onAdd(talk.id)
+                        }
+                      />
+                    );
+                  })}
+                </div>
+              </section>
+            );
+          })
         )}
       </div>
     </DialogOverlay>
@@ -633,6 +666,17 @@ export default function MyTimetablePage() {
     showAppToast("マイタイムテーブルに追加しました");
   };
 
+  const addTalks = (ids: string[]) => {
+    const newIds = ids.filter((id) => !selectedIds.includes(id));
+    if (newIds.length === 0) return;
+
+    const next = Array.from(new Set([...selectedIds, ...newIds]));
+    setSelectedIds(next);
+    myTimetableIds.write(next);
+    window.dispatchEvent(new Event("my-timetable-updated"));
+    showAppToast(`${newIds.length}件をマイタイムテーブルに追加しました`);
+  };
+
   const resolveOverlapAndAdd = () => {
     if (!overlapState) return;
 
@@ -646,8 +690,13 @@ export default function MyTimetablePage() {
   };
 
   const removeTalk = (id: string) => {
-    const nextParticipated = participatedIds.filter((pid) => pid !== id);
-    const next = selectedIds.filter((currentId) => currentId !== id);
+    removeTalks([id]);
+  };
+
+  const removeTalks = (ids: string[]) => {
+    const idSet = new Set(ids);
+    const nextParticipated = participatedIds.filter((pid) => !idSet.has(pid));
+    const next = selectedIds.filter((currentId) => !idSet.has(currentId));
     setParticipatedIds(nextParticipated);
     setSelectedIds(next);
     myTimetableIds.write(next);
@@ -738,6 +787,7 @@ export default function MyTimetablePage() {
                 participatedIds={participatedIds}
                 onClickTimeSlot={handleClickTimeSlot}
                 onRemoveTalk={removeTalk}
+                onRemoveTalks={removeTalks}
                 onTalkClick={setDrawerTalk}
               />
             </MobileTimelineLayout>
@@ -753,6 +803,7 @@ export default function MyTimetablePage() {
                   participatedIds={participatedIds}
                   onClickTimeSlot={handleClickTimeSlot}
                   onRemoveTalk={removeTalk}
+                  onRemoveTalks={removeTalks}
                   onTalkClick={setDrawerTalk}
                 />
               }
@@ -763,6 +814,7 @@ export default function MyTimetablePage() {
                   participatedIds={participatedIds}
                   onClickTimeSlot={handleClickTimeSlot}
                   onRemoveTalk={removeTalk}
+                  onRemoveTalks={removeTalks}
                   onTalkClick={setDrawerTalk}
                 />
               }
@@ -777,7 +829,9 @@ export default function MyTimetablePage() {
           allTalks={allTalksWithMinutes}
           selectedIds={selectedIds}
           onAdd={addTalk}
+          onAddBatch={addTalks}
           onRemove={removeTalk}
+          onRemoveBatch={removeTalks}
           onClose={() => setTimePickerState(null)}
         />
       )}
