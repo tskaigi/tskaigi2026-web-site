@@ -228,7 +228,7 @@ const day2: TimetableResponse = {
       trackKeys: ["LEVERAGES", "UPSIDER"],
       content: { type: "labeled", label: "懇親会準備" },
     },
-    // 17:20-18:30 RIGHTTOUCH 参加者体験企画
+    // 17:20-18:30 RIGHTTOUCH 現地企画
     {
       startTime: d2(17, 20),
       endTime: d2(18, 30),
