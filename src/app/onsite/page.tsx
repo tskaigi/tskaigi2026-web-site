@@ -101,6 +101,17 @@ export default function OnsitePage() {
           <h2 className="text-xl font-bold text-blue-light-500 md:text-2xl">
             Wi-Fi
           </h2>
+          <div className="flex flex-col gap-4">
+            <p>会場ではWi-Fiをご利用いただけます。接続には下記の情報をご使用ください。</p>
+            <div className="flex flex-col gap-1">
+              <p>
+                <span className="font-bold">SSID：</span>TSKaigi2026
+              </p>
+              <p>
+                <span className="font-bold">パスワード：</span>i-love-typescript
+              </p>
+            </div>
+          </div>
         </section>
       </div>
     </main>
