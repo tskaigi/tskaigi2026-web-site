@@ -18,6 +18,7 @@ export function TimelineColumn({
   participatedIds,
   onClickTimeSlot,
   onRemoveTalk,
+  onRemoveTalks,
   onTalkClick,
 }: {
   id?: string;
@@ -26,6 +27,7 @@ export function TimelineColumn({
   participatedIds: string[];
   onClickTimeSlot?: (eventDate: EventDate, minutes: number) => void;
   onRemoveTalk?: (id: string) => void;
+  onRemoveTalks?: (ids: string[]) => void;
   onTalkClick?: (talk: TalkWithMinutes) => void;
 }) {
   const editable = !!onClickTimeSlot && !!onRemoveTalk;
@@ -229,7 +231,11 @@ export function TimelineColumn({
                 type="button"
                 className="absolute right-1 top-1 z-10 cursor-pointer text-black-500 hover:text-black-700"
                 onClick={() => {
-                  for (const t of group) onRemoveTalk(t.id);
+                  if (onRemoveTalks) {
+                    onRemoveTalks(group.map((t) => t.id));
+                  } else {
+                    for (const t of group) onRemoveTalk(t.id);
+                  }
                 }}
                 aria-label="削除"
               >
