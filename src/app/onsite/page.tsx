@@ -41,8 +41,14 @@ export default function OnsitePage() {
             開場時間
           </h2>
           <div className="flex flex-col gap-4">
-            <p><span className="font-bold">一般開場：</span>会場は<span className="font-bold">10:00</span>より開場します。</p>
-            <p><span className="font-bold">オープニングトーク：</span><span className="font-bold">10:40</span>より開始します。</p>
+            <p>
+              <span className="font-bold">一般開場：</span>会場は
+              <span className="font-bold">10:00</span>より開場します。
+            </p>
+            <p>
+              <span className="font-bold">オープニングトーク：</span>
+              <span className="font-bold">10:40</span>より開始します。
+            </p>
             <ul className="list-disc pl-6 flex flex-col gap-1">
               <li>レバレジーズトラック：メイン会場</li>
               <li>UPSIDERトラック：サテライト配信をご覧いただけます</li>
@@ -55,8 +61,16 @@ export default function OnsitePage() {
             アクセス
           </h2>
           <div className="flex flex-col gap-4">
-            <p>会場のベルサール羽田空港は、<span className="font-bold">「羽田エアポートガーデン1F」</span>にございます。</p>
-            <p>羽田エアポートガーデンは空港到着ロビー及び京浜急行・東京モノレールの<span className="font-bold">「羽田空港第3ターミナル」</span>駅から連絡通路でホテルに直結しています。</p>
+            <p>
+              会場のベルサール羽田空港は、
+              <span className="font-bold">「羽田エアポートガーデン1F」</span>
+              にございます。
+            </p>
+            <p>
+              羽田エアポートガーデンは空港到着ロビー及び京浜急行・東京モノレールの
+              <span className="font-bold">「羽田空港第3ターミナル」</span>
+              駅から連絡通路でホテルに直結しています。
+            </p>
             <p>
               アクセスの詳細は
               <a
