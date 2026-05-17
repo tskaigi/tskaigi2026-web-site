@@ -43,7 +43,7 @@ export const TALK_TYPE: Record<SessionKey, { name: string; color: string }> = {
   SHORT: { name: "10分セッション", color: "#c3620f" },
   SPONSOR: { name: "スポンサーセッション", color: "#E53D84" },
   HANDSON: { name: "ハンズオン", color: "#6B21A8" },
-  OST: { name: "参加者体験企画", color: "#6B21A8" },
+  OST: { name: "現地企画", color: "#6B21A8" },
 };
 
 export const HANDSON_ID = "1";
