@@ -31,9 +31,6 @@ jobs:
         with:
           version: latest
 
-      - name: Format generated files
-        run: biome format --write src/constants/staff.generated.ts src/constants/day-staff.generated.ts
-
       - name: Run Biome
         run: biome ci ./src/
 
