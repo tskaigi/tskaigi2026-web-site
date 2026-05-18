@@ -27,7 +27,7 @@ export function StaffSection() {
   return (
     <section className="w-full pb-10 md:pb-20 bg-blue-light-100">
       <h2 className="text-[24px] lg:text-[28px] leading-normal text-center font-bold pb-8 md:pb-10">
-        スタッフ一覧
+        スタッフ
       </h2>
       <ul className="grid grid-cols-[repeat(auto-fit,120px)] md:grid-cols-[repeat(4,120px)] lg:grid-cols-[repeat(5,120px)] justify-center gap-x-14 gap-y-14 md:gap-y-8 px-4">
         {sortedStaffList.map(({ name, image, href }) => (
