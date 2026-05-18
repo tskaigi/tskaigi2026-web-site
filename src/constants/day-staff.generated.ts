@@ -10,6 +10,4 @@ export type DayStaff = {
   href?: string;
 };
 
-export const DAY_STAFF_LIST: DayStaff[] = [
-  dayStaff27627295,
-];
+export const DAY_STAFF_LIST: DayStaff[] = [dayStaff27627295];
