@@ -62,7 +62,8 @@ jobs:
 
       - name: TypeScript check
         run: |
-          pnpm -s generate:staff-list  
+          pnpm -s generate:staff-list
+          pnpm biome format --write src/constants/staff.generated.ts
           pnpm typecheck
 
       - name: Create Pull Request
