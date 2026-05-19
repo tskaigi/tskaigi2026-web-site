@@ -58,6 +58,18 @@ npx tsx scripts/generate-talk-ogp.ts --force    # 全件再生成
 
 セッションごとの OGP 画像を `public/talks/{sessionId}.png` に生成する。
 
+### スポンサー情報取得
+
+```bash
+npx tsx scripts/fetch-sponsors.ts                   # 差分のみ取得
+npx tsx scripts/fetch-sponsors.ts --force           # 全件再取得
+npx tsx scripts/fetch-sponsors.ts --manifest-only   # マニフェストのみ生成（画像取得なし）
+```
+
+tskaigi-cms の `/api/sponsors` からスポンサー情報を取得し、画像（logo / OGP / jobboard）を `public/sponsors/{slug}/{logo|ogp|jobboard}.{ext}` に保存する。画像URLをローカルパスに書き換えた正規化済みJSONを `src/constants/sponsors.json` に出力する（フロントから直接 import される想定）。
+
+マニフェスト（`.sponsors-fetch-manifest.json`）で前回の URL を記録し、URL に差分があったスポンサーの画像のみ再取得する（CMS 側で画像を再アップすると URL のタイムスタンプが変わる仕様を利用）。
+
 ## データファイル (`scripts/data/`)
 
 | ファイル | git管理 | 説明 |
@@ -68,6 +80,7 @@ npx tsx scripts/generate-talk-ogp.ts --force    # 全件再生成
 | `session-master.json` | x | パイプライン生成物 |
 | `data-completeness.json` | x | パイプライン生成物 |
 | `.icon-fetch-manifest.json` | x | アイコン取得のキャッシュ |
+| `.sponsors-fetch-manifest.json` | x | スポンサー画像取得のキャッシュ |
 
 ## 共通型定義
 
