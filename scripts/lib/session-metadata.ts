@@ -22,6 +22,7 @@ const SESSION_TYPE_KEYS = new Set<string>([
   "SHORT",
   "SPONSOR",
   "HANDSON",
+  "OST",
 ]);
 
 function isValidSessionKey(key: string): key is SessionKey {

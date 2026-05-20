@@ -46,10 +46,12 @@ export function TalkStatus({ talkId }: { talkId: string }) {
 }
 
 export function ToggleParticipatedButton({ talkId }: { talkId: string }) {
+  const [isScheduled, setIsScheduled] = useState(false);
   const [isParticipated, setIsParticipated] = useState(false);
 
   useEffect(() => {
     const update = () => {
+      setIsScheduled(myTimetableIds.read().includes(talkId));
       setIsParticipated(myParticipatedIds.read().includes(talkId));
     };
 
@@ -62,6 +64,8 @@ export function ToggleParticipatedButton({ talkId }: { talkId: string }) {
       window.removeEventListener("my-timetable-updated", update);
     };
   }, [talkId]);
+
+  if (!isScheduled) return null;
 
   const toggle = () => {
     const current = myParticipatedIds.read();

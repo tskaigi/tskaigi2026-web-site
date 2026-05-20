@@ -4,6 +4,7 @@ import {
   AlertTriangle,
   Check,
   Info,
+  Plane,
   QrCode,
   RotateCcw,
   Search,
@@ -13,6 +14,8 @@ import {
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { FloatingNavButtons } from "@/components/talks/FloatingNavButtons";
+import { MyTimetableQrDialog } from "@/components/talks/MyTimetableQrDialog";
 import { TalkDetailDrawer } from "@/components/talks/TalkDetailDrawer";
 import { TimelineColumn } from "@/components/talks/TimelineColumn";
 import {
@@ -22,7 +25,12 @@ import {
 import { StartTourButton } from "@/components/talks/Tour";
 import { Button } from "@/components/ui/button";
 import { showAppToast } from "@/components/ui/GlobalToast";
-import { TRACK, TRACK_STYLE } from "@/constants/timetable";
+import {
+  TALK_TYPE,
+  TRACK,
+  TRACK_KEYS,
+  TRACK_STYLE,
+} from "@/constants/timetable";
 import type { EventDate } from "@/types/timetable-api";
 import { Input } from "@/ui/input";
 import {
@@ -67,11 +75,13 @@ function TalkSelectItem({
   talk,
   isAdded,
   metaClassName,
+  showSessionType = false,
   onClick,
 }: {
   talk: TalkWithMinutes;
   isAdded: boolean;
   metaClassName?: string;
+  showSessionType?: boolean;
   onClick: () => void;
 }) {
   return (
@@ -95,7 +105,17 @@ function TalkSelectItem({
         )}
       </div>
       <p className="py-1 text-sm font-bold">{talk.title}</p>
-      <p className="text-xs">{talk.speaker.name}</p>
+      <div className="flex flex-wrap items-center gap-1.5">
+        <p className="text-xs">{talk.speaker.name}</p>
+        {showSessionType && (
+          <span
+            className="rounded-full px-1.5 py-0.5 text-[10px] font-bold text-white"
+            style={{ backgroundColor: TALK_TYPE[talk.sessionType].color }}
+          >
+            {TALK_TYPE[talk.sessionType].name}
+          </span>
+        )}
+      </div>
     </button>
   );
 }
@@ -115,14 +135,18 @@ function TimePickerDialog({
   allTalks,
   selectedIds,
   onAdd,
+  onAddBatch,
   onRemove,
+  onRemoveBatch,
   onClose,
 }: {
   timePickerState: NonNullable<TimePickerState>;
   allTalks: TalkWithMinutes[];
   selectedIds: string[];
   onAdd: (id: string) => void;
+  onAddBatch: (ids: string[]) => void;
   onRemove: (id: string) => void;
+  onRemoveBatch: (ids: string[]) => void;
   onClose: () => void;
 }) {
   const pickableByTime = useMemo(
@@ -134,6 +158,15 @@ function TimePickerDialog({
           talk.endMinutes > timePickerState.minutes,
       ),
     [allTalks, timePickerState],
+  );
+
+  const groupedTalks = useMemo(
+    () =>
+      TRACK_KEYS.map((track) => ({
+        track,
+        talks: pickableByTime.filter((talk) => talk.track === track),
+      })).filter((group) => group.talks.length > 0),
+    [pickableByTime],
   );
 
   return (
@@ -154,19 +187,70 @@ function TimePickerDialog({
         </button>
       </div>
 
-      <div className="mt-3 max-h-72 overflow-y-auto flex flex-col gap-2">
+      <div className="mt-3 max-h-80 overflow-y-auto flex flex-col gap-2">
         {pickableByTime.length === 0 ? (
           <p className="text-sm text-black-500">該当するトークがありません。</p>
         ) : (
-          pickableByTime.map((talk) => {
-            const isAdded = selectedIds.includes(talk.id);
+          groupedTalks.map((group) => {
+            const allAdded = group.talks.every((t) =>
+              selectedIds.includes(t.id),
+            );
+            const unadded = group.talks.filter(
+              (t) => !selectedIds.includes(t.id),
+            );
             return (
-              <TalkSelectItem
-                key={`pick-time-${talk.id}`}
-                talk={talk}
-                isAdded={isAdded}
-                onClick={() => (isAdded ? onRemove(talk.id) : onAdd(talk.id))}
-              />
+              <section
+                key={`pick-track-${group.track}`}
+                className="rounded-lg border border-black-200 bg-black-50/50 p-2"
+              >
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`h-2.5 w-2.5 rounded-full ${TRACK_STYLE[group.track].bg}`}
+                    />
+                    <h4 className="text-sm font-bold text-black-700">
+                      {TRACK[group.track].name}
+                    </h4>
+                  </div>
+                  {allAdded ? (
+                    <button
+                      type="button"
+                      className="text-xs font-bold text-red-500 hover:text-red-700 cursor-pointer"
+                      onClick={() =>
+                        onRemoveBatch(group.talks.map((t) => t.id))
+                      }
+                    >
+                      まとめて削除
+                    </button>
+                  ) : (
+                    unadded.length > 1 && (
+                      <button
+                        type="button"
+                        className="text-xs font-bold text-blue-purple-500 hover:text-blue-purple-700 cursor-pointer"
+                        onClick={() => onAddBatch(unadded.map((t) => t.id))}
+                      >
+                        まとめて追加
+                      </button>
+                    )
+                  )}
+                </div>
+                <div className="flex flex-col gap-2">
+                  {group.talks.map((talk) => {
+                    const isAdded = selectedIds.includes(talk.id);
+                    return (
+                      <TalkSelectItem
+                        key={`pick-time-${talk.id}`}
+                        talk={talk}
+                        isAdded={isAdded}
+                        showSessionType
+                        onClick={() =>
+                          isAdded ? onRemove(talk.id) : onAdd(talk.id)
+                        }
+                      />
+                    );
+                  })}
+                </div>
+              </section>
             );
           })
         )}
@@ -326,92 +410,13 @@ function InfoDialog({ onClose }: { onClose: () => void }) {
   );
 }
 
-type QrTab = "sync" | "share";
-
-function QrDialog({
-  currentShareUrl,
-  yourShareUrl,
-  onClose,
-}: {
-  currentShareUrl: string;
-  yourShareUrl: string;
-  onClose: () => void;
-}) {
-  const [activeTab, setActiveTab] = useState<QrTab>("sync");
-
-  const tabs: { key: QrTab; label: string }[] = [
-    { key: "sync", label: "同期用" },
-    { key: "share", label: "共有用" },
-  ];
-
-  const qrUrl = activeTab === "sync" ? currentShareUrl : yourShareUrl;
-  const description =
-    activeTab === "sync"
-      ? "読み取った端末に保存されているマイタイムテーブル情報が上書きされます"
-      : "読み取った端末に保存されているマイタイムテーブル情報は上書きされません";
-
-  return (
-    <DialogOverlay maxWidth="max-w-sm" onClose={onClose}>
-      <div className="flex items-center justify-between">
-        <h3 className="text-base font-bold text-black-700">QRコード</h3>
-        <button
-          type="button"
-          className="text-black-500 hover:text-black-700 cursor-pointer"
-          onClick={onClose}
-          aria-label="閉じる"
-        >
-          <X size={18} />
-        </button>
-      </div>
-
-      <div className="mt-3 w-full flex justify-center">
-        <div className="inline-flex rounded-lg overflow-hidden">
-          {tabs.map((tab) => {
-            const isActive = tab.key === activeTab;
-            return (
-              <button
-                type="button"
-                key={tab.key}
-                onClick={() => setActiveTab(tab.key)}
-                className={`px-6 py-2 text-base font-medium ${!isActive ? "cursor-pointer" : ""} ${
-                  isActive
-                    ? "bg-blue-light-500 text-white"
-                    : "bg-white text-blue-light-500"
-                } ${
-                  tab.key === "sync"
-                    ? "border-y border-l border-blue-light-500 rounded-l-lg"
-                    : "border-y border-r border-blue-light-500 rounded-r-lg"
-                }`}
-              >
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="mt-4 flex flex-col items-center">
-        {qrUrl.length > 0 && (
-          <div
-            role="img"
-            aria-label={`${activeTab === "sync" ? "同期" : "共有"}用QRコード`}
-            className="h-[200px] w-[200px] bg-white bg-cover bg-center"
-            style={{
-              backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrUrl)})`,
-            }}
-          />
-        )}
-        <p className="mt-3 text-xs text-black-500 text-center">{description}</p>
-      </div>
-    </DialogOverlay>
-  );
-}
-
 function SideToolbar({
   xShareHref,
+  flightBoardHref,
   onOpenQr,
 }: {
   xShareHref: string;
+  flightBoardHref: string;
   onOpenQr: () => void;
 }) {
   const [isInfoOpen, setIsInfoOpen] = useState(false);
@@ -461,6 +466,16 @@ function SideToolbar({
       </div>
 
       <StartTourButton iconOnly />
+
+      <Button type="button" variant="outline" size="icon" asChild>
+        <Link
+          href={flightBoardHref}
+          aria-label="時刻表を表示"
+          title="時刻表を表示"
+        >
+          <Plane size={18} />
+        </Link>
+      </Button>
 
       {isInfoOpen && <InfoDialog onClose={() => setIsInfoOpen(false)} />}
     </aside>
@@ -529,7 +544,7 @@ function TalkSearchPanel({
       <div
         id="tour-search-panel"
         ref={popupRef}
-        className="relative w-[220px] max-w-full sm:w-full sm:max-w-md"
+        className="relative w-[208px] max-w-full sm:w-full sm:max-w-md"
       >
         <div className="relative">
           <Search
@@ -652,6 +667,17 @@ export default function MyTimetablePage() {
     showAppToast("マイタイムテーブルに追加しました");
   };
 
+  const addTalks = (ids: string[]) => {
+    const newIds = ids.filter((id) => !selectedIds.includes(id));
+    if (newIds.length === 0) return;
+
+    const next = Array.from(new Set([...selectedIds, ...newIds]));
+    setSelectedIds(next);
+    myTimetableIds.write(next);
+    window.dispatchEvent(new Event("my-timetable-updated"));
+    showAppToast(`${newIds.length}件をマイタイムテーブルに追加しました`);
+  };
+
   const resolveOverlapAndAdd = () => {
     if (!overlapState) return;
 
@@ -665,8 +691,13 @@ export default function MyTimetablePage() {
   };
 
   const removeTalk = (id: string) => {
-    const nextParticipated = participatedIds.filter((pid) => pid !== id);
-    const next = selectedIds.filter((currentId) => currentId !== id);
+    removeTalks([id]);
+  };
+
+  const removeTalks = (ids: string[]) => {
+    const idSet = new Set(ids);
+    const nextParticipated = participatedIds.filter((pid) => !idSet.has(pid));
+    const next = selectedIds.filter((currentId) => !idSet.has(currentId));
     setParticipatedIds(nextParticipated);
     setSelectedIds(next);
     myTimetableIds.write(next);
@@ -715,6 +746,7 @@ export default function MyTimetablePage() {
     yourShareUrl.length > 0
       ? `https://x.com/intent/tweet?text=${encodeURIComponent("TSKaigi2026のマイタイムテーブルを作成しました！")}&url=${encodeURIComponent(yourShareUrl)}`
       : "https://x.com/intent/tweet";
+  const flightBoardHref = `/talks/your${shareQueryString.length > 0 ? `?${shareQueryString}` : ""}`;
 
   return (
     <main className="bg-blue-light-100 mt-16 py-10 px-2 md:py-16 md:px-6 lg:px-10">
@@ -728,6 +760,7 @@ export default function MyTimetablePage() {
       <div className="mt-8 mx-auto max-w-6xl grid lg:grid-cols-[min-content_1fr] gap-4">
         <SideToolbar
           xShareHref={xShareHref}
+          flightBoardHref={flightBoardHref}
           onOpenQr={() => setIsQrOpen(true)}
         />
 
@@ -755,6 +788,7 @@ export default function MyTimetablePage() {
                 participatedIds={participatedIds}
                 onClickTimeSlot={handleClickTimeSlot}
                 onRemoveTalk={removeTalk}
+                onRemoveTalks={removeTalks}
                 onTalkClick={setDrawerTalk}
               />
             </MobileTimelineLayout>
@@ -770,6 +804,7 @@ export default function MyTimetablePage() {
                   participatedIds={participatedIds}
                   onClickTimeSlot={handleClickTimeSlot}
                   onRemoveTalk={removeTalk}
+                  onRemoveTalks={removeTalks}
                   onTalkClick={setDrawerTalk}
                 />
               }
@@ -780,6 +815,7 @@ export default function MyTimetablePage() {
                   participatedIds={participatedIds}
                   onClickTimeSlot={handleClickTimeSlot}
                   onRemoveTalk={removeTalk}
+                  onRemoveTalks={removeTalks}
                   onTalkClick={setDrawerTalk}
                 />
               }
@@ -794,7 +830,9 @@ export default function MyTimetablePage() {
           allTalks={allTalksWithMinutes}
           selectedIds={selectedIds}
           onAdd={addTalk}
+          onAddBatch={addTalks}
           onRemove={removeTalk}
+          onRemoveBatch={removeTalks}
           onClose={() => setTimePickerState(null)}
         />
       )}
@@ -815,20 +853,16 @@ export default function MyTimetablePage() {
       )}
 
       {isQrOpen && (
-        <QrDialog
+        <MyTimetableQrDialog
           currentShareUrl={currentShareUrl}
           yourShareUrl={yourShareUrl}
           onClose={() => setIsQrOpen(false)}
         />
       )}
 
-      <Button
-        type="button"
-        asChild
-        className="fixed bottom-6 right-6 z-50 rounded-full shadow-lg"
-      >
-        <Link href="/talks">タイムテーブルへ</Link>
-      </Button>
+      <div className="fixed bottom-6 right-6 z-50">
+        <FloatingNavButtons />
+      </div>
 
       <TalkDetailDrawer talk={drawerTalk} onClose={() => setDrawerTalk(null)} />
     </main>

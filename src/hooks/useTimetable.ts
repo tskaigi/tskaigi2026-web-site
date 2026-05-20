@@ -95,7 +95,7 @@ export const useTimetable = ({
     const isConferenceDay =
       now.getFullYear() === 2026 &&
       now.getMonth() === 4 &&
-      (now.getDate() === 23 || now.getDate() === 24);
+      (now.getDate() === 22 || now.getDate() === 23);
     if (!isConferenceDay) return;
 
     setCurrentTime(new Date());

@@ -1,5 +1,6 @@
 import { BuyTicketSection } from "@/components/BuyTicketSection";
 import { CoreStaffSection } from "@/components/CoreStaffSection";
+import { DayStaffSection } from "@/components/DayStaffSection";
 import { HeroSection } from "@/components/HeroSection";
 import { JobBoardSection } from "@/components/JobBoardSection";
 import { JudgesSection } from "@/components/JudgesSection";
@@ -28,6 +29,7 @@ export default async function Home() {
       <JudgesSection />
       <CoreStaffSection />
       <StaffSection />
+      <DayStaffSection />
     </main>
   );
 }

@@ -43,6 +43,7 @@ export const TALK_TYPE: Record<SessionKey, { name: string; color: string }> = {
   SHORT: { name: "10分セッション", color: "#c3620f" },
   SPONSOR: { name: "スポンサーセッション", color: "#E53D84" },
   HANDSON: { name: "ハンズオン", color: "#6B21A8" },
+  OST: { name: "現地企画", color: "#6B21A8" },
 };
 
 export const HANDSON_ID = "1";
@@ -66,6 +67,7 @@ function resolveSession(id: string): SessionSummary {
 
 export type Talk = SessionSummary & {
   eventDate: EventDate;
+  sessionType: SessionKey;
   track: TrackKey;
   time: string;
 };
@@ -73,12 +75,13 @@ export type Talk = SessionSummary & {
 export const talkList: Talk[] = timetableList.flatMap((day) =>
   day.cells.flatMap((cell) => {
     if (cell.content.type !== "session") return [];
-    const { sessions } = cell.content;
+    const { sessions, sessionType } = cell.content;
     const time = myTimetable.formatTimeRange(cell.startTime, cell.endTime);
     return cell.trackKeys.flatMap((trackKey) =>
       sessions.map((ref) => ({
         ...resolveSession(ref.id),
         eventDate: day.day,
+        sessionType,
         track: trackKey,
         time,
       })),

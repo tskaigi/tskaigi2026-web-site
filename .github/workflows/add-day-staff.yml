@@ -1,0 +1,104 @@
+name: Add Day Staff
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  add-day-staff:
+    # タイトルをみて当日スタッフ情報追加・更新のIssueかを判定
+    if: |
+      startsWith(github.event.issue.title, '当日スタッフ情報追加・更新')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      # このジョブで拾ったIssueには day-staff ラベルを付与（運用しやすくなる）
+      - name: Ensure day-staff label on issue
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const labels = (context.payload.issue.labels || []).map(l => l.name);
+            if (!labels.includes('day-staff')) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: ['day-staff'],
+              });
+            }
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Parse issue body and generate code
+        id: parse
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const script = require('./.github/scripts/add-day-staff.ts');
+            await script({ context, core });
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: "10.22.0"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Format and lint
+        run: |
+          pnpm biome format --write src/constants/day-staff/*
+          pnpm biome check --write src/constants/day-staff/* || true
+
+      - name: TypeScript check
+        run: |
+          pnpm -s generate:staff-list
+          pnpm biome format --write src/constants/day-staff.generated.ts
+          pnpm typecheck
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.TSKAIGI_2026_WEBSITE_ACTIONS }}
+          commit-message: "feat: add day staff - ${{ steps.parse.outputs.name }}"
+          title: "feat: 当日スタッフ追加 - ${{ steps.parse.outputs.name }}"
+          body: |
+            ## 概要
+            イシュー #${{ github.event.issue.number }} から当日スタッフを自動追加しました。
+
+            ## 追加される当日スタッフ
+            - **名前**: ${{ steps.parse.outputs.name }}
+            - **アイコン画像パス**: ${{ steps.parse.outputs.image }}
+            - **遷移先 URL**: ${{ steps.parse.outputs.href }}
+
+            ---
+            このPRは自動生成されました。内容を確認してマージしてください。
+
+            Closes #${{ github.event.issue.number }}
+          branch: day-staff/issue-${{ github.event.issue.number }}
+          delete-branch: true
+          labels: |
+            day-staff
+            automated
+          team-reviewers: 2026-website
+
+      - name: Comment on issue
+        uses: actions/github-script@v8
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '✅ 当日スタッフの追加PRを作成しました！\n\nPRをレビューしてマージしてください。'
+            });

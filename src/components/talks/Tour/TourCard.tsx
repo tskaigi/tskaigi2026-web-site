@@ -27,7 +27,7 @@ export function TourCard({
   const isLast = currentStep === totalSteps - 1;
 
   return (
-    <div className="relative w-[300px] rounded-xl bg-white p-4 shadow-xl border border-black-200">
+    <div className="relative w-[min(300px,calc(100vw-32px))] rounded-xl bg-white p-4 shadow-xl border border-black-200">
       <button
         type="button"
         className="absolute right-3 top-3 text-black-400 hover:text-black-700 cursor-pointer"
@@ -46,7 +46,7 @@ export function TourCard({
         {contentOverride ?? step.content}
       </div>
 
-      <div className="mt-4 flex items-center justify-between gap-2">
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
         {instructionText ? (
           <>
             <Button

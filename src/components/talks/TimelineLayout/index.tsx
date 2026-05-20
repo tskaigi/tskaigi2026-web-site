@@ -13,8 +13,7 @@ export function DesktopTimelineLayout({
 }) {
   return (
     <section className="rounded-xl bg-white py-4 md:py-6">
-      <div className="grid grid-cols-[40px_1fr_1fr] gap-3 mb-3">
-        <div />
+      <div className="grid grid-cols-[1fr_1fr] gap-3 mb-3 ml-[52px]">
         <h2 className="text-lg font-bold text-blue-light-600">
           Day1
           <span className="ml-2 text-xs font-normal text-black-500">
@@ -28,10 +27,15 @@ export function DesktopTimelineLayout({
           </span>
         </h2>
       </div>
-      <div className="grid grid-cols-[40px_1fr_1fr] gap-3">
-        <TimelineAxis />
-        {day1Column}
-        {day2Column}
+      <div className="grid grid-cols-[1fr_1fr] gap-3">
+        <div className="grid grid-cols-[40px_1fr] gap-3">
+          <TimelineAxis eventDate="Day1" />
+          {day1Column}
+        </div>
+        <div className="grid grid-cols-[40px_1fr] gap-3">
+          <TimelineAxis eventDate="Day2" />
+          {day2Column}
+        </div>
       </div>
     </section>
   );
@@ -50,7 +54,7 @@ export function MobileTimelineLayout({
     <section className="rounded-xl bg-white py-4 md:py-6">
       <EventDateTab currentDate={currentEventDate} onTabChange={onTabChange} />
       <div className="mt-4 grid grid-cols-[40px_1fr] gap-3">
-        <TimelineAxis />
+        <TimelineAxis eventDate={currentEventDate} />
         {children}
       </div>
     </section>

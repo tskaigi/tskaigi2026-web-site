@@ -35,8 +35,10 @@ export function parseTalkTimeToMinutes(timeText: string) {
   return { startMinutes, endMinutes };
 }
 
+type SessionSlot = { readonly start: number; readonly end: number };
+
 /** セッション時間枠（開始分・終了分） */
-const SESSION_SLOTS = [
+const SESSION_SLOTS_DAY1: readonly SessionSlot[] = [
   { start: 670, end: 700 }, // 11:10〜11:40
   { start: 710, end: 740 }, // 11:50〜12:20
   { start: 750, end: 810 }, // 12:30〜13:30
@@ -46,8 +48,25 @@ const SESSION_SLOTS = [
   { start: 950, end: 980 }, // 15:50〜16:20
   { start: 1000, end: 1030 }, // 16:40〜17:10
   { start: 1040, end: 1070 }, // 17:20〜17:50
-  { start: 1090, end: 1130 }, // 18:10〜18:50
+  { start: 1090, end: 1140 }, // 18:10〜19:00
 ] as const;
+
+const SESSION_SLOTS_DAY2: readonly SessionSlot[] = [
+  { start: 660, end: 690 }, // 11:00〜11:30
+  { start: 700, end: 730 }, // 11:40〜12:10
+  { start: 750, end: 810 }, // 12:30〜13:30
+  { start: 820, end: 850 }, // 13:40〜14:10
+  { start: 860, end: 890 }, // 14:20〜14:50
+  { start: 910, end: 940 }, // 15:10〜15:40
+  { start: 950, end: 980 }, // 15:50〜16:20
+  { start: 1000, end: 1030 }, // 16:40〜17:10
+  { start: 1040, end: 1110 }, // 17:20〜18:30
+] as const;
+
+const SESSION_SLOTS_BY_DAY: Record<EventDate, readonly SessionSlot[]> = {
+  Day1: SESSION_SLOTS_DAY1,
+  Day2: SESSION_SLOTS_DAY2,
+};
 
 const BASE_SLOT_MINUTES = 30;
 const BASE_SLOT_HEIGHT = 100;
@@ -65,12 +84,13 @@ type TimelineSegment = {
   height: number;
 };
 
-function buildTimelineSegments(): TimelineSegment[] {
+function buildTimelineSegments(
+  slots: readonly SessionSlot[],
+): TimelineSegment[] {
   const segments: TimelineSegment[] = [];
   let top = 0;
 
-  // 最初のセッション前の休憩
-  const firstSlot = SESSION_SLOTS[0];
+  const firstSlot = slots[0];
   segments.push({
     type: "break",
     start: firstSlot.start,
@@ -80,12 +100,11 @@ function buildTimelineSegments(): TimelineSegment[] {
   });
   top += BREAK_HEIGHT;
 
-  for (let i = 0; i < SESSION_SLOTS.length; i++) {
-    const slot = SESSION_SLOTS[i];
+  for (let i = 0; i < slots.length; i++) {
+    const slot = slots[i];
 
-    // 前のスロットとの間に休憩を挟む
     if (i > 0) {
-      const prevEnd = SESSION_SLOTS[i - 1].end;
+      const prevEnd = slots[i - 1].end;
       if (slot.start > prevEnd) {
         segments.push({
           type: "break",
@@ -110,8 +129,7 @@ function buildTimelineSegments(): TimelineSegment[] {
     top += slotHeight;
   }
 
-  // 最後のセッション後の休憩
-  const lastSlot = SESSION_SLOTS[SESSION_SLOTS.length - 1];
+  const lastSlot = slots[slots.length - 1];
   segments.push({
     type: "break",
     start: lastSlot.end,
@@ -124,15 +142,27 @@ function buildTimelineSegments(): TimelineSegment[] {
   return segments;
 }
 
-const TIMELINE_SEGMENTS = buildTimelineSegments();
-const TIMELINE_HEIGHT =
-  TIMELINE_SEGMENTS[TIMELINE_SEGMENTS.length - 1].top +
-  TIMELINE_SEGMENTS[TIMELINE_SEGMENTS.length - 1].height;
+type DayTimeline = {
+  segments: TimelineSegment[];
+  height: number;
+  slots: readonly SessionSlot[];
+};
+
+function buildDayTimeline(slots: readonly SessionSlot[]): DayTimeline {
+  const segments = buildTimelineSegments(slots);
+  const last = segments[segments.length - 1];
+  return { segments, height: last.top + last.height, slots };
+}
+
+const TIMELINE_BY_DAY: Record<EventDate, DayTimeline> = {
+  Day1: buildDayTimeline(SESSION_SLOTS_DAY1),
+  Day2: buildDayTimeline(SESSION_SLOTS_DAY2),
+};
 
 /** 分数 → タイムライン上のpx位置（セッション枠・休憩の固定高さベース） */
-function minutesToTop(minutes: number): number {
-  for (const seg of TIMELINE_SEGMENTS) {
-    // start === end のパディング用セグメントはスキップ
+function minutesToTop(eventDate: EventDate, minutes: number): number {
+  const { segments, height } = TIMELINE_BY_DAY[eventDate];
+  for (const seg of segments) {
     if (seg.start === seg.end) continue;
 
     if (minutes <= seg.start) return seg.top;
@@ -142,8 +172,7 @@ function minutesToTop(minutes: number): number {
     }
   }
 
-  // 最後のセグメントより後
-  return TIMELINE_HEIGHT;
+  return height;
 }
 
 function formatMinutes(minutes: number): string {
@@ -155,8 +184,14 @@ function formatMinutes(minutes: number): string {
 }
 
 /** 開始分〜終了分のpx高さ */
-function minutesToHeight(startMinutes: number, endMinutes: number): number {
-  return minutesToTop(endMinutes) - minutesToTop(startMinutes);
+function minutesToHeight(
+  eventDate: EventDate,
+  startMinutes: number,
+  endMinutes: number,
+): number {
+  return (
+    minutesToTop(eventDate, endMinutes) - minutesToTop(eventDate, startMinutes)
+  );
 }
 
 type PositionedTalk = TalkWithMinutes & {
@@ -319,10 +354,8 @@ function hasSessionInSlot(
 }
 
 export const MY_TIMETABLE_CONST = {
-  TIMELINE_HEIGHT,
-  TIMELINE_SEGMENTS,
-  /** クリック可能な時間帯 */
-  SESSION_SLOTS,
+  TIMELINE_BY_DAY,
+  SESSION_SLOTS_BY_DAY,
 } as const;
 
 export const myTimetable = {

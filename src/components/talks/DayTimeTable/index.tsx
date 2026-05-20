@@ -1,10 +1,8 @@
 "use client";
 
-import { useMemo, useRef } from "react";
-import { Button } from "@/components/ui/button";
+import { useEffect, useMemo, useRef } from "react";
 import { TRACK_KEYS } from "@/constants/timetable";
 import { useTimetable } from "@/hooks/useTimetable";
-import { cn } from "@/lib/utils";
 import type { Cell, TimeSlot, TimetableResponse } from "@/types/timetable-api";
 import { myTimetable } from "@/utils/myTimetable";
 import { CellRenderer } from "./CellRenderer";
@@ -13,7 +11,16 @@ import { TimeLabel } from "./TimeLabel";
 
 const cellKeyOf = (cell: Cell) => `${cell.startTime}-${cell.trackKeys[0]}`;
 
-export function DayTimeTable({ data }: { data: TimetableResponse }) {
+export function DayTimeTable({
+  data,
+  onScrollStateChange,
+}: {
+  data: TimetableResponse;
+  onScrollStateChange?: (state: {
+    showScrollButton: boolean;
+    scrollToCurrentSession: () => void;
+  }) => void;
+}) {
   const sessionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   // 全セルの startTime/endTime をユニークソートしたものが境界。
@@ -55,6 +62,10 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
       sessionTimeTable,
       sessionElements: sessionRefs.current,
     });
+
+  useEffect(() => {
+    onScrollStateChange?.({ showScrollButton, scrollToCurrentSession });
+  }, [showScrollButton, scrollToCurrentSession, onScrollStateChange]);
 
   const trackRecord = data.trackRecord;
 
@@ -194,24 +205,6 @@ export function DayTimeTable({ data }: { data: TimetableResponse }) {
           );
         })}
       </div>
-
-      {showScrollButton && (
-        <div
-          className={cn(
-            "fixed bottom-4 left-1/2 -translate-x-1/2 transition-transform duration-300 z-50",
-            "translate-y-0 pointer-events-auto",
-          )}
-        >
-          <Button
-            type="button"
-            className="font-bold bg-blue-light-500 hover:bg-blue-light-500 rounded-full md:hidden"
-            onClick={scrollToCurrentSession}
-            tabIndex={0}
-          >
-            現在のセッションにスクロールする
-          </Button>
-        </div>
-      )}
     </>
   );
 }
