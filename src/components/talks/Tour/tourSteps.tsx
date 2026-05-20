@@ -96,7 +96,7 @@ const steps: Step[] = [
   },
   // Step 1: /talks — セッションセル（追加ボタン付き）
   {
-    icon: "1️⃣",
+    icon: "❶",
     title: "セッションを追加してみよう",
     content:
       "セッションの「参加予定」ボタンを押して、マイタイムテーブルに追加してみましょう。",
@@ -110,7 +110,7 @@ const steps: Step[] = [
   },
   // Step 2: /talks — Floating button（クリックで遷移）
   {
-    icon: "2️⃣",
+    icon: "❷",
     title: "マイタイムテーブルへ移動",
     content: "右下のボタンをタップしてマイタイムテーブルに移動しましょう。",
     selector: "#tour-floating-button",
@@ -123,7 +123,7 @@ const steps: Step[] = [
   },
   // Step 3: /talks/me — Search panel
   {
-    icon: "3️⃣",
+    icon: "❸",
     title: "検索から追加",
     content: "タイトルやスピーカー名で検索して、セッションを追加できます。",
     selector: "#tour-search-panel",
@@ -136,7 +136,7 @@ const steps: Step[] = [
   },
   // Step 4: /talks/me — Timeline background click
   {
-    icon: "4️⃣",
+    icon: "❹",
     title: "タイムラインから追加",
     content:
       "タイムラインの空いている時間帯をクリックすると、その時間のセッション一覧が表示されます。そこからも追加できます。",
@@ -150,7 +150,7 @@ const steps: Step[] = [
   },
   // Step 5: /talks/me — セッションタイトルをクリックしてドロワーを開く
   {
-    icon: "5️⃣",
+    icon: "❺",
     title: "セッション詳細を見てみよう",
     content: "追加したセッションのタイトルをタップすると、詳細を確認できます。",
     selector: "[data-tour-session-id]",
@@ -163,7 +163,7 @@ const steps: Step[] = [
   },
   // Step 6: /talks/me — ドロワー内で参加記録を付ける
   {
-    icon: "6️⃣",
+    icon: "❻",
     title: "参加記録を付けよう",
     content:
       "「参加記録を付ける」ボタンを押して、セッションへの参加を記録しましょう。",
@@ -177,7 +177,7 @@ const steps: Step[] = [
   },
   // Step 7: /talks/me — Remove talk（追加したセッションを削除）
   {
-    icon: "7️⃣",
+    icon: "❼",
     title: "セッションを削除",
     content:
       "追加したセッションの右上の × をタップして削除してみましょう。検索パネルからも削除可能です。",
@@ -191,7 +191,7 @@ const steps: Step[] = [
   },
   // Step 8: /talks/me — Share button
   {
-    icon: "8️⃣",
+    icon: "❽",
     title: "Xでシェア",
     content:
       "マイタイムテーブルをXでシェアできます。タイムテーブルのURLが共有されるので、友人と予定を共有しましょう。",
@@ -205,7 +205,7 @@ const steps: Step[] = [
   },
   // Step 9: /talks/me — QR code button
   {
-    icon: "9️⃣",
+    icon: "❾",
     title: "QRコード",
     content:
       "QRコードを表示して、他のデバイスでマイタイムテーブルを開けます。スマホとPCで同期しましょう。",
@@ -219,7 +219,7 @@ const steps: Step[] = [
   },
   // Step 10: /talks/me — Reset button
   {
-    icon: "🔢",
+    icon: "❿",
     title: "リセット",
     content: "追加したセッションをすべてクリアして、最初からやり直せます。",
     selector: "#tour-reset-button",

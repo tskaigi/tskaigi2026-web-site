@@ -45,7 +45,7 @@ export function TourCard({
       </button>
 
       {step.icon && (
-        <div className="text-2xl mb-1 text-blue-light-500">{step.icon}</div>
+        <div className="text-2xl mb-1 text-blue-purple-500">{step.icon}</div>
       )}
       <h3 className="text-base font-bold text-black-700 pr-6">{step.title}</h3>
       <p className="mt-1 text-xs text-black-400">
