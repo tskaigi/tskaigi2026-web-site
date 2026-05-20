@@ -3,6 +3,8 @@
 // Do not edit manually.
 
 import dayStaff3502978 from "./day-staff/3502978.json";
+import dayStaff155013 from "./day-staff/155013.json";
+import dayStaff51989388 from "./day-staff/51989388.json";
 
 export type DayStaff = {
   name: string;
@@ -10,4 +12,8 @@ export type DayStaff = {
   href?: string;
 };
 
-export const DAY_STAFF_LIST: DayStaff[] = [dayStaff3502978];
+export const DAY_STAFF_LIST: DayStaff[] = [
+  dayStaff155013,
+  dayStaff51989388,
+  dayStaff3502978
+];
