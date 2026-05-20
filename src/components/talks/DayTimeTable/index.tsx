@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef } from "react";
 import { TRACK_KEYS } from "@/constants/timetable";
-import { useDevelopMode } from "@/hooks/useDevelopMode";
 import { useTimetable } from "@/hooks/useTimetable";
 import type { Cell, TimeSlot, TimetableResponse } from "@/types/timetable-api";
 import { myTimetable } from "@/utils/myTimetable";
@@ -22,7 +21,6 @@ export function DayTimeTable({
     scrollToCurrentSession: () => void;
   }) => void;
 }) {
-  const isDevelop = useDevelopMode();
   const sessionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   // 全セルの startTime/endTime をユニークソートしたものが境界。
@@ -63,7 +61,6 @@ export function DayTimeTable({
     useTimetable({
       sessionTimeTable,
       sessionElements: sessionRefs.current,
-      developMode: isDevelop,
     });
 
   useEffect(() => {

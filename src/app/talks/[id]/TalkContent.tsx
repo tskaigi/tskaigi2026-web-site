@@ -5,14 +5,14 @@ import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import { CopyableTitle } from "@/components/talks/CopyableTitle";
 import { OgpImage, ProfileImage } from "@/components/talks/FallbackImage";
-import { TalkStatus } from "@/components/talks/TalkStatus";
+import { FloatingNavButtons } from "@/components/talks/FloatingNavButtons";
+import {
+  TalkStatus,
+  ToggleParticipatedButton,
+} from "@/components/talks/TalkStatus";
 import { TALK_TYPE } from "@/constants/timetable";
 import type { SessionDetail } from "@/utils/getSession";
 import { myTimetable } from "@/utils/myTimetable";
-import {
-  DevelopModeFloatingButtons,
-  DevelopModeToggleButton,
-} from "./DevelopModeSection";
 
 const components: ComponentProps<typeof Markdown>["components"] = {
   h1: ({ node, ...props }) => (
@@ -93,7 +93,7 @@ export function TalkContent({
               {typeLabel}
             </span>
             <TalkStatus talkId={session.id} />
-            <DevelopModeToggleButton talkId={session.id} />
+            <ToggleParticipatedButton talkId={session.id} />
           </div>
           <CopyableTitle
             talkId={session.id}
@@ -246,7 +246,9 @@ export function TalkContent({
           </div>
         </div>
       </div>
-      <DevelopModeFloatingButtons />
+      <div className="fixed bottom-6 right-6 z-50 flex gap-2">
+        <FloatingNavButtons />
+      </div>
     </main>
   );
 }

@@ -14,6 +14,7 @@ import {
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { FloatingNavButtons } from "@/components/talks/FloatingNavButtons";
 import { MyTimetableQrDialog } from "@/components/talks/MyTimetableQrDialog";
 import { TalkDetailDrawer } from "@/components/talks/TalkDetailDrawer";
 import { TimelineColumn } from "@/components/talks/TimelineColumn";
@@ -859,13 +860,9 @@ export default function MyTimetablePage() {
         />
       )}
 
-      <Button
-        type="button"
-        asChild
-        className="fixed bottom-6 right-6 z-50 rounded-full shadow-lg"
-      >
-        <Link href="/talks">タイムテーブルへ</Link>
-      </Button>
+      <div className="fixed bottom-6 right-6 z-50">
+        <FloatingNavButtons />
+      </div>
 
       <TalkDetailDrawer talk={drawerTalk} onClose={() => setDrawerTalk(null)} />
     </main>
