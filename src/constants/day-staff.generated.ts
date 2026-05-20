@@ -8,8 +8,8 @@ import dayStaff6936373 from "./day-staff/6936373.json";
 import dayStaff41291352 from "./day-staff/41291352.json";
 import dayStaff49605759 from "./day-staff/49605759.json";
 import dayStaff51989388 from "./day-staff/51989388.json";
-import dayStaff88374365 from "./day-staff/88374365.json";
 import dayStaff52240372 from "./day-staff/52240372.json";
+import dayStaff88374365 from "./day-staff/88374365.json";
 import dayStaff171334196 from "./day-staff/171334196.json";
 
 export type DayStaff = {
@@ -25,7 +25,7 @@ export const DAY_STAFF_LIST: DayStaff[] = [
   dayStaff41291352,
   dayStaff49605759,
   dayStaff51989388,
-  dayStaff88374365,
   dayStaff52240372,
+  dayStaff88374365,
   dayStaff171334196,
 ];

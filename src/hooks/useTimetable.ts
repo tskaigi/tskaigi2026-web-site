@@ -22,7 +22,6 @@ function debounce<T extends (...args: unknown[]) => void>(
 export const useTimetable = ({
   sessionTimeTable,
   sessionElements,
-  developMode = false,
 }: {
   sessionTimeTable: {
     id: string;
@@ -30,17 +29,15 @@ export const useTimetable = ({
     end: Date;
   }[];
   sessionElements: { [key: string]: HTMLDivElement | null };
-  developMode?: boolean;
 }) => {
   const [showScrollButton, setShowScrollButton] = useState(false);
 
   const isConferencePeriod = useCallback(() => {
-    if (developMode) return true;
     const now = new Date();
     const start = sessionTimeTable[0].start;
     const end = sessionTimeTable[sessionTimeTable.length - 1].end;
     return now >= start && now < end;
-  }, [sessionTimeTable, developMode]);
+  }, [sessionTimeTable]);
 
   const getCurrentSessionId = useCallback(
     (now: Date) => {
@@ -49,12 +46,9 @@ export const useTimetable = ({
           return session.id;
         }
       }
-      if (developMode && sessionTimeTable.length > 0) {
-        return sessionTimeTable[0].id;
-      }
       return null;
     },
-    [sessionTimeTable, developMode],
+    [sessionTimeTable],
   );
 
   const scrollToCurrentSession = useCallback(() => {

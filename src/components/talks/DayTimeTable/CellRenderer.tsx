@@ -1,9 +1,6 @@
-"use client";
-
 import { ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButton";
-import { useDevelopMode } from "@/hooks/useDevelopMode";
 import type { Cell, Track, TrackKey } from "@/types/timetable-api";
 import { CardShell } from "./CardShell";
 import { SessionCard } from "./SessionCard";
@@ -43,18 +40,15 @@ function DisplayLabelSessionCard({
   talkIds: string[];
   tracks: Track[];
 }) {
-  const isDevelop = useDevelopMode();
   return (
     <CardShell variant="card" tracks={tracks} withTriangle>
-      {isDevelop && (
-        <div className="absolute top-2 right-2 md:top-3 md:right-3">
-          <AddToMyTimetableButton
-            talkId={talkId}
-            talkIds={talkIds}
-            withCheckbox
-          />
-        </div>
-      )}
+      <div className="absolute top-2 right-2 md:top-3 md:right-3">
+        <AddToMyTimetableButton
+          talkId={talkId}
+          talkIds={talkIds}
+          withCheckbox
+        />
+      </div>
       <LabelText label={label} link={link} />
     </CardShell>
   );
