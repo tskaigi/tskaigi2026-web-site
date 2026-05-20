@@ -122,6 +122,17 @@ export default function OnsitePage() {
           <h2 className="text-xl font-bold text-blue-light-500 md:text-2xl">
             ランチ
           </h2>
+          <ul className="flex flex-col gap-4 list-disc list-outside pl-5">
+            <li>
+              レバレジーズトラック後方・UPSIDERトラック後方・休憩ルーム内でお弁当または食券（ランチチケット）を配布します。
+            </li>
+            <li>
+              お弁当は各セッションルームまたは休憩ルーム内でお召し上がりいただけます。
+            </li>
+            <li>
+              食券（ランチチケット）は会場外のグランドホワイエ内の飲食店でご利用いただけます。詳しくは券面に記載のQRコードからご確認ください。
+            </li>
+          </ul>
         </section>
       </div>
     </main>
