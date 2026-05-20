@@ -1,20 +1,18 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import { DayTimeTable } from "@/components/talks/DayTimeTable";
 import { EventDateTab } from "@/components/talks/EventDateTab";
+import { FloatingNavButtons } from "@/components/talks/FloatingNavButtons";
 import { StartTourButton } from "@/components/talks/Tour";
 import { Button } from "@/components/ui/button";
 import { timetableList } from "@/constants/timetable";
-import { useDevelopMode } from "@/hooks/useDevelopMode";
 import type { EventDate } from "@/types/timetable-api";
 
 const TalksPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const isDevelop = useDevelopMode();
 
   const eventDayParam = searchParams.get("day");
 
@@ -71,7 +69,7 @@ const TalksPage = () => {
           currentDate={currentEventDate}
           onTabChange={handleTabChange}
         />
-        {isDevelop && <StartTourButton />}
+        <StartTourButton />
       </div>
 
       <div className="overflow-x-auto mt-10">
@@ -82,27 +80,18 @@ const TalksPage = () => {
           />
         </div>
       </div>
-      {isDevelop && (
-        <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
-          {scrollState.showScrollButton && (
-            <Button
-              type="button"
-              className="rounded-full shadow-lg md:hidden"
-              onClick={scrollState.scrollToCurrentSession}
-            >
-              現在のセッションにスクロールする
-            </Button>
-          )}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+        {scrollState.showScrollButton && (
           <Button
-            id="tour-floating-button"
             type="button"
-            asChild
-            className="rounded-full shadow-lg"
+            className="rounded-full shadow-lg md:hidden"
+            onClick={scrollState.scrollToCurrentSession}
           >
-            <Link href="/talks/me">マイタイムテーブルへ</Link>
+            現在のセッションにスクロールする
           </Button>
-        </div>
-      )}
+        )}
+        <FloatingNavButtons />
+      </div>
     </main>
   );
 };
