@@ -72,7 +72,7 @@ const SideEventItem = ({
             <p className="leading-7 md:text-lg md:leading-8 hidden lg:inline whitespace-pre-wrap">
               {detail}
             </p>
-            <p className="md:text-lg lg:text-base lg:text-right">
+            <p className="text-sm text-gray-600">
               主催:{" "}
               {sponsors.map((sponsor, i) => (
                 <span key={sponsor} className="inline-block">
