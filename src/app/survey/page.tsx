@@ -28,7 +28,7 @@ const SurveyPage = () => {
             今後のTSKaigi開催の参考にさせていただくため、アンケートへのご協力をお願いいたします。
           </p>
           <p className="pt-4">所要時間：5分程度</p>
-          <p>回答期限：X月XX日まで</p>
+          <p>回答期限：5月31日まで</p>
         </div>
         <div className="flex justify-center">
           <Button
@@ -39,7 +39,7 @@ const SurveyPage = () => {
           >
             {/* TODO: リンク置き換える */}
             <a
-              href="https://2026.tskaigi.org/"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSdGj2NNJoww270lVOrNBneUGG9HU4g4S2mxSDHiFivwa6q5dg/viewform?usp=header"
               target="_blank"
               rel="noopener noreferrer"
               className="font-bold flex items-center text-22 [&_svg]:size-6"
