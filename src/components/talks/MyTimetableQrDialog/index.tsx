@@ -1,6 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 import { useState } from "react";
 
 type QrTab = "sync" | "share";
@@ -80,13 +81,10 @@ export function MyTimetableQrDialog({
 
         <div className="mt-4 flex flex-col items-center">
           {qrUrl.length > 0 && (
-            <div
-              role="img"
+            <QRCodeSVG
+              value={qrUrl}
+              size={200}
               aria-label={`${activeTab === "sync" ? "同期" : "共有"}用QRコード`}
-              className="h-[200px] w-[200px] bg-white bg-cover bg-center"
-              style={{
-                backgroundImage: `url(https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrUrl)})`,
-              }}
             />
           )}
           <p className="mt-3 text-xs text-black-500 text-center">
