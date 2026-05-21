@@ -39,6 +39,7 @@ type CardPlacement = {
 
 const CARD_GAP = 25;
 const VIEWPORT_MARGIN = 16;
+const HEADER_HEIGHT = 68;
 const FALLBACK_CARD_SIZE: CardSize = { width: 300, height: 220 };
 
 function clamp(value: number, min: number, max: number) {
@@ -91,7 +92,7 @@ function getCardPlacement(
   const targetCenterY = target.top + position.height / 2;
 
   const space = {
-    top: target.top - VIEWPORT_MARGIN,
+    top: target.top - VIEWPORT_MARGIN - HEADER_HEIGHT,
     bottom: viewportHeight - target.bottom - VIEWPORT_MARGIN,
     left: target.left - VIEWPORT_MARGIN,
     right: viewportWidth - target.right - VIEWPORT_MARGIN,
@@ -146,7 +147,7 @@ function getCardPlacement(
   }
 
   const clampedLeft = clamp(left, VIEWPORT_MARGIN, maxLeft);
-  const clampedTop = clamp(top, VIEWPORT_MARGIN, maxTop);
+  const clampedTop = clamp(top, VIEWPORT_MARGIN + HEADER_HEIGHT, maxTop);
   const rawArrowOffset =
     placementSide === "top" || placementSide === "bottom"
       ? targetCenterX - clampedLeft
@@ -340,21 +341,21 @@ export function TourOverlay() {
       const rect = el.getBoundingClientRect();
       const side = getPrimarySide(step.side);
       const estimatedCardHeight = cardSize.height || FALLBACK_CARD_SIZE.height;
-      const margin = VIEWPORT_MARGIN + CARD_GAP;
+      const margin = VIEWPORT_MARGIN + CARD_GAP + HEADER_HEIGHT;
       const shouldPreferAbove =
         side === "top" ||
         (side !== "bottom" && rect.top > window.innerHeight - rect.bottom);
 
       if (shouldPreferAbove) {
         const cardTop = rect.top - estimatedCardHeight - CARD_GAP;
-        if (cardTop < 0 || rect.top > window.innerHeight) {
+        if (cardTop < HEADER_HEIGHT || rect.top > window.innerHeight) {
           const target =
             window.scrollY + rect.top - estimatedCardHeight - margin;
           window.scrollTo({ top: Math.max(0, target), behavior: "smooth" });
         }
       } else {
         const cardBottom = rect.bottom + CARD_GAP + estimatedCardHeight;
-        if (rect.top < 0 || cardBottom > window.innerHeight) {
+        if (rect.top < HEADER_HEIGHT || cardBottom > window.innerHeight) {
           const target = window.scrollY + rect.top - margin;
           window.scrollTo({ top: Math.max(0, target), behavior: "smooth" });
         }
@@ -379,9 +380,46 @@ export function TourOverlay() {
     if (step.selector === "#tour-dialog") return;
 
     const selector = resolveSelector(currentStep, step.selector);
+
+    // ドロワー等のスライドインアニメーション中は rect が動くので、
+    // 安定するまで rAF で追従する（タイムアウト付き）
+    let rafId: number | null = null;
+    const startPositionPoll = () => {
+      const POLL_TIMEOUT_MS = 1000;
+      const STABLE_FRAMES_NEEDED = 5;
+      let lastPos: PointerPosition | null = null;
+      let stableFrames = 0;
+      const startedAt = performance.now();
+
+      const tick = () => {
+        const target = findVisibleElement(selector);
+        if (target) {
+          const next = getElementPosition(target);
+          const changed =
+            !lastPos ||
+            Math.abs(lastPos.x - next.x) > 0.5 ||
+            Math.abs(lastPos.y - next.y) > 0.5 ||
+            Math.abs(lastPos.width - next.width) > 0.5 ||
+            Math.abs(lastPos.height - next.height) > 0.5;
+          if (changed) {
+            setPosition(next);
+            stableFrames = 0;
+          } else {
+            stableFrames++;
+          }
+          lastPos = next;
+          if (stableFrames >= STABLE_FRAMES_NEEDED) return;
+        }
+        if (performance.now() - startedAt > POLL_TIMEOUT_MS) return;
+        rafId = requestAnimationFrame(tick);
+      };
+      rafId = requestAnimationFrame(tick);
+    };
+
     const el = findVisibleElement(selector);
     if (el) {
       updatePositionAndScroll();
+      startPositionPoll();
     } else {
       // 要素がまだ DOM にない → MutationObserver で待つ
       waitForElementRef.current?.disconnect();
@@ -390,13 +428,17 @@ export function TourOverlay() {
         if (found) {
           observer.disconnect();
           updatePositionAndScroll();
+          startPositionPoll();
         }
       });
       observer.observe(document.body, { childList: true, subtree: true });
       waitForElementRef.current = observer;
     }
 
-    return () => waitForElementRef.current?.disconnect();
+    return () => {
+      waitForElementRef.current?.disconnect();
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
   }, [
     isOnbordaVisible,
     steps,

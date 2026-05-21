@@ -3,7 +3,6 @@
 import {
   AlertTriangle,
   Check,
-  Info,
   Plane,
   QrCode,
   RotateCcw,
@@ -346,70 +345,6 @@ function ClearConfirmDialog({
   );
 }
 
-function InfoDialog({ onClose }: { onClose: () => void }) {
-  return (
-    <DialogOverlay
-      maxWidth="max-w-lg max-h-[80vh] overflow-y-auto"
-      onClose={onClose}
-    >
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-bold text-black-700">
-          マイタイムテーブルとは？
-        </h3>
-        <button
-          type="button"
-          className="text-black-500 hover:text-black-700 cursor-pointer"
-          onClick={onClose}
-          aria-label="閉じる"
-        >
-          <X size={18} />
-        </button>
-      </div>
-
-      <div className="mt-4 flex flex-col gap-4 text-sm text-black-600">
-        <p>
-          マイタイムテーブルは、TSKaigi
-          2026で聴きたいセッションを自分だけのスケジュールとして管理できる機能です。
-        </p>
-
-        <div>
-          <h4 className="font-bold text-black-700">スケジュールを組もう</h4>
-          <p className="mt-1">
-            気になるセッションを検索して追加し、自分だけのタイムテーブルを作成できます。タイムライン上の時間帯をタップして追加することもできます。
-          </p>
-        </div>
-
-        <div>
-          <h4 className="font-bold text-black-700">参加記録を残そう</h4>
-          <p className="mt-1">
-            各セッションの詳細画面から参加記録を付けることができます。目指せ、行きたい全セッション踏破！
-          </p>
-        </div>
-
-        <div>
-          <h4 className="font-bold text-black-700">共有して会話のタネに</h4>
-          <p className="mt-1">
-            QRコードやSNSでマイタイムテーブルを共有できます。会場内や懇親会で「こんなセッション聴いたよ！」と見せ合って、会話のきっかけにしましょう。
-          </p>
-        </div>
-
-        <div>
-          <h4 className="font-bold text-black-700">PC・スマホ間の同期</h4>
-          <p className="mt-1">
-            事前にPCでスケジュールを組んで、QRコードでスマホに同期して会場に持っていくこともできます。
-          </p>
-        </div>
-      </div>
-
-      <div className="mt-6 flex justify-end">
-        <Button type="button" onClick={onClose}>
-          閉じる
-        </Button>
-      </div>
-    </DialogOverlay>
-  );
-}
-
 function SideToolbar({
   xShareHref,
   flightBoardHref,
@@ -419,8 +354,6 @@ function SideToolbar({
   flightBoardHref: string;
   onOpenQr: () => void;
 }) {
-  const [isInfoOpen, setIsInfoOpen] = useState(false);
-
   return (
     <aside className="flex flex-row lg:flex-col gap-2">
       <div className="flex flex-row lg:flex-col gap-2">
@@ -452,17 +385,6 @@ function SideToolbar({
         >
           <QrCode size={18} />
         </Button>
-        <Button
-          id="tour-sidebar-info"
-          type="button"
-          variant="outline"
-          size="icon"
-          onClick={() => setIsInfoOpen(true)}
-          aria-label="マイタイムテーブルについて"
-          title="マイタイムテーブルについて"
-        >
-          <Info size={18} />
-        </Button>
       </div>
 
       <StartTourButton iconOnly />
@@ -476,8 +398,6 @@ function SideToolbar({
           <Plane size={18} />
         </Link>
       </Button>
-
-      {isInfoOpen && <InfoDialog onClose={() => setIsInfoOpen(false)} />}
     </aside>
   );
 }
