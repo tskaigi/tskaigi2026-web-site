@@ -2,7 +2,7 @@
 
 import { X } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type QrTab = "sync" | "share";
 
@@ -17,6 +17,15 @@ export function MyTimetableQrDialog({
 }) {
   const [activeTab, setActiveTab] = useState<QrTab>("sync");
 
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
+
   const tabs: { key: QrTab; label: string }[] = [
     { key: "sync", label: "同期用" },
     { key: "share", label: "共有用" },
@@ -29,7 +38,7 @@ export function MyTimetableQrDialog({
       : "読み取った端末に保存されているマイタイムテーブル情報は上書きされません";
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/30 p-4 flex items-center justify-center">
+    <div className="fixed inset-0 z-60 bg-black/30 p-4 flex items-center justify-center">
       <button
         type="button"
         className="absolute inset-0"
@@ -39,7 +48,7 @@ export function MyTimetableQrDialog({
       <section
         role="dialog"
         aria-modal="true"
-        className="relative z-10 w-full max-w-sm rounded-xl bg-white p-4 md:p-6"
+        className="relative z-10 w-full max-w-sm overflow-y-auto overscroll-none rounded-xl bg-white p-4 md:p-6"
       >
         <div className="flex items-center justify-between">
           <h3 className="text-base font-bold text-black-700">QRコード</h3>
