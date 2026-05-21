@@ -4,6 +4,26 @@ export const NewsSection = () => {
   return (
     <section id="news" className="w-full bg-blue-light-100">
       <div className="bg-white md:rounded-2xl mx-auto grid max-w-[940px] gap-2 p-4 sm:grid-cols-[max-content_1fr] sm:p-6">
+        <div>2026.05.21. </div>
+        <div>
+          <Link
+            href="/talks/me"
+            className="text-link-light underline underline-offset-3 hover:no-underline"
+          >
+            マイタイムテーブル
+          </Link>
+          を公開しました
+        </div>
+        <div>2026.05.21. </div>
+        <div>
+          <Link
+            href="/onsite"
+            className="text-link-light underline underline-offset-3 hover:no-underline"
+          >
+            会場インフォメーション
+          </Link>
+          を公開しました
+        </div>
         <div>2026.04.29. </div>
         <div>
           <Link
