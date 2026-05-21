@@ -1,0 +1,1912 @@
+[
+  {
+    "id": "f4b10187-f347-4f64-b8be-0fd895b7a9f2",
+    "slug": "wealthnavi",
+    "name": "ウェルスナビ株式会社",
+    "sponsorOptions": ["intermission_cm", "sponsor_session"],
+    "plan": "platinum",
+    "logoImage": "/sponsors/wealthnavi/logo.svg",
+    "ogpImage": "/sponsors/wealthnavi/ogp.png",
+    "logoLink": "https://corp.wealthnavi.com/",
+    "displayOrder": 1,
+    "overview": "ウェルスナビは「働く世代に豊かさを」をミッションとし、テクノロジーを活用して金融業界のアップデートに取り組んでいます。資産運用ロボアドバイザー \"WealthNavi\" の開発・提供をはじめ、総合アドバイザリー・プラットフォーム（MAP：Money Advisory Platform）の構築を通し、生涯にわたりお客さまのお金の悩みを解決することを目指します。",
+    "externalLinks": [
+      {
+        "label": "コーポレートサイト",
+        "url": "https://corp.wealthnavi.com/"
+      },
+      {
+        "label": "採用サイト",
+        "url": "https://recruit.wealthnavi.com/"
+      },
+      {
+        "label": "テックブログ",
+        "url": "https://zenn.dev/p/wn_engineering"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/wealthnavi/jobboard.png",
+      "externalLink": "https://recruit.wealthnavi.com/careers/engineering"
+    }
+  },
+  {
+    "id": "fbf2a803-5867-4e2b-8b2c-832e35223b5c",
+    "slug": "avita",
+    "name": "AVITA株式会社",
+    "sponsorOptions": [],
+    "plan": "platinum",
+    "logoImage": "/sponsors/avita/logo.png",
+    "ogpImage": "/sponsors/avita/ogp.png",
+    "logoLink": "https://avita.co.jp?utm_source=tskaigi_2026",
+    "displayOrder": 2,
+    "overview": "アバター × ヒューマノイド × AI で人類をアップデートし、高齢者、障がい者、引きこもりなどの外出困難者も取り残すことなく、誰もが参加できる社会の実現を目指しています。マツコロイドを手がけた大阪大学の石黒浩教授が代表を務め、70件以上の特許と高い技術力をもとにサイバーエージェント、ローソン、サントリー、TOPPANなど大手企業との大型プロジェクトを進めております。世界的にも先進的な取り組みが注目され、国内外のテレビ、新聞などでも多数ご紹介頂いております。",
+    "externalLinks": [
+      {
+        "label": "会社HP",
+        "url": "https://avita.co.jp/"
+      },
+      {
+        "label": "note",
+        "url": "https://note.com/avita"
+      }
+    ],
+    "jobboard": null
+  },
+  {
+    "id": "4ae34a8e-39bc-4f71-8958-d633b3dfc95d",
+    "slug": "dress-code",
+    "name": "Dress Code株式会社",
+    "sponsorOptions": ["sponsor_session"],
+    "plan": "platinum",
+    "logoImage": "/sponsors/dress-code/logo.png",
+    "ogpImage": "/sponsors/dress-code/ogp.png",
+    "logoLink": "https://www.dress-code.com/ja",
+    "displayOrder": 3,
+    "overview": "■「あらゆる業務の\"摩擦\"をなくし、誰もが自然に気持ちよく働ける世界をつくる」\r\nDress Code株式会社は、SaaS乱立による業務のサイロ化・システム分断という社会課題に挑むスタートアップです。\r\n情シス・人事労務・採用・総務といったWorkforce Management領域を横断するコンパウンドプロダクトを開発し、企業の業務オペレーション全体を支える統合プラットフォームを目指しています。\r\n後発組だからこそ、創業期から理想のアーキテクチャを描き、共通基盤の構築とグローバル展開（多言語・タイムゾーン・法対応）を前提とした設計に取り組んでいます。\r\n\r\n■ Dress CodeとTypeScript\r\nフロントエンドからバックエンド、インフラ（AWS CDK）まで全てをTypeScriptで統一しています。\r\n型システムを活かし、複数プロダクト横断の共通基盤・デザインシステム・国際化を一貫して扱う設計により、フロントからインフラまで一気通貫で開発できる環境を整えています。\r\n難易度の高いドメインモデリングとスピードを両立し、グローバル品質のコンパウンドプロダクトをTypeScriptで築く仲間を募集中です。",
+    "externalLinks": [
+      {
+        "label": "プロダクト",
+        "url": "https://www.dress-code.com/ja"
+      },
+      {
+        "label": "採用情報",
+        "url": "https://herp.careers/v1/dresscode"
+      },
+      {
+        "label": "テックブログ",
+        "url": "https://zenn.dev/p/dress_code"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/dress-code/jobboard.png",
+      "externalLink": "https://www.dress-code.com/ja"
+    }
+  },
+  {
+    "id": "ebfede16-0a86-4a39-8be2-d7dab0320132",
+    "slug": "hacobu",
+    "name": "株式会社Hacobu",
+    "sponsorOptions": ["sponsor_session"],
+    "plan": "platinum",
+    "logoImage": "/sponsors/hacobu/logo.png",
+    "ogpImage": "/sponsors/hacobu/ogp.png",
+    "logoLink": "https://hacobu.jp/?utm_source=tskaigi&utm_medium=sponsor&utm_campaign=tskaigi2025&utm_content=logo",
+    "displayOrder": 4,
+    "overview": "Hacobuは「持続可能な物流インフラを創る」のビジョンのもと、企業や業界の枠を越えた物流ビッグデータの蓄積・活用基盤となる「物流情報プラットフォーム」の構築を目指しています。\r\n\r\n人手不足や長時間残業といった物流の本質的な社会課題を解決するためには、様々なステークホルダーと連携しながら、データ駆動型のロジスティクスを社会に浸透させることが必要と考え、そのための手段として、物流DXを推進するソリューションを提供しています。\r\n\r\n私たちは、すべてのプロダクトのフロントエンドにTypeScriptを採用しています。共通の技術基盤とすることでチームを越えたナレッジ共有を活発にし、複雑な物流現場のニーズを迅速にプロダクトへ落とし込むことを大切にしています。\r\n\r\n顧客の課題解決に真摯に向き合いたいプロダクト志向の方は、ぜひブースへお話ししに来てください！",
+    "externalLinks": [
+      {
+        "label": "株式会社Hacobu 採用情報",
+        "url": "https://career.hacobu.jp/?utm_source=tskaigi&utm_medium=sponsor&utm_campaign=tskaigi2026&utm_content=introduction"
+      },
+      {
+        "label": "Hacobu Entrance Book for Engineers",
+        "url": "https://hacobu.notion.site/entrance-book-engineers/?utm_source=tskaigi&utm_medium=sponsor&utm_campaign=tskaigi2026&utm_content=introduction"
+      },
+      {
+        "label": "Hacobuテックブログ",
+        "url": "https://zenn.dev/p/hacobu?utm_source=tskaigi&utm_medium=sponsor&utm_campaign=tskaigi2026&utm_content=introduction"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/hacobu/jobboard.jpg",
+      "externalLink": "https://career.hacobu.jp/?utm_source=tskaigi&utm_medium=sponsor&utm_campaign=tskaigi2026&utm_content=jobboard"
+    }
+  },
+  {
+    "id": "05104dfd-d808-47d7-a1f2-f5f3ee1d08f2",
+    "slug": "satto",
+    "name": "satto",
+    "sponsorOptions": ["coffee", "intermission_cm", "student_support"],
+    "plan": "platinum",
+    "logoImage": "/sponsors/satto/logo.png",
+    "ogpImage": "/sponsors/satto/ogp.png",
+    "logoLink": "https://satto.me/",
+    "displayOrder": 5,
+    "overview": "ソフトバンクのsatto事業開発本部は、「情報革命で、みんなの心に余白をつくる。」を掲げ、AIと人間が共同するAIプロダクトブランド「satto」を手がけています。\r\n\r\n個人向けには、思考や会話をさっと書き留められるAIメモアプリ「satto memo」を、法人向けには、資料業務の「つくる・探す・更新する」を支える「satto workspace」を展開。\r\n\r\nTypeScriptを軸にプロダクトを育てながら、大きな組織の中で新しい事業基盤をどう立ち上げ、向き合っているのか。ブースでは、そのリアルを赤裸々にお話しします。",
+    "externalLinks": [
+      {
+        "label": "プロダクト",
+        "url": "https://satto.me/"
+      },
+      {
+        "label": "Zenn",
+        "url": "https://zenn.dev/p/satto_workspace"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/satto/jobboard.png",
+      "externalLink": "https://www.softbank.jp/recruit/career/positions/detail/004685/"
+    }
+  },
+  {
+    "id": "860878f2-c233-4757-8e11-e27af370dd34",
+    "slug": "assign",
+    "name": "株式会社アサイン",
+    "sponsorOptions": ["sponsor_session", "student_support"],
+    "plan": "platinum",
+    "logoImage": "/sponsors/assign/logo.svg",
+    "ogpImage": "/sponsors/assign/ogp.png",
+    "logoLink": "https://assign-inc.com/",
+    "displayOrder": 6,
+    "overview": "アサインは、「人」と「技術」の力で、若手ハイエンド向けのキャリア支援サービスを提供しています。転職サイト『ASSIGN』をはじめ、ユーザー一人ひとりの価値観や志向に向き合いながら、短期的な転職支援にとどまらない、長期のキャリア形成を支えるプロダクトづくりに取り組んでいます。単に求人を届けるだけでなく、キャリア実現に必要な情報へ、より自然に、よりパーソナライズされた形でアクセスできる体験を目指しています。キャリアという人生の大きな意思決定に向き合うサービスだからこそ、情報の質や体験の細部までこだわって改善を続けています。\r\n\r\n開発では、フロントエンドからバックエンドまでTypeScriptを軸にした開発を推進しています。ユーザー向けプロダクトだけでなく、社内業務を支えるシステムも内製し、型安全性を活かして仕様と実装のズレを減らしながら、開発体験とプロダクト品質の両立を図っています。変化の大きい事業に素早く向き合うために、共通言語としてTypeScriptを活用し、継続的に設計や開発プロセスを磨いています。技術発信やイベント協賛を通じてコミュニティとの接点も大切にしています。\r\n\r\nTSKaigiでは、TypeScriptを利用したプロダクトや開発の実態についてお話します。スポンサーセッションや当社ブースにてお待ちしております。",
+    "externalLinks": [
+      {
+        "label": "会社HP",
+        "url": "https://assign-inc.com/"
+      },
+      {
+        "label": "テックブログ",
+        "url": "https://zenn.dev/assign"
+      },
+      {
+        "label": "connpass",
+        "url": "https://assign.connpass.com/"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/assign/jobboard.png",
+      "externalLink": "https://job.persona-ats.com/ja/assign/jobs?filters=zmnNB_H2Q52r7D9fUwEQ6A"
+    }
+  },
+  {
+    "id": "70ec76eb-a8ae-4e74-aa5c-4b2241906bc0",
+    "slug": "leverages",
+    "name": "レバレジーズ株式会社",
+    "sponsorOptions": ["session_room_naming", "student_support"],
+    "plan": "platinum",
+    "logoImage": "/sponsors/leverages/logo.png",
+    "ogpImage": "/sponsors/leverages/ogp.png",
+    "logoLink": "https://leverages.jp/",
+    "displayOrder": 7,
+    "overview": "社会の課題を解決し関係者全員の幸福を追求し続けることをミッションに、IT・医療・介護・若年層を中心とした人材事業や、Webメディア事業、M&Aコンサルティング事業など、社会貢献を軸に様々な領域でこれまで40以上のサービスを展開。2005年に創業以来、黒字経営を継続し20期目の2024年度は年商1428億を突破しました。従業員数も設立以来増加を続けており、2025年4月時点では3338名と各分野のスペシャリストが集うオールインハウスの組織構成と、業界を絞らないポートフォリオ経営で、時代を代表するグローバル企業を目指します。",
+    "externalLinks": [
+      {
+        "label": "公式サイト",
+        "url": "https://leverages.jp/"
+      },
+      {
+        "label": "エンジニア採用",
+        "url": "https://recruit.leverages.jp/recruit/engineer/"
+      },
+      {
+        "label": "Leverages Tech Blog",
+        "url": "https://tech.leverages.jp/"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/leverages/jobboard.jpg",
+      "externalLink": "https://hrmos.co/pages/leverages/jobs?category=1819634044861276161"
+    }
+  },
+  {
+    "id": "e8d55c65-acc6-4fef-a8cb-c86b395e1f5f",
+    "slug": "plainer",
+    "name": "PLAINER株式会社",
+    "sponsorOptions": ["intermission_cm", "name_card"],
+    "plan": "platinum",
+    "logoImage": "/sponsors/plainer/logo.svg",
+    "ogpImage": "/sponsors/plainer/ogp.png",
+    "logoLink": "https://service.plainer.co.jp/recruit",
+    "displayOrder": 8,
+    "overview": "PLAINERは、ノーコードでソフトウェアを複製・カスタマイズし、誰でも簡単にデモコンテンツを制作できるデモプラットフォームSaaSです。本番環境を提供することなく、顧客にプロダクトの価値を届けることができます。マーケティングでのリード獲得の最大化、受注プロセスの効率化、CSオンボーディングの型化など、様々な場面で「プロダクトデモを活用した顧客コミュニケーション」の実現を支援します。\r\n\r\n現在提供しているデモプラットフォームを起点に\r\n2031年にはARR500億円規模のプロダクト群を築くことを目指しています。\r\n\r\n・仮想環境での爆速検証と市場適応\r\n・ガイド・アナリティクス・オートモード開発\r\n・LLMを用いたナビゲーション・Q&A基盤の構築\r\n\r\nPLAINERでは、フロントエンドでTypeScriptとReactを採用しています。また新規事業においてもFull TypeScriptで開発しております！今後の採用を強化していく中で、初めてカンファレンスに出展することになりました！\r\n\r\nぜひカジュアル面談にてお待ちしております！\r\n",
+    "externalLinks": [
+      {
+        "label": "PLAINERコーポレートサイト",
+        "url": "https://plainer.co.jp/"
+      },
+      {
+        "label": "PLAINERサービスサイト",
+        "url": "https://service.plainer.co.jp/"
+      },
+      {
+        "label": "採用特設サイト",
+        "url": "https://service.plainer.co.jp/recruit"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/plainer/jobboard.png",
+      "externalLink": "https://service.plainer.co.jp/recruit"
+    }
+  },
+  {
+    "id": "846b8150-3416-409e-a46b-e96c3def8569",
+    "slug": "bitkey",
+    "name": "株式会社ビットキー",
+    "sponsorOptions": ["sponsor_session"],
+    "plan": "platinum",
+    "logoImage": "/sponsors/bitkey/logo.png",
+    "ogpImage": "/sponsors/bitkey/ogp.png",
+    "logoLink": "https://bitkey.co.jp/",
+    "displayOrder": 9,
+    "overview": "私たちは、人と「暮らし」や「仕事」の間にある分断を解消するコネクトプラットフォーム「homehub」「workhub」を開発・提供しています。\r\nソフトウェアだけでなく、スマートロックをはじめとした物理デバイスも開発しており、実世界に踏み込んだプロダクト開発に挑戦しているスタートアップです。\r\n\r\n私たちのプロダクトでは、WebのフロントエンドからバックエンドまでTypeScriptを採用しており、まさにWeb技術の中核として活用しています。「鍵」という重要度の高い情報を扱う開発において、型安全性を確保し、コードの品質と保守性を向上させることは、サービスの信頼を支えるために非常に重要です。\r\n\r\n現在、私たちはさらなる進化を目指し、大規模なアプリケーションにおいてAIを適用し、開発体験と価値創出を最大化させることを目指しています。\r\nそこで、当日の出展ブースでは、このAI適用の取り組みについてみなさまと深く議論したいと考えています！\r\nぜひお越しください。\r\n\r\nまた、今回は通常のセッションに加えてランチセッションにも登壇予定です。\r\nより深い学びの提供に貢献できれば幸いです！",
+    "externalLinks": [
+      {
+        "label": "Speaker Deck",
+        "url": "https://speakerdeck.com/bitkey"
+      },
+      {
+        "label": "採用ページ",
+        "url": "https://bitkey.co.jp/careers/"
+      },
+      {
+        "label": "求人一覧",
+        "url": "https://herp.careers/v1/bitkeyinc"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/bitkey/jobboard.png",
+      "externalLink": "https://herp.careers/v1/bitkeyinc"
+    }
+  },
+  {
+    "id": "13f057eb-c0f1-4aff-9caf-65a241ed84b2",
+    "slug": "upsider",
+    "name": "株式会社UPSIDER",
+    "sponsorOptions": ["intermission_cm", "session_room_naming"],
+    "plan": "platinum",
+    "logoImage": "/sponsors/upsider/logo.jpeg",
+    "ogpImage": "/sponsors/upsider/ogp.png",
+    "logoLink": "https://career.up-sider.com/",
+    "displayOrder": 10,
+    "overview": "株式会社UPSIDERは、「挑戦者を支える世界的な金融プラットフォームを創る」をミッションに、AIとテクノロジーで「信用のアップデート」を実現する金融・経営インフラを提供しています。支出管理・支払い・経理・資金供給までを一気通貫で支援し、企業の意思決定とスピードを加速させています。さらに、法人カードの発行・与信・運用の基盤を外部企業へ提供し、金融機能を誰もが利用・提供可能にすることで、信用を起点とした総合金融プラットフォームへの進化を進めています。",
+    "externalLinks": [
+      {
+        "label": "コーポレートサイト",
+        "url": "https://corp.up-sider.com"
+      },
+      {
+        "label": "採用サイト",
+        "url": "https://career.up-sider.com"
+      },
+      {
+        "label": "Techブログ",
+        "url": "https://tech.up-sider.com"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/upsider/jobboard.png",
+      "externalLink": "https://career.up-sider.com/"
+    }
+  },
+  {
+    "id": "f576d034-d899-4356-abec-03f7b04358c3",
+    "slug": "nealle",
+    "name": "株式会社ニーリー",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/nealle/logo.png",
+    "ogpImage": "/sponsors/nealle/ogp.png",
+    "logoLink": "https://jobs.nealle.com/work/products/",
+    "displayOrder": 1,
+    "overview": "株式会社ニーリーは「社会の解像度を上げる」をミッションに、モビリティSaaS「パークダイレクト」を基点としたマルチプロダクト展開を加速させています。\r\n事業はT2D3ペースで成長しており、10→100/1→10/0→1のフェーズのプロダクトが同時に走る稀有な状況です。\r\n複雑なドメインを型安全に扱い、高速に開発を行うため、様々な開発の局面でTypeScriptを活用しています。\r\n今回のイベントでは弊社テックリードの登壇もございますので、ぜひ私たちのブースや発表をチェックしてみてください。\r\n\r\nまた、一緒に働く仲間を全方位で大募集しています！興味のある方はぜひお声がけください。\r\nエンジニア一人ひとりが「事業に染み出す」カルチャーを大切にし、価値提供の全てを担うスタイルを追求しています。エキサイティングな環境で働きたい方にはぴったりだと思います。皆様とお話しできるのを楽しみにしています！",
+    "externalLinks": [
+      {
+        "label": "エンジニア向け採用サイト",
+        "url": "https://jobs.nealle.com/work/products/"
+      },
+      {
+        "label": "テックブログ",
+        "url": "https://nealle-dev.hatenablog.com/"
+      },
+      {
+        "label": "#ニーリー開発組織の野望 連載記事",
+        "url": "https://nealle.notion.site/2a48c35b4dfa80f084e8c562ffc59912"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/nealle/jobboard.png",
+      "externalLink": "https://jobs.nealle.com/work/products/"
+    }
+  },
+  {
+    "id": "087e4027-2b72-4989-b6de-1bcf6455ad31",
+    "slug": "layerx",
+    "name": "株式会社LayerX",
+    "sponsorOptions": ["sponsor_session", "student_support"],
+    "plan": "gold",
+    "logoImage": "/sponsors/layerx/logo.png",
+    "ogpImage": "/sponsors/layerx/ogp.png",
+    "logoLink": "https://layerx.co.jp/",
+    "displayOrder": 2,
+    "overview": "LayerXは、「すべての経済活動を、デジタル化する。」をミッションに掲げるAIカンパニーです。バックオフィス向けAIクラウド「バクラク」事業、Fintech事業、エンタープライズ向けAIプラットフォーム「Ai Workforce」事業などの複合的な事業を通して日本の社会課題を解決し、AIの力で人々の創造力がより発揮される未来をつくります。\r\n\r\nまたLayerXからは、izumin5210, syumai, minako-phの3名がプロポーザル採択されました！\r\n当日はぜひ会場にお越しいただけるとうれしいです！",
+    "externalLinks": [
+      {
+        "label": "LayerX 各事業ごとのEngineering Deck",
+        "url": "https://tech.layerx.co.jp/engineering-decks-all-in-one"
+      },
+      {
+        "label": "LayerX 採用情報",
+        "url": "https://jobs.layerx.co.jp/"
+      },
+      {
+        "label": "Open Door（カジュアル面談）",
+        "url": "https://jobs.layerx.co.jp/opendoor/"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/layerx/jobboard.png",
+      "externalLink": "https://speakerdeck.com/layerx/bakuraku-engineering-team-deck"
+    }
+  },
+  {
+    "id": "6caac428-5b9f-4de0-a634-b92107cdd1f7",
+    "slug": "every",
+    "name": "株式会社エブリー",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/every/logo.png",
+    "ogpImage": "/sponsors/every/ogp.png",
+    "logoLink": "https://corp.every.tv/",
+    "displayOrder": 3,
+    "overview": "エブリーは、日本が抱える「食」「子育て」「地方創生」の3つの大きな課題に向き合っており、日本最大級レシピ動画メディアである「デリッシュキッチン」をはじめ「トモニテ」「TIMELINE」と3つの動画メディアプラットフォームを運営しています。\r\n現在、全社で「AIファースト・カンパニー」への変革を掲げ、メディアに蓄積された膨大な1st Party DataとAIを掛け合わせた事業展開を推進しています。単なる利便性の追求ではなく、AIエージェントによる”より人間らしい”顧客体験の実装を通じて、\"暮らし\"と\"企業\"のアップデートを目指しています。\r\n中でも、ユーザーの生活課題解決から、メーカーのマーケティング支援、小売業の意思決定支援までをAIで最適化し、これら三者を繋ぐ「リテールメディア」の構築を今後の成長戦略の柱と位置づけ、注力をしています。",
+    "externalLinks": [
+      {
+        "label": "コーポレートサイト",
+        "url": "https://corp.every.tv/"
+      },
+      {
+        "label": "テックブログ",
+        "url": "https://tech.every.tv/"
+      },
+      {
+        "label": "X(@every_engineer)",
+        "url": "https://x.com/every_engineer?s=20"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/every/jobboard.png",
+      "externalLink": "https://corp.every.tv/recruits"
+    }
+  },
+  {
+    "id": "95aa4525-a1e1-48ae-b9e3-9fecb0d76d99",
+    "slug": "3-shake",
+    "name": "株式会社スリーシェイク",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/3-shake/logo.png",
+    "ogpImage": "/sponsors/3-shake/ogp.png",
+    "logoLink": "https://3-shake.com/",
+    "displayOrder": 4,
+    "overview": "株式会社スリーシェイクのSREコンサルティングサービス「Sreake」は、クラウドネイティブ技術に特化したプロフェッショナル集団です。Kubernetes・AWS・Google Cloudを中心に、技術戦略・設計・開発・運用を一貫してサポート。SRE導入支援にとどまらず、レガシーシステムのアプリケーションモダナイゼーションや、生成AIを活用したシステム設計・開発支援にも積極的に取り組んでいます。「SREを文化ごと組織に根付かせる」を信条に、技術と組織変革の両面に踏み込むのが強みです。TOYOTA・radikoをはじめ多くの企業の信頼性向上・技術変革に貢献。事業部のエンジニア比率は91.5%とエンジニアを中心とした組織となっています。\r\nノベルティの当たる抽選も実施を予定していますので、ぜひブースにお立ち寄りください。",
+    "externalLinks": [
+      {
+        "label": "3-shakeホームページ",
+        "url": "https://3-shake.com/"
+      },
+      {
+        "label": "Sreake事業部紹介資料",
+        "url": "https://speakerdeck.com/3shake/3shake-sreake-deck"
+      },
+      {
+        "label": "Sreake事業部求人一覧（中途・新卒）",
+        "url": "https://hrmos.co/pages/threeshake/jobs?category=1905593794439032832"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/3-shake/jobboard.jpg",
+      "externalLink": "https://hrmos.co/pages/threeshake/jobs?category=1905593794439032832"
+    }
+  },
+  {
+    "id": "845cd46e-0894-461f-a687-0aca97c2b676",
+    "slug": "meetsmore",
+    "name": "株式会社ミツモア",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/meetsmore/logo.png",
+    "ogpImage": "/sponsors/meetsmore/ogp.png",
+    "logoLink": "https://company.meetsmore.com/",
+    "displayOrder": 5,
+    "overview": "ミツモアは「日本のGDPを増やし、明日がもっといい日になると思える社会に」というミッションを掲げ、見積もりプラットフォーム「ミツモア」と現場業界特化のオールインワンSaaS「プロワン」を運営しています。\r\n社員の約3割がプロダクト関連部署で、プロダクト本部の約半数が海外籍など多国籍チームです。\r\nフロントエンドはNext.js、APIはOpenAPIファーストで型付きクライアントを生成し、バックエンドはNestJS＋Prisma中心のFull TypeScriptの構成。インフラIaCもTypeScriptでCDK for TerraformとPulumiを併用しているような環境です。\r\n一緒に日本の社会課題を解決しましょう！",
+    "externalLinks": [
+      {
+        "label": "ミツモア採用サイト",
+        "url": "https://corp.meetsmore.com/"
+      },
+      {
+        "label": "会社説明",
+        "url": "https://speakerdeck.com/meetsmore/about-meetsmore"
+      },
+      {
+        "label": "テックブログ",
+        "url": "https://engineering.meetsmore.com/"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/meetsmore/jobboard.jpg",
+      "externalLink": "https://hrmos.co/pages/meetsmore/jobs"
+    }
+  },
+  {
+    "id": "1e940521-7732-47ce-924d-a915a8e5481f",
+    "slug": "ubie",
+    "name": "Ubie株式会社",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/ubie/logo.jpg",
+    "ogpImage": "/sponsors/ubie/ogp.png",
+    "logoLink": "https://recruit.ubie.life/",
+    "displayOrder": 6,
+    "overview": "Ubieは「テクノロジーで人々を適切な医療に案内する」をミッションに、医師とエンジニアが2017年に創業したヘルステックスタートアップです。\r\nAIをコア技術として、症状から関連する病名や適切な受診先を調べられる受診支援サービス「ユビー」（2026年4月時点で月間1,300万人以上が利用）と、診療の質向上・業務効率化を支援する医療機関向けサービス「ユビ―メディカルナビ」（ユビーAI問診・ユビーリンク等）を開発・提供しています。医療と生活者をつなぎ、誰もが自分にあった医療にアクセスできる社会づくりを進めています。\r\n\r\n今回Ubieからは glassmonkey がプロポーザルに採択され登壇予定です！当日のセッションやブース展示に加え、カジュアル面談のお申込みも随時受け付けております。ぜひお気軽にお声がけください。皆様とお話しできるのを楽しみにしております！",
+    "externalLinks": [
+      {
+        "label": "Ubie 採用ページ",
+        "url": "https://recruit.ubie.life/"
+      },
+      {
+        "label": "Ubie Tech blog",
+        "url": "https://zenn.dev/p/ubie_dev"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/ubie/jobboard.png",
+      "externalLink": "https://recruit.ubie.life/"
+    }
+  },
+  {
+    "id": "f9e7f6be-3ffd-4ff8-af0e-232cf4ad2927",
+    "slug": "nstock",
+    "name": "Nstock株式会社",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/nstock/logo.png",
+    "ogpImage": "/sponsors/nstock/ogp.png",
+    "logoLink": "https://recruit.nstock.co.jp/",
+    "displayOrder": 7,
+    "overview": "Nstockは、日本から1兆円スタートアップを生むための、新しいインフラを創ります。株式報酬SaaS、セカンダリー（準備中）、スタートアップへの再投資事業（準備中）を中心に、未来のデカコーンが「これまでなかったことが信じられない」と嘯るような未来の当たり前を、次々と生み出します。\r\nプロダクト開発だけに留まらず、法規制や社会的な慣習に対するアプローチなど、難しさと面白さが共存するチャレンジングな環境です。\r\n\r\nすべてのプロダクトのフロントエンドでTypeScript & Reactを採用しています。また、生成AIツールを積極的に活用しており、事業を支えるエンジニアリングの新しい形を模索しています。\r\n\r\nNstockのミッションに共感し、共にスタートアップ業界を盛り上げてくれる仲間を募集しています。ぜひ会場でお話ししましょう！",
+    "externalLinks": [
+      {
+        "label": "Nstock採用情報",
+        "url": "https://recruit.nstock.co.jp/work/software-engineer"
+      },
+      {
+        "label": "Nstock Tech Blog",
+        "url": "https://zenn.dev/p/nstock"
+      },
+      {
+        "label": "NstockのTechラジオ",
+        "url": "https://open.spotify.com/show/0m4TGTqbD6AuHFOrIbpkxx?si=fcb0d9a1f44049a8&nd=1&dlsi=97fdf39efbbe48a2"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/nstock/jobboard.png",
+      "externalLink": "https://recruit.nstock.co.jp/work/software-engineer"
+    }
+  },
+  {
+    "id": "243bbaa3-7a6c-420f-a574-1f55bed32078",
+    "slug": "plaid",
+    "name": "株式会社プレイド",
+    "sponsorOptions": ["student_support"],
+    "plan": "gold",
+    "logoImage": "/sponsors/plaid/logo.png",
+    "ogpImage": "/sponsors/plaid/ogp.png",
+    "logoLink": "https://plaid.co.jp/",
+    "displayOrder": 8,
+    "overview": "プレイドは、オンライン上でのユーザー行動をリアルタイムに解析し、エンドユーザーに最適な体験を提供するためのCX（顧客体験）プラットフォーム「KARTE」などを提供しています。\r\nプレイドでは、配信基盤等の一部を除いて、ほぼ全てのアプリケーションコードをTypeScriptを用いて開発を行っています。例えば、ユーザーの作成したコンテンツを実際に配信するための3rd party scriptはTypeScriptを用い、管理画面のバックエンドにはExpressやHonoといったフレームワークを使用しています。近頃はプロダクトへのAI機能の組み込みも積極的に進めていて、その部分はMastraを使用しています。\r\n当日はブースにて、プレイドのTypeScript活用について何でもお話しします。ぜひお立ち寄りください！",
+    "externalLinks": [
+      {
+        "label": "プロダクトエリア採用情報",
+        "url": "https://recruit.plaid.co.jp/product"
+      },
+      {
+        "label": "Engineering Blog",
+        "url": "https://tech.plaid.co.jp/"
+      },
+      {
+        "label": "創業者&CTOインタビュー『プレイドにとっての”技術”とは？』",
+        "url": "https://blog.plaid.co.jp/n/nb08d947606f3"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/plaid/jobboard.jpg",
+      "externalLink": "https://recruit.plaid.co.jp/product"
+    }
+  },
+  {
+    "id": "d8aaea28-7ea8-44dd-9d71-02896ef05c6f",
+    "slug": "geekplus",
+    "name": "株式会社ギークプラス",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/geekplus/logo.png",
+    "ogpImage": "/sponsors/geekplus/ogp.png",
+    "logoLink": "https://www.geekplus.jp/",
+    "displayOrder": 9,
+    "overview": "次世代に残せる、デジタル物流インフラを創る。\r\n\r\nECの拡大と労働人口の減少により、物流は構造的な限界に直面しています。このままでは「モノが届かない社会」が現実になる可能性がある。私たちはロボティクスとソフトウェアを組み合わせ、物流という巨大産業のあり方をアップデートしています。\r\n\r\n中核プロダクト「skylaa」は、サプライチェーン全体の意思決定を扱うプラットフォームです。「なにを・いくつ生産し、どこに・いつ・どう動かすか」という判断をソフトウェアで支え、現場やロボットと連動しながら最適化していきます。\r\n\r\nこの領域にはまだ明確な正解がなく、プロダクトもビジネスモデルも進化の途中にあります。そのため、実装だけでなく設計や前提そのものに関わる余地があります。\r\n\r\n社会インフラに近い領域で、スケールの大きい課題に向き合いたい方をお待ちしています！！",
+    "externalLinks": [
+      {
+        "label": "Company Deck (採用デック)",
+        "url": "https://i65zu09.short.gy/recruiting-deck"
+      },
+      {
+        "label": "Geekplus Tech Blog",
+        "url": "https://zenn.dev/p/geekplus"
+      },
+      {
+        "label": "採用情報",
+        "url": "https://note.geekplus.jp/p/recruit"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/geekplus/jobboard.png",
+      "externalLink": "https://i65zu09.short.gy/recruiting-deck"
+    }
+  },
+  {
+    "id": "79fc9e9f-5277-4fc5-968d-47278d139baf",
+    "slug": "zozo",
+    "name": "ZOZO, Inc.",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/zozo/logo.jpg",
+    "ogpImage": "/sponsors/zozo/ogp.png",
+    "logoLink": "https://corp.zozo.com/",
+    "displayOrder": 10,
+    "overview": "ファッションEC「ZOZOTOWN」、ファッションコーディネートアプリ「WEAR」など各種サービスの企画・展開をおこなうほか、「ZOZOSUIT」「ZOZOMAT」「ZOZOGLASS」などの計測テクノロジー開発・活用にも取り組んでいます。",
+    "externalLinks": [
+      {
+        "label": "@zozotech",
+        "url": "https://x.com/zozotech"
+      }
+    ],
+    "jobboard": null
+  },
+  {
+    "id": "8f259e67-0728-4327-ad87-8ee87873f576",
+    "slug": "wantedly",
+    "name": "ウォンテッドリー株式会社",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/wantedly/logo.png",
+    "ogpImage": "/sponsors/wantedly/ogp.png",
+    "logoLink": "https://wantedly.engineering/",
+    "displayOrder": 11,
+    "overview": "ウォンテッドリーは「究極の適材適所により、シゴトでココロオドルひとをふやす」をミッションにプロダクトを開発しています。\r\n自律・共感・挑戦のある適材適所を構造的に生み出し続けることにより、あらゆる人がシゴトに没頭し成果を上げ、その結果成長を実感できるような「はたらくすべての人のインフラ」を構築していきます。",
+    "externalLinks": [
+      {
+        "label": "エンジニア職向け採用サイト",
+        "url": "https://wantedly.engineering/"
+      },
+      {
+        "label": "カジュアル面談をしませんか？",
+        "url": "https://www.wantedly.com/projects/1159802"
+      },
+      {
+        "label": "Tech Blog",
+        "url": "https://www.wantedly.com/stories/s/wantedly_engineers"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/wantedly/jobboard.png",
+      "externalLink": "https://www.wantedly.com/projects/1159802"
+    }
+  },
+  {
+    "id": "b96ec753-64cd-48df-b56c-399ed4e69fe0",
+    "slug": "cybozu",
+    "name": "サイボウズ株式会社",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/cybozu/logo.png",
+    "ogpImage": "/sponsors/cybozu/ogp.png",
+    "logoLink": "https://cybozu.co.jp/recruit/",
+    "displayOrder": 12,
+    "overview": "サイボウズは、「チームワークあふれる社会を創る」という理念のもと、チームワークを支えるソフトウェア開発・クラウドサービスの運用を行っています。\r\n「kintone」「サイボウズ Office」「Garoon」「メールワイズ」など、累計13万社・1千万ユーザーに利用頂いているグループウェア製品や、業務改善サービスを軸に、社会のチームワーク向上を支援しています。",
+    "externalLinks": [
+      {
+        "label": "採用サイト",
+        "url": "https://cybozu.co.jp/recruit/"
+      },
+      {
+        "label": "Cybozu Inside Out",
+        "url": "https://x.com/cybozuinsideout"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/cybozu/jobboard.png",
+      "externalLink": "https://cybozu.co.jp/recruit/"
+    }
+  },
+  {
+    "id": "398d1cf7-904b-43cf-a663-ccd8276c1efc",
+    "slug": "dwango",
+    "name": "株式会社ドワンゴ",
+    "sponsorOptions": ["intermission_cm", "sponsor_session", "student_support"],
+    "plan": "gold",
+    "logoImage": "/sponsors/dwango/logo.png",
+    "ogpImage": "/sponsors/dwango/ogp.png",
+    "logoLink": "https://dwango.co.jp/",
+    "displayOrder": 13,
+    "overview": "ドワンゴは \"ネットの向こうの、リアルを動かす。人間らしさと、つながるデジタルを。\" をコーポレートメッセージとして、ネットに特化した通信制高校「N高等学校・S高等学校・R高等学校」、ネットとリアルを融合したオンライン大学「ZEN大学」、オンライン学習アプリ「ZEN Study」、ネットの双方向性を最大限に動画や生放送に取り込んだ「ニコニコ」、ネットとリアルの融合をテーマにした巨大イベント「ニコニコ超会議」など、新しい価値を創り出し、それを事業として成立させていくことに挑戦しつづける企業です。",
+    "externalLinks": [
+      {
+        "label": "ZEN Study（旧N予備校）",
+        "url": "https://www.nnn.ed.nico/"
+      },
+      {
+        "label": "ドワンゴ教育事業 × EdTech 採用情報 | 株式会社ドワンゴ",
+        "url": "https://www.nnn.ed.nico/recruit/"
+      },
+      {
+        "label": "ニコニコ",
+        "url": "https://www.nicovideo.jp/"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/dwango/jobboard.png",
+      "externalLink": "https://www.nnn.ed.nico/recruit/"
+    }
+  },
+  {
+    "id": "f3197315-e0ef-4913-8b2e-d9dc8743c5d6",
+    "slug": "coderabbit",
+    "name": "CodeRabbit",
+    "sponsorOptions": ["sponsor_session"],
+    "plan": "gold",
+    "logoImage": "/sponsors/coderabbit/logo.png",
+    "ogpImage": "/sponsors/coderabbit/ogp.png",
+    "logoLink": "https://coderabbit.link/atsushi",
+    "displayOrder": 14,
+    "overview": "CodeRabbitはAIコードレビューサービスです。GitHubやGitLab、BitBucket、Azure DevOpsと連携し、PRを作成するだけで自動的にコードレビューを実行します。コードレビューにかかる時間や負荷を半減します。\r\nOSSリポジトリは無料で利用可能、VS Code機能拡張やCLI版も無料で利用できます。",
+    "externalLinks": [
+      {
+        "label": "公式サイト",
+        "url": "https://coderabbit.link/atsushi"
+      },
+      {
+        "label": "公式Xアカウント",
+        "url": "https://x.com/coderabbitaija"
+      },
+      {
+        "label": "公式Qiita",
+        "url": "https://qiita.com/organizations/coderabbitai"
+      }
+    ],
+    "jobboard": null
+  },
+  {
+    "id": "638b63af-bd81-436a-a47c-e5b6d7b51ab5",
+    "slug": "cierpa",
+    "name": "シェルパ・アンド・カンパニー株式会社",
+    "sponsorOptions": ["beer"],
+    "plan": "gold",
+    "logoImage": "/sponsors/cierpa/logo.png",
+    "ogpImage": "/sponsors/cierpa/ogp.png",
+    "logoLink": "https://cierpa.co.jp/",
+    "displayOrder": 15,
+    "overview": "当社は「利益とサステナビリティが融合する世界を実現する。」をビジョンに掲げるスタートアップです。ESGデータプラットフォーム・SmartESGをフルTypeScript構成で開発し、サステナビリティ経営をデータの力で支援しています。ESGとは環境・社会・ガバナンスに関する企業の取り組みを評価する考え方で、近年は企業価値を測る重要指標として世界で注目されています。情報開示の制度化が進み、投資家から企業に多くのESG関連データの提出が求められるようになりました。その結果、多くの企業が社内外に散在するデータ収集や調査対応に大きな業務負荷を抱えています。SmartESGはこうしたデータを一元管理し、複雑な情報開示や評価対応のワークフローを効率化するB2B SaaS型データ基盤です。企業とステークホルダーをつなぐインフラとしてサステナビリティへの取り組みが正しく評価される仕組みづくりを支援します。",
+    "externalLinks": [
+      {
+        "label": "会社HP",
+        "url": "https://cierpa.co.jp/"
+      },
+      {
+        "label": "技術ブログ",
+        "url": "https://tech.cierpa.co.jp/"
+      },
+      {
+        "label": "サービスページ",
+        "url": "https://smartesg.jp/"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/cierpa/jobboard.png",
+      "externalLink": "https://cierpa.co.jp/recruit"
+    }
+  },
+  {
+    "id": "df04e09d-3c2d-495e-aafe-cdddc7c0fcd1",
+    "slug": "findy",
+    "name": "ファインディ株式会社",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/findy/logo.png",
+    "ogpImage": "/sponsors/findy/ogp.png",
+    "logoLink": "https://findy-code.io/?fr=conf_ruby_kaigi_2026&utm_source=findy-code&utm_medium=event&utm_campaign=_ruby_kaigi_2026",
+    "displayOrder": 16,
+    "overview": "ファインディ株式会社は「挑戦するエンジニアのプラットフォームをつくる。」というビジョンを掲げ、IT/Webエンジニアの転職サービス「Findy」、フリーランスエンジニア紹介サービス「Findy Freelance」等々、合計の5つのサービスを提供しています。\r\n\r\n",
+    "externalLinks": [
+      {
+        "label": "ファインディコーポレートサイト",
+        "url": "https://findy.co.jp/"
+      },
+      {
+        "label": "IT/Webエンジニアの転職サービス「Findy」",
+        "url": "https://findy-code.io/home"
+      },
+      {
+        "label": "Findy Tech Blog",
+        "url": "https://tech.findy.co.jp/"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/findy/jobboard.webp",
+      "externalLink": "https://herp.careers/v1/findy/requisition-groups/14c4a661-5e48-40c5-99d0-ea657b8b4c04"
+    }
+  },
+  {
+    "id": "a6729168-f35c-4497-8389-c30d6ea50f75",
+    "slug": "dip",
+    "name": "ディップ株式会社",
+    "sponsorOptions": ["sponsor_session"],
+    "plan": "gold",
+    "logoImage": "/sponsors/dip/logo.jpg",
+    "ogpImage": "/sponsors/dip/ogp.png",
+    "logoLink": "https://www.dip-net.co.jp/",
+    "displayOrder": 17,
+    "overview": "ディップ株式会社は、人材サービスとDXサービスの提供を通して、労働市場におけるさまざまな課題の解決を目指す会社です。『バイトル』や『はたらこねっと』などの人材サービスでは、ユーザーファーストな独自機能の開発を通じて、ユーザーのより良い「しごと探し」体験を提供しています。『コボット』などのDXサービスでは、人がやらなくてもよい作業を自動化することで、中堅・中小企業の生産性向上を実現しています。",
+    "externalLinks": [
+      {
+        "label": "コーポレートサイト",
+        "url": "https://www.dip-net.co.jp/"
+      },
+      {
+        "label": "採用情報",
+        "url": "https://recruit-dip.com/"
+      },
+      {
+        "label": "テックブログサイト",
+        "url": "https://developer.dip-net.co.jp/"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/dip/jobboard.png",
+      "externalLink": "https://recruit-dip.com/"
+    }
+  },
+  {
+    "id": "3f43c282-3023-4ea2-87a2-9e3a3c02d8d4",
+    "slug": "righttouch",
+    "name": "株式会社RightTouch",
+    "sponsorOptions": ["session_room_naming"],
+    "plan": "gold",
+    "logoImage": "/sponsors/righttouch/logo.png",
+    "ogpImage": "/sponsors/righttouch/ogp.png",
+    "logoLink": "https://righttouch.co.jp/",
+    "displayOrder": 18,
+    "overview": "RightTouchは、「あらゆる人を負の体験から解放し、可能性を引き出す」をミッションに、国内3.1兆円規模のカスタマーサポート領域の変革に挑むスタートアップです。\r\n\r\nQANTシリーズというプロダクト群を通じて、問い合わせ前のWeb行動データやVoC(Voice of Customer)、コールセンターに溜まる応対ログやナレッジデータなど幅広く大量なデータを持つことで、自己進化しながら多種多様のユーザーの困りごとを解決するAIオペレーターを提供しています。\r\n\r\nRightTouchでは全プロダクトがフルTypeScriptを採用し、積極的にAIも活用しながら30人弱のエンジニア組織で6つのプロダクトを日々爆速で進化させています。\r\n実プロダクトへのLLM組み込みやフルTypeScriptでのプロダクト開発に興味がある方は、ぜひブースでお話ししましょう！",
+    "externalLinks": [
+      {
+        "label": "コーポレートサイト",
+        "url": "https://righttouch.co.jp/"
+      },
+      {
+        "label": "エンジニアブログ",
+        "url": "https://tech.righttouch.co.jp/"
+      },
+      {
+        "label": "プロダクトサイト",
+        "url": "https://qant.jp/"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/righttouch/jobboard.png",
+      "externalLink": "https://righttouch.co.jp/recruitment/engineer"
+    }
+  },
+  {
+    "id": "24bb7b70-82cc-43ee-b7f9-131d487276a6",
+    "slug": "gaji",
+    "name": "株式会社Gaji-Labo",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/gaji/logo.png",
+    "ogpImage": "/sponsors/gaji/ogp.png",
+    "logoLink": "https://www.gaji.jp/",
+    "displayOrder": 19,
+    "overview": "Gaji-Labo は、スタートアップや事業会社のプロダクトチーム支援を専門にしています。\r\nフロントエンド開発や UI デザインなどの専門技術の提供を軸に、単なるリソース提供ではなく優れたチームワークをデリバリーし、プロダクトを成長させることに取り組んできました。\r\n急成長期や混乱期は、人手を増やすだけでは乗り越えることができません。\r\n専門家としてのスキルを持ち、改善に向けてチームワークを高められるメンバーが必要なときにはご相談ください。\r\n\r\n「プロダクト価値の最大化」を高めるための技術力を持ち、より良いプロダクトを支えるソフトウェア開発をしたいメンバーを募集しています。ぜひ会場やブースでお話しましょう！",
+    "externalLinks": [
+      {
+        "label": "サービス案内",
+        "url": "https://www.gaji.jp/services"
+      },
+      {
+        "label": "採用情報",
+        "url": "https://www.gaji.jp/recruit"
+      },
+      {
+        "label": "Gaji-Labo Culture Deck",
+        "url": "https://speakerdeck.com/gaji/gaji-labo-culture-deck"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/gaji/jobboard.png",
+      "externalLink": "https://www.gaji.jp/recruit"
+    }
+  },
+  {
+    "id": "4061f299-5c98-4db6-b034-6bb05f862b71",
+    "slug": "stmn",
+    "name": "株式会社スタメン",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/stmn/logo.png",
+    "ogpImage": "/sponsors/stmn/ogp.png",
+    "logoLink": "https://stmn.co.jp/",
+    "displayOrder": 20,
+    "overview": "株式会社スタメンは、「一人でも多くの人に、感動を届け、幸せを広める。」を経営理念に、2016年に創業しました。その後順調な事業拡大により2020年12月に東証グロース市場に株式上場。\r\n\r\nエンゲージメントプラットフォーム「TUNAG（ツナグ）」をはじめとした、複数のサービスを自社で開発・運営しています。2023年2月には、新規事業として、SaaS型サービスである情報漏洩対策ツール「Watchy（ウォッチー）」を正式にリリースしています。\r\n\r\n「TUNAG」「Watchy」ともに、TypeScriptを採用しており、プロダクトエンジニアを絶賛募集中です。",
+    "externalLinks": [
+      {
+        "label": "Tech Blog",
+        "url": "https://tech.stmn.co.jp/"
+      },
+      {
+        "label": "プロダクト職種 採用情報（求人一覧）",
+        "url": "https://herp.careers/v1/stmn/requisition-groups/dbb0c5b0-ea74-4c65-ab6b-f7e62e614ddb"
+      },
+      {
+        "label": "Entrance Book for Product",
+        "url": "https://stmn-group.notion.site/Entrance-Book-for-Product-29d17b32077d80b49de1c7a0b739830f"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/stmn/jobboard.jpg",
+      "externalLink": "https://herp.careers/v1/stmn/requisition-groups/dbb0c5b0-ea74-4c65-ab6b-f7e62e614ddb"
+    }
+  },
+  {
+    "id": "b3fb8ebe-505b-4011-a0f4-8eebc926d378",
+    "slug": "tokium",
+    "name": "株式会社TOKIUM",
+    "sponsorOptions": ["intermission_cm"],
+    "plan": "gold",
+    "logoImage": "/sponsors/tokium/logo.png",
+    "ogpImage": "/sponsors/tokium/ogp.png",
+    "logoLink": "https://corp.tokium.jp/",
+    "displayOrder": 21,
+    "overview": "株式会社TOKIUMは、「未来へつながる時を生む」を志に、あらゆる経理作業から人々を解放する経理AIエージェントを提供しています。\r\n10年以上にわたり蓄積してきた実務ノウハウと膨大な処理データを基盤に、AIとプロスタッフが高度に連携し、経理業務の自動化を実現します。経費精算や請求書処理システムなど、複数のプロダクトを展開し、3,000社以上の企業に導入されています。\r\n\r\n開発業務におけるAIの活用も積極的に取り組んでおり、「AIネイティブな開発の仕組み」や「これからのエンジニアのあり方」を組織全体で模索しています。その試行錯誤をテックブログで発信し、直近4ヶ月間、毎営業日更新で100件以上の記事を公開中。ぜひご覧ください！\r\nTypeScriptで経理AIエージェント開発に挑むエンジニアも積極募集中です。ご興味のある方はお気軽にご連絡ください！",
+    "externalLinks": [
+      {
+        "label": "採用サイト",
+        "url": "https://recruit.tokium.jp/"
+      },
+      {
+        "label": "テックブログ",
+        "url": "https://zenn.dev/p/tokium_dev"
+      },
+      {
+        "label": "プロダクトチーム公式X",
+        "url": "https://x.com/TOKIUM_Dev"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/tokium/jobboard.png",
+      "externalLink": "https://recruit.tokium.jp/"
+    }
+  },
+  {
+    "id": "bb2177d8-a1ea-4652-ba39-45634a7f1e7c",
+    "slug": "kaonavi",
+    "name": "株式会社カオナビ",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/kaonavi/logo.png",
+    "ogpImage": "/sponsors/kaonavi/ogp.png",
+    "logoLink": "http://recruit.kaonavi.jp/engineer",
+    "displayOrder": 22,
+    "overview": "私たちカオナビは「\"はたらく\"にテクノロジーを実装し、個の力から社会の仕様を変える」をPurposeに掲げ、タレントマネジメント市場No.1（導入社数4,000社超）の『カオナビ』を開発・提供しています。\r\n性別、学歴、肩書きといったラベルにとらわれず、「個」の力が開かれる社会の実現を目指し、人材データベースを核とした人事DXからタレントマネジメントまで幅広いソリューションを展開。企業の人事業務を革新するタレントマネジメントシステムとして、多くの企業様にご活用いただいています。\r\nフロントエンド開発ではReact・TypeScriptを採用し、ユーザビリティを重視したUI/UX設計により、様々な利用者が直感的に操作できるシステムを追求。テクノロジーの力で働く人すべてが自分らしく活躍できる未来を創造します。",
+    "externalLinks": [
+      {
+        "label": "カオナビエンジニア採用",
+        "url": "https://recruit.kaonavi.jp/engineer"
+      },
+      {
+        "label": "カオナビ技術広報note",
+        "url": "https://note.com/kaonavi_devs"
+      },
+      {
+        "label": "カオナビ｜【シェアNo.1】タレントマネジメントシステム",
+        "url": "https://www.kaonavi.jp"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/kaonavi/jobboard.jpg",
+      "externalLink": "https://recruit.kaonavi.jp/engineer"
+    }
+  },
+  {
+    "id": "a3cb642b-22e1-4b6e-9faa-96894eebefe4",
+    "slug": "tailor",
+    "name": "テイラー株式会社",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/tailor/logo.png",
+    "ogpImage": "/sponsors/tailor/ogp.png",
+    "logoLink": "https://careers.tailor.tech/",
+    "displayOrder": 23,
+    "overview": "テイラー株式会社は、大企業の複雑な基幹システム（ERP）を従来の10分の1の実装期間で構築できるAIネイティブなHeadless ERPプラットフォーム「Tailor Platform」を開発・提供しています。\r\nSDKおよびツールチェインをTypeScript / JavaScriptで提供しており、TypeScriptエコシステムは私たちのプロダクトの根幹をなしています。\r\n\r\n2022年にはY Combinatorへの採択、2025年にはシリーズAで累計約55億円を調達。\r\n日本発のプロダクトとして、現在は日米を中心にエンタープライズ向けのサービス開発・デリバリーをグローバルに展開しています。",
+    "externalLinks": [
+      {
+        "label": "テイラー株式会社 / サービス紹介",
+        "url": "https://jp.tailor.tech/"
+      },
+      {
+        "label": "テイラー株式会社 / 採用情報",
+        "url": "https://careers.tailor.tech/"
+      },
+      {
+        "label": "テイラー株式会社 / 公式note",
+        "url": "https://note.com/tailortech"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/tailor/jobboard.png",
+      "externalLink": "https://jobs.ashbyhq.com/tailor/5ea5a5ac-90be-4795-b07a-23aaa20c4440?departmentId=b7fb8d59-0c5d-47e3-a494-119c15acc659"
+    }
+  },
+  {
+    "id": "7bcdea2f-7f3b-476b-8cd4-fdf0afd2073a",
+    "slug": "kinto-technologies",
+    "name": "KINTOテクノロジーズ株式会社",
+    "sponsorOptions": [],
+    "plan": "gold",
+    "logoImage": "/sponsors/kinto-technologies/logo.svg",
+    "ogpImage": "/sponsors/kinto-technologies/ogp.png",
+    "logoLink": "https://www.kinto-technologies.com/?utm_source=tskaigi&utm_medium=sponsor&utm_campaign=tskaigi_2026",
+    "displayOrder": 24,
+    "overview": "KINTOテクノロジーズは、トヨタグループ各社が展開するモビリティサービスやビジネスをテクノロジーで支援するために2021年4月に創設されたテックカンパニーです。\r\nトヨタグループ内でも唯一の「BtoC・DtoC領域に特化した内製開発組織」であり、世界の数多くの国で展開するグローバルモビリティブランド『KINTO』関連プロダクトや、マルチモーダルモビリティサービス『my route』など、クルマに乗る「人」に焦点を当てた新しいサービスの開発・運用を行っています。\r\nまた、弊社はモダンな技術を積極的に採用する文化があります。各種AWSサービスを活用しており、良質なUI・UXを実現するために新しいWeb技術も取り入れています。エンジニアがボトムアップで特定技術の利用を提案し、採用された事例も数多くあります。\r\n安定した経営環境とベンチャーマインドを持ち合わせ、新しいチャレンジができる会社です！",
+    "externalLinks": [
+      {
+        "label": "X (＠KintoTech_Dev)",
+        "url": "https://x.com/KintoTech_Dev"
+      },
+      {
+        "label": "KINTO Tech Blog",
+        "url": "https://blog.kinto-technologies.com/?utm_source=tskaigi&utm_medium=sponsor&utm_campaign=tskaigi_2026"
+      },
+      {
+        "label": "その他イベント情報などはこちら",
+        "url": "https://blog.kinto-technologies.com/sns/?utm_source=tskaigi&utm_medium=sponsor&utm_campaign=tskaigi_2026"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/kinto-technologies/jobboard.png",
+      "externalLink": "https://www.kinto-technologies.com/recruit/"
+    }
+  },
+  {
+    "id": "0e72a32f-3cc7-4154-9098-c54e1bd80768",
+    "slug": "mosh",
+    "name": "MOSH株式会社",
+    "sponsorOptions": ["sponsor_session"],
+    "plan": "gold",
+    "logoImage": "/sponsors/mosh/logo.png",
+    "ogpImage": "/sponsors/mosh/ogp.png",
+    "logoLink": "https://corp.mosh.jp/",
+    "displayOrder": 25,
+    "overview": "私たちは「情熱がめぐる経済をつくる」というミッションを掲げ、クリエイター向けの事業拡大プラットフォーム「MOSH」を開発・運営しています。\r\n\r\nサイト作成、予約、決済、顧客管理など、幅広い機能を提供し、クリエイターが事業を成長させる中で直面するあらゆる課題に取り組んでいます。\r\n\r\n創業時から常に顧客の価値を最優先に考えたプロダクトづくりに取り組んできました。 この価値観を軸に、事業の成長を加速させ、グローバルで利用されるプロダクトを目指して進化を続けていきます。",
+    "externalLinks": [
+      {
+        "label": "サービスサイト",
+        "url": "https://mosh.jp/"
+      },
+      {
+        "label": "採用情報サイト",
+        "url": "https://careers.mosh.jp/"
+      },
+      {
+        "label": "会社説明資料(Company Deck)",
+        "url": "https://www.canva.com/design/DAGZtAM5mBU/vlYfAoRZ3ksWjxKm7MTLLA/view"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/mosh/jobboard.png",
+      "externalLink": "https://careers.mosh.jp/"
+    }
+  },
+  {
+    "id": "3422d536-ccd9-4b6d-aebc-9ac08dfc6e52",
+    "slug": "forcia",
+    "name": "フォルシア株式会社",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/forcia/logo.png",
+    "ogpImage": "/sponsors/forcia/ogp.png",
+    "logoLink": "https://www.forcia.com",
+    "displayOrder": 1,
+    "overview": "フォルシアは、社員の半数近くをフルスタックエンジニアが占める技術者集団です。\r\n膨大・複雑なデータを高速かつ正確に処理できる技術を強みとし、独自の技術基盤を用いたプロダクト開発や、旅行・観光業界のオンライン販売を支援するSaaS型サービスの提供を行っています。\r\nフロントエンド・バックエンドやインフラ(IaC)などでTypeScriptを使用しており、TypeScriptが好きな方々との交流イベントの企画・運営も行ってきました。\r\nフォルシアの技術や社風についてはぜひ下記リンクもご覧ください。",
+    "externalLinks": [
+      {
+        "label": "フォルシア株式会社_コーポレートサイト",
+        "url": "https://www.forcia.com/"
+      },
+      {
+        "label": "フォルシア株式会社_techブログ(Zenn)",
+        "url": "https://zenn.dev/p/forcia_tech"
+      },
+      {
+        "label": "フォルシア株式会社_公式X",
+        "url": "https://x.com/FORCIA_PR"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/forcia/jobboard.png",
+      "externalLink": "https://www.forcia.com/jobs/"
+    }
+  },
+  {
+    "id": "0b808363-a428-4c58-999a-70dac783fe05",
+    "slug": "safie",
+    "name": "セーフィー株式会社",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/safie/logo.png",
+    "ogpImage": "/sponsors/safie/ogp.png",
+    "logoLink": "https://safie.co.jp/teams/",
+    "displayOrder": 2,
+    "overview": "セーフィー株式会社は、スマホやPCでいつでもどこでも映像を確認できる「クラウド録画サービスシェアNo.1」の「Safie（セーフィー）」を開発・運営しています。\r\n映像データを活用し、生産性の向上や省力化、業務効率の改善などにお役立ていただき、誰もが手軽に利用できるプラットフォームを目指しています。\r\n「映像から未来をつくる」というビジョンのもと、映像データを活用しあらゆる産業のDXおよびAXを推進します。",
+    "externalLinks": [
+      {
+        "label": "セーフィー株式会社",
+        "url": "https://safie.co.jp/"
+      },
+      {
+        "label": "セーフィー技術広報アカウント",
+        "url": "https://x.com/SafieDev"
+      },
+      {
+        "label": "セーフィーテックブログ",
+        "url": "https://zenn.dev/p/safie_inc"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/safie/jobboard.png",
+      "externalLink": "https://safie.co.jp/teams/"
+    }
+  },
+  {
+    "id": "c621e6d6-2711-479c-987a-17fcf19ef0a6",
+    "slug": "play",
+    "name": "動画配信を技術で支える-株式会社PLAY",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/play/logo.png",
+    "ogpImage": "/sponsors/play/ogp.png",
+    "logoLink": "https://www.play.jp/",
+    "displayOrder": 3,
+    "overview": "株式会社PLAYは、国内最高峰の技術力を誇る動画ソリューションカンパニーです。\r\nHulu や TVer といった国内トップクラスの動画配信プラットフォームの開発・運営を手掛け、業界をリードしています。メディア企業からエンタープライズまで、あらゆるビジネスの動画活用・収益化を支援。 WOWOW 、 TBS 、テレビ東京 との提携による強固な信頼基盤のもと、動画配信市場の拡大と共に成長を続けています。",
+    "externalLinks": [
+      {
+        "label": "コーポレートサイト",
+        "url": "https://play.jp/"
+      },
+      {
+        "label": "リクルートサイト",
+        "url": "https://play.jp/recruit"
+      },
+      {
+        "label": "公式X",
+        "url": "https://x.com/PLAYinc_pr"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/play/jobboard.png",
+      "externalLink": "https://www.play.jp/recruit"
+    }
+  },
+  {
+    "id": "761e276f-1c5c-4e16-ae6a-c858d01e23ed",
+    "slug": "timetree",
+    "name": "株式会社TimeTree",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/timetree/logo.png",
+    "ogpImage": "/sponsors/timetree/ogp.png",
+    "logoLink": "https://timetreeapp.com/intl",
+    "displayOrder": 4,
+    "overview": "株式会社TimeTreeは「世の中の時間をつなげて、 世界中の人々がよりよい 明日を選択できるようにする」をミッションにかかげ、世の中の人々のよりスムーズな予定管理を可能にするためにカレンダーシェアアプリ「TimeTree」を開発運営しています。「TimeTree」は共有とコミュニケーションを前提にしたカレンダーサービスです。家族、パートナー、サークル、職場など複数人数の予定共有が簡単にできます。",
+    "externalLinks": [
+      {
+        "label": "オフィシャルnote",
+        "url": "https://note.com/timetree_inc/m/m4735531db852"
+      },
+      {
+        "label": "採用ページ",
+        "url": "https://timetreeapp.com/intl/ja/corporate/careers"
+      }
+    ],
+    "jobboard": null
+  },
+  {
+    "id": "ac46dda8-5b78-4396-a878-b0bed512a10c",
+    "slug": "nahato",
+    "name": "株式会社ナハト",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/nahato/logo.png",
+    "ogpImage": "/sponsors/nahato/ogp.png",
+    "logoLink": "https://nahato.co.jp",
+    "displayOrder": 5,
+    "overview": "株式会社ナハトは、インフルエンサーマーケティングとSNS広告運用を主軸に、D2Cや新規事業を展開する急成長ベンチャーです。\r\n\r\n開発チームでは、TypeScriptに統一した技術スタックのもと、広告配信システムやデータ分析基盤などを内製。AIファーストな開発体制で、コーディングから業務プロセスまでAIを取り入れ、高い生産性を実現しています。エンジニアが実装だけでなく、事業課題の発見から解決策の設計まで一気通貫で携われる環境です。\r\n\r\nAI×技術で事業を加速させる当事者として、挑戦しませんか？",
+    "externalLinks": [
+      {
+        "label": "公式サイト",
+        "url": "https://nahato.co.jp"
+      },
+      {
+        "label": "採用サイト",
+        "url": "https://nahato.co.jp/recruit"
+      },
+      {
+        "label": "公式TikTok",
+        "url": "https://www.tiktok.com/@nahato.inc"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/nahato/jobboard.png",
+      "externalLink": "https://nahato.co.jp/recruit"
+    }
+  },
+  {
+    "id": "70b407f0-3688-4929-9efb-cec3188927e4",
+    "slug": "dmm",
+    "name": "合同会社DMM.com",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/dmm/logo.png",
+    "ogpImage": "/sponsors/dmm/ogp.png",
+    "logoLink": "https://dmm-corp.com/",
+    "displayOrder": 6,
+    "overview": "総合サービスサイト「DMM.com」を運営。会員数は 5,146万人を突破。 動画配信、EV 充電、英会話、 \r\nゲーム、太陽光発電、 3Dプリントなど60 以上のサービスを展開。 \r\n2022年にはサブスクリプション会員システムの 「DMM プレミアム」を立ち上げ、あらゆるエンタメ体験 \r\nをシームレスにつなぐ「マルチエンタメ・プラットフォーム」の創造を目指す。",
+    "externalLinks": [
+      {
+        "label": "コーポレートサイト",
+        "url": "https://dmm-corp.com/"
+      },
+      {
+        "label": "採用情報",
+        "url": "https://dmm-corp.com/recruit/"
+      },
+      {
+        "label": "DMM Developers Blog",
+        "url": "https://developersblog.dmm.com/"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/dmm/jobboard.png",
+      "externalLink": "https://dmm-corp.com/recruit/"
+    }
+  },
+  {
+    "id": "8726659d-9666-427a-b745-5cbe23dc85b5",
+    "slug": "giftee",
+    "name": "株式会社ギフティ",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/giftee/logo.svg",
+    "ogpImage": "/sponsors/giftee/ogp.png",
+    "logoLink": "https://giftee.co.jp/",
+    "displayOrder": 7,
+    "overview": "ギフティは、ギフト市場全体において様々な事業展開を行なっています。CtoCギフトサービスの他に、マーケティング支援のBtoB領域や企業の福利厚生、自治体の補助金等のシーンにおいて多様な形で活用されています。機能的な価値だけではなく情緒面とのバランスを取り「ギフト」を様々な領域に掛け算し、最適なプロダクトを実現することで人間の文化に根差した「ギフト」を通じキモチが循環する社会の実現を目指しています。",
+    "externalLinks": [
+      {
+        "label": "株式会社ギフティ",
+        "url": "https://giftee.co.jp/"
+      },
+      {
+        "label": "採用ページ",
+        "url": "https://careers.giftee.co.jp/"
+      },
+      {
+        "label": "ギフティエンジニアチームSNS",
+        "url": "https://x.com/giftee_dev"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/giftee/jobboard.png",
+      "externalLink": "https://careers.giftee.co.jp/jobs/engineer/"
+    }
+  },
+  {
+    "id": "3fe9005a-9b28-4998-b742-3c87c8057341",
+    "slug": "kaminashi",
+    "name": "株式会社カミナシ",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/kaminashi/logo.png",
+    "ogpImage": "/sponsors/kaminashi/ogp.png",
+    "logoLink": "https://careers.kaminashi.jp/",
+    "displayOrder": 8,
+    "overview": "カミナシは「ノンデスクワーカーの才能を解き放つ」をミッションに、PCやデスクを持たずに働くノンデスクワーカー3,900万人がいる現場をITで変革する企業です。現場DXプラットフォーム『カミナシ』は、現場管理の基盤となる「作業・人・設備」を統合的に支援。帳票のデジタル化から設備保全、教育、コミュニケーションを網羅したシリーズ製品群により、現場の非効率を解消し、スマートな働き方を実現します。",
+    "externalLinks": [
+      {
+        "label": "公式サイト",
+        "url": "https://corp.kaminashi.jp/"
+      },
+      {
+        "label": "𝕏 公式アカウント",
+        "url": "https://x.com/kaminashi_inc"
+      },
+      {
+        "label": "カミナシテックFM",
+        "url": "https://open.spotify.com/show/4yRYYq1ozMjNM5dz367ITO"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/kaminashi/jobboard.png",
+      "externalLink": "https://careers.kaminashi.jp/"
+    }
+  },
+  {
+    "id": "ddd658ea-54bd-4941-9b27-3a987e228ab6",
+    "slug": "storyhub",
+    "name": "StoryHub株式会社",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/storyhub/logo.svg",
+    "ogpImage": "/sponsors/storyhub/ogp.png",
+    "logoLink": "https://corp.storyhub.jp",
+    "displayOrder": 9,
+    "overview": "StoryHub株式会社は「価値あるストーリーを共創するハブになる」をミッションに、企業のストーリーテリングをAIで一気通貫に支援する「StoryHubプラットフォーム」を開発しています。\r\n大手メディアのコンテンツ制作を支援してきたノウハウと技術を活かし、PR・IR・採用広報などあらゆる企業のコンテンツ発信を支えるマルチプロダクト基盤を提供します。\r\n\r\nTypeScript × Next.jsによるフルスタックTS構成をメインに開発しており、共に挑むエンジニアを積極採用中です。",
+    "externalLinks": [
+      {
+        "label": "サービスサイト",
+        "url": "https://storyhub.jp"
+      },
+      {
+        "label": "コーポレートサイト",
+        "url": "https://corp.storyhub.jp"
+      },
+      {
+        "label": "エンジニア採用情報",
+        "url": "https://findy-code.io/companies/2622/jobs"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/storyhub/jobboard.png",
+      "externalLink": "https://findy-code.io/companies/2622/jobs"
+    }
+  },
+  {
+    "id": "bdc55298-44c6-40bc-b5cf-f286154961df",
+    "slug": "sansan",
+    "name": "Sansan株式会社",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/sansan/logo.png",
+    "ogpImage": "/sponsors/sansan/ogp.png",
+    "logoLink": "https://jp.corp-sansan.com/",
+    "displayOrder": 10,
+    "overview": "Sansan株式会社は「出会いからイノベーションを生み出す」をミッションとして掲げ、働き方を変えるAXサービスを提供しています。\r\n主なサービスとして、ビジネスデータベース「Sansan」や名刺アプリ「Eight」、経理AXサービス「Bill One」、取引管理サービス「Contract One」、データクオリティマネジメント「Sansan Data Intelligence」を国内外で提供しています。",
+    "externalLinks": [
+      {
+        "label": "Sansan技術本部採用情報",
+        "url": "https://media.sansan-engineering.com/"
+      },
+      {
+        "label": "X（@SansanTech）",
+        "url": "https://x.com/SansanTech"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/sansan/jobboard.png",
+      "externalLink": "https://media.sansan-engineering.com/?utm_source=tskaigi.org&utm_medium=referral&utm_campaign=tskaigi2026"
+    }
+  },
+  {
+    "id": "d6bf379d-6d85-4114-b97b-a83a95d78f8e",
+    "slug": "istyle",
+    "name": "株式会社アイスタイル",
+    "sponsorOptions": ["student_support"],
+    "plan": "silver",
+    "logoImage": "/sponsors/istyle/logo.png",
+    "ogpImage": "/sponsors/istyle/ogp.png",
+    "logoLink": "https://www.istyle.co.jp/",
+    "displayOrder": 11,
+    "overview": "株式会社アイスタイルは美容系総合サービス「@cosme」を中心にECサイト「@cosme SHOPPING」やリアル店舗「@cosme STORE」を運営し、生活者情報を活用する企業横断型の新しいマーケティングプラットフォームを提供しています。\r\nTypeScript、Nuxt.js (Vue.js)、AWSを主軸に、高品質な基盤システム開発を推進し、安定したシステム運用、そして定期的なシステム改善サイクルを自律的に回せるチーム体制を共に築いていける方をお待ちしております。",
+    "externalLinks": [
+      {
+        "label": "コーポレートサイト",
+        "url": "https://www.istyle.co.jp/"
+      },
+      {
+        "label": "採用サイト",
+        "url": "https://www.istyle.co.jp/recruit/"
+      },
+      {
+        "label": "note",
+        "url": "https://note.istyle.co.jp/?gs=1052e653c93b"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/istyle/jobboard.png",
+      "externalLink": "https://www.istyle.co.jp/"
+    }
+  },
+  {
+    "id": "b560c13b-4a63-49e4-8c84-91761a33a367",
+    "slug": "legalscape",
+    "name": "株式会社Legalscape",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/legalscape/logo.png",
+    "ogpImage": "/sponsors/legalscape/ogp.png",
+    "logoLink": "https://www.legalscape.jp/corp",
+    "displayOrder": 12,
+    "overview": "Legalscapeは「人とテクノロジーの共創による 未来の法社会を実装する」というパーパスを掲げ、高度な自然言語処理技術や生成AIの法律分野での基礎研究・応用などの技術力を強みとするリーガルデータ＆AIカンパニーです。法にまつわる知的生産を支え、法の知をより正確に・迅速に・社会の隅々まで届けることで、より豊かな法社会を実現していくことを目指しています。",
+    "externalLinks": [
+      {
+        "label": "コーポレートサイト",
+        "url": "https://www.legalscape.jp/corp"
+      },
+      {
+        "label": "採用情報",
+        "url": "https://www.legalscape.jp/corp/recruit"
+      },
+      {
+        "label": "Legalscape Tech Blog",
+        "url": "https://tech.legalscape.co.jp/"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/legalscape/jobboard.png",
+      "externalLink": "https://legalscape.studio.site/corp/recruit"
+    }
+  },
+  {
+    "id": "9ddc3b73-98a6-4cdb-9161-0484a31777be",
+    "slug": "studist",
+    "name": "株式会社スタディスト",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/studist/logo.jpg",
+    "ogpImage": "/sponsors/studist/ogp.png",
+    "logoLink": "https://studist.jp/",
+    "displayOrder": 13,
+    "overview": "株式会社スタディストは「オペレーションから、働き方と未来を変えていく」というミッションをかかげ企業の生産性向上を支援するスタートアップです。\r\nマニュアル作成・共有システム「Teachme Biz」やコンサルティングなどのサービスを通じて「リーンオペレーション」を実現し、人々がクリエイティブな仕事に取り組める「知的活力みなぎる社会」をつくることを目指しています。",
+    "externalLinks": [
+      {
+        "label": "株式会社スタディスト",
+        "url": "https://studist.jp/"
+      },
+      {
+        "label": "Studist Tech Blog",
+        "url": "https://zenn.dev/p/studist"
+      },
+      {
+        "label": "Studist Tech (X)",
+        "url": "https://x.com/studist_tech"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/studist/jobboard.png",
+      "externalLink": "https://studist-engineering.gitbook.io/entrance-book"
+    }
+  },
+  {
+    "id": "3824a0bb-b4b5-4a07-9266-b622a4569f3b",
+    "slug": "gemcook",
+    "name": "株式会社Gemcook",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/gemcook/logo.png",
+    "ogpImage": "/sponsors/gemcook/ogp.png",
+    "logoLink": "https://gemcook.com/",
+    "displayOrder": 14,
+    "overview": "株式会社Gemcook（ジェムクック）は「好きな人を喜ばせるプロダクトを作る」をミッションに掲げるプロダクト開発の会社です。AIネイティブを前提とし、要件定義・設計・デザイン・開発・QA・運用・保守まで、各工程でAIを最大限活用しています。AIで開発のスピードと品質を高めることはもちろん、生まれた時間をコミュニケーションに存分に使うことで、クライアントの想い (原石) を磨き上げ、価値あるプロダクト (宝石) へと共に育てていきます。技術面ではTypeScriptを積極的に採用しています。",
+    "externalLinks": [
+      {
+        "label": "コーポレートサイト",
+        "url": "https://gemcook.com/"
+      },
+      {
+        "label": "テックブログ",
+        "url": "https://zenn.dev/p/gemcook"
+      },
+      {
+        "label": "X",
+        "url": "https://x.com/GemcookOfficial"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/gemcook/jobboard.png",
+      "externalLink": "https://www.wantedly.com/companies/gemcook"
+    }
+  },
+  {
+    "id": "20834ae8-823f-490c-9837-7e33838a340a",
+    "slug": "coincheck",
+    "name": "コインチェック株式会社",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/coincheck/logo.png",
+    "ogpImage": "/sponsors/coincheck/ogp.png",
+    "logoLink": "https://corporate.coincheck.com/recruit/",
+    "displayOrder": 15,
+    "overview": "コインチェック株式会社は、アプリダウンロード数7年連続「国内No.1*」の暗号資産取引サービス「Coincheck」を運営しています。「新しい価値交換を、もっと身近に」をミッションに掲げ、最新のテクノロジーと高度なセキュリティを基盤として、ビットコインやイーサリアムなどの暗号資産やブロックチェーンにより生まれる「新しい価値交換」を身近に感じられるように、より良いサービスの創出を目指しています。\r\n※ 対象：国内の暗号資産取引アプリ、データ協力：AppTweak",
+    "externalLinks": [
+      {
+        "label": "コーポレートサイト",
+        "url": "https://corporate.coincheck.com/"
+      },
+      {
+        "label": "会社紹介・採用情報",
+        "url": "https://corporate.coincheck.com/recruit"
+      },
+      {
+        "label": "コインチェック株式会社 すべての求人一覧",
+        "url": "https://hrmos.co/pages/coincheck/jobs"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/coincheck/jobboard.png",
+      "externalLink": "https://corporate.coincheck.com/recruit"
+    }
+  },
+  {
+    "id": "4a39cec1-0ce2-4af1-aac9-449f7de93b3a",
+    "slug": "terass",
+    "name": "株式会社TERASS",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/terass/logo.png",
+    "ogpImage": "/sponsors/terass/ogp.png",
+    "logoLink": "https://terass.com/",
+    "displayOrder": 16,
+    "overview": "TERASSは「いい不動産取引は、いいエージェントから。を当たり前にするプラットフォームをつくる。」をミッションに掲げるスタートアップです。不動産エージェントファームとしてエージェントの売上拡大から業務効率化まで複数プロダクトを展開し、年間2〜3の新規プロダクト開発が立ち上がっています。\r\n全プロダクトでフロントエンドからバックエンドまでTypeScriptを採用しており、型安全な開発を実現しています。生成AIを組み込んだプロダクト開発も活発で、コーディングエージェントも積極活用しています。\r\n",
+    "externalLinks": [
+      {
+        "label": "コーポレートサイト",
+        "url": "https://terass.com"
+      },
+      {
+        "label": "エンジニア採用",
+        "url": "https://terass.com/recruit/engineer"
+      },
+      {
+        "label": "テックブログ（Zenn）",
+        "url": "https://zenn.dev/p/terass_dev"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/terass/jobboard.png",
+      "externalLink": "https://note.com/terass_note/m/m8c7cd249d1a1"
+    }
+  },
+  {
+    "id": "9513afd4-4611-4533-9c1a-b37381cd3509",
+    "slug": "smarthr",
+    "name": "株式会社SmartHR",
+    "sponsorOptions": ["student_support"],
+    "plan": "silver",
+    "logoImage": "/sponsors/smarthr/logo.png",
+    "ogpImage": "/sponsors/smarthr/ogp.png",
+    "logoLink": "https://hello-world.smarthr.co.jp",
+    "displayOrder": 17,
+    "overview": "SmartHRは、採用や入社手続き、年末調整などの労務業務をペーパーレス化し、従業員データを活用した人事戦略を支援するクラウドサービスです。人事評価や従業員サーベイ、配置シミュレーションなどのタレントマネジメント機能や外部サービスとの連携を通じて企業の生産性向上を後押しするとともに、誰もが働きやすい環境づくりに貢献します。私たちは、働くすべての人がその人らしく活躍できる社会の実現を目指し、歴史に残る模範的なソフトウェアをつくる仲間を探しています。",
+    "externalLinks": [
+      {
+        "label": "コーポレートサイト",
+        "url": "https://smarthr.co.jp"
+      },
+      {
+        "label": "サービスサイト",
+        "url": "https://smarthr.jp"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/smarthr/jobboard.png",
+      "externalLink": "https://hello-world.smarthr.co.jp"
+    }
+  },
+  {
+    "id": "1d6bf7bb-4c3f-4296-aef2-975e5ae48187",
+    "slug": "medpeer",
+    "name": "メドピア株式会社",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/medpeer/logo.png",
+    "ogpImage": "/sponsors/medpeer/ogp.png",
+    "logoLink": "https://medpeer.co.jp/",
+    "displayOrder": 18,
+    "overview": "ヘルステックの常識を、塗り替える。\r\n医師が創業し20余年を経たメドピアは、変わらぬミッション\"Supporting Doctors, Helping Patients.\"を据えながら\r\n現在を「第二創業期」とし、AIファーストな変革の真っ只中にあります。\r\n医療の大きく複雑な課題に向き合うには、堅牢なコードとAIの力が必要。\r\nそこに、TypeScriptがもたらす「安全性」と「生産性」は不可欠な哲学です。\r\n変化を楽しみ、技術で医療の未来を塗り替える―そんな挑戦的な航海を共にしませんか。",
+    "externalLinks": [
+      {
+        "label": "Engineering at MedPeer",
+        "url": "https://engineer.medpeer.co.jp/"
+      },
+      {
+        "label": "メドピア開発者ブログ",
+        "url": "https://tech.medpeer.co.jp/"
+      },
+      {
+        "label": "採用情報",
+        "url": "https://medpeer.co.jp/recruit"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/medpeer/jobboard.png",
+      "externalLink": "https://medpeer.co.jp/recruit"
+    }
+  },
+  {
+    "id": "df4225b6-93cc-4ebe-8fc0-e18fff4716ee",
+    "slug": "openlogi",
+    "name": "株式会社オープンロジ",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/openlogi/logo.png",
+    "ogpImage": "/sponsors/openlogi/ogp.png",
+    "logoLink": "https://corp.openlogi.com/recruit/",
+    "displayOrder": 19,
+    "overview": "業界の全体最適化を目指し「物流版クラウドサービス」をコンセプトとしたプラットフォームを開発しています。物理的な倉庫のネットワーク化を推進し、人・モノの様々なデータを活用。サービスのスケールに合わせた柔軟で拡張性の高い物流を実現します。将来的には企業の効率性・競争力を強化する、次世代のインフラの実現を目指しています。\r\nTypeScriptを活用して安全性と信頼性を担保しながら、不確実性の高い現場課題を妥協のないエンジニアリングで解決しています。\r\n難易度の高い挑戦に挑んで下さる仲間を募集中です！",
+    "externalLinks": [
+      {
+        "label": "OPENLOGI Company Profile for engineer",
+        "url": "https://speakerdeck.com/hr01/openlogi-company-profile-for-engineer"
+      },
+      {
+        "label": "OPENLOGI TECH BLOG",
+        "url": "https://openlogi.hatenablog.com/"
+      },
+      {
+        "label": "採用情報",
+        "url": "https://herp.careers/v1/openlogi"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/openlogi/jobboard.png",
+      "externalLink": "https://herp.careers/v1/openlogi/requisition-groups/486b8b01-6cf9-4434-8601-381c9c092e0d"
+    }
+  },
+  {
+    "id": "66839ce7-033f-4e33-8ca5-3a11e05ca83f",
+    "slug": "note",
+    "name": "note株式会社",
+    "sponsorOptions": [],
+    "plan": "silver",
+    "logoImage": "/sponsors/note/logo.png",
+    "ogpImage": "/sponsors/note/ogp.png",
+    "logoLink": "https://note.com/",
+    "displayOrder": 20,
+    "overview": "note株式会社は「だれもが創作をはじめ、続けられるようにする」をミッションに、表現と創作の仕組みづくりをしています。\r\nnoteはクリエイターが文章や画像、音声、動画を投稿して、ユーザーがそのコンテンツを楽しんで応援できるメディアプラットフォームです。だれもが創作を楽しんで続けられるよう、安心できる雰囲気や、多様性を大切にしています。2014年4月にサービスを開始し、約6956万件の作品が誕生。会員数は1114万人（2025年11月末時点）に達しています。",
+    "externalLinks": [
+      {
+        "label": "note",
+        "url": "https://note.com/"
+      },
+      {
+        "label": "noteエンジニアチームの技術記事",
+        "url": "https://engineerteam.note.jp/"
+      },
+      {
+        "label": "採用情報",
+        "url": "https://note.jp/n/nc0fe1a230633"
+      }
+    ],
+    "jobboard": {
+      "imagePath": "/sponsors/note/jobboard.png",
+      "externalLink": "https://note.jp/n/nc0fe1a230633"
+    }
+  },
+  {
+    "id": "21b8c27b-66db-4a0c-a3cf-3de55e5252d7",
+    "slug": "chanto",
+    "name": "CHANTO株式会社",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/chanto/logo.png",
+    "ogpImage": "/sponsors/chanto/ogp.png",
+    "logoLink": "https://chanto.design/",
+    "displayOrder": 1,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "0d5c8ec0-3bd4-4c22-ba0c-43699fe05b0a",
+    "slug": "optim",
+    "name": "株式会社オプティム",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/optim/logo.png",
+    "ogpImage": "/sponsors/optim/ogp.png",
+    "logoLink": "https://www.optim.co.jp/recruit/?utm_source=event&utm_medium=referral&utm_campaign=TS-Kaigi",
+    "displayOrder": 2,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "ee97ef13-1dc1-4884-951c-70ebf0cb81d5",
+    "slug": "m3",
+    "name": "エムスリー株式会社",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/m3/logo.png",
+    "ogpImage": "/sponsors/m3/ogp.png",
+    "logoLink": "https://jobs.m3.com/engineer/",
+    "displayOrder": 3,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "79021b67-db09-45b6-afa7-a776255eb3a1",
+    "slug": "route06",
+    "name": "株式会社ROUTE06",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/route06/logo.png",
+    "ogpImage": "/sponsors/route06/ogp.png",
+    "logoLink": "https://route06.com",
+    "displayOrder": 4,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "8e357085-1491-4834-ad9f-f4bf3c4991b5",
+    "slug": "rebase",
+    "name": "株式会社Rebase",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/rebase/logo.png",
+    "ogpImage": "/sponsors/rebase/ogp.png",
+    "logoLink": "https://rebase.co.jp/",
+    "displayOrder": 5,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "75b1341c-e856-4f12-8d6d-374eca72be66",
+    "slug": "earthbrain",
+    "name": "株式会社EARTHBRAIN",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/earthbrain/logo.png",
+    "ogpImage": "/sponsors/earthbrain/ogp.png",
+    "logoLink": "https://engineer-recruiting.earthbrain.com/",
+    "displayOrder": 6,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "686d007f-c787-4d1c-af52-f52aa09fb58c",
+    "slug": "binc",
+    "name": "BASE株式会社",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/binc/logo.png",
+    "ogpImage": "/sponsors/binc/ogp.png",
+    "logoLink": "https://binc.jp/",
+    "displayOrder": 7,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "ac5d3274-a184-4d89-ae08-96e9f2dc21e5",
+    "slug": "medley",
+    "name": "株式会社メドレー",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/medley/logo.png",
+    "ogpImage": "/sponsors/medley/ogp.png",
+    "logoLink": "https://www.medley.jp",
+    "displayOrder": 8,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "082c41f5-fa4d-4b5c-b725-a61577ea1470",
+    "slug": "sotas",
+    "name": "Sotas 株式会社",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/sotas/logo.png",
+    "ogpImage": "/sponsors/sotas/ogp.png",
+    "logoLink": "https://sotas.co.jp/",
+    "displayOrder": 9,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "fb7b6c88-74e5-4a65-bcc2-005f379e6a55",
+    "slug": "bengo4",
+    "name": "弁護士ドットコム株式会社",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/bengo4/logo.png",
+    "ogpImage": "/sponsors/bengo4/ogp.png",
+    "logoLink": "https://www.bengo4.com/corporate/",
+    "displayOrder": 10,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "abb2a6f4-1a04-4c00-98cb-e9213c08948d",
+    "slug": "herp",
+    "name": "株式会社HERP",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/herp/logo.png",
+    "ogpImage": "/sponsors/herp/ogp.png",
+    "logoLink": "https://herp.co.jp/",
+    "displayOrder": 11,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "a3091541-d3df-4d6c-8eaa-b68b720ec73d",
+    "slug": "freee",
+    "name": "フリー株式会社",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/freee/logo.png",
+    "ogpImage": "/sponsors/freee/ogp.png",
+    "logoLink": "https://developers.freee.co.jp/",
+    "displayOrder": 12,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "46d7a007-bb5a-4e6d-a955-0b3ba967e768",
+    "slug": "timee",
+    "name": "株式会社タイミー",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/timee/logo.png",
+    "ogpImage": "/sponsors/timee/ogp.png",
+    "logoLink": "https://product-recruit.timee.co.jp/",
+    "displayOrder": 13,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "6eb3802b-330c-4523-9823-c3a395258262",
+    "slug": "hatena",
+    "name": "株式会社はてな",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/hatena/logo.png",
+    "ogpImage": "/sponsors/hatena/ogp.png",
+    "logoLink": "https://hatena.co.jp",
+    "displayOrder": 14,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "7b5754ac-cb15-4d5a-a5a9-0a838b38ec3d",
+    "slug": "techtouch",
+    "name": "テックタッチ株式会社",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/techtouch/logo.png",
+    "ogpImage": "/sponsors/techtouch/ogp.png",
+    "logoLink": "https://techtouch.jp/recruit/",
+    "displayOrder": 15,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "beb62ee5-8366-4e5f-9fa2-f1e29f6b09ad",
+    "slug": "hkn",
+    "name": "株式会社hokan",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/hkn/logo.png",
+    "ogpImage": "/sponsors/hkn/ogp.png",
+    "logoLink": "https://www.corp.hkn.jp/",
+    "displayOrder": 16,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "dfcbf0fd-acdb-4ced-bcd5-71bce5376dce",
+    "slug": "cyberagent",
+    "name": "株式会社サイバーエージェント",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/cyberagent/logo.png",
+    "ogpImage": "/sponsors/cyberagent/ogp.png",
+    "logoLink": "https://www.cyberagent.co.jp/",
+    "displayOrder": 17,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "a7dfe705-5bc7-4f00-af62-971638ae0f5b",
+    "slug": "zauel",
+    "name": "合同会社ザウエル",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/zauel/logo.png",
+    "ogpImage": "/sponsors/zauel/ogp.png",
+    "logoLink": "https://zauel.co.jp/",
+    "displayOrder": 18,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "03e57ccd-d26c-4bc0-adec-1a93512bed34",
+    "slug": "twogate",
+    "name": "株式会社TwoGate",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/twogate/logo.svg",
+    "ogpImage": "/sponsors/twogate/ogp.png",
+    "logoLink": "https://twogate.com",
+    "displayOrder": 19,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "662364ab-fb8b-4ea1-8d40-625aaf418270",
+    "slug": "pkshatech",
+    "name": "株式会社PKSHA Technology",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/pkshatech/logo.png",
+    "ogpImage": "/sponsors/pkshatech/ogp.png",
+    "logoLink": "https://www.pkshatech.com/",
+    "displayOrder": 20,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "5593e5c2-b12c-4fca-9700-25c4a09041b0",
+    "slug": "survival-typescript",
+    "name": "サバイバルTypeScript",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/survival-typescript/logo.svg",
+    "ogpImage": "/sponsors/survival-typescript/ogp.png",
+    "logoLink": "https://typescriptbook.jp/",
+    "displayOrder": 21,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  },
+  {
+    "id": "ffc24f54-3791-48fb-8fee-5292a19b8548",
+    "slug": "uluru",
+    "name": "株式会社うるる",
+    "sponsorOptions": [],
+    "plan": "bronze",
+    "logoImage": "/sponsors/uluru/logo.png",
+    "ogpImage": "/sponsors/uluru/ogp.png",
+    "logoLink": "https://www.uluru.biz/",
+    "displayOrder": 22,
+    "overview": null,
+    "externalLinks": [],
+    "jobboard": null
+  }
+]
