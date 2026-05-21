@@ -52,7 +52,10 @@ export function GlobalToast() {
   if (items.length === 0) return null;
 
   return (
-    <div className="pointer-events-none fixed right-4 bottom-4 z-[90] flex max-w-sm flex-col gap-2">
+    <div
+      className="pointer-events-none fixed right-4 z-90 flex max-w-sm flex-col gap-2"
+      style={{ bottom: "calc(env(safe-area-inset-bottom) + 5rem)" }}
+    >
       {items.map((item) => (
         <div
           key={item.id}
