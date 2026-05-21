@@ -79,7 +79,7 @@ export function OstContent({
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-blue-light-500 underline hover:opacity-80 transition-opacity"
             >
-              テーマ募集フォームはこちら →
+              テーマ募集フォームはこちら
             </a>
           </section>
 
@@ -95,7 +95,7 @@ export function OstContent({
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-blue-light-500 underline hover:opacity-80 transition-opacity"
               >
-                スライドを開く →
+                スライドを開く
               </a>
             </section>
           )}
