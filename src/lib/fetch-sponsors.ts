@@ -1,25 +1,15 @@
+import sponsorsData from "@/constants/sponsors.json";
 import type {
   GroupedSponsors,
   SponsorApiResponse,
   SponsorPlan,
 } from "@/types/sponsor-api";
 
-const SPONSORS_API_URL =
-  "https://tskaigi-cms.system-admin-df1.workers.dev/api/sponsors";
-
 const SPONSOR_PLANS: SponsorPlan[] = ["platinum", "gold", "silver", "bronze"];
 
+const sponsors = sponsorsData as SponsorApiResponse[];
+
 export async function fetchSponsors(): Promise<GroupedSponsors> {
-  const response = await fetch(SPONSORS_API_URL, {
-    next: { revalidate: 3600 }, // 1時間ごとに再検証
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch sponsors: ${response.statusText}`);
-  }
-
-  const sponsors: SponsorApiResponse[] = await response.json();
-
   const grouped: GroupedSponsors = {
     platinum: [],
     gold: [],
@@ -39,15 +29,11 @@ export async function fetchSponsors(): Promise<GroupedSponsors> {
 }
 
 export async function fetchSponsor(slug: string): Promise<SponsorApiResponse> {
-  const response = await fetch(`${SPONSORS_API_URL}/${slug}`, {
-    next: { revalidate: 3600 }, // 1時間ごとに再検証
-  });
+  const sponsor = sponsors.find((s) => s.slug === slug);
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch sponsors: ${response.statusText}`);
+  if (!sponsor) {
+    throw new Error(`Sponsor not found: ${slug}`);
   }
-
-  const sponsor: SponsorApiResponse = await response.json();
 
   return sponsor;
 }
