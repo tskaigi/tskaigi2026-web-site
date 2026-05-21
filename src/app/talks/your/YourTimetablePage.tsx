@@ -1,18 +1,34 @@
 "use client";
 
-import { List, Pencil, QrCode } from "lucide-react";
+import { Download, Pencil, QrCode } from "lucide-react";
+import { domToBlob } from "modern-screenshot";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FlightBoardPanel } from "@/components/talks/FlightBoardPanel";
+import { FloatingNavButtons } from "@/components/talks/FloatingNavButtons";
 import { MyTimetableQrDialog } from "@/components/talks/MyTimetableQrDialog";
 import { Button } from "@/components/ui/button";
 import { getTalksByDateFromIds, myTimetableQuery } from "@/utils/myTimetable";
+
+function downloadBlob(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  try {
+    link.href = url;
+    link.download = filename;
+    link.click();
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
 
 export default function YourTimetablePage() {
   const searchParams = useSearchParams();
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [baseUrl, setBaseUrl] = useState("");
+  const [isDownloading, setIsDownloading] = useState(false);
+  const timetableRef = useRef<HTMLDivElement>(null);
 
   const { ids } = useMemo(
     () => myTimetableQuery.parse(searchParams),
@@ -21,6 +37,38 @@ export default function YourTimetablePage() {
 
   const talksByDate = useMemo(() => getTalksByDateFromIds(ids), [ids]);
   const queryString = searchParams.toString();
+
+  const handleDownload = async () => {
+    if (!timetableRef.current || isDownloading) return;
+    setIsDownloading(true);
+    try {
+      await document.fonts?.ready;
+      const timetableElement = timetableRef.current;
+      const originalPadding = timetableElement.style.padding;
+      let blob: Blob | null;
+      try {
+        timetableElement.style.padding = "12px";
+        blob = await domToBlob(timetableElement, {
+          backgroundColor: "#ffffff",
+          height: timetableElement.scrollHeight,
+          scale: Math.min(window.devicePixelRatio || 1, 2),
+          width: timetableElement.scrollWidth,
+        });
+      } finally {
+        timetableElement.style.padding = originalPadding;
+      }
+      if (!blob) throw new Error("時刻表画像の生成に失敗しました");
+      downloadBlob(blob, "tskaigi-2026-my-timetable.png");
+    } catch (error) {
+      window.alert(
+        error instanceof Error
+          ? error.message
+          : "時刻表画像の生成に失敗しました",
+      );
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") setBaseUrl(window.location.origin);
@@ -43,15 +91,6 @@ export default function YourTimetablePage() {
 
       <div className="mt-8 mx-auto max-w-6xl grid lg:grid-cols-[min-content_1fr] gap-4">
         <aside className="flex flex-row lg:flex-col gap-2">
-          <Button type="button" variant="outline" size="icon" asChild>
-            <Link
-              href="/talks"
-              aria-label="タイムテーブル一覧へ"
-              title="タイムテーブル一覧へ"
-            >
-              <List size={18} />
-            </Link>
-          </Button>
           <Button
             type="button"
             variant="outline"
@@ -61,6 +100,17 @@ export default function YourTimetablePage() {
             title="QRコードを表示"
           >
             <QrCode size={18} />
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            onClick={handleDownload}
+            disabled={isDownloading}
+            aria-label="画像として保存"
+            title="画像として保存"
+          >
+            <Download size={18} />
           </Button>
           <Button type="button" variant="outline" size="icon" asChild>
             <Link
@@ -76,6 +126,7 @@ export default function YourTimetablePage() {
           <FlightBoardPanel
             day1Talks={talksByDate.Day1}
             day2Talks={talksByDate.Day2}
+            timetableRef={timetableRef}
           />
         </div>
       </div>
@@ -87,6 +138,10 @@ export default function YourTimetablePage() {
           onClose={() => setIsQrOpen(false)}
         />
       )}
+
+      <div className="fixed bottom-6 right-6 z-50 flex gap-2">
+        <FloatingNavButtons />
+      </div>
     </main>
   );
 }

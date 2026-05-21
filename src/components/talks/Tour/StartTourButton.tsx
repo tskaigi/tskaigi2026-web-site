@@ -1,29 +1,14 @@
 "use client";
 
 import { HelpCircle } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
 import { useOnborda } from "onborda";
 import { Button } from "@/components/ui/button";
 
 export function StartTourButton({ iconOnly }: { iconOnly?: boolean }) {
   const { startOnborda } = useOnborda();
-  const router = useRouter();
-  const pathname = usePathname();
 
   const handleStart = () => {
-    if (pathname !== "/talks") {
-      router.push("/talks");
-      const observer = new MutationObserver(() => {
-        const el = document.querySelector("#tour-add-button");
-        if (el) {
-          observer.disconnect();
-          startOnborda("my-timetable");
-        }
-      });
-      observer.observe(document.body, { childList: true, subtree: true });
-    } else {
-      startOnborda("my-timetable");
-    }
+    startOnborda("my-timetable");
   };
 
   if (iconOnly) {
