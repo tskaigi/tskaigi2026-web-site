@@ -4,6 +4,12 @@ import { TALK_TYPE } from "@/constants/timetable";
 import type { SessionDetail } from "@/utils/getSession";
 import { myTimetable } from "@/utils/myTimetable";
 
+const THEME_FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSdZ1OK-_pbUETXpZo2z-yHKk7k4YBwTRlB6CgMaEVqrd1FQpg/viewform?usp=dialog";
+
+// 当日スライドURLをここに設定する（空文字のままだとセクション非表示）
+const SLIDES_URL = "";
+
 export function OstContent({
   id,
   detail,
@@ -67,7 +73,32 @@ export function OstContent({
               TypeScriptについて「話したい」「聞きたい」テーマをぜひお寄せください。
               集まったテーマは運営チームが確認し、議題決定の参考にします。
             </p>
+            <a
+              href={THEME_FORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-blue-light-500 underline hover:opacity-80 transition-opacity"
+            >
+              テーマ募集フォームはこちら
+            </a>
           </section>
+
+          {SLIDES_URL && (
+            <section className="flex flex-col gap-2">
+              <h2 className="text-xl font-bold">スライド</h2>
+              <p>
+                OSTセッションのスライドを公開しています。手元でご覧いただけます。
+              </p>
+              <a
+                href={SLIDES_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-blue-light-500 underline hover:opacity-80 transition-opacity"
+              >
+                スライドを開く
+              </a>
+            </section>
+          )}
 
           <section className="flex flex-col gap-2">
             <h2 className="text-xl font-bold">注意事項</h2>
