@@ -780,7 +780,10 @@ export default function MyTimetablePage() {
         />
       )}
 
-      <div className="fixed bottom-6 right-6 z-50">
+      <div
+        className="fixed right-6 z-50"
+        style={{ bottom: "calc(env(safe-area-inset-bottom) + 1.5rem)" }}
+      >
         <FloatingNavButtons />
       </div>
 
