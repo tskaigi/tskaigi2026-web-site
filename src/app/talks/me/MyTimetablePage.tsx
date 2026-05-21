@@ -51,8 +51,17 @@ function DialogOverlay({
   maxWidth?: string;
   onClose: () => void;
 }) {
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
+
   return (
-    <div className="fixed inset-0 z-50 bg-black/30 p-4 flex items-center justify-center">
+    <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/30 p-4">
       <button
         type="button"
         className="absolute inset-0"
@@ -62,7 +71,7 @@ function DialogOverlay({
       <section
         role="dialog"
         aria-modal="true"
-        className={`relative z-10 w-full ${maxWidth} rounded-xl bg-white p-4 md:p-6`}
+        className={`relative z-10 max-h-full w-full overflow-y-auto overscroll-none ${maxWidth} rounded-xl bg-white p-4 md:p-6`}
       >
         {children}
       </section>
@@ -269,45 +278,47 @@ function OverlapDialog({
 }) {
   return (
     <DialogOverlay onClose={onClose}>
-      <div className="flex items-start gap-2">
-        <AlertTriangle size={18} className="mt-0.5 text-orange-600" />
-        <div>
-          <h3 className="text-base font-bold text-black-700">
-            時間が重複しています
-          </h3>
-          <p className="mt-1 text-sm text-black-500">
-            追加候補: {overlapState.targetTalk.time} /{" "}
-            {overlapState.targetTalk.title}
-          </p>
+      <div className="flex max-h-[calc(100dvh-8rem)] flex-col">
+        <div className="shrink-0 flex items-start gap-2">
+          <AlertTriangle size={18} className="mt-0.5 text-orange-600" />
+          <div>
+            <h3 className="text-base font-bold text-black-700">
+              時間が重複しています
+            </h3>
+            <p className="mt-1 text-sm text-black-500">
+              追加候補: {overlapState.targetTalk.time} /{" "}
+              {overlapState.targetTalk.title}
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div className="mt-4 rounded-lg border border-black-300 p-3">
-        <p className="text-sm font-bold">重複中のトーク</p>
-        <div className="mt-2 flex flex-col gap-2">
-          {overlapState.overlaps.map((talk) => (
-            <div
-              key={`overlap-${talk.id}`}
-              className="rounded border border-black-200 p-2"
-            >
-              <span className="text-sm">
-                <span className="block text-black-500 text-xs">
-                  {talk.time}
+        <div className="mt-4 min-h-0 flex-1 overflow-y-auto rounded-lg border border-black-300 p-3">
+          <p className="text-sm font-bold">重複中のトーク</p>
+          <div className="mt-2 flex flex-col gap-2">
+            {overlapState.overlaps.map((talk) => (
+              <div
+                key={`overlap-${talk.id}`}
+                className="rounded border border-black-200 p-2"
+              >
+                <span className="text-sm">
+                  <span className="block text-black-500 text-xs">
+                    {talk.time}
+                  </span>
+                  <span className="block font-bold">{talk.title}</span>
                 </span>
-                <span className="block font-bold">{talk.title}</span>
-              </span>
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="mt-4 flex flex-wrap justify-end gap-2">
-        <Button type="button" variant="outline" onClick={onClose}>
-          キャンセル
-        </Button>
-        <Button type="button" onClick={onResolve}>
-          重複したまま追加
-        </Button>
+        <div className="mt-4 shrink-0 flex flex-wrap justify-end gap-2">
+          <Button type="button" variant="outline" onClick={onClose}>
+            キャンセル
+          </Button>
+          <Button type="button" onClick={onResolve}>
+            重複したまま追加
+          </Button>
+        </div>
       </div>
     </DialogOverlay>
   );
@@ -525,6 +536,8 @@ export default function MyTimetablePage() {
   const [currentEventDate, setCurrentEventDate] = useState<EventDate>("Day1");
   const [timePickerState, setTimePickerState] = useState<TimePickerState>(null);
   const [overlapState, setOverlapState] = useState<OverlapState>(null);
+  const [overlapReturnState, setOverlapReturnState] =
+    useState<TimePickerState>(null);
   const [isClearConfirmOpen, setIsClearConfirmOpen] = useState(false);
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [drawerTalk, setDrawerTalk] = useState<TalkWithMinutes | null>(null);
@@ -576,6 +589,7 @@ export default function MyTimetablePage() {
 
     if (hasCrossTrackOverlap) {
       setOverlapState({ targetTalk, overlaps: uniqueOverlaps });
+      setOverlapReturnState(timePickerState);
       setTimePickerState(null);
       return;
     }
@@ -607,7 +621,14 @@ export default function MyTimetablePage() {
     myTimetableIds.write(next);
     window.dispatchEvent(new Event("my-timetable-updated"));
     setOverlapState(null);
+    setOverlapReturnState(null);
     showAppToast("マイタイムテーブルに追加しました");
+  };
+
+  const closeOverlapDialog = () => {
+    setOverlapState(null);
+    setTimePickerState(overlapReturnState);
+    setOverlapReturnState(null);
   };
 
   const removeTalk = (id: string) => {
@@ -761,7 +782,7 @@ export default function MyTimetablePage() {
         <OverlapDialog
           overlapState={overlapState}
           onResolve={resolveOverlapAndAdd}
-          onClose={() => setOverlapState(null)}
+          onClose={closeOverlapDialog}
         />
       )}
 

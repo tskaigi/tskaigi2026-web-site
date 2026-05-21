@@ -671,6 +671,17 @@ export function TourOverlay() {
   const renderedStep = steps?.[currentStep];
   const renderedIsDialogMode = renderedStep?.selector === "#tour-dialog";
 
+  useEffect(() => {
+    if (!isOnbordaVisible || !renderedIsDialogMode) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOnbordaVisible, renderedIsDialogMode]);
+
   useLayoutEffect(() => {
     if (!isOnbordaVisible || renderedIsDialogMode) return;
     const card = cardRef.current;
@@ -794,11 +805,11 @@ export function TourOverlay() {
       <>
         <button
           type="button"
-          className="fixed inset-0 z-[900] cursor-default bg-black/50"
+          className="fixed inset-0 z-900 cursor-default bg-black/50"
           onClick={closeOnborda}
           aria-label="ツアーを閉じる"
         />
-        <div className="fixed inset-0 z-[950] flex items-center justify-center pointer-events-none">
+        <div className="fixed inset-0 z-950 flex items-center justify-center pointer-events-none">
           <div className="pointer-events-auto">
             <TourCard {...cardProps} />
           </div>
@@ -818,7 +829,7 @@ export function TourOverlay() {
       {/* Clickable backdrop to close (passthrough 時は無効化) */}
       <button
         type="button"
-        className="fixed inset-0 z-[900] cursor-default"
+        className="fixed inset-0 z-900 cursor-default"
         onClick={isPassthrough ? undefined : closeOnborda}
         style={{ pointerEvents: isPassthrough ? "none" : "auto" }}
         aria-label="ツアーを閉じる"
@@ -829,7 +840,7 @@ export function TourOverlay() {
       {/* biome-ignore lint/a11y/useKeyWithClickEvents: tour backdrop */}
       <div
         onClick={isPassthrough ? undefined : closeOnborda}
-        className="absolute z-[900] transition-all duration-500 ease-out"
+        className="absolute z-900 transition-all duration-500 ease-out"
         style={{
           left: `${pos.x - padOffset}px`,
           top: `${pos.y - padOffset}px`,
@@ -847,7 +858,7 @@ export function TourOverlay() {
       <div
         ref={cardRef}
         onClick={(e) => e.stopPropagation()}
-        className="absolute z-[950] flex flex-col pointer-events-auto transition-[left,top] duration-500 ease-out"
+        className="absolute z-950 flex flex-col pointer-events-auto transition-[left,top] duration-500 ease-out"
         style={{
           left: `${placement.left}px`,
           top: `${placement.top}px`,
