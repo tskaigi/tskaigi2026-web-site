@@ -8,8 +8,7 @@ const THEME_FORM_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLSdZ1OK-_pbUETXpZo2z-yHKk7k4YBwTRlB6CgMaEVqrd1FQpg/viewform?usp=dialog";
 
 // 当日スライドURLをここに設定する（空文字のままだとセクション非表示）
-const SLIDES_URL =
-  "";
+const SLIDES_URL = "";
 
 export function OstContent({
   id,
