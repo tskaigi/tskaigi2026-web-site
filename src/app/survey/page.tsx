@@ -37,9 +37,8 @@ const SurveyPage = () => {
             size="lg"
             className="rounded-full h-[60px] bg-blue-purple-500 hover:bg-blue-purple-600 text-white pl-10 pr-8"
           >
-            {/* TODO: リンク置き換える */}
             <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSdGj2NNJoww270lVOrNBneUGG9HU4g4S2mxSDHiFivwa6q5dg/viewform?usp=header"
+              href="https://forms.gle/LuBxQ5ojYoJn73h48"
               target="_blank"
               rel="noopener noreferrer"
               className="font-bold flex items-center text-22 [&_svg]:size-6"
