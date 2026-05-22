@@ -198,3 +198,23 @@
 footer {
   background: linear-gradient(180deg, #3a89c4 0%, #1071d3 100%);
 }
+
+/* Ask the Speaker 受付中バッジの点滅。発作リスク回避のため緩めの明滅にし、
+   prefers-reduced-motion では点滅を止めて常時表示にする。 */
+@keyframes ask-the-speaker-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+.ask-the-speaker-blink {
+  animation: ask-the-speaker-blink 2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ask-the-speaker-blink {
+    animation: none;
+  }
+}
