@@ -3,8 +3,20 @@ import { AddToMyTimetableButton } from "@/components/talks/AddToMyTimetableButto
 import { ProfileImage } from "@/components/talks/FallbackImage";
 import { getSessionMasterBySessionId } from "@/constants/sessionMaster";
 import { TALK_TYPE } from "@/constants/timetable";
+import { useAskTheSpeakerActive } from "@/hooks/useAskTheSpeaker";
 import type { SessionContent, Track } from "@/types/timetable-api";
 import { CardShell } from "./CardShell";
+
+function AskTheSpeakerBadge({ sessionId }: { sessionId: string }) {
+  const active = useAskTheSpeakerActive(sessionId);
+  if (!active) return null;
+  return (
+    <output className="ask-the-speaker-blink inline-flex items-center gap-1 rounded-full bg-red-500 px-2 py-0.5 text-[11px] font-bold text-white whitespace-nowrap">
+      <span aria-hidden="true">●</span>
+      Ask the Speaker中
+    </output>
+  );
+}
 
 function SessionTypeLabel({
   sessionType,
@@ -60,7 +72,7 @@ export function SessionCard({
               >
                 <p className="text-[16px]">{title}</p>
               </Link>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-[14px]">{speakerName}</span>
                 <div className="relative h-6 w-6 rounded-full shrink-0 overflow-hidden">
                   <ProfileImage
@@ -68,6 +80,7 @@ export function SessionCard({
                     profileImageUrl={master?.speaker.profileImageUrl}
                   />
                 </div>
+                <AskTheSpeakerBadge sessionId={ref.id} />
               </div>
             </div>
           );

@@ -155,7 +155,7 @@ export function AddToMyTimetableButton({
           type="button"
           data-talk-id={talkId}
           onClick={handleClick}
-          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold cursor-pointer bg-black-100 text-black-500${
+          className={`inline-flex items-center gap-1 rounded-full border border-black-300 px-2.5 py-1 text-xs font-bold cursor-pointer bg-black-100 text-black-500${
             isAdded ? "" : " hover:bg-black-200"
           }`}
         >
