@@ -56,6 +56,9 @@ export const OnTheDayLinksSection = () => {
               <p className="text-[12px] leading-none md:text-[16px]">
                 Information
               </p>
+              <p className="text-[12px] leading-none md:text-[16px]">
+                受付混雑緩和のため、QRコードを準備して受付にお越しください。
+              </p>
             </div>
             <ArrowRight
               strokeWidth={2.5}
