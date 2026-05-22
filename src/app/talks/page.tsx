@@ -20,7 +20,7 @@ const TalksPage = () => {
   const isDay2 =
     currentDate.getFullYear() === 2026 &&
     currentDate.getMonth() === 4 &&
-    currentDate.getDate() === 24;
+    currentDate.getDate() >= 23;
 
   const defaultDay: EventDate = eventDayParam
     ? eventDayParam === "2"
