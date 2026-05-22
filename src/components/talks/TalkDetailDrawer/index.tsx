@@ -14,6 +14,7 @@ import {
   TalkStatus,
   ToggleParticipatedButton,
 } from "@/components/talks/TalkStatus";
+import { TrackHashtagActions } from "@/components/talks/TrackHashtagActions";
 import { Button } from "@/components/ui/button";
 import { showAppToast } from "@/components/ui/GlobalToast";
 import { TALK_TYPE, TRACK, TRACK_STYLE } from "@/constants/timetable";
@@ -234,6 +235,11 @@ function DrawerContent({ talk }: { talk: TalkWithMinutes }) {
             {talk.eventDate} / {talk.time} / {TRACK[talk.track].name}
           </span>
         </div>
+        <TrackHashtagActions
+          track={TRACK[talk.track]}
+          variant="compact"
+          className="mt-3"
+        />
       </div>
 
       {talk.overview && (

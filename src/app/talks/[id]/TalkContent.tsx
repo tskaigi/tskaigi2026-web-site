@@ -10,6 +10,7 @@ import {
   TalkStatus,
   ToggleParticipatedButton,
 } from "@/components/talks/TalkStatus";
+import { TrackHashtagActions } from "@/components/talks/TrackHashtagActions";
 import { TALK_TYPE } from "@/constants/timetable";
 import type { SessionDetail } from "@/utils/getSession";
 import { myTimetable } from "@/utils/myTimetable";
@@ -103,6 +104,15 @@ export function TalkContent({
           <div className="text-lg font-bold">
             {detail.day} / {timeRange} （{name}）
           </div>
+          <TrackHashtagActions
+            track={{
+              id: detail.id,
+              name: detail.name,
+              hashtag: detail.hashtag,
+            }}
+            variant="compact"
+            className="mt-2"
+          />
         </div>
 
         <div className="px-6 md:px-8 lg:px-10 flex flex-col md:text-lg [&>*+*]:mt-6 [&>h1+*]:mt-1 [&>h2+*]:mt-1 [&>h3+*]:mt-1">
