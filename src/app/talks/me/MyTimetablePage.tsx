@@ -533,7 +533,14 @@ export default function MyTimetablePage() {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [participatedIds, setParticipatedIds] = useState<string[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
-  const [currentEventDate, setCurrentEventDate] = useState<EventDate>("Day1");
+  const today = new Date();
+  const isDay2 =
+    today.getFullYear() === 2026 &&
+    today.getMonth() === 4 &&
+    today.getDate() >= 23;
+  const [currentEventDate, setCurrentEventDate] = useState<EventDate>(
+    isDay2 ? "Day2" : "Day1",
+  );
   const [timePickerState, setTimePickerState] = useState<TimePickerState>(null);
   const [overlapState, setOverlapState] = useState<OverlapState>(null);
   const [overlapReturnState, setOverlapReturnState] =
