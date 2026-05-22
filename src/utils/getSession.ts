@@ -10,7 +10,7 @@ import type {
 } from "@/types/timetable-api";
 
 export type SessionDetail = TimeSlot &
-  Pick<Track, "id" | "name"> &
+  Pick<Track, "id" | "name" | "hashtag"> &
   Pick<TimetableResponse, "day" | "date"> & {
     session: SessionSummary;
     sessionType: SessionKey;
@@ -37,7 +37,7 @@ export function getSession(sessionId: SessionId): SessionDetail {
         if (ref.id !== sessionId) continue;
         // Cell may span multiple tracks; pick the first as the canonical track.
         const id = trackKeys[0];
-        const { name } = trackRecord[id];
+        const { name, hashtag } = trackRecord[id];
         const session = resolveSession(sessionId);
         return {
           day,
@@ -47,6 +47,7 @@ export function getSession(sessionId: SessionId): SessionDetail {
           sessionType,
           id,
           name,
+          hashtag,
           session,
         };
       }
