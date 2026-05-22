@@ -5,9 +5,11 @@ export const metadata: Metadata = {
   title: "マイタイムテーブル",
   twitter: {
     title: "マイタイムテーブル",
+    images: ["/my-timetable-ogp.png"],
   },
   openGraph: {
     title: "マイタイムテーブル",
+    images: ["/my-timetable-ogp.png"],
   },
 };
 
