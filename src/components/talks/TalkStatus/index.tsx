@@ -81,7 +81,7 @@ export function ToggleParticipatedButton({ talkId }: { talkId: string }) {
     <button
       type="button"
       onClick={toggle}
-      className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold cursor-pointer bg-black-100 text-black-500 hover:bg-black-200"
+      className="inline-flex items-center gap-1 rounded-full border border-black-300 px-2.5 py-1 text-xs font-bold cursor-pointer bg-black-100 text-black-500 hover:bg-black-200"
     >
       {isParticipated ? <SquareCheck size={16} /> : <Square size={16} />}
       {isParticipated ? "参加記録を外す" : "参加記録を付ける"}
