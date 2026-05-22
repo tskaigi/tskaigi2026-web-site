@@ -169,6 +169,11 @@ export function DayTimeTable({
 
       {/* Mobile: vertical stack per timeSlot */}
       <div className="md:hidden">
+        <div className="flex flex-col gap-2 mt-4">
+          {Object.values(data.trackRecord).map((track) => (
+            <SlotTrackHeader key={`m-header-${track.id}`} track={track} />
+          ))}
+        </div>
         {timeSlots.map((slot) => {
           const timeId = myTimetable.formatTime(slot.startTime);
           const timeText = myTimetable.formatTimeRange(

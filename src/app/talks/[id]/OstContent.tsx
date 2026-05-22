@@ -1,5 +1,6 @@
 import { CopyableTitle } from "@/components/talks/CopyableTitle";
 import { OgpImage } from "@/components/talks/FallbackImage";
+import { TrackHashtagActions } from "@/components/talks/TrackHashtagActions";
 import { TALK_TYPE } from "@/constants/timetable";
 import type { SessionDetail } from "@/utils/getSession";
 import { myTimetable } from "@/utils/myTimetable";
@@ -49,6 +50,15 @@ export function OstContent({
             <div className="text-lg font-bold">
               {detail.day} / {timeRange}（{name}）
             </div>
+            <TrackHashtagActions
+              track={{
+                id: detail.id,
+                name: detail.name,
+                hashtag: detail.hashtag,
+              }}
+              variant="compact"
+              className="mt-2"
+            />
           </section>
 
           <section className="flex flex-col gap-2">
