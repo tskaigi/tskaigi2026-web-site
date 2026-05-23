@@ -11,8 +11,8 @@ type PostMessageOptions = {
 function buildPostMessage({ trackHashtag, url }: PostMessageOptions): string {
   const trackTag = trackHashtag.replace(/^#/, "");
   const hashtags = ["#TSKaigi", "#TSKaigi2026", `#${trackTag}`].join(" ");
-  // "\n\n" で1行分の空行を作り、その下にハッシュタグ（と任意で URL）を並べる
-  const body = url ? `${hashtags}\n${url}` : hashtags;
+  // "\n\n" で1行分の空行を作り、その下に URL（任意）→ ハッシュタグの順で並べる
+  const body = url ? `${url}\n${hashtags}` : hashtags;
   return `\n\n${body}`;
 }
 
