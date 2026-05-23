@@ -18,12 +18,15 @@ type Props = {
    * - "compact": トーク詳細用の小さめボタン（コピー＋X投稿）
    */
   variant?: "header" | "compact";
+  /** compact のみ: 「Xに投稿」ボタンで本文に含めるセッション詳細 URL */
+  talkUrl?: string;
   className?: string;
 };
 
 export function TrackHashtagActions({
   track,
   variant = "header",
+  talkUrl,
   className,
 }: Props) {
   const handleCopy = async () => {
@@ -35,10 +38,23 @@ export function TrackHashtagActions({
     }
   };
 
-  const handleOpenX = () => {
+  const handleOpenXWithUrl = () => {
     openXPostIntent({
-      deepLink: buildXTrackDeepLinkUrl(track.hashtag),
-      webFallback: buildXTrackIntentUrl(track.hashtag),
+      deepLink: buildXTrackDeepLinkUrl({
+        trackHashtag: track.hashtag,
+        url: talkUrl,
+      }),
+      webFallback: buildXTrackIntentUrl({
+        trackHashtag: track.hashtag,
+        url: talkUrl,
+      }),
+    });
+  };
+
+  const handleOpenXHashtagOnly = () => {
+    openXPostIntent({
+      deepLink: buildXTrackDeepLinkUrl({ trackHashtag: track.hashtag }),
+      webFallback: buildXTrackIntentUrl({ trackHashtag: track.hashtag }),
     });
   };
 
@@ -53,13 +69,23 @@ export function TrackHashtagActions({
           <span>{track.hashtag}</span>
           <Copy size={12} className="shrink-0 text-black-400" />
         </button>
+        {talkUrl && (
+          <button
+            type="button"
+            onClick={handleOpenXWithUrl}
+            className="inline-flex items-center gap-1.5 rounded-full bg-white border border-black-400 px-2.5 py-1 text-xs font-medium text-black-700 hover:bg-black-50 active:bg-black-100 cursor-pointer transition-colors"
+          >
+            <img src="/talks/sns/x-logo.png" alt="X" width={12} height={12} />
+            <span>に投稿</span>
+          </button>
+        )}
         <button
           type="button"
-          onClick={handleOpenX}
+          onClick={handleOpenXHashtagOnly}
           className="inline-flex items-center gap-1.5 rounded-full bg-white border border-black-400 px-2.5 py-1 text-xs font-medium text-black-700 hover:bg-black-50 active:bg-black-100 cursor-pointer transition-colors"
         >
           <img src="/talks/sns/x-logo.png" alt="X" width={12} height={12} />
-          <span>に投稿</span>
+          <span>タグのみ</span>
         </button>
       </div>
     );

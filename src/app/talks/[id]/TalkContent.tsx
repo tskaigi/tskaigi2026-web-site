@@ -112,6 +112,7 @@ export function TalkContent({
               hashtag: detail.hashtag,
             }}
             variant="compact"
+            talkUrl={`https://2026.tskaigi.org/talks/${session.id}`}
             className="mt-2"
           />
         </div>

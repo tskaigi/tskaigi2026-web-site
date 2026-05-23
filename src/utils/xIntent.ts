@@ -1,17 +1,24 @@
+type PostMessageOptions = {
+  trackHashtag: string;
+  /** セッション詳細などへのリンク。指定するとハッシュタグの後ろに付与される。 */
+  url?: string;
+};
+
 /**
  * X 投稿画面の本文として埋め込むテキスト。
  * 先頭に空行を入れて、ハッシュタグの上にユーザーがコメントを書き足せる余白を作る。
  */
-function buildPostMessage(trackHashtag: string): string {
+function buildPostMessage({ trackHashtag, url }: PostMessageOptions): string {
   const trackTag = trackHashtag.replace(/^#/, "");
   const hashtags = ["#TSKaigi", "#TSKaigi2026", `#${trackTag}`].join(" ");
-  // "\n\n" で1行分の空行を作り、その下にハッシュタグを並べる
-  return `\n\n${hashtags}`;
+  // "\n\n" で1行分の空行を作り、その下に URL（任意）→ ハッシュタグの順で並べる
+  const body = url ? `${url}\n${hashtags}` : hashtags;
+  return `\n\n${body}`;
 }
 
 /** トラックのハッシュタグ入りで X 投稿画面を開く Web URL を生成する */
-export function buildXTrackIntentUrl(trackHashtag: string): string {
-  const text = buildPostMessage(trackHashtag);
+export function buildXTrackIntentUrl(options: PostMessageOptions): string {
+  const text = buildPostMessage(options);
   return `https://x.com/intent/post?text=${encodeURIComponent(text)}`;
 }
 
@@ -19,8 +26,8 @@ export function buildXTrackIntentUrl(trackHashtag: string): string {
  * X アプリ用の deep link を生成する。
  * `twitter://post?message=...` は iOS/Android の X アプリで投稿画面を開く。
  */
-export function buildXTrackDeepLinkUrl(trackHashtag: string): string {
-  const message = buildPostMessage(trackHashtag);
+export function buildXTrackDeepLinkUrl(options: PostMessageOptions): string {
+  const message = buildPostMessage(options);
   return `twitter://post?message=${encodeURIComponent(message)}`;
 }
 
