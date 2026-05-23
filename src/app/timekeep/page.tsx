@@ -52,18 +52,25 @@ export default function TimekeepPage() {
   const resetKey = active === null ? undefined : `${active.kind}-${applyToken}`;
 
   const timer = useTimekeepTimer(durationMinutes, resetKey);
-  const { play: playBell, unlock: unlockBell } = useBell();
+  const {
+    play: playBell,
+    playDouble: playBellDouble,
+    unlock: unlockBell,
+  } = useBell();
 
-  // 0秒到達でベルを鳴らす。セッション終了(→強制終了フェーズ)と強制終了の両方。
+  // 0秒到達でベルを鳴らす。セッション終了(→強制終了フェーズ)は1回、
+  // 強制終了は短く2回（チンチン）。
   const prevPhaseRef = useRef(timer.phase);
   useEffect(() => {
     if (prevPhaseRef.current !== timer.phase) {
-      if (timer.phase === "forced" || timer.phase === "ended") {
+      if (timer.phase === "forced") {
         playBell();
+      } else if (timer.phase === "ended") {
+        playBellDouble();
       }
       prevPhaseRef.current = timer.phase;
     }
-  }, [timer.phase, playBell]);
+  }, [timer.phase, playBell, playBellDouble]);
 
   const fullscreenRef = useRef<HTMLDivElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);

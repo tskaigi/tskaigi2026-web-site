@@ -18,13 +18,19 @@ const PARTIALS = [
 const MASTER_GAIN = 0.4;
 const ATTACK_SECONDS = 0.002;
 
+// 短い2連打（チンチン）用。減衰を縮め、2発目を少し遅らせて鳴らす。
+const SHORT_DURATION_SCALE = 0.3;
+const SHORT_GAP_SECONDS = 0.25;
+
 /**
  * Web Audio API で合成したベル音を鳴らすフック。音源ファイルを持たないので
  * ライセンス不要・オフラインで動作する。AudioContext は再利用する。
  */
 export type Bell = {
-  /** ベルを鳴らす。 */
+  /** ベルを1回鳴らす。 */
   play: () => void;
+  /** 短いベルを2回鳴らす（チンチン）。 */
+  playDouble: () => void;
   /**
    * AudioContext を生成・再開しておく。ブラウザの自動再生制限を避けるため、
    * 0秒での自動再生に備えてユーザー操作（スタート押下など）の中で呼ぶ。
@@ -53,33 +59,45 @@ export function useBell(): Bell {
     return ctx;
   }, []);
 
-  const play = useCallback(() => {
-    const ctx = ensureCtx();
-    if (!ctx) return;
+  // 1打分のベルを startOffset 秒後にスケジュールする。
+  const strike = useCallback(
+    (startOffset: number, durationScale: number) => {
+      const ctx = ensureCtx();
+      if (!ctx) return;
 
-    const now = ctx.currentTime;
-    const master = ctx.createGain();
-    master.gain.value = MASTER_GAIN;
-    master.connect(ctx.destination);
+      const now = ctx.currentTime + startOffset;
+      const master = ctx.createGain();
+      master.gain.value = MASTER_GAIN;
+      master.connect(ctx.destination);
 
-    for (const partial of PARTIALS) {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = "sine";
-      osc.frequency.value = FUNDAMENTAL_HZ * partial.ratio;
-      gain.gain.setValueAtTime(0, now);
-      gain.gain.linearRampToValueAtTime(partial.gain, now + ATTACK_SECONDS);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + partial.decay);
-      osc.connect(gain);
-      gain.connect(master);
-      osc.start(now);
-      osc.stop(now + partial.decay + 0.05);
-    }
-  }, [ensureCtx]);
+      for (const partial of PARTIALS) {
+        const decay = partial.decay * durationScale;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.value = FUNDAMENTAL_HZ * partial.ratio;
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(partial.gain, now + ATTACK_SECONDS);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + decay);
+        osc.connect(gain);
+        gain.connect(master);
+        osc.start(now);
+        osc.stop(now + decay + 0.05);
+      }
+    },
+    [ensureCtx],
+  );
+
+  const play = useCallback(() => strike(0, 1), [strike]);
+
+  const playDouble = useCallback(() => {
+    strike(0, SHORT_DURATION_SCALE);
+    strike(SHORT_GAP_SECONDS, SHORT_DURATION_SCALE);
+  }, [strike]);
 
   const unlock = useCallback(() => {
     ensureCtx();
   }, [ensureCtx]);
 
-  return { play, unlock };
+  return { play, playDouble, unlock };
 }
