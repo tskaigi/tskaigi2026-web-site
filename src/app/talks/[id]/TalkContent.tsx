@@ -72,7 +72,7 @@ export function TalkContent({
   const { session, sessionType, name, startTime, endTime } = detail;
   const timeRange = myTimetable.formatTimeRange(startTime, endTime);
   const typeLabel = TALK_TYPE[sessionType].name;
-  const { speaker } = session;
+  const { speaker, slidesLink } = session;
 
   return (
     <main className="bg-blue-light-100 pt-16 pb-10 md:py-16 md:px-8 lg:px-10">
@@ -126,6 +126,22 @@ export function TalkContent({
             )}
           </Markdown>
         </div>
+
+        {slidesLink && (
+          <div className="px-6 md:px-8 lg:px-10">
+            <h2 className="text-xl font-bold text-blue-light-500 border-b border-blue-light-500 pb-0.5 w-fit pr-2">
+              登壇資料
+            </h2>
+            <Link
+              href={slidesLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center text-link-light hover:underline break-all"
+            >
+              {slidesLink}
+            </Link>
+          </div>
+        )}
 
         <div className="mt-4 px-6 md:px-8 lg:px-10">
           <div className="bg-blue-light-200 p-6 rounded-xl">

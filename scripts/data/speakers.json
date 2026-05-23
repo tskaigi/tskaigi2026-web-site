@@ -3,7 +3,7 @@
     "id": "yuki-terashima",
     "title": "TanStack StartのcreateServerFnで作る、型が通るAPI",
     "overview": "TanStack StartのcreateServerFnを用いることで、フロントエンドとバックエンドの境界を越えて型安全なアプリケーションを構築できます。\r\n\r\n一方で、公式ドキュメントやサンプルを読んでも、設計の意図や使い分けの判断基準が分かりづらく、どのように活用すればよいか迷う場面も少なくありません。\r\n\r\n本セッションでは、最小構成のサンプルをもとにcreateServerFnを用いた型安全なAPI設計の基本パターンと、実装時に陥りやすい落とし穴を整理します。\r\n\r\nさらに、TanStack Startのloaderやスキーマ設計との連携を通じて、型が通る状態を継続的に維持するための実践的な指針を紹介します。",
-    "slidesLink": "",
+    "slidesLink": "https://www.docswell.com/s/yt4/Z8NMGQ-tskaigi-2026-create-server-fn",
     "speaker": {
       "name": "Yuki Terashima",
       "userIcon": "x",
@@ -43,7 +43,7 @@
     "id": "kanon",
     "title": "Road to contributor of Valibot - ValibotにISBN validationを追加するまで -",
     "overview": "みなさん、Valibot 使っていますか？\r\n\r\nValibotとはTypeScript 用のスキーマライブラリです。データ構造を定義してデータをバリデーションすることができます。\r\n同様のライブラリにはZodやArkTypeなどがあります。\r\n\r\nそんななかでも私はValibotにISBNをバリデーションする機能のPRを送り、見事マージされました。\r\nhttps://github.com/open-circle/valibot/pull/1097\r\n\r\nこのセッションでは以上の経験をもとに、以下の内容を10分に詰め込んでお話ししたいと思います。\r\n\r\n- 簡単にValibotの使い方などの紹介\r\n- Valibotの内部実装はどうなっているのか？\r\n- ISBNの仕様について\r\n- (Valibotに限らず)スキーマライブラリにどういったFeature Requestを送るとマージされやすいか",
-    "slidesLink": "",
+    "slidesLink": "https://blog.inorinrinrin.com/entry/2026/05/22/140140",
     "speaker": {
       "name": "Kanon",
       "userIcon": "x",
@@ -163,7 +163,7 @@
     "id": "hal",
     "title": "checker.tsにチキンレースを仕掛けてみた：型エラー(TS2589)が発生する境界線を求めて",
     "overview": "Type instantiation is excessively deep and possibly infinite.: ts-plugin(2589)’\r\n\r\n型が複雑すぎたり再帰呼び出しが無限ループしている際によく起きると言われているこの型エラー。\r\nネット上では「anyで回避しよう！」や「型の注釈で解消できます」など、多くのワークアラウンドが提示されていました。\r\n\r\nしかし、私はふと疑問に思いました。\r\n「コンパイラが『無限』と呼ぶ境界線はどこにあるのだろう」と…。\r\n\r\nそこで私はchecker.tsにチキンレースを仕掛けることにしました。\r\n\r\n本セッションではTS2589を発生させる「3つの門番（instantiationDepth / instantiationCount / tailCount）」の正体と、コンパイラによる「型の複雑さ」の定義を紐解きます。\r\n\r\nそして『無限』の境界線の向こう側で私たちを待つ衝撃のラストとは…\r\n\r\nTS2589を正しく理解し、『無限』を味方につけるための10分間をお届けします。",
-    "slidesLink": "",
+    "slidesLink": "https://x.com/hal_spidernight/status/2057691675749646520?s=46",
     "speaker": {
       "name": "Hal",
       "userIcon": "x",
@@ -263,7 +263,7 @@
     "id": "naoaki-kitagawa",
     "title": "権限チェックの一貫性を型で守る TypeScript による多層防御",
     "overview": "私たちのプロダクトでは、ユーザーがテーブルやワークフローなどのリソースをフォルダ階層の中に自由に構築できるデータベースシステムを提供しています。\r\nこの柔軟性から認可の設計は複雑になり、「誰が」「どのリソースに」「何をできるか」を階層構造に沿って制御する必要があります。\r\nこの権限チェックはフロントエンド・バックエンド・データベースの全レイヤーに及ぶため、あるレイヤーで分岐の修正を忘れる「静かなバグ」が生まれやすく、テストもすり抜けがちです。\r\n\r\n本セッションでは、権限アクションの SSoT を定義し、TypeScript における型レベルの制約や網羅性チェックを組み合わせることで、システム全体で権限チェックの一貫性を保つアーキテクチャを紹介します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/mnch/quan-xian-tietukuno-guan-xing-woxing-deshou-ru-typescript-niyoruduo-ceng-fang-yu",
     "speaker": {
       "name": "北川 直昭",
       "userIcon": "github",
@@ -343,7 +343,7 @@
     "id": "pvcresin",
     "title": "関係性から理解する\"同一性\"の型用語たち",
     "overview": "TypeScriptの話題において、nominal / structural / branded / opaque / phantomといった型に関する用語を見かける機会が増えてきました。\r\nしかし、これらの違いや関係性を説明しようとすると曖昧になりがちです。\r\n私自身も「なんとなく分かったつもり」で流してしまった過去があり、後からうまく説明できずに後ろめたさを感じる場面がありました。\r\n本発表ではTypeScriptが構造的型付けであることを起点に、型の同一性に関するこれらの用語を、コード例を交えて紹介します。\r\nそのうえで、これらの違いと関係性を理解し、解説記事や議論を追える状態を目指します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/pvcresin/guan-xi-xing-karali-jie-suru-tong-xing-noxing-yong-yu-tati",
     "speaker": {
       "name": "pvcresin",
       "userIcon": "x",
@@ -483,7 +483,7 @@
     "id": "keisuke-ikeda",
     "title": "JavaScript実装の自作プログラミング言語をTypeScript実装に移行した話",
     "overview": "皆さんはプログラミング言語を自作したことはあるでしょうか？\r\n私は過去にJavaScriptでLispを実装したことがあるのですが、大変でした。\r\n\r\nプログラミング言語の実装は、字句解析・構文解析・評価器などから成り、それぞれが複雑な機能を持ちます。JavaScriptで書いていた頃は、ノードの扱い、予期しないundefinedの混入など、実行してみて初めて気づくバグに何度も悩まされました。\r\n\r\n本セッションでは自作プログラミング言語をJavaScriptで実装したあと、TypeScriptへ移行した実体験、言語実装という複雑なドメインだからこそ浮かび上がるTypeScriptの強みと限界を、具体的なコードとともに紹介します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/keisukeikeda/48",
     "speaker": {
       "name": "Keisuke Ikeda",
       "userIcon": "x",
@@ -563,7 +563,7 @@
     "id": "hayato-kudoh",
     "title": "静的解析への投資がAI時代のコード品質を支える ── カスタムESLintルールの設計と運用",
     "overview": "私たちのプロダクトでは、エンジニアだけでなくPMやデザイナー・ビジネスチームもバイブコーディングでPRを出しています。\r\n日々多くのPRが作成されますが、それでもコード品質を維持しレビューコストを抑えられているのは、100以上のカスタムESLintルール等を中心とした静的解析基盤があるからです。\r\n\r\n本トークでは、「なぜ標準プラグインでは足りないのか」を整理し、Valibot・Hono・Drizzle・Svelteなど、既存のESLintプラグインではカバーしきれないライブラリ群に対して、プロジェクト固有のガードレールをどのように設計したのかを解説します。\r\nさらに、コードレビューの指摘からESLintルール候補を自動抽出しルール化につなげる仕組みや、CI高速化のための設計、AIによるCIエラー自動修正を試みて見えた限界と教訓についても共有します。\r\n\r\n静的解析への投資がAI時代にどう効くのか、カスタムESLintルールの設計からCI運用まで具体的に共有します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/hayatokudou/tskaigi2026-jing-de-jie-xi-henotou-zi-gaaishi-dai-nokodopin-zhi-wozhi-eru-kasutamueslintrurunoshe-ji-toyun-yong",
     "speaker": {
       "name": "工藤 颯斗",
       "userIcon": "x",
@@ -703,7 +703,7 @@
     "id": "lacolaco",
     "title": "いつテストを書くか？―ソフトウェア開発における安心と不安について考える",
     "overview": "TypeScriptの型システムは、JavaScript開発の世界に多くの安心をもたらしています。同様に、ソフトウェア開発において安心をもたらすものといえばテストです。その安心は、Agentic Codingが広がる中では、AIを自律的にのびのびと動かすためにも重要になっています。テスト駆動開発にもここ数年でさらに注目が集まっているように思います。\r\n\r\n本セッションは、「安心」をテーマにして、いまあらためてテストについて考える場を作りたいと思います。わたしたちは開発の現場で何に不安を感じているのでしょうか。型やテストはその不安を解消できているでしょうか。どうすればいまよりも安心してソフトウェアを開発できるでしょうか。明確な答えはありませんが、一緒に考えてみませんか？",
-    "slidesLink": "",
+    "slidesLink": "https://bit.ly/tskaigi2026-lacolaco",
     "speaker": {
       "name": "lacolaco",
       "userIcon": "x",
@@ -763,7 +763,7 @@
     "id": "ryutaro-yako",
     "title": "Zod v4 Codec でスキーマに型変換を埋め込む REST API 設計",
     "overview": "REST API 開発ではアプリの型と API レスポンスの型が一致しない場面が多く、たとえば日時はアプリでは Dayjs で扱いたいのに、レスポンスでは ISO 文字列になります。tRPC 等では透過的に解決できますが、既存の REST API を維持したいプロジェクトでは変換レイヤーを手書きしがちではないでしょうか？\r\n\r\n本トークでは Zod v4.1 で導入された Codec 機能を活用し、スキーマに encode / decode の双方向変換を組み込むことで、フロントエンドとバックエンドでバリデーション・レスポンス変換を共有し、さらにバックエンドでは DB 結果からのプロパティ絞り込みまでを一つのスキーマ定義に集約できる実装パターンを、Hono + Drizzle を例にご紹介します！",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/ryutaro_yako/zod-v4-codec-desukimanixing-bian-huan-womai-meip-mu-rest-api-she-ji-number-tskaigi2026",
     "speaker": {
       "name": "Ryutaro Yako",
       "userIcon": "github",
@@ -923,7 +923,7 @@
     "id": "taku-hatano",
     "title": "TypeScriptの型だけでオセロを完全実装する ── 型は\"仕様\"をどこまで語れるか",
     "overview": "TypeScriptで型を用いる際に、型でデータの「形」を記述するだけで終わってしまい、ある条件下で取るべき状態が型に反映されず、不要な型アサーションやランタイムチェックに頼ってしまうことが多々あるように感じています。\r\nそこで今回の発表ではボードゲームのようないくつものルールが重なり合う「仕様」をTypeScriptの型だけで実装することで、型がどこまで仕様を表現できるのかを示します。\r\nこのセッションを通じて「こんな仕様も表現できるなら自分たちのプロダクトでも活用できるかも」と感じていただくことが大きな目的です。\r\n\r\n本発表では実装対象として「オセロ」を選択し、合法手の判定、石の反転、盤面の進行、勝敗判定といったルールを型のみで表現します。\r\nさらに、型名や文脈を伏せた状態でこの型定義をAIに与え、「これは何のルールを表している型か？」と推論させる実験も行います。\r\nその結果から型がどれほど「仕様の意味」を保持しうるのかも考察します。\r\n\r\n本セッションを通じて、TypeScriptの型を「値の形を記述する道具」から「仕様そのものを記述する言語」へと捉え直す視点を提示します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/forcia/typescriptnoxing-dakedeoserowowan-quan-shi-zhuang-suru-xing-ha-shi-yang-wodokomadeyu-reruka",
     "speaker": {
       "name": "籏野 拓",
       "userIcon": "github",
@@ -1003,7 +1003,7 @@
     "id": "tatsukawa",
     "title": "TypeScriptとAngular Signal で実現する保守性の高いアプリケーション設計 - 3層アーキテクチャによる責務分離の実践",
     "overview": "Component 内にすべてのロジックを実装すると、ビジネスロジック、状態管理、API 呼び出しが混在し、コードの可読性とテスタビリティが低下する課題があります。本トークでは、プレゼンテーション層・ユースケース層・データアクセス層の3層アーキテクチャを導入し、各層の責務を明確に分離することで保守性を向上させた事例を紹介します。特に、Writable signals と Computed signals による状態管理のカプセル化、各層の責務範囲の明確化、TypeScript の型システムを活用した型安全な設計など、実務で直面する具体的な課題への実践的なアプローチをコード例と共に紹介します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/nealle/typescript-angular-signal-structure",
     "speaker": {
       "name": "たつかわ",
       "userIcon": "x",
@@ -1283,7 +1283,7 @@
     "id": "nabeliwo",
     "title": "React の props は値の集合ではない — UI の状態を宣言するコンポーネント設計",
     "overview": "React コンポーネントの props 設計は、UI の状態や責務をどれだけ明確に表現できるかに大きく影響します。\r\nしかし実務では、`data` や `isLoading`、`error` といった複数の値の組み合わせによって状態を表現することが多く、コンポーネントが取りうる状態や振る舞いが props から直感的に読み取れないケースも少なくありません。\r\n本セッションでは、props 設計を見直すことでコンポーネントの分かりやすさを高めていくための考え方を紹介します。\r\nその一例として、discriminated union を用いて props を「値の集合」ではなく「状態そのもの」として表現する設計を取り上げ、条件分岐を減らし、不正な状態を型レベルで防ぐアプローチを解説します。\r\nさらに、コンポーネント分割との関係にも触れながら、props 設計によって UI の構造や責務をどのように表現すると良いのか、その判断軸を整理します。\r\n本セッションを通して、参加者が自分のコンポーネントの props 設計を振り返り、「その設計が UI の状態や責務を適切に表現できているか」を判断できるようになることを目指します。",
-    "slidesLink": "",
+    "slidesLink": "https://nabeliwo.github.io/slides/talks/20260523_tskaigi-2026_react-props",
     "speaker": {
       "name": "nabeliwo",
       "userIcon": "x",
@@ -1363,7 +1363,7 @@
     "id": "ayano",
     "title": "TypeScriptエンジニアのためのWASMランタイム入門：AssemblyScriptから理解するメモリの実態",
     "overview": "TypeScriptは高水準言語であり、その実行時のメモリ構造はJavaScriptエンジンに依存しています。そのため、通常はオブジェクトや配列がどのようにメモリ上に配置されているかを意識する機会はほとんどありません。本トークでは、TypeScriptに近い構文からWebAssemblyを生成するAssemblyScriptを題材に、「高水準なコードが低レイヤーの線形メモリにどのように配置されるか」を具体的に解説します。\r\n\r\n特に以下にフォーカスします：\r\n- WASMの線形メモリモデルの基本\r\n- AssemblyScriptにおけるオブジェクトレイアウトの実態\r\n- classインスタンスがどのようにメモリ上に配置されるか\r\n- 配列（ArrayBuffer / TypedArray含む）の内部構造",
-    "slidesLink": "https://docs.google.com/presentation/d/19XnUtE1SV5bzUqe9HpbvSF2y1soFU7R-mwKVY45CDZI/edit?usp=sharing",
+    "slidesLink": "https://speakerdeck.com/ayanoyuki/28",
     "speaker": {
       "name": "ayano",
       "userIcon": "github",
@@ -1403,7 +1403,7 @@
     "id": "yamanoku",
     "title": "Navigation APIがlib.dom.d.tsに採用されるまでの道のり",
     "overview": "皆さんは「Navigation API」をご存じでしょうか？\r\n\r\nSPAのクライアントサイドルーティングを実現するために使われるHistory APIの後継のWeb APIです。昨年のInteropプロジェクトでの採用を経て、今年1月よりすべての主要ブラウザにて利用可能になりました。\r\n\r\nしかしこのような最新のWeb APIを使おうとしたら型が未定義で、自らinterface Windowを拡張した経験は皆さんはありませんか？\r\n\r\n本セッションでは、Navigation APIの概要を紹介しつつ、普段何気なく利用しているDOM APIがどのようなフローでTypeScriptでの型定義（lib.dom.d.ts）に採用されるのかを解説します。\r\n\r\nこの発表を通じて、Web標準の技術が「型」として届けられるまでの裏側を知り、最新技術をより安全かつ深く理解して扱えるようになることを目指します。",
-    "slidesLink": "",
+    "slidesLink": "https://yamanoku.net/tskaigi-2026/slide",
     "speaker": {
       "name": "yamanoku",
       "userIcon": "github",
@@ -1543,7 +1543,7 @@
     "id": "hacobu",
     "title": "AI Agent に“攻略本”を渡したら、150フォームの移行が回り始めた話",
     "overview": "React Final Form 製の 150 フォームを、React Hook Form + Zod へどう移行し切るか。\r\n私たちは、移行ノウハウを Agent Skills に閉じ込め、AI Agent に“攻略本”として渡すことで、この大規模移行を進めました。\r\n人がアーキテクチャと型を設計し、AI が量をこなす。この分業を成立させるために何を標準化し、どこを人が握るべきだったのか。現場で得た知見を共有します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/hacobu/deng-tan-zi-liao-gao-qiao-wu-sheng-866032ab-4f83-42b6-a323-44045e73c3a5",
     "speaker": {
       "name": "高橋悟生",
       "userIcon": "x",
@@ -1623,7 +1623,7 @@
     "id": "mosh",
     "title": "TypeScriptで実現する既存APIを活用したリモートMCPサーバー構築",
     "overview": "MCP（Model Context Protocol）とその周辺技術の発展に伴い、国内でもリモートMCPサーバーの活用事例が増えつつあります。一方で、構築に関する実践的な知見は、まだ十分に共有されているとは言えません。\r\n\r\n本セッションでは、TypeScriptを用いてリモートMCPサーバーをどのように迅速かつ実運用を前提とした形で構築したのかをご紹介します。新たにAPIを設計・実装するのではなく、既存のAPI資産を活用し、短期間で実用的な構成を実現しました。\r\n\r\nその過程で得られた知見を、アーキテクチャを中心に設計・実装・運用まで含めた全体像として整理し、実現方法にフォーカスしてお伝えします。また、モノレポやパッケージ管理による既存資産の再利用や、API仕様を起点とした構築など、TypeScriptの特性を活かした設計についても触れます。さらに、ユーザーにとって扱いやすい利用体験の設計についても取り上げます。\r\n\r\nMCPに関心のある方や、これからリモートMCPサーバーの構築を検討している方にとって、構築の一つのパターンとして参考にしつつ、リモートMCPサーバーの全体像を理解できるセッションを目指します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/soarteclab/tskaigi-2026",
     "speaker": {
       "name": "鈴木翔大",
       "userIcon": "x",

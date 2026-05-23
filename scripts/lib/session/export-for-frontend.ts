@@ -18,6 +18,7 @@ function main() {
         title: entry.title,
         ogpTitle: entry.ogpTitle,
         overview: entry.overview,
+        slidesLink: entry.slidesLink,
         speaker: entry.speaker,
       };
     }
