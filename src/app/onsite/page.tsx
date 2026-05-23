@@ -124,7 +124,10 @@ export default function OnsitePage() {
           </h2>
           <ul className="flex flex-col gap-4 list-disc list-outside pl-5">
             <li>
-              レバレジーズトラック後方・UPSIDERトラック後方・休憩ルーム内でお弁当または食券（ランチチケット）を配布します。
+              レバレジーズトラック後方・UPSIDERトラック後方・休憩ルーム内でお弁当を配布します。
+            </li>
+            <li>
+              アレルギーやビーガン/ハラールなど特別な理由がある場合は食券（ランチチケット）を会場受付で配布いたします。
             </li>
             <li>
               お弁当は各セッションルームまたは休憩ルーム内でお召し上がりいただけます。
