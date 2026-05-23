@@ -14,6 +14,7 @@ export type SessionSummary = {
   id: string;
   title: string;
   overview?: string;
+  slidesLink?: string;
   speaker: {
     name: string;
     profileImageUrl?: string;

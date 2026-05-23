@@ -24,6 +24,7 @@ export type SessionMasterEntry = {
   speaker: SessionMasterSpeaker;
   id?: string;
   ogpTitle?: string;
+  slidesLink?: string;
 };
 
 const sessionMaster = sessionMasterData as Record<string, SessionMasterEntry>;
