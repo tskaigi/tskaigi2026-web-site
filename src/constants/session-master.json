@@ -93,7 +93,7 @@
     "title": "業務に残された「よくない型」で考える「TypeScriptの難しさ」",
     "ogpTitle": "業務に残された「よくない型」で考える\n「TypeScriptの難しさ」",
     "overview": "TypeScriptがJS環境全般に広がった今、型を使いこなすことはある種当たり前になっています\r\n\r\n一方でふと業務で書いた・書かれたコード振り返ってみると、「一旦諦めてunknown型にしてしまった」「泣く泣くasをしてしまっている」といった場所に心当たりがある人も多いのではないでしょうか？複雑なドメインを扱うコードや、複数人で開発しているコードベースには、そういった「型の妥協点」が少なからず潜んでいます。\r\n\r\n誰も書きたくでasしているわけではないし、unknownで満足してるわけでもない。それでも放置・妥協されたコードには「TSの難しさ」や「TSの限界」を学ぶための重要なヒントが隠されていると思います。\r\n\r\nこのトークでは実際に業務で放置されていた「一般的に良くないとされる型(as/unknown/緩すぎる型)」を収集・パターン化し、「何が難しかったのか」「どう改善できるか」「今のTSの仕組みで解決可能か」を解説します。これらを紐解き、整理する中にはTypeScriptを学ぶ・教える・AIに書かせる上で参考になるポイントが含まれているはずです。\r\n\r\nこのトークではTypeScript初学者の方はもちろん、既に使いこなせている方も含めて「TypeScriptの難しさのパターン」について考える30分を提供します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/sajikix/ye-wu-nican-sareta-liang-kunaixing-dekao-eru-typescriptnonan-sisa",
     "speaker": {
       "name": "Saji",
       "userIcon": "github",
@@ -621,7 +621,7 @@
     "title": "Oxlint は ESLint / typescript-eslint を置き換えられるか？",
     "ogpTitle": "Oxlint は ESLint / typescript-eslintを\n置き換えられるか？",
     "overview": "VoidZero構想の核であるRust製Linter「Oxlint」は、2025年に安定版となり、ESLint比で50〜100倍という圧倒的な高速性を実現しました。\r\nしかし、実務のTypeScriptプロジェクトにおいて、typescript-eslintが提供する型情報を用いた解析をどう代替・併用すべきかは、多くのエンジニアが直面する課題です。\r\n\r\n本セッションでは、Type-Aware Lintingのための tsgolint の導入ハードル、メモリ使用量、ルール網羅率といった現状の懸念点を整理します。\r\nその上で、なぜ型解析がパフォーマンスのボトルネックとなるのかを構造的に解説し、既存ESLint環境と比較した定量的・定性的なメリットを提示します。\r\n\r\n「爆速の環境のためにどこまで攻め、どこで妥協すべきか」現場の導入判断の指針をお話しします。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/shomafujita/typescript-eslintwozhi-kihuan-erarerunoka",
     "speaker": {
       "name": "藤田 翔雅",
       "userIcon": "github",
@@ -1127,7 +1127,7 @@
     "title": "TypeScriptでPlatform SDKを作る技術",
     "ogpTitle": "TypeScriptでPlatform SDKを作る技術",
     "overview": "発表者はPaaS（Headless ERP開発プラットフォーム）のTypeScript SDKをゼロから設計・開発しています。\r\n独自のCLIツールやTerraform providerがすでにある中で、より良い開発者体験を目指して生まれたSDKです。\r\n\r\n本発表では、SDK開発において選択した開発者体験とそれを支える技術や実装について紹介します。\r\n\r\n・ユーザー設定に応じた正確な型の提供\r\nビルド済みパッケージにユーザー固有の型情報を後から注入する仕組み\r\n\r\n・実行環境を意識させないコードの書き方\r\n不要コードの排除と、ローカルテストとプラットフォームでの実行を両立するコード変換\r\n\r\n・AIフレンドリーなSDK\r\nLLMにSDKを使った実装問題を解かせて品質を評価するベンチマーク",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/toiroakr/typescript-de-platform-sdk-wozuo-ruji-shu",
     "speaker": {
       "name": "樋口 彰",
       "userIcon": "x",
@@ -1787,13 +1787,13 @@
     "title": "AIコーディングエージェントの活用で、コードは静かに肥大化した —— 型・Lint・Skillsで挽回する10分",
     "ogpTitle": "AIコーディングエージェントの活用で\nコードは静かに肥大化した\n— 型・Lint・Skillsで挽回する10分",
     "overview": "近年、CursorやClaude CodeといったAIコーディングエージェントの活用により、TypeScriptプロジェクトの開発サイクルは劇的に加速しました。一方で、高速なイテレーションを繰り返したコードベースは、人間が気づかないうちに構造的な肥大化を招く危険性を孕んでいます。\r\n\r\n本セッションでは、コンパウンド型SaaSのバックエンドをAIと共に1年間育ててきた経験から、重複コード・Fat Usecase・ゴッドメソッドといった「AI由来の負債」に対する3つの防衛策を10分で紹介します。\r\n\r\n具体的には、Discriminated UnionやBranded Typeなどを用いた型による不正状態の排除、ESLintやoxlintによる行数・複雑度の機械的なガード、そしてAgent Skillsを活用したチーム規約のAIへの継承という3つの軸について、実践的な知見を広く浅くお話しします。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/yosukeshinoda/aikodeinguezientonohuo-yong-de-kodohajing-kanifei-da-hua-sita",
     "speaker": {
       "name": "篠田 陽介",
       "userIcon": "github",
       "profileImageUrl": "/speakers/dresscode.png",
       "bio": "2025年6月にDress Code株式会社に入社後、プロダクトエンジニアとしてプロダクトの価値と向き合いながら日々フルスタックに開発をしています。",
-      "xId": "",
+      "xId": "dresscode_com",
       "githubId": "shinoda-yosuke",
       "qiitaLink": "",
       "zennLink": "https://zenn.dev/p/dress_code",
