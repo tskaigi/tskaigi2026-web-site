@@ -20,7 +20,7 @@ const ATTACK_SECONDS = 0.002;
 
 // 短い2連打（チンチン）用。減衰を縮め、2発目を少し遅らせて鳴らす。
 const SHORT_DURATION_SCALE = 0.3;
-const SHORT_GAP_SECONDS = 0.25;
+const SHORT_GAP_SECONDS = 0.4;
 
 /**
  * Web Audio API で合成したベル音を鳴らすフック。音源ファイルを持たないので
