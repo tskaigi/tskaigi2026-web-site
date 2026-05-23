@@ -18,9 +18,9 @@ const PARTIALS = [
 const MASTER_GAIN = 0.4;
 const ATTACK_SECONDS = 0.002;
 
-// 短い2連打（チンチン）用。減衰を縮め、2発目を少し遅らせて鳴らす。
-const SHORT_DURATION_SCALE = 0.3;
-const SHORT_GAP_SECONDS = 0.4;
+// 2連打（チーン、チーン）用。各打はしっかり響かせつつ、2発目を少し遅らせる。
+const DOUBLE_RING_DURATION_SCALE = 0.7;
+const DOUBLE_RING_GAP_SECONDS = 0.5;
 
 /**
  * Web Audio API で合成したベル音を鳴らすフック。音源ファイルを持たないので
@@ -91,8 +91,8 @@ export function useBell(): Bell {
   const play = useCallback(() => strike(0, 1), [strike]);
 
   const playDouble = useCallback(() => {
-    strike(0, SHORT_DURATION_SCALE);
-    strike(SHORT_GAP_SECONDS, SHORT_DURATION_SCALE);
+    strike(0, DOUBLE_RING_DURATION_SCALE);
+    strike(DOUBLE_RING_GAP_SECONDS, DOUBLE_RING_DURATION_SCALE);
   }, [strike]);
 
   const unlock = useCallback(() => {
