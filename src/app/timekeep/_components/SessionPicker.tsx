@@ -14,8 +14,8 @@ type Props = {
 };
 
 const DAYS: { value: EventDate; label: string }[] = [
-  { value: "Day1", label: "Day1 (5/22)" },
-  { value: "Day2", label: "Day2 (5/23)" },
+  { value: "Day1", label: "Day1" },
+  { value: "Day2", label: "Day2" },
 ];
 
 type TrackFilter = TrackKey | "ALL";
@@ -40,7 +40,7 @@ const chipClass = (active: boolean) =>
   );
 
 export function SessionPicker({ sessions, selectedId, onSelect }: Props) {
-  const [activeDay, setActiveDay] = useState<EventDate>("Day1");
+  const [activeDay, setActiveDay] = useState<EventDate>("Day2");
   const [trackFilter, setTrackFilter] = useState<TrackFilter>(
     readStoredTrackFilter,
   );
