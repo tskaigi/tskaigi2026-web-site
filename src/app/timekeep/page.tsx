@@ -17,6 +17,7 @@ import {
   getTimekeepSessions,
   type TimekeepSession,
 } from "@/utils/getTimekeepSessions";
+import { CustomTimeForm } from "./_components/CustomTimeForm";
 import { SessionPicker } from "./_components/SessionPicker";
 import { TimerDisplay } from "./_components/TimerDisplay";
 import {
@@ -24,12 +25,32 @@ import {
   useTimekeepTimer,
 } from "./useTimekeepTimer";
 
+type ActiveTimer =
+  | { kind: "session"; session: TimekeepSession }
+  | { kind: "custom"; minutes: number };
+
+function formatCustomDuration(totalMinutes: number): string {
+  const totalSeconds = Math.round(totalMinutes * 60);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return seconds === 0 ? `${minutes}分` : `${minutes}分${seconds}秒`;
+}
+
 export default function TimekeepPage() {
   const sessions = useMemo(() => getTimekeepSessions(), []);
-  const [selected, setSelected] = useState<TimekeepSession | null>(null);
+  const [active, setActive] = useState<ActiveTimer | null>(null);
+  const [applyToken, setApplyToken] = useState(0);
   const [pickerOpen, setPickerOpen] = useState(false);
 
-  const timer = useTimekeepTimer(selected?.durationMinutes ?? 0, selected?.id);
+  const durationMinutes =
+    active === null
+      ? 0
+      : active.kind === "session"
+        ? active.session.durationMinutes
+        : active.minutes;
+  const resetKey = active === null ? undefined : `${active.kind}-${applyToken}`;
+
+  const timer = useTimekeepTimer(durationMinutes, resetKey);
 
   const fullscreenRef = useRef<HTMLDivElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -50,15 +71,22 @@ export default function TimekeepPage() {
     }
   }, []);
 
-  const handleSelect = useCallback((session: TimekeepSession) => {
-    setSelected(session);
+  const applySession = useCallback((session: TimekeepSession) => {
+    setActive({ kind: "session", session });
+    setApplyToken((t) => t + 1);
     setPickerOpen(false);
   }, []);
 
+  const applyCustom = useCallback((minutes: number) => {
+    setActive({ kind: "custom", minutes });
+    setApplyToken((t) => t + 1);
+    setPickerOpen(false);
+  }, []);
+
+  const initialSeconds = Math.round(durationMinutes * 60);
   const startLabel = timer.isRunning
     ? "一時停止"
-    : timer.phase === "session" &&
-        timer.remainingSeconds === (selected?.durationMinutes ?? 0) * 60
+    : timer.phase === "session" && timer.remainingSeconds === initialSeconds
       ? "スタート"
       : "再開";
 
@@ -70,16 +98,16 @@ export default function TimekeepPage() {
             タイムキーパー
           </h1>
           <p className="text-sm text-black-500">
-            セッションを選ぶと持ち時間をカウントダウンします。0になると一律で
-            「強制終了まで{FORCED_TERMINATION_MINUTES}分」のカウントダウンに
-            切り替わります。
+            {`セッションを選ぶか時間を自由に設定するとカウントダウンします。0になると一律で「強制終了まで${FORCED_TERMINATION_MINUTES}分」のカウントダウンに切り替わります。`}
           </p>
         </header>
 
         <Sheet open={pickerOpen} onOpenChange={setPickerOpen}>
           <SheetTrigger asChild>
             <Button type="button" variant="outline" className="w-full">
-              {selected ? "セッションを変更する" : "セッションを選択する"}
+              {active
+                ? "セッション・時間を変更する"
+                : "セッション・時間を設定する"}
             </Button>
           </SheetTrigger>
           <SheetContent
@@ -87,20 +115,24 @@ export default function TimekeepPage() {
             className="flex w-full max-w-md flex-col gap-4 overflow-y-auto sm:max-w-md"
           >
             <SheetHeader>
-              <SheetTitle>セッションを選択</SheetTitle>
+              <SheetTitle>セッション・時間を設定</SheetTitle>
               <SheetDescription>
-                選んだセッションの持ち時間が自動で設定されます。
+                {
+                  "セッションを選ぶと持ち時間が自動で設定されます。時間を直接指定することもできます。"
+                }
               </SheetDescription>
             </SheetHeader>
+            <CustomTimeForm onApply={applyCustom} />
+            <div className="h-px bg-black-200" />
             <SessionPicker
               sessions={sessions}
-              selectedId={selected?.id ?? null}
-              onSelect={handleSelect}
+              selectedId={active?.kind === "session" ? active.session.id : null}
+              onSelect={applySession}
             />
           </SheetContent>
         </Sheet>
 
-        {selected ? (
+        {active ? (
           <div
             ref={fullscreenRef}
             className={cn(
@@ -109,29 +141,43 @@ export default function TimekeepPage() {
                 "h-screen w-screen justify-center bg-blue-light-100 px-6",
             )}
           >
-            <div className="rounded-xl border border-blue-light-300 bg-white p-4">
-              <div className="flex items-center gap-2 text-xs text-black-400">
-                <span
-                  className="rounded-full px-2 py-0.5 font-medium text-white"
-                  style={{
-                    backgroundColor: TALK_TYPE[selected.sessionType].color,
-                  }}
-                >
-                  {TALK_TYPE[selected.sessionType].name}
-                </span>
-                <span className="tabular-nums">{selected.cellTime}</span>
-                <span className="ml-auto font-semibold text-blue-light-600">
-                  持ち時間 {selected.durationMinutes}分
+            {active.kind === "session" ? (
+              <div className="rounded-xl border border-blue-light-300 bg-white p-4">
+                <div className="flex items-center gap-2 text-xs text-black-400">
+                  <span
+                    className="rounded-full px-2 py-0.5 font-medium text-white"
+                    style={{
+                      backgroundColor:
+                        TALK_TYPE[active.session.sessionType].color,
+                    }}
+                  >
+                    {TALK_TYPE[active.session.sessionType].name}
+                  </span>
+                  <span className="tabular-nums">
+                    {active.session.cellTime}
+                  </span>
+                  <span className="ml-auto font-semibold text-blue-light-600">
+                    持ち時間 {active.session.durationMinutes}分
+                  </span>
+                </div>
+                <p className="mt-2 text-base font-bold text-black-600">
+                  {active.session.title}
+                </p>
+                <p className="mt-0.5 text-sm text-black-400">
+                  {active.session.trackName}
+                  {active.session.speaker && ` ・ ${active.session.speaker}`}
+                </p>
+              </div>
+            ) : (
+              <div className="flex items-center justify-between rounded-xl border border-blue-light-300 bg-white p-4">
+                <p className="text-base font-bold text-black-600">
+                  カスタムタイマー
+                </p>
+                <span className="font-semibold text-blue-light-600">
+                  持ち時間 {formatCustomDuration(active.minutes)}
                 </span>
               </div>
-              <p className="mt-2 text-base font-bold text-black-600">
-                {selected.title}
-              </p>
-              <p className="mt-0.5 text-sm text-black-400">
-                {selected.trackName}
-                {selected.speaker && ` ・ ${selected.speaker}`}
-              </p>
-            </div>
+            )}
 
             <TimerDisplay
               phase={timer.phase}
@@ -178,7 +224,7 @@ export default function TimekeepPage() {
           </div>
         ) : (
           <p className="rounded-xl border border-dashed border-blue-light-300 bg-white p-6 text-center text-sm text-black-400">
-            セッションを選択するとタイマーが表示されます。
+            セッションを選ぶか時間を設定するとタイマーが表示されます。
           </p>
         )}
       </div>
