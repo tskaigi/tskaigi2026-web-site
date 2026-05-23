@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Activity } from "@/constants/activityList";
 
 type ActivityItemProps = Activity;
@@ -9,6 +10,7 @@ const ActivityItem = ({
   location,
   time,
   image,
+  link,
 }: ActivityItemProps) => {
   return (
     <div className="bg-white rounded-xl p-6 flex flex-col gap-4 md:p-8">
@@ -43,9 +45,19 @@ const ActivityItem = ({
             />
           </div>
         )}
-        <p className="leading-7 md:text-base md:leading-8 whitespace-pre-wrap">
-          {description}
-        </p>
+        <div className="flex flex-col gap-3">
+          <p className="leading-7 md:text-base md:leading-8 whitespace-pre-wrap">
+            {description}
+          </p>
+          {link && (
+            <Link
+              href={link.href}
+              className="text-link-light underline underline-offset-3 hover:no-underline self-start"
+            >
+              {link.label}
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );

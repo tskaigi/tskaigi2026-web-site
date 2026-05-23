@@ -4,6 +4,7 @@ import {
   Clock3,
   Info,
   MonitorPlay,
+  Nfc,
   QrCode,
   Ticket,
 } from "lucide-react";
@@ -58,6 +59,26 @@ export const OnTheDayLinksSection = () => {
               </p>
               <p className="text-[12px] leading-none md:text-[16px]">
                 受付混雑緩和のため、QRコードを準備して受付にお越しください。
+              </p>
+            </div>
+            <ArrowRight
+              strokeWidth={2.5}
+              className="ml-auto size-10 shrink-0 transition-transform group-hover:translate-x-1 md:size-16"
+            />
+          </Link>
+          <Link
+            href="/nfc-usage-guide"
+            className="group flex items-center gap-3 px-3 py-3 transition-colors hover:bg-[#F4F7FF] md:h-22"
+          >
+            <div className="flex size-10 shrink-0 items-center justify-center bg-blue-purple-700 text-white md:size-16">
+              <Nfc className="size-7 md:size-12" strokeWidth={2.5} />
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-[14px] font-bold leading-none md:text-[18px]">
+                NFCカードの使い方ガイド
+              </h3>
+              <p className="text-[12px] leading-none md:text-[16px]">
+                NFC Card Guide
               </p>
             </div>
             <ArrowRight
