@@ -11,6 +11,16 @@ export const NewsSection = () => {
     <section id="news" className="w-full bg-blue-light-100">
       <div className="bg-white md:rounded-2xl mx-auto max-w-[940px] p-4 sm:p-6">
         <div className="grid gap-2 sm:grid-cols-[max-content_1fr]">
+          <div>2026.05.23. </div>
+          <div>
+            <Link
+              href="/nfc-usage-guide"
+              className="text-link-light underline underline-offset-3 hover:no-underline"
+            >
+              NFCカードについて
+            </Link>
+            を公開しました
+          </div>
           <div>2026.05.21. </div>
           <div>
             <Link
