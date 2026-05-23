@@ -4,6 +4,10 @@ export type Activity = {
   location?: string;
   time?: string;
   image?: string;
+  link?: {
+    href: string;
+    label: string;
+  };
 };
 
 export const activityList: Activity[] = [
@@ -13,6 +17,10 @@ export const activityList: Activity[] = [
       "NFC機能付きのカードをお配りします。お好きなURLを書き込めるので、SNSや自己紹介ページのリンクを載せて交流にご活用ください。休憩室でもリンクを書き込むことが可能です。",
     location: "休憩ルーム",
     time: "両日 終日",
+    link: {
+      href: "/nfc-usage-guide",
+      label: "NFCカードについて詳しくはこちら",
+    },
   },
   {
     name: "マッサージ",
