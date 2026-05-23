@@ -1,6 +1,6 @@
 "use client";
 
-import { Maximize, Minimize } from "lucide-react";
+import { Bell, Maximize, Minimize } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +20,7 @@ import {
 import { CustomTimeForm } from "./_components/CustomTimeForm";
 import { SessionPicker } from "./_components/SessionPicker";
 import { TimerDisplay } from "./_components/TimerDisplay";
+import { useBell } from "./useBell";
 import {
   FORCED_TERMINATION_MINUTES,
   useTimekeepTimer,
@@ -51,6 +52,7 @@ export default function TimekeepPage() {
   const resetKey = active === null ? undefined : `${active.kind}-${applyToken}`;
 
   const timer = useTimekeepTimer(durationMinutes, resetKey);
+  const playBell = useBell();
 
   const fullscreenRef = useRef<HTMLDivElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -204,40 +206,54 @@ export default function TimekeepPage() {
               isFullscreen={isFullscreen}
             />
 
-            <div className="flex gap-3">
-              <Button
-                type="button"
-                size="lg"
-                className="flex-1"
-                disabled={timer.phase === "ended"}
-                onClick={timer.isRunning ? timer.pause : timer.start}
-              >
-                {startLabel}
-              </Button>
-              <Button
-                type="button"
-                size="lg"
-                variant="outline"
-                className="flex-1"
-                onClick={timer.reset}
-              >
-                リセット
-              </Button>
-              {fullscreenSupported && (
+            <div className="flex flex-col gap-3">
+              <div className="flex gap-3">
+                <Button
+                  type="button"
+                  size="lg"
+                  className="flex-1"
+                  disabled={timer.phase === "ended"}
+                  onClick={timer.isRunning ? timer.pause : timer.start}
+                >
+                  {startLabel}
+                </Button>
                 <Button
                   type="button"
                   size="lg"
                   variant="outline"
-                  onClick={toggleFullscreen}
-                  aria-label={isFullscreen ? "全画面を終了" : "全画面表示"}
+                  className="flex-1"
+                  onClick={timer.reset}
                 >
-                  {isFullscreen ? (
-                    <Minimize className="size-5" />
-                  ) : (
-                    <Maximize className="size-5" />
-                  )}
+                  リセット
                 </Button>
-              )}
+              </div>
+              <div className="flex gap-3">
+                <Button
+                  type="button"
+                  size="lg"
+                  variant="outline"
+                  className="flex-1 gap-2"
+                  onClick={playBell}
+                >
+                  <Bell className="size-5" />
+                  ベルを鳴らす
+                </Button>
+                {fullscreenSupported && (
+                  <Button
+                    type="button"
+                    size="lg"
+                    variant="outline"
+                    onClick={toggleFullscreen}
+                    aria-label={isFullscreen ? "全画面を終了" : "全画面表示"}
+                  >
+                    {isFullscreen ? (
+                      <Minimize className="size-5" />
+                    ) : (
+                      <Maximize className="size-5" />
+                    )}
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         ) : (
