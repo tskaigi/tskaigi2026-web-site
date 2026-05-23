@@ -19,9 +19,9 @@ export type SessionDetail = TimeSlot &
 function resolveSession(id: string): SessionSummary {
   const master = getSessionMasterBySessionId(id);
   if (master) {
-    const { title, overview, speaker } = master;
+    const { title, overview, slidesLink, speaker } = master;
     const { userIcon: _, ...rest } = speaker;
-    return { id, title, overview, speaker: rest };
+    return { id, title, overview, slidesLink, speaker: rest };
   }
   return { id, title: "", speaker: { name: "" } };
 }

@@ -30,4 +30,5 @@ export type MasterEntry = {
   speaker: Speaker;
   id?: string;
   ogpTitle?: string;
+  slidesLink?: string;
 };

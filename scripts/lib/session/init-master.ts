@@ -17,17 +17,16 @@ function main() {
     fs.readFileSync(SPEAKERS_JSON, "utf-8"),
   );
 
-  const renamed = data.map(
-    ({ id, slidesLink: _, speaker, title, overview }) => ({
-      speakerId: id,
-      title,
-      overview,
-      speaker: {
-        ...speaker,
-        profileImageUrl: `/speakers/${id}.png`,
-      },
-    }),
-  );
+  const renamed = data.map(({ id, slidesLink, speaker, title, overview }) => ({
+    speakerId: id,
+    title,
+    overview,
+    slidesLink,
+    speaker: {
+      ...speaker,
+      profileImageUrl: `/speakers/${id}.png`,
+    },
+  }));
 
   for (const extraJson of [KEYNOTE_JSON, HANDSON_JSON, OST_JSON]) {
     if (fs.existsSync(extraJson)) {
@@ -38,6 +37,7 @@ function main() {
         speakerId: extra.id,
         title: extra.title,
         overview: extra.overview,
+        slidesLink: extra.slidesLink,
         speaker: {
           ...extra.speaker,
           profileImageUrl: extra.speaker.profileImageUrl,
