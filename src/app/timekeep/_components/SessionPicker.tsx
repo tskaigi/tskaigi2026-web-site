@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { TALK_TYPE, TRACK_KEYS } from "@/constants/timetable";
 import { cn } from "@/lib/utils";
 import type { EventDate, TrackKey } from "@/types/timetable-api";
@@ -20,6 +20,17 @@ const DAYS: { value: EventDate; label: string }[] = [
 
 type TrackFilter = TrackKey | "ALL";
 
+const TRACK_FILTER_STORAGE_KEY = "tskaigi:timekeep-track-filter";
+
+function readStoredTrackFilter(): TrackFilter {
+  if (typeof window === "undefined") return "ALL";
+  const raw = window.localStorage.getItem(TRACK_FILTER_STORAGE_KEY);
+  if (raw === "ALL" || (TRACK_KEYS as string[]).includes(raw ?? "")) {
+    return raw as TrackFilter;
+  }
+  return "ALL";
+}
+
 const chipClass = (active: boolean) =>
   cn(
     "rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
@@ -30,10 +41,17 @@ const chipClass = (active: boolean) =>
 
 export function SessionPicker({ sessions, selectedId, onSelect }: Props) {
   const [activeDay, setActiveDay] = useState<EventDate>("Day1");
-  const [trackFilter, setTrackFilter] = useState<TrackFilter>("ALL");
+  const [trackFilter, setTrackFilter] = useState<TrackFilter>(
+    readStoredTrackFilter,
+  );
   const [collapsedTracks, setCollapsedTracks] = useState<Set<TrackKey>>(
     () => new Set(),
   );
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.localStorage.setItem(TRACK_FILTER_STORAGE_KEY, trackFilter);
+  }, [trackFilter]);
 
   const daySessions = sessions.filter((s) => s.day === activeDay);
 
