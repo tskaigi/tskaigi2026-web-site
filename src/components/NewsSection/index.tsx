@@ -17,7 +17,7 @@ export const NewsSection = () => {
               href="/nfc-usage-guide"
               className="text-link-light underline underline-offset-3 hover:no-underline"
             >
-              NFCカードの使い方ガイド
+              NFCカードについて
             </Link>
             を公開しました
           </div>

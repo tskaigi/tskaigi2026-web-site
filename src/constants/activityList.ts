@@ -19,7 +19,7 @@ export const activityList: Activity[] = [
     time: "両日 終日",
     link: {
       href: "/nfc-usage-guide",
-      label: "NFCカードの使い方ガイドはこちら",
+      label: "NFCカードについて詳しくはこちら",
     },
   },
   {

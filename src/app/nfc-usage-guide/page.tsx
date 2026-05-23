@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "NFCカードの使い方ガイド",
+  title: "NFCカードについて",
   twitter: {
-    title: "NFCカードの使い方ガイド",
+    title: "NFCカードについて",
     images: ["/ogp.png"],
   },
   openGraph: {
-    title: "NFCカードの使い方ガイド",
+    title: "NFCカードについて",
     images: ["/ogp.png"],
   },
 };
@@ -17,7 +17,7 @@ export default function NfcUsageGuidePage() {
   return (
     <main className="bg-blue-light-100 flex-1 pt-16 py-10 md:px-8">
       <h1 className="text-2xl font-bold text-blue-light-500 text-center py-10 md:py-16 md:text-3xl lg:text-4xl">
-        NFCカードの使い方ガイド
+        NFCカードについて
       </h1>
 
       <div className="bg-white p-6 flex flex-col gap-10 max-w-screen-xl mx-auto md:rounded-xl lg:p-10">
@@ -35,7 +35,11 @@ export default function NfcUsageGuidePage() {
                 カードにあらかじめURLや連絡先などの情報を書き込んでおくと、相手のスマートフォンをかざすだけでその情報を共有できます。アプリのインストールや会員登録は不要で、ほとんどのスマートフォンで利用できます。
               </p>
               <p>
-                TSKaigi 2026では、参加者のみなさまにオリジナルのNFCカードをお配りしています。ぜひ当日の交流にお役立てください。
+                TSKaigi 2026では、参加者のみなさまにオリジナルのNFCカードをお配りしています。
+                <span className="font-bold">
+                  受付時にお渡ししているノベルティトートバックの中
+                </span>
+                に入っていますので、ぜひ当日の交流にお役立てください。
               </p>
             </div>
             <div className="w-full md:max-w-sm">
@@ -82,109 +86,25 @@ export default function NfcUsageGuidePage() {
 
         <section className="flex flex-col gap-6">
           <h2 className="text-xl font-bold text-blue-light-500 md:text-2xl">
-            使い方ガイド（XのIDを共有する）
+            使い方がわからない場合
           </h2>
-          <p>
-            ここでは
-            <span className="font-bold">「NFC Tools」</span>
-            というアプリを使って、自分のXのプロフィールページをNFCカードに書き込む方法をご紹介します。
-          </p>
-
-          <div className="flex flex-col gap-4">
-            <h3 className="text-lg font-bold md:text-xl">
-              1. 「NFC Tools」アプリをインストールする
-            </h3>
-            <p>
-              お使いのスマートフォンに、無料アプリ
-              <span className="font-bold">「NFC Tools」</span>
-              をインストールしてください。
-            </p>
-            <ul className="flex flex-col gap-2 list-disc list-outside pl-5">
-              <li>
-                <a
-                  href="https://apps.apple.com/jp/app/nfc-tools/id1252962749"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-link-light underline"
-                >
-                  App Store（iPhone向け）
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://play.google.com/store/apps/details?id=com.wakdev.wdnfc"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-link-light underline"
-                >
-                  Google Play（Android向け）
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <h3 className="text-lg font-bold md:text-xl">
-              2. 「書く」をタップする
-            </h3>
-            <p>
-              アプリを起動し、メニュー画面から
-              <span className="font-bold">「書く」</span>を選択します。
-            </p>
-            <div className="w-full max-w-xs">
+          <div className="flex flex-col gap-4 md:flex-row md:items-start md:gap-8">
+            <div className="flex flex-col gap-4 flex-1">
+              <p>
+                NFCカードへの情報の書き込み方や、相手のカードの読み取り方がわからない場合は、
+                <span className="font-bold">休憩ルーム</span>
+                に使い方をご案内するブースを設けています。お気軽にお立ち寄りください！
+              </p>
+            </div>
+            <div className="w-full md:max-w-sm">
               <Image
-                src="/nfc-usage-guide/description1.jpg"
-                alt="NFC Toolsのメニュー画面。「書く」を選択する。"
-                width={490}
-                height={1000}
-                className="w-full h-auto rounded-lg border border-black-100"
+                src="/nfc-usage-guide/guide-booth.jpg"
+                alt="休憩ルームに設置されたNFCカードの書き込みブース。ホワイトボードに使い方が掲示されている。"
+                width={600}
+                height={450}
+                className="w-full h-auto rounded-lg"
               />
             </div>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <h3 className="text-lg font-bold md:text-xl">
-              3. 「レコードを追加」からXのURLを登録する
-            </h3>
-            <p>
-              <span className="font-bold">「レコードを追加」</span>
-              をタップして、レコードの種類から
-              <span className="font-bold">「URL / URI」</span>
-              を選択してください。表示された入力欄に、ご自身のXのプロフィールURL（例：
-              <span className="font-mono">https://x.com/yourname</span>
-              ）を入力してOKを押します。
-            </p>
-            <div className="w-full max-w-xl">
-              <Image
-                src="/nfc-usage-guide/description2.jpg"
-                alt="NFC Toolsの「書く」画面。「レコードを追加」「書き込み」のボタンが並んでいる。"
-                width={1179}
-                height={720}
-                className="w-full h-auto rounded-lg border border-black-100"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <h3 className="text-lg font-bold md:text-xl">
-              4. 「書き込み」でカードに書き込む
-            </h3>
-            <p>
-              <span className="font-bold">「書き込み」</span>
-              をタップし、スマートフォンの背面をNFCカードに近づけてください。「書き込みに成功しました」と表示されれば完了です。
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <h3 className="text-lg font-bold md:text-xl">
-              5. 相手と交換してみる
-            </h3>
-            <p>
-              準備が整ったら、相手のスマートフォンにカードをかざしてみてください。画面上にXのプロフィールページへのリンクが表示されるので、そのままフォローすればOKです。
-            </p>
-            <p>
-              ※ 同じ手順で、GitHubのプロフィールURLや技術ブログのURLを書き込むこともできます。用途に合わせてご活用ください。
-            </p>
           </div>
         </section>
       </div>
