@@ -36,9 +36,6 @@ function formatCustomDuration(totalMinutes: number): string {
   return seconds === 0 ? `${minutes}分` : `${minutes}分${seconds}秒`;
 }
 
-// 持ち時間の残りがこの秒数を下回ったら予鈴（1分前）を鳴らす。
-const WARNING_BELL_REMAINING_SECONDS = 60;
-
 export default function TimekeepPage() {
   const sessions = useMemo(() => getTimekeepSessions(), []);
   const [active, setActive] = useState<ActiveTimer | null>(null);
@@ -73,22 +70,6 @@ export default function TimekeepPage() {
       prevPhaseRef.current = timer.phase;
     }
   }, [timer.phase, playBell, playBellDouble]);
-
-  // 持ち時間の残り1分をまたいだ瞬間に予鈴を1回鳴らす。
-  const prevRemainingRef = useRef(timer.remainingSeconds);
-  useEffect(() => {
-    const prev = prevRemainingRef.current;
-    const current = timer.remainingSeconds;
-    if (
-      timer.phase === "session" &&
-      timer.isRunning &&
-      prev > WARNING_BELL_REMAINING_SECONDS &&
-      current <= WARNING_BELL_REMAINING_SECONDS
-    ) {
-      playBell();
-    }
-    prevRemainingRef.current = current;
-  }, [timer.remainingSeconds, timer.phase, timer.isRunning, playBell]);
 
   const fullscreenRef = useRef<HTMLDivElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
