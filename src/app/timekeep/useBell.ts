@@ -22,7 +22,17 @@ const ATTACK_SECONDS = 0.002;
  * Web Audio API で合成したベル音を鳴らすフック。音源ファイルを持たないので
  * ライセンス不要・オフラインで動作する。AudioContext は再利用する。
  */
-export function useBell() {
+export type Bell = {
+  /** ベルを鳴らす。 */
+  play: () => void;
+  /**
+   * AudioContext を生成・再開しておく。ブラウザの自動再生制限を避けるため、
+   * 0秒での自動再生に備えてユーザー操作（スタート押下など）の中で呼ぶ。
+   */
+  unlock: () => void;
+};
+
+export function useBell(): Bell {
   const ctxRef = useRef<AudioContext | null>(null);
 
   useEffect(() => {
@@ -32,16 +42,20 @@ export function useBell() {
     };
   }, []);
 
-  return useCallback(() => {
-    if (typeof window === "undefined" || !window.AudioContext) return;
-
+  const ensureCtx = useCallback(() => {
+    if (typeof window === "undefined" || !window.AudioContext) return null;
     let ctx = ctxRef.current;
     if (!ctx) {
       ctx = new AudioContext();
       ctxRef.current = ctx;
     }
-    // ユーザー操作で呼ばれる想定。サスペンド中なら再開する。
     if (ctx.state === "suspended") void ctx.resume();
+    return ctx;
+  }, []);
+
+  const play = useCallback(() => {
+    const ctx = ensureCtx();
+    if (!ctx) return;
 
     const now = ctx.currentTime;
     const master = ctx.createGain();
@@ -61,5 +75,11 @@ export function useBell() {
       osc.start(now);
       osc.stop(now + partial.decay + 0.05);
     }
-  }, []);
+  }, [ensureCtx]);
+
+  const unlock = useCallback(() => {
+    ensureCtx();
+  }, [ensureCtx]);
+
+  return { play, unlock };
 }

@@ -52,7 +52,18 @@ export default function TimekeepPage() {
   const resetKey = active === null ? undefined : `${active.kind}-${applyToken}`;
 
   const timer = useTimekeepTimer(durationMinutes, resetKey);
-  const playBell = useBell();
+  const { play: playBell, unlock: unlockBell } = useBell();
+
+  // 0秒到達でベルを鳴らす。セッション終了(→強制終了フェーズ)と強制終了の両方。
+  const prevPhaseRef = useRef(timer.phase);
+  useEffect(() => {
+    if (prevPhaseRef.current !== timer.phase) {
+      if (timer.phase === "forced" || timer.phase === "ended") {
+        playBell();
+      }
+      prevPhaseRef.current = timer.phase;
+    }
+  }, [timer.phase, playBell]);
 
   const fullscreenRef = useRef<HTMLDivElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -213,7 +224,14 @@ export default function TimekeepPage() {
                   size="lg"
                   className="flex-1"
                   disabled={timer.phase === "ended"}
-                  onClick={timer.isRunning ? timer.pause : timer.start}
+                  onClick={
+                    timer.isRunning
+                      ? timer.pause
+                      : () => {
+                          unlockBell();
+                          timer.start();
+                        }
+                  }
                 >
                   {startLabel}
                 </Button>
