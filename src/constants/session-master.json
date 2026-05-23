@@ -1259,7 +1259,7 @@
     "title": "inferと仲良くなる10分間",
     "ogpTitle": "inferと仲良くなる10分間",
     "overview": "私が最初にinferと出会ったのは、type-challengesの初級に取り掛かったときです。\r\ntype-challengesではこの他にも様々な型を覚えることができますが、今回はinferに絞って紹介します。\r\n\r\n普段フロントエンドエンジニアをしていると、あまりinferを使うことはそう多くないのではないでしょうか。自分もその一人です。\r\n\r\nこのトークでは、infer を「型のパターンマッチにおける変数束縛」という1つのメンタルモデルで捉え直し、基本的な仕組みからTipsを紹介します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/ryokatsuse/infertozhong-liang-kunaru10fen-jian",
     "speaker": {
       "name": "infixer",
       "userIcon": "x",
@@ -1479,7 +1479,7 @@
     "title": "childrenの順序まで型で縛る ── Branded Typesで実践するJSXの構造安全",
     "ogpTitle": "childrenの順序まで型で縛る\n─ Branded Typesで実践するJSXの構造安全",
     "overview": "JSXのchildrenに何が来るべきか、順序はどうあるべきか、ReactNodeでは全部素通りで、型が構造を守ってくれる世界になっていません。このセッションでは、Branded Typeでコンポーネントのreturn型に「slot名」を付け、childrenをタプル型で制約することで、構造の間違いをコンパイル時に弾くアプローチを紹介します。asアサーションをライブラリ内部に閉じ込めて利用側は何も気にしなくていい設計や、JSX記法だとブランドが消える問題とそのworkaroundにも触れます。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/kerukukku1/childrennoshun-xu-matexing-tefu-ru-branded-typesteshi-jian-surujsxnogou-zao-an-quan",
     "speaker": {
       "name": "Mahito",
       "userIcon": "x",
