@@ -83,6 +83,14 @@ export default function TimekeepPage() {
     setPickerOpen(false);
   }, []);
 
+  const openPicker = useCallback(() => {
+    // 全画面中はドロワーが見えないため、全画面を解除してから開く。
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    }
+    setPickerOpen(true);
+  }, []);
+
   const initialSeconds = Math.round(durationMinutes * 60);
   const startLabel = timer.isRunning
     ? "一時停止"
@@ -142,7 +150,12 @@ export default function TimekeepPage() {
             )}
           >
             {active.kind === "session" ? (
-              <div className="rounded-xl border border-blue-light-300 bg-white p-4">
+              <button
+                type="button"
+                onClick={openPicker}
+                aria-label="セッション・時間を変更する"
+                className="w-full cursor-pointer rounded-xl border border-blue-light-300 bg-white p-4 text-left transition-colors hover:border-blue-light-400"
+              >
                 <div className="flex items-center gap-2 text-xs text-black-400">
                   <span
                     className="rounded-full px-2 py-0.5 font-medium text-white"
@@ -167,16 +180,21 @@ export default function TimekeepPage() {
                   {active.session.trackName}
                   {active.session.speaker && ` ・ ${active.session.speaker}`}
                 </p>
-              </div>
+              </button>
             ) : (
-              <div className="flex items-center justify-between rounded-xl border border-blue-light-300 bg-white p-4">
+              <button
+                type="button"
+                onClick={openPicker}
+                aria-label="セッション・時間を変更する"
+                className="flex w-full cursor-pointer items-center justify-between rounded-xl border border-blue-light-300 bg-white p-4 text-left transition-colors hover:border-blue-light-400"
+              >
                 <p className="text-base font-bold text-black-600">
                   カスタムタイマー
                 </p>
                 <span className="font-semibold text-blue-light-600">
                   持ち時間 {formatCustomDuration(active.minutes)}
                 </span>
-              </div>
+              </button>
             )}
 
             <TimerDisplay
