@@ -9,7 +9,6 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import { TALK_TYPE } from "@/constants/timetable";
 import { cn } from "@/lib/utils";
@@ -131,13 +130,6 @@ export default function TimekeepPage() {
         </header>
 
         <Sheet open={pickerOpen} onOpenChange={setPickerOpen}>
-          <SheetTrigger asChild>
-            <Button type="button" variant="outline" className="w-full">
-              {active
-                ? "セッション・時間を変更する"
-                : "セッション・時間を設定する"}
-            </Button>
-          </SheetTrigger>
           <SheetContent
             side="right"
             className="flex w-full max-w-md flex-col gap-4 overflow-y-auto sm:max-w-md"
@@ -282,9 +274,13 @@ export default function TimekeepPage() {
             </div>
           </div>
         ) : (
-          <p className="rounded-xl border border-dashed border-blue-light-300 bg-white p-6 text-center text-sm text-black-400">
+          <button
+            type="button"
+            onClick={openPicker}
+            className="w-full cursor-pointer rounded-xl border border-dashed border-blue-light-300 bg-white p-6 text-center text-sm text-black-400 transition-colors hover:border-blue-light-400 hover:text-blue-light-600"
+          >
             セッションを選ぶか時間を設定するとタイマーが表示されます。
-          </p>
+          </button>
         )}
       </div>
     </main>
