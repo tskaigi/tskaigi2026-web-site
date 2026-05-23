@@ -663,7 +663,7 @@
     "id": "kanato",
     "title": "自動レビューエンジンの実装と運用 ~レビューのない世界へ~",
     "overview": "AIエージェントが世の中に広く普及し、実装が爆速になる一方、PRレビューがボトルネックになりがちという悩みを抱えている人は多いと思います。そのボトルネックを解消する(レビュー自体を無くす)ために、Biome/tsc・gitleaks・osv-scanner・trivy・ast-grep等を1つの品質ゲートに束ね、さらにTypeScript Compiler APIで型・シンボル・参照まで解決して、「フォーマット/静的解析/型/アーキテクチャ/セキュリティ/テスト/スキーマ互換」を機械的に判断するツールを実装し、自分の開発に使ってみました。本発表では、AI実装→自動解析→AIレビューを回す開発サイクル設計で開発を数ヶ月試した所感について話します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/kurukuru1999/zi-dong-rebiyuenzinnoshi-zhuang-toyun-yong-rebiyunonaishi-jie-he",
     "speaker": {
       "name": "Kanato",
       "userIcon": "x",
@@ -1183,7 +1183,7 @@
     "id": "yoshikouki",
     "title": "AIエージェントと協働するCLI開発 — BunとOpenClawで学んだこと",
     "overview": "AIエージェントが日常的に使われる時代に、エージェントが操作しやすいCLIツールの設計はどうあるべきか。本トークでは、BunとTypeScriptを用いたCLIツールの開発・検証を通じて見えてきた「エージェント親和性の高いCLI設計」の知見を共有する。\r\n\r\nBunのネイティブ実行速度・TypeScript直実行・標準APIの充実により、CLIのプロトタイピングが劇的に速くなった。一方でAIエージェントがCLIを操作する場合、出力の機械可読性・エラーハンドリングの明示性・冪等性など、人間向けとは異なる設計上の考慮が必要になる。\r\n\r\n実際にOpenClawのエージェントハーネスをBunで量産する中で得た具体的な知見と、TypeScript/Bunエコシステムがこの文脈でどう活きるかを10分でまとめる。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/yoshikouki/aiezientotoxie-dong-suruclikai-fa-buntoopenclawdexue-ndakoto",
     "speaker": {
       "name": "yoshikouki",
       "userIcon": "x",
@@ -1423,7 +1423,7 @@
     "id": "bicstone",
     "title": "プロパティの順序で型推論が壊れる!? TS6.0 の修正から Context-Sensitivity の仕組みを追う",
     "overview": "TypeScript 6.0 に入った1つの PR を起点に、TypeScript コンパイラの型推論の内部に踏み込むセッションです。\r\n\r\nオブジェクトリテラル内でメソッド構文を使うと、プロパティの記述順序を入れ替えただけでコールバック引数の型が number から unknown に変わる挙動がありました。アロー関数なら順序に関係なく推論が通るのに、メソッド構文にした途端に型推論が壊れていました。\r\n\r\nこの挙動は、型推論における context-sensitive の判定ロジックに起因します。メソッド構文は暗黙の this パラメータを持つため context-sensitive と判定され、推論の処理順が変わります。アロー関数はこれを持たないため、この影響を受けません。\r\n\r\nこの挙動は PR #62243 によって修正され、TS 6.0 でリリースされました。this を実際に使用していない関数を context-sensitive と見なさないよう変更されています。\r\n\r\n本トークではこの PR の差分 (utilities.ts, binder.ts, checker.ts) を追い、変更の意図を読み解きます。この事例を通じて context-sensitivity という概念と、TypeScript の内部に踏み込むきっかけを持ち帰っていただくことを目指します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/bicstone/ts6-context-sensitivity",
     "speaker": {
       "name": "おおいし (bicstone)",
       "userIcon": "x",
