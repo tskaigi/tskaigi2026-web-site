@@ -225,7 +225,7 @@
     "title": "OSSのコードベースにneverthrowを漸進的に導入して、AIにも人間にも優しいエラーハンドリングを実現する",
     "ogpTitle": "OSSのコードベースにneverthrowを漸進的に導入して、AIにも人間にも優しいエラーハンドリングを実現する",
     "overview": "OSSプロダクト「Liam」で実際にtry/catchからneverthrowへ移行した過程を、コードベースを公開しながら共有します。\r\n\r\nまず、なぜneverthrowを導入したのかについて。Liamでは開発にAIコード生成を積極的に活用しています。しかしAIが生成するコードはtry/catchの配置が不安定で、エラーハンドリングの設計の整備にコストが発生していました。関数シグネチャにエラー型が表れるneverthrowを導入し、さらに throw new Error を禁止するカスタムESLintルールを設けることで、AIが生成するコードにもエラー処理を強制できるようになりました。\r\n\r\n漸進的な移行戦略について、過程で得られた実践的なtipsも紹介します。\r\n\r\n- エラー型をErrorに統一した薄いラッパーパッケージの設計\r\n- .andThen() チェーンと isErr() による early returnの実務的な制約の中での使い分け\r\n\r\nLiamはOSSのため、実際に使用されているコードを公開しながら説明させていただきます。本トークが、既存プロジェクトへの導入を検討する方の判断材料になれば幸いです。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/noritakaikeda/ossnokodobesunineverthrowwojian-jin-de-ni-dao-ru-site-ainimoren-jian-nimoyou-sii-erahandoringuwoshi-xian-suru",
     "speaker": {
       "name": "IkedaNoritaka",
       "userIcon": "x",
@@ -291,7 +291,7 @@
     "title": "型の深宇宙へ飛び込め ─ tscを遅くする記述パターンの全解剖 ─",
     "ogpTitle": "型の深宇宙へ飛び込め\n─ tscを遅くする記述パターンの全解剖 ─",
     "overview": "TypeScriptプロジェクトが大きくなるにつれ、型チェックに時間がかかるようになった経験はないでしょうか。その重さの正体は、型の深宇宙に潜んでいます。\r\n本セッションでは、tscの型チェックを著しく遅くするコードパターンに焦点を当てます。\r\n以下のような型がなぜコンパイラに負荷をかけるのかを、@typescript/analyze-traceなどのツールを用いてボトルネックを可視化しながら解説します。\r\n\r\n- 再帰的な条件型\r\n- 巨大なUnion型\r\n- 複雑なMapped Type\r\n\r\n「なんとなく重い」を「なぜ重いか」に変えることで、意識的に型を設計できるエンジニアを増やすことが目標です。\r\n実際の重いコード例と改善後のコードを比較しながら、明日から使える知識をお届けします。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/kintotechdev/xing-noshen-yu-zhou-hefei-biip-me-tskaigi-2026-lt",
     "speaker": {
       "name": "dowod",
       "userIcon": "x",
@@ -863,7 +863,7 @@
     "title": "AIのために、AIを使った、Effect-TSからの脱却 〜テストを活用した安全なリファクタリングの進め方〜",
     "ogpTitle": "AIのために、AIを使った、Effect-TSからの脱却\n〜テストを活用した安全なリファクタリング\nの進め方〜",
     "overview": "2024年3月からバックエンドの一部でEffect-TSを導入して運用してきました。Effect-TSの思想は非常に魅力的でありつつも、AIが活躍する現代において「チームでの習熟度を上げることが難しく、AIの成果物をチームで評価することが難しいこと」に課題を感じ、2026年初にEffect-TSから脱却することを決断しました。\r\n\r\nEffect-TSというエコシステムの特性上、影響範囲は非常に広く脱却するには多くの修正が必要でしたが、書籍「レガシーコード改善ガイド」にも記載されているように、まず既存仕様のテストを実装してからリファクタリングする方針をとること、UseCaseやRepository、Domainレイヤごとの戦略や実行順順序をコントロールすること、で安全にAIエージェントを使ってリファクタリングを実施、1つも問題を発生させることなくリリースを完遂させました。\r\n\r\nEffect-TS導入当初から思想は魅力的に感じつつもチームにフィットしない懸念があったため、後から排除することも一定考慮して導入を進めてきました。Effect-TSの良かったことと辛かったこと、アーキテクチャ視点も含めてどのようにEffect-TSを導入したか、そしてどのようにAIを活用して脱却したか、Effect-TSを具体的な例にしつつ、他のリファクタリングにも適用可能な進め方を発表します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/bitkey/moving-away-from-effect-ts-by-ai-for-ai",
     "speaker": {
       "name": "佐藤 拓人",
       "userIcon": "x",
@@ -1501,7 +1501,7 @@
     "title": "スプレッド構文によるブランド流出問題を乗り越えて、オブジェクト型に対する Branded Types を使い倒す",
     "ogpTitle": "スプレッド構文による\nブランド流出問題を乗り越えて\nオブジェクト型に対するBranded Typesを使い倒す",
     "overview": "TypeScript において公称型を実現するために Branded Types というものがしばしば使われます。異なるエンティティの ID や異なる単位を持つ量の区別といった代表的なユースケースからさらに一歩踏み込んで、オブジェクト型を含む一般的な型についてもブランドを付与して制約を表現することは有益に思えます。ただし、そこにはスプレッド構文によるブランドの流出という罠が潜んでいます。\r\n\r\n本発表では、declare class との交差型によりこのブランド流出問題を解決する方法を提案します。ランタイム性能やシリアライゼーションに懸念のある class を直接取り回すことなく、複雑な型に対しても安全に公称型を実現することが可能になります。",
-    "slidesLink": "",
+    "slidesLink": "https://www.docswell.com/s/tony998244353/KMQVLG-2026-05-23-123609",
     "speaker": {
       "name": "tony",
       "userIcon": "x",
