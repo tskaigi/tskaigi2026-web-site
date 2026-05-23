@@ -238,6 +238,7 @@ function DrawerContent({ talk }: { talk: TalkWithMinutes }) {
         <TrackHashtagActions
           track={TRACK[talk.track]}
           variant="compact"
+          talkUrl={`https://2026.tskaigi.org/talks/${talk.id}`}
           className="mt-3"
         />
       </div>
