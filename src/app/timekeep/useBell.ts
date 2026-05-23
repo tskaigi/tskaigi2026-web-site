@@ -2,19 +2,21 @@
 
 import { useCallback, useEffect, useRef } from "react";
 
-const FUNDAMENTAL_HZ = 880;
+// 呼び出し用の卓上チンベルをイメージした明るい金属音。基音は高め。
+const FUNDAMENTAL_HZ = 1320;
 
-// ベルらしい非整数次倍音の重ね合わせ。{ 周波数比, 音量, 減衰秒数 }。
+// 金属棒（グロッケン）系のモード比。明るく金属的な「チンッ」になる。
+// { 周波数比, 音量, 減衰秒数 }。高次ほど速く減衰させて打撃感を出す。
 const PARTIALS = [
-  { ratio: 1, gain: 1.0, decay: 2.4 },
-  { ratio: 2.0, gain: 0.5, decay: 1.8 },
-  { ratio: 2.4, gain: 0.35, decay: 1.4 },
-  { ratio: 3.0, gain: 0.25, decay: 1.2 },
-  { ratio: 4.5, gain: 0.15, decay: 0.8 },
+  { ratio: 1, gain: 1.0, decay: 1.6 },
+  { ratio: 2.76, gain: 0.6, decay: 1.0 },
+  { ratio: 5.4, gain: 0.4, decay: 0.6 },
+  { ratio: 8.93, gain: 0.25, decay: 0.35 },
+  { ratio: 13.34, gain: 0.12, decay: 0.15 },
 ];
 
-const MASTER_GAIN = 0.45;
-const ATTACK_SECONDS = 0.005;
+const MASTER_GAIN = 0.4;
+const ATTACK_SECONDS = 0.002;
 
 /**
  * Web Audio API で合成したベル音を鳴らすフック。音源ファイルを持たないので
