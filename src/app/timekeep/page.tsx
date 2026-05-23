@@ -57,19 +57,16 @@ export default function TimekeepPage() {
     unlock: unlockBell,
   } = useBell();
 
-  // 0秒到達でベルを鳴らす。セッション終了(→強制終了フェーズ)は1回、
-  // 強制終了は短く2回（チンチン）。
+  // 強制終了に到達したらベルを2回鳴らす（チンチン）。
   const prevPhaseRef = useRef(timer.phase);
   useEffect(() => {
     if (prevPhaseRef.current !== timer.phase) {
-      if (timer.phase === "forced") {
-        playBell();
-      } else if (timer.phase === "ended") {
+      if (timer.phase === "ended") {
         playBellDouble();
       }
       prevPhaseRef.current = timer.phase;
     }
-  }, [timer.phase, playBell, playBellDouble]);
+  }, [timer.phase, playBellDouble]);
 
   const fullscreenRef = useRef<HTMLDivElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
