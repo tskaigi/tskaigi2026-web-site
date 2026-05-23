@@ -14,6 +14,7 @@ import { TrackHashtagActions } from "@/components/talks/TrackHashtagActions";
 import { TALK_TYPE } from "@/constants/timetable";
 import type { SessionDetail } from "@/utils/getSession";
 import { myTimetable } from "@/utils/myTimetable";
+import { SlidesSection } from "./SlidesSection";
 
 const components: ComponentProps<typeof Markdown>["components"] = {
   h1: ({ node, ...props }) => (
@@ -128,19 +129,7 @@ export function TalkContent({
         </div>
 
         {slidesLink && (
-          <div className="px-6 md:px-8 lg:px-10">
-            <h2 className="text-xl font-bold text-blue-light-500 border-b border-blue-light-500 pb-0.5 w-fit pr-2">
-              登壇資料
-            </h2>
-            <Link
-              href={slidesLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 inline-flex items-center text-link-light hover:underline break-all"
-            >
-              {slidesLink}
-            </Link>
-          </div>
+          <SlidesSection slidesLink={slidesLink} startTime={startTime} />
         )}
 
         <div className="mt-4 px-6 md:px-8 lg:px-10">
