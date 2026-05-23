@@ -27,7 +27,7 @@
     "title": "tscからtsgoへ ── DenoのTypeScript基盤はどう変わったか",
     "ogpTitle": "tscからtsgoへ\n─ DenoのTypeScript基盤はどう変わったか",
     "overview": "2025年3月にMicrosoftが発表したTypeScriptコンパイラのGo移植「tsgo」。Rust製のJavaScript/TypeScriptランタイムであるDenoは、このGo移行にどのように対応したのでしょうか？\r\n本セッションでは、まずDenoがtsgo以前にtscとどのように連携してきたのかを説明します。その後、tsgoに対応するために初期に検討されたcgoによるインプロセス統合案から、最終的に採用されたstdio経由でのプロセス間通信方式への変遷をまとめます。他のRust製ツールが採ったアプローチとも比較しながら、Denoのアーキテクチャ判断について立体的に深掘っていきます。",
-    "slidesLink": "",
+    "slidesLink": "https://www.docswell.com/s/magurotuna/59NRVP-tskaigi-2026",
     "speaker": {
       "name": "maguro",
       "userIcon": "x",
@@ -49,7 +49,7 @@
     "title": "「関数型プログラミング」を分解する.ts",
     "ogpTitle": "「関数型プログラミング」を分解する.ts",
     "overview": "関数型プログラミングはさまざまなプログラミング言語などに影響を与えてきました。TypeScriptにおいても代数的データ型や純粋性などといった概念が日常的に使われていますし、async/awaitのような機能、Node.jsのfs.readFileといったAPIにも関数型でよく見かける概念が隣り合っています。その一方で、関数型プログラミングはHaskell, OCaml, Scalaといったいわゆる関数型言語でこそ真価を発揮するという主張もあります。実際のところ「関数型プログラミング」という言葉にはあらゆる概念が魔法の箱のように詰め込まれており、とてもTypeScriptでは手の届かないようなテクニックも含まれています。この発表では、そんな関数型プログラミングの手法や概念をいくつか取り上げ、それらの利点やモチベーションからわれわれがTypeScriptでの開発に活かせる点を考えていきます。",
-    "slidesLink": "",
+    "slidesLink": "https://tsk-2026-aumy.vercel.app/1",
     "speaker": {
       "name": "おーみー",
       "userIcon": "x",
@@ -401,7 +401,7 @@
     "title": "Stage 3 Decorators でできること / できないこと",
     "ogpTitle": "Stage 3 Decoratorsで\nできること / できないこと",
     "overview": "デコレータの仕様が Stage 3 に達し、さらに TypeScript に実装されてから数年が経ちましたが、実際に利用されているケースはまだ少ないように思います。\r\n\r\nなぜ Stage 3 のデコレータの採用は限定的なのでしょうか？そもそも Stage 3 のデコレータでは何ができるのでしょうか？\r\n\r\nこの発表では TypeScript における Stage 3 のデコレータについて、できることとできないことを整理しつつ、従来からある実験的なデコレータとの比較や、DI や observable などの具体的なユースケースを交えながら、これらの疑問に対する現時点での回答を考えてみます。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/susisu/tskaigi-2026",
     "speaker": {
       "name": "susisu",
       "userIcon": "github",
@@ -555,7 +555,7 @@
     "title": "実践TanStack Start: 新規プロダクトを開発して確立した、サーバーとクライアント境界の設計パターン",
     "ogpTitle": "実践TanStack Start:\n新規プロダクトを開発して確立した\nサーバーとクライアント境界の設計パターン",
     "overview": "新規プロダクトでTanStack Startを導入しました。サーバーとクライアントの境界を担うloaderとServer Functionsをどう設計するかが、アプリケーション全体の品質を左右します。\r\n\r\nloaderにデータ取得を集中させると、コンポーネントがルーティング構造に依存し、データ取得の再利用性と変更容易性が下がります。Server Functionsにロジックを集中させると、バリデーションやDB操作やビジネスロジックが混在し、Fat controllerと同じ問題を抱えます。\r\n\r\n本セッションでは、loaderとServer Functionsそれぞれの責務をどう限定し、どこにデータ取得やビジネスロジックを配置したかを、実際のコードと設計の変遷を通じて共有します。TanStack Startでプロダクション開発をする際の設計指針を提供します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/kaminashi/practical-tanstack-start-server-client-boundary-patterns",
     "speaker": {
       "name": "Shimmy",
       "userIcon": "x",
@@ -819,7 +819,7 @@
     "title": "制約と時代から読み解くTypeScriptコンパイラ設計史",
     "ogpTitle": "制約と時代から読み解く\nTypeScriptコンパイラ設計史",
     "overview": "TypeScript コンパイラの Go 移植の際に話題になったのが「なぜ Rust ではないのか」という問いでした。その障壁の一つとして挙げられたのが、複雑な循環参照と GC 前提の設計です。実際、それをはじめとして TypeScript コンパイラには独特な実装が多くあります。しかし、なぜそもそもそのような設計になっているのかを掘り下げた話はあまり見かけません。\r\n\r\n本セッションでは、開発当時の時代背景や制約、VSCodeとの関係、C# Roslyn など他のコンパイラとの比較、そして関係者の言及を通じて、TypeScript コンパイラの設計判断の背景を読み解きます。その帰結としてGo移植で解消が期待されるポイントにも触れます。\r\n\r\n制約の中でなされた設計判断を知り、「ネイティブでportしたから速くなった」からさらに解像度を上げることを目指します",
-    "slidesLink": "",
+    "slidesLink": "https://www.docswell.com/s/6114195/K8NM12-2026-05-23-103822-tskaigi",
     "speaker": {
       "name": "Yoshiaki Togami",
       "userIcon": "github",
@@ -907,7 +907,7 @@
     "title": "型プラグインシステムの実装に使われるテクニック",
     "ogpTitle": "型プラグインシステムの実装に使われるテクニック",
     "overview": "昨今のTypeScriptライブラリには、ユーザー側でライブラリの型を拡張できる仕組み（型レベルのプラグインシステム）を持つものが増えています。\r\nHonoのMiddlewareでは、Genericsを通じてContextの型を拡張しその型情報を後続のHandlerへと伝播させることで、Middlewareによって追加された値への型安全なアクセスを実現しています。\r\nTanStack Routerでは、生成されたルートの型をグローバルに定義することで、Linkコンポーネントなどで間接的に使用できるようになっています。\r\n\r\n本トークでは、これらのライブラリがGenericsやInterfaceのDeclaration Mergingを使いどのように型プラグインシステムを実装しているのかを解説します。\r\n型プラグインの仕組みを理解したい人や、自作ライブラリに実装したい人に向け、コードの例を交えて説明します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/teamlab/tskaigi-typed-plugin-system",
     "speaker": {
       "name": "elecdeer",
       "userIcon": "x",
@@ -929,7 +929,7 @@
     "title": "Auth.jsからBetter Authへの移行に見る「型とランタイム」の設計思想の変化",
     "ogpTitle": "Auth.jsからBetter Authへの移行に見る\n「型とランタイム」の設計思想の変化",
     "overview": "フロントエンドの認証において広く使用されていたAuth.jsですが、コアメンテナ達がBetter Authの開発へ移行し注目を集めています。本セッションでは、この移行における「型情報の扱い」の設計思想の変化に焦点を当てます。\r\n\r\nAuth.jsではSessionなどの組み込み型の拡張にModule Augmentationを用いましたが、型定義とランタイムの実装が独立し、型のドリフトが生じることがありました。\r\nBetter Authではこれを避け、ユーザーによる手動の型拡張を廃止しました。代わりに、ランタイム挙動を決める設定オブジェクトから型を推論し、typeof auth.$Infer.Sessionのように実インスタンスから直接型を抽出して利用するアプローチへと変化しています。\r\n\r\n両者を比較し、開発チームの中で「型とランタイム」に対する思想がどう変化したのかを覗き見てみたいと思います。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/teamlab/tskaigi-authjs-to-better-auth",
     "speaker": {
       "name": "宇根昇汰",
       "userIcon": "x",
@@ -951,7 +951,7 @@
     "title": "ReactとSvelteのその先、Ripple-TS",
     "ogpTitle": "ReactとSvelteのその先、Ripple-TS",
     "overview": "“the elegant TypeScript UI framework” を謳うRipple-TS (ripple)を知っていますか？\r\n\r\nReactやSvelte 5の開発に携わってきたDominic Gannaway氏が「React、Solid、Svelteの優れたところを統合した」として新たに開発したフレームワークです。\r\n\r\nReactやSolidのようにJSXっぽい？\r\nSvelteのようなDSLっぽい？\r\nはたまたJetpack ComposeやSwift UIのよう？\r\n\r\nReactやSvelteを開発した先にはなにが見えるのでしょうか。\r\nRipple-TSの概要と仕組みを見てみましょう。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/ssssota/beyond-react-and-svelte-ripple-ts",
     "speaker": {
       "name": "ssssota",
       "userIcon": "github",
@@ -995,7 +995,7 @@
     "title": "コーディングエージェントはTypeScriptの型エラーをどう自己修正しているのか",
     "ogpTitle": "コーディングエージェントはTypeScriptの\n型エラーをどう自己修正しているのか",
     "overview": "コーディングエージェントが大きく発達し、コード生成後にLanguage Serverからのエラー診断の情報を読み取り、自動的に修正を試みるようになりました。これによって、AIにどう型エラーの情報を正しく伝えるかが関心事になったといえます。\r\n\r\nこの仕組み自体は言語を問わず動作しますが、TypeScriptの型情報がエージェントの修正精度に深く関わってきます。そのため、型設計の基礎がより重要になりそうです。\r\n\r\n本セッションでは、ClineなどOSSの実装から、エージェントが診断情報をどのように活用しているのかを考察します。あわせて、diagnosticsの情報が省略されたり、打ち切りされる仕組みを踏まえ、私たちが型設計で意識できることを考えます。",
-    "slidesLink": "https://docs.google.com/presentation/d/1l2wbXo5TjVHYPinjhT_wHT3v8gdNgJ515TFXhUQS4mg/edit?usp=sharing",
+    "slidesLink": "https://speakerdeck.com/melonps/koteinkuesientohatypescriptno-xing-erawotouzi-ji-xiu-zheng-siteirunoka",
     "speaker": {
       "name": "筧万里/@Melonps",
       "userIcon": "x",
@@ -1017,7 +1017,7 @@
     "title": "10秒のビルドを1秒へ：tsdown が切り拓く 2026 年の TypeScript ライブラリ開発",
     "ogpTitle": "10秒のビルドを1秒へ：\ntsdown が切り拓く2026年の\nTypeScriptライブラリ開発",
     "overview": "TypeScript ライブラリの開発において、ビルド時間は開発者の生産性に直結します。本セッションでは、Vite の次世代コアとしても注目される Rust 製バンドラ Rolldown と高速なパーサ Oxc を基盤とした、新進気鋭のビルドツール「tsdown」を徹底解説します。\r\n\r\n従来の tsup と比較して圧倒的なパフォーマンスを実現するアーキテクチャの秘密から、d.ts 生成・複数フォーマット出力といった実用的な機能を紹介し、単なるベンチマーク比較に留まらず既存プロジェクトからのスムーズな移行パスや、開発ワークフローをさらに加速させる実践的な設定方法など、2026 年のライブラリ開発における「新たな強力な選択肢」としての tsdown の活用法を提案します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/teamlab/tskaigi-1s-builds-with-tsdown",
     "speaker": {
       "name": "irie",
       "userIcon": "x",
@@ -1237,7 +1237,7 @@
     "title": "enum よ、さようなら",
     "ogpTitle": "enumよ、さようなら",
     "overview": "Node.js 22.18 / 23.6 以降、TypeScript ファイルをフラグなしでそのまま実行できるようになりました。ただしこのモードは型アノテーションを「剥がす」だけで、enum・namespace・パラメータプロパティは動作しません。\r\n\r\nTypeScript 5.8 で追加された --erasableSyntaxOnly はこれをコンパイル時に強制するフラグで、「実行時 JS に痕跡を残すような構文は書かせない」という宣言でもあります。\r\n\r\nこの LT では const enum（tsc がインライン展開するため一見 erasable に見えて、実は type-strip ツールには扱えない）との違いを整理しつつ、as const + satisfies による代替パターンも紹介します。今後の TypeScript プロジェクトでどういう構文設計をとるべきか、一緒に考えてみましょう。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/teamlab/tskaigi-goodbye-enum",
     "speaker": {
       "name": "takuma-ru",
       "userIcon": "x",
@@ -1391,7 +1391,7 @@
     "title": "TypeScriptバックエンドのオブザーバビリティ戦略 — Datadog × NestJSの実践",
     "ogpTitle": "TypeScriptバックエンドのオブザーバビリティ戦略\n— Datadog × NestJSの実践",
     "overview": "NestJS + GraphQL + SQS で構築したTypeScriptバックエンドの本番運用でのオブザーバビリティ戦略を紹介します。構造化ログ基盤（JSON / テキスト切替、コンテキスト自動付与）、APM との統合（trace_id 埋め込みによるログとトレースの紐付け, SQSポーリング処理における span 定義）、ExceptionFilter によるエラーハンドリングと Datadog Error Tracking 連携。TypeScriptバックエンドの「作った後どう監視するか」の運用知見を凝縮してお届けします。TypeScript でバックエンドを運用している方、Datadog をもっと活用したい方に向けた内容です。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/taiseiyamamotoan/tskaigi-2026-typescriptbatukuendonoobuzababiriteizhan-lue-datadog-x-nestjsnoshi-jian",
     "speaker": {
       "name": "山本大星",
       "userIcon": "github",
@@ -1413,7 +1413,7 @@
     "title": "次世代リンターで探る、tsgo 時代における型認識カスタムルールの現実解",
     "ogpTitle": "次世代リンターで探る\ntsgo 時代における型認識カスタムルールの現実解",
     "overview": "TypeScript 7.0（tsgo）は、コンパイラを Go で再実装し、最大 10 倍の高速化を実現する一方で、typescript-eslint の型認識カスタムルールの基盤を根本的に覆すことになります。従来の `getTypeChecker()` 経由で JS/TS から直接型情報を取得する方法は、ネイティブ Go プロセスとして動作する tsgo では使用できません。\r\n\r\n本セッションでは、2026 年 4 月時点で確立された手法が存在しない tsgo の型認識カスタムルールについて、その現実解を探ります。\r\nまず、次世代リンター（Oxlint、Rslint、Biome など）の型認識リントに関するアーキテクチャの違いを明確にし、それぞれで型認識カスタムルールの実現可能性を評価します。そこから、tsgolint（Oxlint の型チェックバックエンド）と Rslint 向けに カスタムルールを Go 言語で実装し、独自ビルドしたリンターバイナリで実際に検出できることを確認した Proof-of-Concept を共有します。\r\nさらに、PoC の結果に基づいた tsgo 時代における型認識リントの持続可能な運用戦略について考察します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/ytakahashii/exploring-type-aware-custom-rules-in-the-tsgo-era-through-the-lens-of-next-generation-linters-09ba0a80-5ff0-4d08-84bf-8a15a2179af3",
     "speaker": {
       "name": "Yuta Takahashi",
       "userIcon": "github",
