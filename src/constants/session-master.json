@@ -335,7 +335,7 @@
     "title": "TypeScriptのclassはなぜこうなったのか — 歴史・落とし穴・そして使いどころを探る",
     "ogpTitle": "TypeScriptのclassはなぜこうなったのか\n— 歴史・落とし穴・そして使いどころを探る",
     "overview": "Java、C#、Goなど他の静的型付け言語のユーザーがTypeScriptのclassに戸惑う理由を、歴史・落とし穴・使いどころの3点から整理します。\r\n\r\n2012年のTypeScript誕生時、classはECMAScriptに存在せず、独自実装が先行しました。ES2015で標準化されて以降、[[Define]] vs [[Set]]論争、useDefineForClassFields、デコレーター標準化など、両仕様統合の歴史的経緯が現在の複雑さを生んでいます。\r\n\r\n本セッションでは、開発者が遭遇する落とし穴を根本原因から体系化します。構造的部分型による異クラス同一視とBranded Typeでの対処、プロトタイプベースOOP由来のthisバインディング問題とアロー関数フィールドのトレードオフ、TypeScriptのprivateが実行時に効かない理由とES #privateとの差、型ガードとしてのinstanceofの限界とDiscriminated Unionによる代替。\r\n\r\nこれらは「構造的部分型」と「実行時型消去」という2特性が他言語の直感に反することに起因します。両者を理解すれば、classを使う場面と避ける場面の判断軸が明確になります。\r\n\r\n最後に、適するケースと避けるケースを整理し、「classをやめよう」ではなく「理解して意識的に選択しよう」と結びます。",
-    "slidesLink": "",
+    "slidesLink": "https://kosui.me/talks/2026/tskaigi",
     "speaker": {
       "name": "kosui",
       "userIcon": "x",
@@ -379,7 +379,7 @@
     "title": "ビジネスモデルから紐解く、AI+型駆動開発",
     "ogpTitle": "ビジネスモデルから紐解くAI+型駆動開発",
     "overview": "ビジネスモデルによって「型の重心」は大きく異なります。\r\n\r\nSaaSのようなUI操作が複雑なプロダクトでは、コンポーネントのProps・状態遷移・権限分岐がアプリケーションの型設計の中心になります。\r\n一方、データプラットフォームやマーケットプレイスでは、外部データのスキーマやドメインモデルこそが型のコアです。\r\n\r\nこのセッションでは、「型の重心」の違いを整理した上で、AIコーディングツールが各パターンでどう活きるか、そしてどこで効かないかを実際の経験を通して、考察します。\r\nAI時代において、型をはじめとした設計の意思決定こそが、開発において人間に残る最も重要な仕事であると仮定し、型駆動開発の実践的な戦略を提案します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/hirokiomote/hisinesumoterukaraniu-jie-ku-ai-plus-xing-qu-dong-kai-fa",
     "speaker": {
       "name": "omote",
       "userIcon": "x",
@@ -423,7 +423,7 @@
     "title": "TypeScriptだけでAIエージェントを作る ― フロント・エージェント・インフラのフルスタック実践",
     "ogpTitle": "TypeScriptだけでAIエージェントを作る\n― フロント・エージェント・インフラの\nフルスタック実践",
     "overview": "2026年、AIエージェント開発はもはや一部の専門家だけのものではなくなりました。しかし、いざ開発を始めようとすると「Pythonじゃないとダメ？」「どのフレームワークを選べばいい？」「作ったエージェントをどうやってデプロイする？」と壁にぶつかる方も多いのではないでしょうか。\r\n\r\n本トークでは、普段使い慣れたTypeScriptだけで、フロントエンド・エージェント・サーバー・インフラのすべてを構築する実践手法を紹介します。Claude Agent SDKによるエージェント構築をメインに、AgentCore SDKによるサーバー層、React（Vite）によるフロントエンド、AWS CDKによるインフラ定義までを一気通貫で解説します。\r\n\r\n実際に動くアプリケーションのデモを交えながら、TypeScriptで統一することで得られる型安全性や開発体験の向上、そして開発中に得たTipsもお伝えします。さらに、Strands Agents SDKやMastraといった他のエージェントフレームワークとの比較にも触れ、技術選定の判断材料を提供します。\r\n\r\nAIエージェント開発の世界はPython中心に見えがちですが、TypeScriptエコシステムも急速に充実してきています。「自分たちの武器で戦える」という感覚を持ち帰っていただけるセッションを目指します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/har1101/typescriptdakedeaiezientowozuo-ru-hurontoezientoinhuranohurusutatukushi-jian",
     "speaker": {
       "name": "福地開",
       "userIcon": "x",
@@ -489,7 +489,7 @@
     "title": "TypeSpecで繋ぐ複数プロダクトの型安全 — スキーマ共有による「型契約」の実践",
     "ogpTitle": "TypeSpecで繋ぐ複数プロダクトの型安全\n— スキーマ共有による「型契約」の実践",
     "overview": "2つのプロダクトをTypeScriptでフルスタック構築する中で、TypeSpecを「型契約」の基盤として運用し、スキーマ管理とサービス連携を自動化した事例を紹介します。\r\n\r\nチーム内の開発では、TypeSpecからバリデーション用のZod、APIクライアント、MSWモックを一貫して自動生成するパイプラインを構築しました。これにより手動の同期作業を完全に排除し、フロントエンドとバックエンドの実装を常に型で一致させています。さらにこの仕組みをチーム間の連携にも広げ、一方のサービスが定義したAPIやWebhookのスキーマをnpmパッケージとして共有する体制を整えました。スキーマをドキュメントではなく物理的な「型」として直接参照し合うことで、サービスを跨ぐインターフェースの変更をコンパイルタイムで確実に検知できます。\r\n\r\n複数チームが関わる開発において、いかに「型」を境界のガードレールとして機能させ、認識のズレを未然に防ぐか。その具体的な構成と運用の知見を共有します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/maroon8021/typespec-dexi-gufu-shu-purodakutonoxing-an-quan",
     "speaker": {
       "name": "mitsui",
       "userIcon": "github",
@@ -973,7 +973,7 @@
     "title": "LLM時代のリファクタリング戦略：AIエージェントによる段階的・安全なTS移行方法",
     "ogpTitle": "LLM時代のリファクタリング戦略：\nAIエージェントによる段階的・安全なTS移行方法",
     "overview": "「既存の巨大なJavaScriptプロジェクトをTypeScriptへ移行する」——これは多くの開発者が直面する課題です。しかし、LLMと自律型AIエージェントの登場により、この課題のハードルは下がりつつあります。\r\n本セッションでは、Reactで構築された大規模なフロントエンドプロジェクトを、AIエージェントを活用して「段階的」かつ「安全」にTypeScript化した実録とその知見を共有します。\r\n単に型を当てるだけでなく、OpenAPIから生成されたクライアントSDKとAIエージェントをいかに連携させ、コンポーネントやロジックに「意味のある型」を浸透させたのか。\r\nその具体的なプロセスを紹介します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/play_inc/llmshi-dai-norihuakutarinkuzhan-lue-aiesientoniyoruduan-jie-de-an-quan-natsyi-xing-fang-fa",
     "speaker": {
       "name": "市川 賢",
       "userIcon": "github",
@@ -1083,7 +1083,7 @@
     "title": "Real World Effect-TS: 堅牢なプロダクトを型で組み上げる",
     "ogpTitle": "Real World Effect-TS：\n堅牢なプロダクトを型で組み上げる",
     "overview": "Effect-TS は、エラーハンドリング・DI・非同期処理を型レベルで統一的に扱う TypeScript ライブラリです。\r\n本トークでは、Effect-TS を実際に採用した toB SaaS プロダクトを題材に、この仕組みがなぜ従来のエラーハンドリングや DI の手法より強力なのかを、素朴な TypeScript での実装との比較を交えて解説します。\r\nまた、学習コストやテスト戦略といった開発での実態を共有すると同時に、そのトレードオフについて議論し、Effect-TS は本当に必要なのか？という率直な疑問にも向き合います。\r\n\r\nEffect-TS から見いだせる TypeScript の可能性と、現場の経験に基づく実践知の両方を持ち帰れる内容を目指します。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/asa1984/real-world-effect-ts-jian-lao-napurodakutowoxing-dezu-mishang-geru",
     "speaker": {
       "name": "asa1984",
       "userIcon": "x",
@@ -1215,7 +1215,7 @@
     "title": "Node.js+TypeScriptにおけるCJS/ESM相互運用の最新ポイント",
     "ogpTitle": "Node.js+TypeScriptにおける\nCJS/ESM相互運用の最新ポイント",
     "overview": "2020年にESModuleのネイティブサポートが追加されて以来、Node.jsにおけるCommonJSとESModuleの相互運用は数多くの開発者にとって悩みの種となってきました。2024年10月にrequire(esm)サポートが追加され主要な問題は解決されるには至りましたが、テストフレームワークとの互換性など、依然として注意すべきポイントが存在します。本セッションではCJSとESMの相互運用に関するメカニズムを特にTypeScriptの視点から深掘りし、2026年現在においてどのような対応が不要となり、どのような対応が依然として必要であるかを明らかにしていきます。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/grainrigi/esmxiang-hu-yun-yong-nozui-xin-pointo",
     "speaker": {
       "name": "桐生直輝",
       "userIcon": "x",
@@ -1567,7 +1567,7 @@
     "title": "TypeScript Compiler はどのように未使用変数を検出しているのか？",
     "ogpTitle": "TypeScript Compiler は\nどのように未使用変数を検出しているのか？",
     "overview": "TypeScript には `noUnusedLocals` / `noUnusedParameters` といった未使用変数に関するオプションが存在します。\r\n\r\nこれらはどのように変数が未使用であることを検出しているのでしょうか？\r\n\r\n本トークでは、調査過程で得られた知見をもとに、TypeScript Compiler の未使用変数の検出ロジックや、ロジックをどのように紐解いていったかを整理してお伝えしようと思います！\r\n\r\n## 背景\r\n\r\nReact コンポーネントの型付けに関する記事(https://engineering.gusto.com/the-journey-to-a-safer-frontend-why-we-removed-react-fc-095ff0b3e2e4)を読み、引数の型付けの仕方によって TypeScript の未使用変数の検出の挙動が変わるという内容に興味を持ちました。\r\n\r\nそこで、検出の内部的な挙動を理解するために、TypeScript Compiler の実装を実際に追跡して未使用判定がどのような仕組みで行われているのかを調査することにしました。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/tocomi/typescript-compiler-hadonoyouniwei-shi-yong-bian-shu-wojian-chu-siteirunoka",
     "speaker": {
       "name": "つねみ@tocomi",
       "userIcon": "x",
