@@ -1,5 +1,6 @@
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 function generateList(dir, outputFile, listName, typeName, varPrefix) {
   if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
@@ -37,18 +38,28 @@ export const ${listName}: ${typeName}[] = [${entries.length > 0 ? `\n${entries.j
   console.log(`Generated ${outputFile} (${staffFiles.length} entries)`);
 }
 
-generateList(
-  join("src", "constants", "staff"),
-  join("src", "constants", "staff.generated.ts"),
-  "STAFF_LIST",
-  "Staff",
-  "staff",
-);
+/**
+ * staff / day-staff の一覧 TS ファイルを生成する。
+ * 依存パッケージを使わない純 Node 実装（CI で install 前に実行されるため）。
+ */
+export function generateStaffLists() {
+  generateList(
+    join("src", "constants", "staff"),
+    join("src", "constants", "staff.generated.ts"),
+    "STAFF_LIST",
+    "Staff",
+    "staff",
+  );
 
-generateList(
-  join("src", "constants", "day-staff"),
-  join("src", "constants", "day-staff.generated.ts"),
-  "DAY_STAFF_LIST",
-  "DayStaff",
-  "dayStaff",
-);
+  generateList(
+    join("src", "constants", "day-staff"),
+    join("src", "constants", "day-staff.generated.ts"),
+    "DAY_STAFF_LIST",
+    "DayStaff",
+    "dayStaff",
+  );
+}
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  generateStaffLists();
+}

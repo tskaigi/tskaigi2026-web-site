@@ -1,9 +1,6 @@
 import fs from "node:fs";
+import type { ScriptsConfig } from "../../config";
 import type { MasterEntry } from "./types";
-
-const SESSION_MASTER_JSON = "scripts/data/session-master.json";
-const FRONTEND_JSON = "src/constants/session-master.json";
-const OUTPUT_JSON = "scripts/data/data-completeness.json";
 
 type CheckResult = {
   id: string;
@@ -25,16 +22,35 @@ type CheckResult = {
   };
 };
 
-function main() {
-  if (!fs.existsSync(SESSION_MASTER_JSON)) {
-    console.error(
-      `❌ セッションマスターJSONが見つかりません: ${SESSION_MASTER_JSON}`,
+export type CompletenessSummary = {
+  total: number;
+  noIcon: number;
+  noBio: number;
+  noSession: number;
+  noOgpTitle: number;
+  titleMismatch: number;
+  idMismatch: number;
+  outputPath: string;
+};
+
+/**
+ * アイコン・bio・ID・OGPタイトルなどの整合性をチェックし、
+ * 詳細を data-completeness.json に出力してサマリを返す。
+ */
+export function checkDataCompleteness(
+  config: ScriptsConfig,
+): CompletenessSummary {
+  const { sessionMasterJson, frontendSessionMasterJson, dataCompletenessJson } =
+    config.paths;
+
+  if (!fs.existsSync(sessionMasterJson)) {
+    throw new Error(
+      `セッションマスターJSONが見つかりません: ${sessionMasterJson}`,
     );
-    process.exit(1);
   }
 
   const master: MasterEntry[] = JSON.parse(
-    fs.readFileSync(SESSION_MASTER_JSON, "utf-8"),
+    fs.readFileSync(sessionMasterJson, "utf-8"),
   );
 
   const normalize = (s: string) => s.replace(/[\s\p{P}\p{S}]/gu, "");
@@ -64,7 +80,10 @@ function main() {
     };
   });
 
-  fs.writeFileSync(OUTPUT_JSON, JSON.stringify(results, null, 2) + "\n");
+  fs.writeFileSync(
+    dataCompletenessJson,
+    `${JSON.stringify(results, null, 2)}\n`,
+  );
 
   const total = results.length;
   const noIcon = results.filter(
@@ -76,13 +95,12 @@ function main() {
   const titleMismatch = results.filter(
     (r) => r.session.hasOgpTitle && !r.titleCheck.titleMatchesOgpTitle,
   ).length;
-
   const noBio = results.filter((r) => !r.speaker.hasBio).length;
 
   let idMismatch = 0;
-  if (fs.existsSync(FRONTEND_JSON)) {
+  if (fs.existsSync(frontendSessionMasterJson)) {
     const frontend: Record<string, MasterEntry> = JSON.parse(
-      fs.readFileSync(FRONTEND_JSON, "utf-8"),
+      fs.readFileSync(frontendSessionMasterJson, "utf-8"),
     );
     for (const [key, value] of Object.entries(frontend)) {
       if (value.id !== key) {
@@ -92,14 +110,14 @@ function main() {
     }
   }
 
-  console.log(`📊 チェック結果 (${total}件)`);
-  console.log(`  アイコン情報なし: ${noIcon}件`);
-  console.log(`  bioなし: ${noBio}件`);
-  console.log(`  idなし: ${noSession}件`);
-  console.log(`  ogpTitleなし: ${noOgpTitle}件`);
-  console.log(`  title≠ogpTitle: ${titleMismatch}件`);
-  console.log(`  フロントエンドID不一致: ${idMismatch}件`);
-  console.log(`✅ 詳細を出力しました: ${OUTPUT_JSON}`);
+  return {
+    total,
+    noIcon,
+    noBio,
+    noSession,
+    noOgpTitle,
+    titleMismatch,
+    idMismatch,
+    outputPath: dataCompletenessJson,
+  };
 }
-
-main();

@@ -1,8 +1,5 @@
 import fs from "node:fs";
-
-const SPEAKERS_JSON = "scripts/data/speakers.json";
-const SESSION_ID_SPEAKER_JSON = "scripts/data/session-id-speaker.json";
-const HANDSON_LABEL = "ハンズオン";
+import type { ScriptsConfig } from "../../config";
 
 type SpeakerEntry = {
   speaker: {
@@ -10,24 +7,33 @@ type SpeakerEntry = {
   };
 };
 
-function main() {
-  if (!fs.existsSync(SPEAKERS_JSON)) {
-    console.error(`❌ スピーカーJSONが見つかりません: ${SPEAKERS_JSON}`);
-    process.exit(1);
+/**
+ * speakers.json から session-id-speaker.json を更新する。
+ * ID 1 = ハンズオン固定、新規スピーカーは末尾に追番する。
+ */
+export function syncSessionIdSpeaker(config: ScriptsConfig): {
+  total: number;
+  added: number;
+} {
+  const { speakersJson, sessionIdSpeakerJson } = config.paths;
+  const { handsonLabel } = config;
+
+  if (!fs.existsSync(speakersJson)) {
+    throw new Error(`スピーカーJSONが見つかりません: ${speakersJson}`);
   }
 
   const speakers: SpeakerEntry[] = JSON.parse(
-    fs.readFileSync(SPEAKERS_JSON, "utf-8"),
+    fs.readFileSync(speakersJson, "utf-8"),
   );
 
-  const data: Record<string, string> = fs.existsSync(SESSION_ID_SPEAKER_JSON)
-    ? JSON.parse(fs.readFileSync(SESSION_ID_SPEAKER_JSON, "utf-8"))
+  const data: Record<string, string> = fs.existsSync(sessionIdSpeakerJson)
+    ? JSON.parse(fs.readFileSync(sessionIdSpeakerJson, "utf-8"))
     : {};
 
   const existingNames = new Set(Object.values(data));
 
-  data["1"] = HANDSON_LABEL;
-  existingNames.add(HANDSON_LABEL);
+  data["1"] = handsonLabel;
+  existingNames.add(handsonLabel);
 
   const maxId = Object.keys(data).reduce(
     (max, k) => Math.max(max, Number(k)),
@@ -45,13 +51,6 @@ function main() {
     }
   }
 
-  fs.writeFileSync(
-    SESSION_ID_SPEAKER_JSON,
-    JSON.stringify(data, null, 2) + "\n",
-  );
-  console.log(
-    `✅ 完了 (合計: ${Object.keys(data).length}件, 追加: ${added}件, ハンズオン: ID 1 固定)`,
-  );
+  fs.writeFileSync(sessionIdSpeakerJson, `${JSON.stringify(data, null, 2)}\n`);
+  return { total: Object.keys(data).length, added };
 }
-
-main();

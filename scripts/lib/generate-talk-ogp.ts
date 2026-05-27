@@ -364,5 +364,4 @@ export async function generateAndSaveTalkOgp(
   }
 
   await fs.promises.writeFile(input.outputPath, pngBuffer);
-  console.log(`✅ OGP画像を生成しました: ${input.outputPath}`);
 }

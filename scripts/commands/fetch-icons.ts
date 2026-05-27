@@ -1,10 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { MasterEntry } from "./lib/session/types";
-
-const SESSION_MASTER_JSON = "scripts/data/session-master.json";
-const OUTPUT_DIR = "public/speakers";
-const MANIFEST_JSON = "scripts/data/.icon-fetch-manifest.json";
+import { defineCommand } from "citty";
+import { loadScriptsConfig, type ScriptsConfig } from "../config";
+import type { MasterEntry } from "../lib/session/types";
+import { createProgress } from "../utils/progress";
 
 type ManifestEntry = {
   userIcon: string;
@@ -50,9 +49,9 @@ async function saveImage(url: string, outputPath: string): Promise<void> {
   fs.writeFileSync(outputPath, bytes);
 }
 
-function loadManifest(): Manifest {
-  if (!fs.existsSync(MANIFEST_JSON)) return {};
-  return JSON.parse(fs.readFileSync(MANIFEST_JSON, "utf-8"));
+function loadManifest(manifestPath: string): Manifest {
+  if (!fs.existsSync(manifestPath)) return {};
+  return JSON.parse(fs.readFileSync(manifestPath, "utf-8"));
 }
 
 function toManifestEntry(speaker: MasterEntry["speaker"]): ManifestEntry {
@@ -64,11 +63,12 @@ function toManifestEntry(speaker: MasterEntry["speaker"]): ManifestEntry {
 }
 
 function needsFetch(
+  outputDir: string,
   speakerId: string,
   current: ManifestEntry,
   prev: Manifest,
 ): boolean {
-  const outputPath = path.join(OUTPUT_DIR, `${speakerId}.png`);
+  const outputPath = path.join(outputDir, `${speakerId}.png`);
   if (!fs.existsSync(outputPath)) return true;
 
   const old = prev[speakerId];
@@ -89,97 +89,122 @@ function buildManifest(master: MasterEntry[]): Manifest {
   return manifest;
 }
 
-function saveManifest(manifest: Manifest) {
-  fs.writeFileSync(MANIFEST_JSON, `${JSON.stringify(manifest, null, 2)}\n`);
+function saveManifest(manifestPath: string, manifest: Manifest) {
+  fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
 }
 
-function readMaster(): MasterEntry[] {
-  if (!fs.existsSync(SESSION_MASTER_JSON)) {
-    console.error(
-      `❌ セッションマスターJSONが見つかりません: ${SESSION_MASTER_JSON}`,
+function readMaster(sessionMasterJson: string): MasterEntry[] {
+  if (!fs.existsSync(sessionMasterJson)) {
+    throw new Error(
+      `セッションマスターJSONが見つかりません: ${sessionMasterJson}`,
     );
-    process.exit(1);
   }
-  return JSON.parse(fs.readFileSync(SESSION_MASTER_JSON, "utf-8"));
+  return JSON.parse(fs.readFileSync(sessionMasterJson, "utf-8"));
 }
 
-function manifestOnly() {
-  const master = readMaster();
+function runManifestOnly(config: ScriptsConfig) {
+  const master = readMaster(config.paths.sessionMasterJson);
   const manifest = buildManifest(master);
-  saveManifest(manifest);
+  saveManifest(config.paths.iconManifestJson, manifest);
   console.log(
     `✅ マニフェストを生成しました (${Object.keys(manifest).length}件)`,
   );
 }
 
-async function main(force: boolean) {
-  const master = readMaster();
-  const prevManifest = force ? {} : loadManifest();
+async function runFetch(config: ScriptsConfig, force: boolean) {
+  const outputDir = config.paths.speakersImageDir;
+  const master = readMaster(config.paths.sessionMasterJson);
+  const prevManifest = force ? {} : loadManifest(config.paths.iconManifestJson);
   const nextManifest = buildManifest(master);
 
-  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+  fs.mkdirSync(outputDir, { recursive: true });
 
   let fetched = 0;
   let skipped = 0;
   let unchanged = 0;
+  let processed = 0;
+  const total = master.length;
+  const progress = createProgress();
 
   for (const entry of master) {
     const { speaker } = entry;
-    const manifestEntry = nextManifest[entry.speakerId];
+    processed++;
+    progress.update(
+      `🚀 アイコン取得中 ${processed}/${total} (取得: ${fetched}, 変更なし: ${unchanged}, スキップ: ${skipped}) — ${speaker.name}`,
+    );
 
     if (!speaker.profileImageUrl.startsWith("/speakers/")) {
       skipped++;
-      console.log(`⏭️  skip: ${speaker.name} — 外部管理画像`);
       continue;
     }
 
     if (!speaker.userIcon) {
       skipped++;
-      console.log(`⏭️  skip: ${speaker.name} — アイコン情報なし`);
       continue;
     }
 
-    if (!needsFetch(entry.speakerId, manifestEntry, prevManifest)) {
+    if (
+      !needsFetch(
+        outputDir,
+        entry.speakerId,
+        nextManifest[entry.speakerId],
+        prevManifest,
+      )
+    ) {
       unchanged++;
-      console.log(`✅ unchanged: ${speaker.name}`);
       continue;
     }
 
     if (fetched > 0) {
-      await delay(200);
+      await delay(config.fetchThrottleMs);
     }
 
-    const outputPath = path.join(OUTPUT_DIR, `${entry.speakerId}.png`);
+    const outputPath = path.join(outputDir, `${entry.speakerId}.png`);
 
     try {
       const iconUrl = await resolveIconUrl(speaker);
       if (!iconUrl) {
-        console.log(`⏭️  skip: ${speaker.name} — IDなし`);
         skipped++;
         continue;
       }
 
       await saveImage(iconUrl, outputPath);
-      console.log(`✅ saved: ${outputPath}`);
       fetched++;
     } catch (error) {
       console.warn(`⚠️  failed (${speaker.name}):`, error);
     }
   }
 
-  saveManifest(nextManifest);
+  saveManifest(config.paths.iconManifestJson, nextManifest);
 
-  console.log(
+  progress.done(
     `✅️ 完了 (フェッチ: ${fetched}件, 変更なし: ${unchanged}件, スキップ: ${skipped}件)`,
   );
 }
 
-if (process.argv.includes("--manifest-only")) {
-  manifestOnly();
-} else {
-  const force = process.argv.includes("--force");
-  main(force).catch((error) => {
-    console.error("❌ エラーが発生しました:", error);
-    process.exit(1);
-  });
-}
+export default defineCommand({
+  meta: {
+    name: "fetch-icons",
+    description: "X / GitHub からスピーカーアイコンを取得",
+  },
+  args: {
+    force: {
+      type: "boolean",
+      description: "全件再取得する",
+      default: false,
+    },
+    "manifest-only": {
+      type: "boolean",
+      description: "画像取得を行わずマニフェストのみ生成する",
+      default: false,
+    },
+  },
+  async run({ args }) {
+    const config = await loadScriptsConfig();
+    if (args["manifest-only"]) {
+      runManifestOnly(config);
+      return;
+    }
+    await runFetch(config, args.force);
+  },
+});
