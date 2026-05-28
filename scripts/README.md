@@ -4,7 +4,7 @@
 
 ## CLI
 
-`citty` ベースの単一 CLI に集約している。`jiti` で TypeScript をそのまま実行するため、ビルドや `tsx` は不要。
+`citty` ベースの単一 CLI に集約している。TypeScript は `tsx` でそのまま実行するため、ビルド不要。
 
 ```bash
 pnpm cli --help                # コマンド一覧
@@ -14,11 +14,11 @@ pnpm cli <command> --help      # 各コマンドの詳細
 | ライブラリ | 役割 |
 |-----------|------|
 | `citty` | サブコマンド・引数・ヘルプ |
-| `jiti` | TS/TSX をそのまま実行（`@/` エイリアス対応） |
+| `tsx` | TS/TSX をそのまま実行（`tsconfig.json` の `paths` を自動解決） |
 | `c12` | 共通設定の読み込み（`scripts/config.ts`） |
 | `log-update` | 取得・生成ループの進捗表示 |
 
-エントリは `scripts/cli.mjs`（jiti ランチャ）→ `scripts/cli.ts`（citty メイン）。各コマンドは `scripts/commands/` 配下。
+エントリは `scripts/cli.ts`（citty メイン）。各コマンドは `scripts/commands/` 配下。
 
 ### 設定 (`scripts/config.ts`)
 
