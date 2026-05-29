@@ -13,6 +13,7 @@ type OgpTitleOverride = {
 export function injectSessionInfo(config: ScriptsConfig): {
   updated: number;
   skipped: number;
+  skippedNames: string[];
 } {
   const { sessionIdSpeakerJson, sessionMasterJson, ogpTitleOverridesJson } =
     config.paths;
@@ -57,6 +58,7 @@ export function injectSessionInfo(config: ScriptsConfig): {
 
   let updated = 0;
   let skipped = 0;
+  const skippedNames: string[] = [];
 
   for (const entry of master) {
     const ids = nameToIds.get(entry.speaker.name);
@@ -68,7 +70,7 @@ export function injectSessionInfo(config: ScriptsConfig): {
       updated++;
     } else {
       skipped++;
-      console.log(`⏭️  skip: "${entry.speaker.name}" — IDなし`);
+      skippedNames.push(entry.speaker.name);
     }
   }
 
@@ -84,5 +86,5 @@ export function injectSessionInfo(config: ScriptsConfig): {
     }),
   );
   fs.writeFileSync(sessionMasterJson, `${JSON.stringify(ordered, null, 2)}\n`);
-  return { updated, skipped };
+  return { updated, skipped, skippedNames };
 }

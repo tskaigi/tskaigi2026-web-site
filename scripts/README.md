@@ -16,9 +16,28 @@ pnpm cli <command> --help      # 各コマンドの詳細
 | `citty` | サブコマンド・引数・ヘルプ |
 | `tsx` | TS/TSX をそのまま実行（`tsconfig.json` の `paths` を自動解決） |
 | `c12` | 共通設定の読み込み（`scripts/config.ts`） |
+| `consola` | 色付きログ統一 |
 | `log-update` | 取得・生成ループの進捗表示 |
 
 エントリは `scripts/cli.ts`（citty メイン）。各コマンドは `scripts/commands/` 配下。
+
+主要コマンドには短縮名と短縮フラグがある:
+
+| 正式名 | 短縮名 |
+|--------|--------|
+| `fetch-icons` | `icons` |
+| `fetch-sponsors` | `sponsors` |
+| `staff-list` | `staff` |
+| `build-pages` | `pages` |
+
+| フラグ | 短縮 |
+|--------|------|
+| `--force` | `-f` |
+| `--manifest-only` | `-m` |
+| `--skip-fix` | `-s` |
+| `--dry-run` | `-n` |
+
+例: `pnpm cli icons -fm` / `pnpm cli session build -s`
 
 ### 設定 (`scripts/config.ts`)
 
@@ -107,6 +126,23 @@ pnpm generate:staff-list       # = node scripts/generate-staff-list.mjs
 pnpm cli staff-list            # CLI 経由
 pnpm cli build-pages           # OpenNext 出力を Cloudflare Pages 用に整える
 ```
+
+## 生成物のクリーンアップ
+
+```bash
+pnpm cli clean              # 削除
+pnpm cli clean --dry-run    # 削除予定の表示のみ
+```
+
+`scripts/data/` の gitignored 生成物（`session-master.json` / `data-completeness.json` / `.icon-fetch-manifest.json` / `.sponsors-fetch-manifest.json`）のみを対象とする。`public/speakers/` 等の追跡対象には触れない。
+
+## テスト
+
+```bash
+pnpm test
+```
+
+`scripts/lib/session/__tests__/session.test.ts` で `lib/session/*` の各関数（initMaster / injectSessionInfo / exportForFrontend / syncSessionIdSpeaker / checkDataCompleteness）を tmpdir + フィクスチャでテストする。CI（`code-quality.yml`）でも実行される。
 
 ## データファイル (`scripts/data/`)
 

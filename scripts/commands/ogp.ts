@@ -6,6 +6,7 @@ import { loadScriptsConfig, type ScriptsConfig } from "../config";
 import { generateAndSaveTalkOgp } from "../lib/generate-talk-ogp";
 import type { MasterEntry } from "../lib/session/types";
 import { getSessionMeta } from "../lib/session-metadata";
+import { logger } from "../utils/logger";
 import { createProgress } from "../utils/progress";
 
 function resolveProfileImage(
@@ -37,7 +38,7 @@ async function runOgp(
   fs.mkdirSync(outputDir, { recursive: true });
 
   const entries = master.filter((e) => e.id);
-  console.log(`🚀 OGP画像生成を開始しています... (${entries.length}件)`);
+  logger.start(`OGP画像生成を開始しています... (${entries.length}件)`);
 
   let generated = 0;
   let skipped = 0;
@@ -55,8 +56,8 @@ async function runOgp(
 
     const meta = getSessionMeta(sessionId);
     if (!meta) {
-      console.warn(
-        `⚠️ セッションID "${sessionId}" のメタデータが見つかりません。スキップします。`,
+      logger.warn(
+        `セッションID "${sessionId}" のメタデータが見つかりません。スキップします。`,
       );
       skipped++;
       continue;
@@ -92,8 +93,9 @@ async function runOgp(
     generated++;
   }
 
-  progress.done(
-    `✅ OGP画像生成が完了しました。(生成: ${generated}件, 変更なし: ${unchanged}件, スキップ: ${skipped}件)`,
+  progress.done();
+  logger.success(
+    `OGP画像生成が完了しました。(生成: ${generated}件, 変更なし: ${unchanged}件, スキップ: ${skipped}件)`,
   );
 }
 
@@ -111,6 +113,7 @@ export default defineCommand({
     force: {
       type: "boolean",
       description: "全件再生成する",
+      alias: "f",
       default: false,
     },
   },

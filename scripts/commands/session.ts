@@ -1,11 +1,29 @@
 import { execFileSync } from "node:child_process";
 import { defineCommand } from "citty";
 import { loadScriptsConfig } from "../config";
-import { checkDataCompleteness } from "../lib/session/check-data-completeness";
+import {
+  type CompletenessSummary,
+  checkDataCompleteness,
+} from "../lib/session/check-data-completeness";
 import { exportForFrontend } from "../lib/session/export-for-frontend";
 import { initMaster } from "../lib/session/init-master";
 import { injectSessionInfo } from "../lib/session/inject-session-info";
 import { syncSessionIdSpeaker } from "../lib/session/sync-session-id-speaker";
+import { logger } from "../utils/logger";
+
+function reportCompleteness(summary: CompletenessSummary) {
+  logger.info(`チェック結果 (${summary.total}件)`);
+  logger.log(`  アイコン情報なし: ${summary.noIcon}件`);
+  logger.log(`  bioなし: ${summary.noBio}件`);
+  logger.log(`  idなし: ${summary.noSession}件`);
+  logger.log(`  ogpTitleなし: ${summary.noOgpTitle}件`);
+  logger.log(`  title≠ogpTitle: ${summary.titleMismatch}件`);
+  logger.log(`  フロントエンドID不一致: ${summary.idMismatch}件`);
+  for (const m of summary.idMismatches) {
+    logger.error(`ID不一致: key="${m.key}" value.id="${m.id}"`);
+  }
+  logger.success(`詳細を出力しました: ${summary.outputPath}`);
+}
 
 const initCommand = defineCommand({
   meta: {
@@ -15,7 +33,7 @@ const initCommand = defineCommand({
   async run() {
     const config = await loadScriptsConfig();
     const { count } = initMaster(config);
-    console.log(`✅ 完了 (${count}件)`);
+    logger.success(`完了 (${count}件)`);
   },
 });
 
@@ -26,8 +44,11 @@ const injectCommand = defineCommand({
   },
   async run() {
     const config = await loadScriptsConfig();
-    const { updated, skipped } = injectSessionInfo(config);
-    console.log(`✅ 完了 (更新: ${updated}件, スキップ: ${skipped}件)`);
+    const { updated, skipped, skippedNames } = injectSessionInfo(config);
+    for (const name of skippedNames) {
+      logger.log(`skip: "${name}" — IDなし`);
+    }
+    logger.success(`完了 (更新: ${updated}件, スキップ: ${skipped}件)`);
   },
 });
 
@@ -39,7 +60,7 @@ const exportCommand = defineCommand({
   async run() {
     const config = await loadScriptsConfig();
     const { count } = exportForFrontend(config);
-    console.log(`✅ 完了 (${count}件)`);
+    logger.success(`完了 (${count}件)`);
   },
 });
 
@@ -50,15 +71,7 @@ const checkCommand = defineCommand({
   },
   async run() {
     const config = await loadScriptsConfig();
-    const summary = checkDataCompleteness(config);
-    console.log(`📊 チェック結果 (${summary.total}件)`);
-    console.log(`  アイコン情報なし: ${summary.noIcon}件`);
-    console.log(`  bioなし: ${summary.noBio}件`);
-    console.log(`  idなし: ${summary.noSession}件`);
-    console.log(`  ogpTitleなし: ${summary.noOgpTitle}件`);
-    console.log(`  title≠ogpTitle: ${summary.titleMismatch}件`);
-    console.log(`  フロントエンドID不一致: ${summary.idMismatch}件`);
-    console.log(`✅ 詳細を出力しました: ${summary.outputPath}`);
+    reportCompleteness(checkDataCompleteness(config));
   },
 });
 
@@ -70,8 +83,8 @@ const syncIdCommand = defineCommand({
   async run() {
     const config = await loadScriptsConfig();
     const { total, added } = syncSessionIdSpeaker(config);
-    console.log(
-      `✅ 完了 (合計: ${total}件, 追加: ${added}件, ハンズオン: ID 1 固定)`,
+    logger.success(
+      `完了 (合計: ${total}件, 追加: ${added}件, ハンズオン: ID 1 固定)`,
     );
   },
 });
@@ -85,6 +98,7 @@ const buildCommand = defineCommand({
     "skip-fix": {
       type: "boolean",
       description: "事前の `pnpm check:fix` をスキップする",
+      alias: "s",
       default: false,
     },
   },
@@ -92,34 +106,29 @@ const buildCommand = defineCommand({
     const config = await loadScriptsConfig();
 
     if (!args["skip-fix"]) {
-      console.log("🧹 pnpm check:fix");
+      logger.start("pnpm check:fix");
       execFileSync("pnpm", ["check:fix"], { stdio: "inherit" });
     }
 
-    console.log("📋 speakers.json → session-master.json にコピー");
+    logger.start("speakers.json → session-master.json にコピー");
     const init = initMaster(config);
-    console.log(`✅ 完了 (${init.count}件)`);
+    logger.success(`完了 (${init.count}件)`);
 
-    console.log("🔧 id / ogpTitle を挿入");
+    logger.start("id / ogpTitle を挿入");
     const inject = injectSessionInfo(config);
-    console.log(
-      `✅ 完了 (更新: ${inject.updated}件, スキップ: ${inject.skipped}件)`,
+    for (const name of inject.skippedNames) {
+      logger.log(`skip: "${name}" — IDなし`);
+    }
+    logger.success(
+      `完了 (更新: ${inject.updated}件, スキップ: ${inject.skipped}件)`,
     );
 
-    console.log("📦 src/constants/session-master.json に出力 (ID:value形式)");
+    logger.start("src/constants/session-master.json に出力 (ID:value形式)");
     const exported = exportForFrontend(config);
-    console.log(`✅ 完了 (${exported.count}件)`);
+    logger.success(`完了 (${exported.count}件)`);
 
-    console.log("🔍 データ整合性チェック");
-    const summary = checkDataCompleteness(config);
-    console.log(`📊 チェック結果 (${summary.total}件)`);
-    console.log(`  アイコン情報なし: ${summary.noIcon}件`);
-    console.log(`  bioなし: ${summary.noBio}件`);
-    console.log(`  idなし: ${summary.noSession}件`);
-    console.log(`  ogpTitleなし: ${summary.noOgpTitle}件`);
-    console.log(`  title≠ogpTitle: ${summary.titleMismatch}件`);
-    console.log(`  フロントエンドID不一致: ${summary.idMismatch}件`);
-    console.log(`✅ 詳細を出力しました: ${summary.outputPath}`);
+    logger.start("データ整合性チェック");
+    reportCompleteness(checkDataCompleteness(config));
   },
 });
 

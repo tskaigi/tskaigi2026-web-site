@@ -3,6 +3,7 @@ import path from "node:path";
 import { defineCommand } from "citty";
 import type { SponsorApiResponse } from "@/types/sponsor-api";
 import { loadScriptsConfig, type ScriptsConfig } from "../config";
+import { logger } from "../utils/logger";
 import { createProgress } from "../utils/progress";
 
 const IMAGE_KINDS = ["logo", "ogp", "jobboard"] as const;
@@ -124,8 +125,8 @@ function runManifestOnly(
 ) {
   const manifest = buildManifest(sponsors);
   saveManifest(config.paths.sponsorsManifestJson, manifest);
-  console.log(
-    `✅ マニフェストを生成しました (${Object.keys(manifest).length}件)`,
+  logger.success(
+    `マニフェストを生成しました (${Object.keys(manifest).length}件)`,
   );
 }
 
@@ -183,7 +184,7 @@ async function runFetch(config: ScriptsConfig, force: boolean) {
       normalized.push(normalize(sponsor, localPaths));
     } catch (error) {
       skipped++;
-      console.warn(`⚠️  failed (${sponsor.slug}):`, error);
+      logger.warn(`failed (${sponsor.slug}):`, error);
     }
   }
 
@@ -193,8 +194,9 @@ async function runFetch(config: ScriptsConfig, force: boolean) {
   );
   saveManifest(config.paths.sponsorsManifestJson, buildManifest(sponsors));
 
-  progress.done(
-    `✅️ 完了 (フェッチ: ${fetched}件, 変更なし: ${unchanged}件, スキップ: ${skipped}件)`,
+  progress.done();
+  logger.success(
+    `完了 (フェッチ: ${fetched}件, 変更なし: ${unchanged}件, スキップ: ${skipped}件)`,
   );
 }
 
@@ -207,11 +209,13 @@ export default defineCommand({
     force: {
       type: "boolean",
       description: "全件再取得する",
+      alias: "f",
       default: false,
     },
     "manifest-only": {
       type: "boolean",
       description: "画像取得を行わずマニフェストのみ生成する",
+      alias: "m",
       default: false,
     },
   },

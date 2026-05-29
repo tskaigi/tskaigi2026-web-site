@@ -22,6 +22,11 @@ type CheckResult = {
   };
 };
 
+export type IdMismatch = {
+  key: string;
+  id: string;
+};
+
 export type CompletenessSummary = {
   total: number;
   noIcon: number;
@@ -30,6 +35,7 @@ export type CompletenessSummary = {
   noOgpTitle: number;
   titleMismatch: number;
   idMismatch: number;
+  idMismatches: IdMismatch[];
   outputPath: string;
 };
 
@@ -97,15 +103,14 @@ export function checkDataCompleteness(
   ).length;
   const noBio = results.filter((r) => !r.speaker.hasBio).length;
 
-  let idMismatch = 0;
+  const idMismatches: IdMismatch[] = [];
   if (fs.existsSync(frontendSessionMasterJson)) {
     const frontend: Record<string, MasterEntry> = JSON.parse(
       fs.readFileSync(frontendSessionMasterJson, "utf-8"),
     );
     for (const [key, value] of Object.entries(frontend)) {
       if (value.id !== key) {
-        console.error(`❌ ID不一致: key="${key}" value.id="${value.id}"`);
-        idMismatch++;
+        idMismatches.push({ key, id: value.id ?? "" });
       }
     }
   }
@@ -117,7 +122,8 @@ export function checkDataCompleteness(
     noSession,
     noOgpTitle,
     titleMismatch,
-    idMismatch,
+    idMismatch: idMismatches.length,
+    idMismatches,
     outputPath: dataCompletenessJson,
   };
 }

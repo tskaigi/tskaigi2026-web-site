@@ -3,6 +3,7 @@ import path from "node:path";
 import { defineCommand } from "citty";
 import { loadScriptsConfig, type ScriptsConfig } from "../config";
 import type { MasterEntry } from "../lib/session/types";
+import { logger } from "../utils/logger";
 import { createProgress } from "../utils/progress";
 
 type ManifestEntry = {
@@ -32,8 +33,8 @@ async function resolveIconUrl(
       /https:\/\/pbs\.twimg\.com\/profile_images[^"'\s<]+/,
     );
     if (!match) {
-      console.error(
-        `  Xプロフィール画像URLをHTMLから抽出できませんでした (${speaker.xId})`,
+      logger.error(
+        `Xプロフィール画像URLをHTMLから抽出できませんでした (${speaker.xId})`,
       );
       return null;
     }
@@ -106,8 +107,8 @@ function runManifestOnly(config: ScriptsConfig) {
   const master = readMaster(config.paths.sessionMasterJson);
   const manifest = buildManifest(master);
   saveManifest(config.paths.iconManifestJson, manifest);
-  console.log(
-    `✅ マニフェストを生成しました (${Object.keys(manifest).length}件)`,
+  logger.success(
+    `マニフェストを生成しました (${Object.keys(manifest).length}件)`,
   );
 }
 
@@ -171,14 +172,15 @@ async function runFetch(config: ScriptsConfig, force: boolean) {
       await saveImage(iconUrl, outputPath);
       fetched++;
     } catch (error) {
-      console.warn(`⚠️  failed (${speaker.name}):`, error);
+      logger.warn(`failed (${speaker.name}):`, error);
     }
   }
 
   saveManifest(config.paths.iconManifestJson, nextManifest);
 
-  progress.done(
-    `✅️ 完了 (フェッチ: ${fetched}件, 変更なし: ${unchanged}件, スキップ: ${skipped}件)`,
+  progress.done();
+  logger.success(
+    `完了 (フェッチ: ${fetched}件, 変更なし: ${unchanged}件, スキップ: ${skipped}件)`,
   );
 }
 
@@ -191,11 +193,13 @@ export default defineCommand({
     force: {
       type: "boolean",
       description: "全件再取得する",
+      alias: "f",
       default: false,
     },
     "manifest-only": {
       type: "boolean",
       description: "画像取得を行わずマニフェストのみ生成する",
+      alias: "m",
       default: false,
     },
   },

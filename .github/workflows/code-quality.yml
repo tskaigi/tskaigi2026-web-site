@@ -39,3 +39,9 @@ jobs:
 
       - name: TypeScript compilation check
         run: pnpm typecheck
+
+      - name: Scripts CLI smoke test
+        run: pnpm cli --help
+
+      - name: Scripts unit tests
+        run: pnpm test
