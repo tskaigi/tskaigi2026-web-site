@@ -127,6 +127,26 @@ pnpm cli staff-list            # CLI 経由
 pnpm cli build-pages           # OpenNext 出力を Cloudflare Pages 用に整える
 ```
 
+## SVG → PNG 変換
+
+```bash
+pnpm cli svg-to-png input.svg                       # input.png に出力
+pnpm cli svg input.svg -o out.png                   # 短縮形 + 出力指定
+pnpm cli svg input.svg -w 1200 --height 630         # サイズ指定
+pnpm cli svg input.svg --background "#ffffff" -f    # 白背景・上書き
+```
+
+sharp で SVG をラスタライズして PNG を出力する汎用コマンド。引数:
+
+| フラグ | 短縮 | 説明 |
+|--------|------|------|
+| `--output` | `-o` | 出力 PNG パス（既定: 入力の `.svg` を `.png` に置換） |
+| `--width` | `-w` | 出力幅 (px) |
+| `--height` | | 出力高さ (px) |
+| `--density` | `-d` | SVG ラスタライズの DPI（既定 72） |
+| `--background` | | 背景色（CSS color。`transparent` で透過維持） |
+| `--force` | `-f` | 出力先が存在しても上書きする |
+
 ## 生成物のクリーンアップ
 
 ```bash
