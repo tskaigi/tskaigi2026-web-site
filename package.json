@@ -5,7 +5,7 @@
   "packageManager": "pnpm@10.22.0",
   "scripts": {
     "cli": "tsx scripts/cli.ts",
-    "generate:staff-list": "node scripts/generate-staff-list.mjs",
+    "generate:staff-list": "tsx scripts/cli.ts staff-list",
     "session:build": "tsx scripts/cli.ts session build",
     "fetch:icons": "tsx scripts/cli.ts fetch-icons",
     "fetch:sponsors": "tsx scripts/cli.ts fetch-sponsors",
@@ -16,7 +16,7 @@
     "precheck": "pnpm -s generate:staff-list",
     "dev": "next dev",
     "build": "next build",
-    "pages:build": "opennextjs-cloudflare build && node scripts/build-pages-output.mjs",
+    "pages:build": "opennextjs-cloudflare build && tsx scripts/cli.ts build-pages",
     "pages:dev": "wrangler pages dev .open-next/pages",
     "start": "next start",
     "check": "biome check",

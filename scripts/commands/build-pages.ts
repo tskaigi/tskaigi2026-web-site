@@ -1,5 +1,6 @@
 import { defineCommand } from "citty";
-import { buildPagesOutput } from "../build-pages-output.mjs";
+import { buildPagesOutput } from "../lib/build-pages";
+import { logger } from "../utils/logger";
 
 export default defineCommand({
   meta: {
@@ -7,6 +8,7 @@ export default defineCommand({
     description: "OpenNext 出力を Cloudflare Pages 用に整える",
   },
   run() {
-    buildPagesOutput();
+    const { outputDir } = buildPagesOutput();
+    logger.success(`Pages output generated at ${outputDir}`);
   },
 });

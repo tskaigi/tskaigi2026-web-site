@@ -20,11 +20,11 @@ jobs:
         with:
           version: "10.22.0"
 
-      - name: Generate Staff List
-        run: pnpm generate:staff-list
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Generate Staff List
+        run: pnpm generate:staff-list
 
       - name: Setup Biome
         uses: biomejs/setup-biome@v2
@@ -41,7 +41,7 @@ jobs:
         run: pnpm typecheck
 
       - name: Scripts CLI smoke test
-        run: pnpm cli --help
+        run: pnpm cli clean --dry-run
 
       - name: Scripts unit tests
         run: pnpm test
