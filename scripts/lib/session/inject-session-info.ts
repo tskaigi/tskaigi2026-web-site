@@ -1,31 +1,36 @@
 import fs from "node:fs";
+import type { ScriptsConfig } from "../../config";
 import type { MasterEntry } from "./types";
-
-const OGP_TITLE_OVERRIDES_JSON = "scripts/data/ogp-title-overrides.json";
-const SESSION_ID_SPEAKER_JSON = "scripts/data/session-id-speaker.json";
-const SESSION_MASTER_JSON = "scripts/data/session-master.json";
 
 type OgpTitleOverride = {
   id: string;
   ogpTitle: string;
 };
 
-function main() {
-  if (!fs.existsSync(SESSION_ID_SPEAKER_JSON)) {
-    console.error(
-      `❌ セッションIDマップが見つかりません: ${SESSION_ID_SPEAKER_JSON}`,
+/**
+ * session-id-speaker.json をもとに各エントリへ id と ogpTitle を挿入する。
+ */
+export function injectSessionInfo(config: ScriptsConfig): {
+  updated: number;
+  skipped: number;
+  skippedNames: string[];
+} {
+  const { sessionIdSpeakerJson, sessionMasterJson, ogpTitleOverridesJson } =
+    config.paths;
+
+  if (!fs.existsSync(sessionIdSpeakerJson)) {
+    throw new Error(
+      `セッションIDマップが見つかりません: ${sessionIdSpeakerJson}`,
     );
-    process.exit(1);
   }
-  if (!fs.existsSync(SESSION_MASTER_JSON)) {
-    console.error(
-      `❌ セッションマスターJSONが見つかりません: ${SESSION_MASTER_JSON}`,
+  if (!fs.existsSync(sessionMasterJson)) {
+    throw new Error(
+      `セッションマスターJSONが見つかりません: ${sessionMasterJson}`,
     );
-    process.exit(1);
   }
 
   const idToName: Record<string, string> = JSON.parse(
-    fs.readFileSync(SESSION_ID_SPEAKER_JSON, "utf-8"),
+    fs.readFileSync(sessionIdSpeakerJson, "utf-8"),
   );
   const nameToIds = new Map<string, string[]>();
   for (const [id, name] of Object.entries(idToName)) {
@@ -38,9 +43,9 @@ function main() {
   }
 
   const ogpOverrides = new Map<string, string>();
-  if (fs.existsSync(OGP_TITLE_OVERRIDES_JSON)) {
+  if (fs.existsSync(ogpTitleOverridesJson)) {
     const overrides: OgpTitleOverride[] = JSON.parse(
-      fs.readFileSync(OGP_TITLE_OVERRIDES_JSON, "utf-8"),
+      fs.readFileSync(ogpTitleOverridesJson, "utf-8"),
     );
     for (const o of overrides) {
       ogpOverrides.set(o.id, o.ogpTitle);
@@ -48,11 +53,12 @@ function main() {
   }
 
   const master: MasterEntry[] = JSON.parse(
-    fs.readFileSync(SESSION_MASTER_JSON, "utf-8"),
+    fs.readFileSync(sessionMasterJson, "utf-8"),
   );
 
   let updated = 0;
   let skipped = 0;
+  const skippedNames: string[] = [];
 
   for (const entry of master) {
     const ids = nameToIds.get(entry.speaker.name);
@@ -64,7 +70,7 @@ function main() {
       updated++;
     } else {
       skipped++;
-      console.log(`⏭️  skip: "${entry.speaker.name}" — IDなし`);
+      skippedNames.push(entry.speaker.name);
     }
   }
 
@@ -79,11 +85,6 @@ function main() {
       ...rest,
     }),
   );
-  fs.writeFileSync(
-    SESSION_MASTER_JSON,
-    JSON.stringify(ordered, null, 2) + "\n",
-  );
-  console.log(`✅ 完了 (更新: ${updated}件, スキップ: ${skipped}件)`);
+  fs.writeFileSync(sessionMasterJson, `${JSON.stringify(ordered, null, 2)}\n`);
+  return { updated, skipped, skippedNames };
 }
-
-main();
