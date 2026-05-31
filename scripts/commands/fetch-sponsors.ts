@@ -1,13 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
+import { defineCommand } from "citty";
 import type { SponsorApiResponse } from "@/types/sponsor-api";
-
-const SPONSORS_API_URL =
-  "https://tskaigi-cms.system-admin-df1.workers.dev/api/sponsors";
-
-const OUTPUT_JSON = "src/constants/sponsors.json";
-const OUTPUT_IMAGE_DIR = "public/sponsors";
-const MANIFEST_JSON = "scripts/data/.sponsors-fetch-manifest.json";
+import { loadScriptsConfig, type ScriptsConfig } from "../config";
+import { logger } from "../utils/logger";
+import { createProgress } from "../utils/progress";
 
 const IMAGE_KINDS = ["logo", "ogp", "jobboard"] as const;
 type ImageKind = (typeof IMAGE_KINDS)[number];
@@ -56,13 +53,13 @@ async function saveImage(url: string, outputPath: string): Promise<void> {
   fs.writeFileSync(outputPath, bytes);
 }
 
-function loadManifest(): Manifest {
-  if (!fs.existsSync(MANIFEST_JSON)) return {};
-  return JSON.parse(fs.readFileSync(MANIFEST_JSON, "utf-8"));
+function loadManifest(manifestPath: string): Manifest {
+  if (!fs.existsSync(manifestPath)) return {};
+  return JSON.parse(fs.readFileSync(manifestPath, "utf-8"));
 }
 
-function saveManifest(manifest: Manifest) {
-  fs.writeFileSync(MANIFEST_JSON, `${JSON.stringify(manifest, null, 2)}\n`);
+function saveManifest(manifestPath: string, manifest: Manifest) {
+  fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
 }
 
 function buildManifest(sponsors: SponsorApiResponse[]): Manifest {
@@ -71,45 +68,39 @@ function buildManifest(sponsors: SponsorApiResponse[]): Manifest {
   );
 }
 
-async function fetchSponsorsFromApi(): Promise<SponsorApiResponse[]> {
-  const res = await fetch(SPONSORS_API_URL);
+async function fetchSponsorsFromApi(
+  apiUrl: string,
+): Promise<SponsorApiResponse[]> {
+  const res = await fetch(apiUrl);
   if (!res.ok) {
     throw new Error(`スポンサーAPIの取得に失敗 (${res.status})`);
   }
   return res.json();
 }
 
-function manifestOnly(sponsors: SponsorApiResponse[]) {
-  const manifest = buildManifest(sponsors);
-  saveManifest(manifest);
-  console.log(
-    `✅ マニフェストを生成しました (${Object.keys(manifest).length}件)`,
-  );
-}
-
 async function processSponsorImage(
+  outputImageDir: string,
   sponsor: SponsorApiResponse,
   kind: ImageKind,
   url: string,
   prev: ManifestEntry | undefined,
   force: boolean,
+  throttleMs: number,
   throttle: boolean,
 ): Promise<ProcessResult> {
   const ext = extractExtension(url);
-  const outputPath = path.join(OUTPUT_IMAGE_DIR, sponsor.slug, `${kind}${ext}`);
+  const outputPath = path.join(outputImageDir, sponsor.slug, `${kind}${ext}`);
   const localPath = localImagePath(sponsor.slug, kind, ext);
 
   const shouldFetch =
     force || !fs.existsSync(outputPath) || !prev || prev[kind] !== url;
 
   if (!shouldFetch) {
-    console.log(`✅ unchanged: ${sponsor.slug}/${kind}`);
     return { status: "unchanged", path: localPath };
   }
 
-  if (throttle) await delay(200);
+  if (throttle) await delay(throttleMs);
   await saveImage(url, outputPath);
-  console.log(`✅ saved: ${outputPath}`);
   return { status: "fetched", path: localPath };
 }
 
@@ -128,19 +119,41 @@ function normalize(
   };
 }
 
-async function main(force: boolean) {
-  const sponsors = await fetchSponsorsFromApi();
-  const prevManifest = force ? {} : loadManifest();
+function runManifestOnly(
+  config: ScriptsConfig,
+  sponsors: SponsorApiResponse[],
+) {
+  const manifest = buildManifest(sponsors);
+  saveManifest(config.paths.sponsorsManifestJson, manifest);
+  logger.success(
+    `マニフェストを生成しました (${Object.keys(manifest).length}件)`,
+  );
+}
 
-  fs.mkdirSync(OUTPUT_IMAGE_DIR, { recursive: true });
+async function runFetch(config: ScriptsConfig, force: boolean) {
+  const outputImageDir = config.paths.sponsorsImageDir;
+  const sponsors = await fetchSponsorsFromApi(config.sponsors.apiUrl);
+  const prevManifest = force
+    ? {}
+    : loadManifest(config.paths.sponsorsManifestJson);
+
+  fs.mkdirSync(outputImageDir, { recursive: true });
 
   let fetched = 0;
   let unchanged = 0;
   let skipped = 0;
+  let processed = 0;
+  const total = sponsors.length;
+  const progress = createProgress();
 
   const normalized: SponsorApiResponse[] = [];
 
   for (const sponsor of sponsors) {
+    processed++;
+    progress.update(
+      `🚀 スポンサー画像取得中 ${processed}/${total} (取得: ${fetched}, 変更なし: ${unchanged}, スキップ: ${skipped}) — ${sponsor.slug}`,
+    );
+
     const prev = prevManifest[sponsor.slug];
     const urls = getImageUrls(sponsor);
     const localPaths: ImageUrlMap = { logo: null, ogp: null, jobboard: null };
@@ -151,11 +164,13 @@ async function main(force: boolean) {
         if (!url) continue;
 
         const result = await processSponsorImage(
+          outputImageDir,
           sponsor,
           kind,
           url,
           prev,
           force,
+          config.fetchThrottleMs,
           fetched > 0,
         );
         localPaths[kind] = result.path;
@@ -169,29 +184,48 @@ async function main(force: boolean) {
       normalized.push(normalize(sponsor, localPaths));
     } catch (error) {
       skipped++;
-      console.warn(`⚠️  failed (${sponsor.slug}):`, error);
+      logger.warn(`failed (${sponsor.slug}):`, error);
     }
   }
 
-  fs.writeFileSync(OUTPUT_JSON, `${JSON.stringify(normalized, null, 2)}\n`);
-  saveManifest(buildManifest(sponsors));
+  fs.writeFileSync(
+    config.paths.frontendSponsorsJson,
+    `${JSON.stringify(normalized, null, 2)}\n`,
+  );
+  saveManifest(config.paths.sponsorsManifestJson, buildManifest(sponsors));
 
-  console.log(
-    `✅️ 完了 (フェッチ: ${fetched}件, 変更なし: ${unchanged}件, スキップ: ${skipped}件)`,
+  progress.done();
+  logger.success(
+    `完了 (フェッチ: ${fetched}件, 変更なし: ${unchanged}件, スキップ: ${skipped}件)`,
   );
 }
 
-if (process.argv.includes("--manifest-only")) {
-  fetchSponsorsFromApi()
-    .then(manifestOnly)
-    .catch((error) => {
-      console.error("❌ エラーが発生しました:", error);
-      process.exit(1);
-    });
-} else {
-  const force = process.argv.includes("--force");
-  main(force).catch((error) => {
-    console.error("❌ エラーが発生しました:", error);
-    process.exit(1);
-  });
-}
+export default defineCommand({
+  meta: {
+    name: "fetch-sponsors",
+    description: "tskaigi-cms からスポンサー情報と画像を取得",
+  },
+  args: {
+    force: {
+      type: "boolean",
+      description: "全件再取得する",
+      alias: "f",
+      default: false,
+    },
+    "manifest-only": {
+      type: "boolean",
+      description: "画像取得を行わずマニフェストのみ生成する",
+      alias: "m",
+      default: false,
+    },
+  },
+  async run({ args }) {
+    const config = await loadScriptsConfig();
+    if (args["manifest-only"]) {
+      const sponsors = await fetchSponsorsFromApi(config.sponsors.apiUrl);
+      runManifestOnly(config, sponsors);
+      return;
+    }
+    await runFetch(config, args.force);
+  },
+});

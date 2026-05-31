@@ -1,20 +1,21 @@
 import fs from "node:fs";
+import type { ScriptsConfig } from "../../config";
 import type { SpeakerSource } from "./types";
 
-const SPEAKERS_JSON = "scripts/data/speakers.json";
-const KEYNOTE_JSON = "scripts/data/keynote.json";
-const HANDSON_JSON = "scripts/data/handson.json";
-const OST_JSON = "scripts/data/ost.json";
-const SESSION_MASTER_JSON = "scripts/data/session-master.json";
+/**
+ * speakers.json（+ keynote / handson / ost）から session-master.json を生成する。
+ * speakerId へのリネームと profileImageUrl の書き換えを行う。
+ */
+export function initMaster(config: ScriptsConfig): { count: number } {
+  const { speakersJson, keynoteJson, handsonJson, ostJson, sessionMasterJson } =
+    config.paths;
 
-function main() {
-  if (!fs.existsSync(SPEAKERS_JSON)) {
-    console.error(`❌ スピーカーJSONが見つかりません: ${SPEAKERS_JSON}`);
-    process.exit(1);
+  if (!fs.existsSync(speakersJson)) {
+    throw new Error(`スピーカーJSONが見つかりません: ${speakersJson}`);
   }
 
   const data: SpeakerSource[] = JSON.parse(
-    fs.readFileSync(SPEAKERS_JSON, "utf-8"),
+    fs.readFileSync(speakersJson, "utf-8"),
   );
 
   const renamed = data.map(({ id, slidesLink, speaker, title, overview }) => ({
@@ -28,7 +29,7 @@ function main() {
     },
   }));
 
-  for (const extraJson of [KEYNOTE_JSON, HANDSON_JSON, OST_JSON]) {
+  for (const extraJson of [keynoteJson, handsonJson, ostJson]) {
     if (fs.existsSync(extraJson)) {
       const extra: SpeakerSource = JSON.parse(
         fs.readFileSync(extraJson, "utf-8"),
@@ -46,11 +47,6 @@ function main() {
     }
   }
 
-  fs.writeFileSync(
-    SESSION_MASTER_JSON,
-    JSON.stringify(renamed, null, 2) + "\n",
-  );
-  console.log(`✅ 完了 (${renamed.length}件)`);
+  fs.writeFileSync(sessionMasterJson, `${JSON.stringify(renamed, null, 2)}\n`);
+  return { count: renamed.length };
 }
-
-main();
