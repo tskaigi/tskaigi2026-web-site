@@ -467,7 +467,7 @@
     "title": "密結合なバックエンドから TypeScript のコードを生成する",
     "ogpTitle": "密結合なバックエンドから\nTypeScriptのコードを生成する",
     "overview": "「バックエンドとフロントエンドは疎結合であるべき」——理想はそうですが、現実のプロダクト開発、特に大規模開発やモノリスな構成において、両者は不可分な関係にあります。\r\nAPIレスポンスの変更がフロントエンドを静かに破壊したり、バックエンドの仕様変更への追従に疲弊したりしていませんか？これらは管理されていない「悪い密結合」によって引き起こされます。\r\n\r\nfreee会計では10年以上動き続けるプロダクトを開発する中で、この課題に対し、Rubyのコードを Prism を使って構文解析し、その結果をもとにTypeScriptのコード（型定義など）を生成するアプローチを取りました。\r\nこれにより、「バックエンドの変更が即座にフロントエンドの型エラーとして検知される」ようになり、仕様変更に対する追従コストを劇的に下げることができました。結果として、TypeScriptの強力な型恩恵を受けながら、安心してコード変更を行える状態を実現しています。\r\n\r\n本セッションでは、具体的にどのようにこれを実現しているのかについて、以下の技術的詳細を交えて紹介します。\r\n• Node.js 環境で Prismを用いたRubyコードからのAST抽出と解析\r\n• Rubyの構造をTypeScriptの型システムへマッピングする際の変換ロジック\r\n• 長年の運用で得られた、大規模モノリスにおける型運用の知見",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/kemuridama/mi-jie-he-nabatukuendokara-typescript-nokodowosheng-cheng-suru",
     "speaker": {
       "name": "kemuridama",
       "userIcon": "github",
@@ -1677,7 +1677,7 @@
     "title": "ドメインを組織の資産にする — 少人数で複数プロダクトを支えるTypeScript運用の実践",
     "ogpTitle": "ドメインを組織の資産にする\n— 少人数で複数プロダクトを支える\nTypeScript運用の実践",
     "overview": "少人数で10プロダクト以上を運用するASSIGNが、散在していた「型とドメイン」を少しずつ組織の資産として整理してきた3年間の変遷を共有します。\r\nAIがコードを量産できる今、そのスピードを破綻させずに事業へ活かす土台となったのは、型による境界定義や業務語彙といった地道な設計でした。\r\nモノレポによる業務語彙の集約、Zodを用いた仕様の一本化、AI駆動開発の土台作りといった、実践的なTypeScript運用の過程をお伝えします。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/takahirosunaga/tomeinwozu-zhi-nozi-chan-nisuru-shao-ren-shu-tefu-shu-hurotakutowozhi-erutypescriptyun-yong-noshi-jian-tskaigi2026deng-tan-zi-liao-xu-yong-gao-hong",
     "speaker": {
       "name": "須永 高弘",
       "userIcon": "x",
