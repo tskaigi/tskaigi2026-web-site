@@ -29,7 +29,6 @@ const SideEventItem = ({
           <a
             href={link}
             target="_blank"
-            rel="noreferrer"
             className="text-xl font-bold underline underline-offset-2 inline align-middle"
           >
             {name}
@@ -43,7 +42,7 @@ const SideEventItem = ({
         </h3>
         <div className="flex flex-col gap-5 lg:flex-row lg:gap-6">
           <div className="flex flex-col gap-5 shrink-0 lg:w-1/2">
-            <a href={link} target="_blank" rel="noreferrer">
+            <a href={link} target="_blank">
               <Image
                 src={thumbnail}
                 alt={name}
