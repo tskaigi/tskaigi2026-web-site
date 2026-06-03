@@ -134,4 +134,31 @@ TSKaigi 2026を通じて得た知見や気づき、実務で考えたこと、�
     ],
     finishedAt: new Date("2026-06-13T00:00:00+09:00"),
   },
+  {
+    date: "6/18 (木)",
+    name: "TSKaigi 2026 しか型ん！",
+    link: "https://optim.connpass.com/event/395349/",
+    thumbnail:
+      "https://media.connpass.com/thumbs/28/52/285203371776f0e76a8f75f3ffb4d7b7.png",
+    detail: `TSKaigi 2026 のアフターパーティーを、Cierpa & Co. × dip × Safie × OPTiMの4社合同で開催します。
+
+本編で扱いきれなかった話題や、登壇のあとに少し続けたかった議論を、夜にもう一度持ち寄る場です。 TypeScript にまつわるトピックを、10分 × 6本のLTで紹介します。 言語使用、ツールやライブラリ、設計の考え方、AI活用、最近触ったコードでの気づきなど、TypeScriptについて語り合いましょう。`,
+    sponsors: [
+      "シェルパ・アンド・カンパニー株式会社",
+      "ディップ株式会社",
+      "セーフィー株式会社",
+      "株式会社オプティム",
+    ],
+    finishedAt: new Date("2026-06-18T22:00:00+09:00"),
+  },
+  {
+    date: "6/9 (火)",
+    name: "TSKaigi 2026 本編で話せなかったこと、話し足りなかったこと",
+    link: "https://freee.connpass.com/event/394541/",
+    thumbnail:
+      "https://media.connpass.com/thumbs/31/53/3153b7ad9123e534c82069fe1f2c7fc4.png",
+    detail: `TSKaigi 2026 スポンサーのフリー株式会社・エムスリー株式会社による、登壇者や CfP 応募者が TSKaigi 本編で話せなかったことや話したりなかったことを発表するイベントです。`,
+    sponsors: ["エムスリー株式会社", "フリー株式会社"],
+    finishedAt: new Date("2026-06-09T21:30:00+09:00"),
+  },
 ];
