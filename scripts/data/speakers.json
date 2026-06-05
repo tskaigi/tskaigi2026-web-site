@@ -1563,7 +1563,7 @@
     "id": "layerx",
     "title": "TypeScriptはどのようにどこまで推論できるのか ─ とにかく as は禁止で",
     "overview": "TypeScript の型チェックは、型推論、Control Flow 解析、そして各種ガードレールという強力な3つの仕組みに支えられています。そしてInferred Type Predicates (filter()の型推論) のように、以前は手でケアしていた場面でも自動で正しい型が付くようになるなど、これらの機構は年々強化されてきました。\r\n\r\n一方これらの機構でカバーできるにも関わらず as (as constを除く) を使用してしまうことは、AI 時代に必要な安全性を自ら緩めることになり、それは \"敗北\" です。\r\n\r\n本セッションは、Contextual Type をはじめとして、TypeScript の推論機構やガードレールの仕組みと制限を紹介し、その安全性を活かすことにより、「as全部禁止」に対して「主張が強い」と返されないように試みるものです。",
-    "slidesLink": "",
+    "slidesLink": "https://speakerdeck.com/ypresto/2026-05-23-dive-into-ts-inference",
     "speaker": {
       "name": "ypresto",
       "userIcon": "x",
