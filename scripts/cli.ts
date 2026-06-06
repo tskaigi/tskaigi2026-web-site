@@ -7,7 +7,6 @@ const lazy = {
     import("./commands/fetch-sponsors").then((m) => m.default),
   ogp: () => import("./commands/ogp").then((m) => m.default),
   staffList: () => import("./commands/staff-list").then((m) => m.default),
-  buildPages: () => import("./commands/build-pages").then((m) => m.default),
   svgToPng: () => import("./commands/svg-to-png").then((m) => m.default),
   clean: () => import("./commands/clean").then((m) => m.default),
 };
@@ -26,8 +25,6 @@ const main = defineCommand({
     ogp: lazy.ogp,
     "staff-list": lazy.staffList,
     staff: lazy.staffList,
-    "build-pages": lazy.buildPages,
-    pages: lazy.buildPages,
     "svg-to-png": lazy.svgToPng,
     svg: lazy.svgToPng,
     clean: lazy.clean,
