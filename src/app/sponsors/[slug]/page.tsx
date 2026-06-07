@@ -3,9 +3,17 @@ import Image from "next/image";
 import Link from "next/link";
 import ExternalLink from "@/components/sponsors/ExternalLink";
 import RoleBadge from "@/components/sponsors/RoleBadge";
+import sponsorsData from "@/constants/sponsors.json";
 import { fetchSponsor } from "@/lib/fetch-sponsors";
+import type { SponsorApiResponse } from "@/types/sponsor-api";
 
 const description = "TSKaigi 2026 のスポンサー情報です。";
+
+export async function generateStaticParams() {
+  return (sponsorsData as SponsorApiResponse[]).map((sponsor) => ({
+    slug: sponsor.slug,
+  }));
+}
 
 export async function generateMetadata({
   params,

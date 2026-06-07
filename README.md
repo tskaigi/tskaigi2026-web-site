@@ -27,19 +27,16 @@ pnpm check:fix
 
 TBD
 
-## Cloudflare Pages (SSR)
+## Cloudflare Pages (SSG)
 
-このリポジトリは OpenNext を使って Cloudflare Pages の Advanced mode (`_worker.js`) で SSR できるようにしています。
+Next.js の `output: "export"` で静的書き出しを行い、`out/` を Cloudflare Pages にデプロイします。
 
 ```bash
-# OpenNext でビルドし、Pages 用出力を生成
-pnpm pages:build
-
-# ローカル確認
-pnpm pages:dev
+# 静的サイトを out/ に書き出し
+pnpm build
 ```
 
 Cloudflare Pages のダッシュボードからデプロイする場合
 
-- Build command: `pnpm pages:build`
-- Build output directory: `.open-next/pages`
+- Build command: `pnpm build`
+- Build output directory: `out`

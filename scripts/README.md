@@ -28,7 +28,6 @@ pnpm cli <command> --help      # 各コマンドの詳細
 | `fetch-icons` | `icons` |
 | `fetch-sponsors` | `sponsors` |
 | `staff-list` | `staff` |
-| `build-pages` | `pages` |
 
 | フラグ | 短縮 |
 |--------|------|
@@ -117,14 +116,11 @@ tskaigi-cms の `/api/sponsors` からスポンサー情報を取得し、画像
 
 マニフェスト（`.sponsors-fetch-manifest.json`）で前回の URL を記録し、URL に差分があったスポンサーの画像のみ再取得する（CMS 側で画像を再アップすると URL のタイムスタンプが変わる仕様を利用）。
 
-## スタッフ一覧・Pages 出力
-
-`generate-staff-list.mjs` と `build-pages-output.mjs` は依存パッケージを使わない純 Node スクリプト（CI で `pnpm install` 前に実行されるため）。CLI からも実行できる。
+## スタッフ一覧
 
 ```bash
-pnpm generate:staff-list       # = node scripts/generate-staff-list.mjs
+pnpm generate:staff-list       # = pnpm cli staff-list
 pnpm cli staff-list            # CLI 経由
-pnpm cli build-pages           # OpenNext 出力を Cloudflare Pages 用に整える
 ```
 
 ## SVG → PNG 変換
