@@ -100,7 +100,7 @@ const day1: TimetableResponse = {
         sessionType: "HANDSON",
         sessions: [{ id: "1" }],
         displayLabel: "ハンズオン",
-        link: "https://typescript-jpc.connpass.com/event/392953/",
+        link: "https://tskaigi.connpass.com/event/392953/",
       },
     },
     // 13:40-14:10 LONG x2 (RIGHTTOUCHはハンズオンに覆われる)
