@@ -14,7 +14,7 @@ body:
     attributes:
       label: ConnpassイベントURL
       description: ConnpassのイベントページURL
-      placeholder: "https://typescript-jpc.connpass.com/event/379927/"
+      placeholder: "https://tskaigi.connpass.com/event/379927/"
     validations:
       required: true
 

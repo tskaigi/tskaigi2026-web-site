@@ -13,7 +13,7 @@ export const sideEventList: SideEvent[] = [
   {
     date: "2/9 (月)",
     name: "TSKaigi Mashup #4 プロポーザルの書き方とコツを学ぼう",
-    link: "https://typescript-jpc.connpass.com/event/379927/",
+    link: "https://tskaigi.connpass.com/event/379927/",
     thumbnail:
       "https://media.connpass.com/thumbs/ad/6b/ad6b92024c9501d4f408977f8fed2406.png",
     detail: `TSKaigi採択者によるトークと、TSKaigiのCfP選考担当者によるトークを通じて、CfP応募のコツや選考のポイントを学べる勉強会です。
@@ -25,7 +25,7 @@ export const sideEventList: SideEvent[] = [
   {
     date: "1/27 (火)",
     name: "TSKaigi Mashup #3 Type Challenges ハンズオン",
-    link: "https://typescript-jpc.connpass.com/event/377810/",
+    link: "https://tskaigi.connpass.com/event/377810/",
     thumbnail:
       "https://media.connpass.com/thumbs/98/4d/984d98d0c7cbe8b6f1cec1a3bca4411e.png",
     detail: `TypeScriptの型にまつわるプログラミングクイズが収録された type-challenges の問題を解くハンズオンを行います。入門者向けの難易度を予定しています。
@@ -37,7 +37,7 @@ export const sideEventList: SideEvent[] = [
   {
     date: "2/24 (火)",
     name: "TSKaigi Mashup Kansai 生成AIでTSを扱うときに考えたい設計&ガードレール",
-    link: "https://typescript-jpc.connpass.com/event/382128/",
+    link: "https://tskaigi.connpass.com/event/382128/",
     thumbnail:
       "https://media.connpass.com/thumbs/8b/3a/8b3a3badeb628dae262536c9d75c0fe2.png",
     detail: `Claude Code、Codex、Cursor などの AI エージェントを活用した TypeScript 開発が当たり前になりつつあります。
